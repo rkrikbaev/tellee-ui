@@ -7,6 +7,7 @@ import GaugeOptions from 'src/dashboards/components/GaugeOptions'
 import SingleStatOptions from 'src/dashboards/components/SingleStatOptions'
 import AxesOptions from 'src/dashboards/components/AxesOptions'
 import TableOptions from 'src/dashboards/components/TableOptions'
+import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -51,6 +52,8 @@ class DisplayOptions extends Component {
         return <GaugeOptions onResetFocus={onResetFocus} />
       case 'single-stat':
         return <SingleStatOptions onResetFocus={onResetFocus} />
+      case 'px-percent-circle':
+        return <PxPercentCircleOptions onResetFocus={onResetFocus} />
       case 'table':
         return (
           <TableOptions

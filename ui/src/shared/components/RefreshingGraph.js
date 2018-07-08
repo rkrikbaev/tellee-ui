@@ -10,6 +10,7 @@ import LineGraph from 'shared/components/LineGraph'
 import SingleStat from 'shared/components/SingleStat'
 import GaugeChart from 'shared/components/GaugeChart'
 import TableGraph from 'shared/components/TableGraph'
+import PxPercentCircle from 'shared/components/PxPercentCircle'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -22,6 +23,7 @@ const RefreshingLineGraph = AutoRefresh(LineGraph)
 const RefreshingSingleStat = AutoRefresh(SingleStat)
 const RefreshingGaugeChart = AutoRefresh(GaugeChart)
 const RefreshingTableGraph = AutoRefresh(TableGraph)
+const RefreshingPxPercentCircle = AutoRefresh(PxPercentCircle)
 
 const RefreshingGraph = ({
   axes,
@@ -61,6 +63,24 @@ const RefreshingGraph = ({
   if (type === 'single-stat') {
     return (
       <RefreshingSingleStat
+        type={type}
+        colors={colors}
+        key={manualRefresh}
+        queries={[queries[0]]}
+        templates={templates}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        editQueryStatus={editQueryStatus}
+        prefix={prefix}
+        suffix={suffix}
+        inView={inView}
+      />
+    )
+  }
+
+  if (type === 'px-percent-circle') {
+    return (
+      <RefreshingPxPercentCircle
         type={type}
         colors={colors}
         key={manualRefresh}
