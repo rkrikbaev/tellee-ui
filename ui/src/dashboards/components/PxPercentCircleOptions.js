@@ -91,4 +91,6 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PxPercentCircleOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  PxPercentCircleOptions
+)

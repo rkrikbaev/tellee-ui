@@ -12,8 +12,7 @@
     "build": "yarn run clean && webpack --config ./webpack/prod.config.js",
     "build:dev": "webpack --config ./webpack/dev.config.js",
     "build:vendor": "webpack --config webpack/vendor.config.js",
-    "start":
-      "yarn run clean && yarn run build:vendor && webpack --watch --config ./webpack/dev.config.js --progress",
+    "start": "yarn run clean && yarn run build:vendor && webpack --watch --config ./webpack/dev.config.js --progress",
     "start:fast": "webpack --watch --config ./webpack/dev.config.js",
     "start:hmr": "webpack-dev-server --open --config ./webpack/dev.config.js",
     "lint": "esw src/",
@@ -23,12 +22,9 @@
     "clean": "rm -rf ./build/*",
     "eslint:fix": "eslint src --fix",
     "tslint:fix": "tslint --fix -c ./tslint.json '{src,test}/**/*.ts?(x)'",
-    "prettier":
-      "prettier --single-quote --trailing-comma es5 --bracket-spacing false --semi false --write \"{src,spec}/**/*.js\"",
-    "lint:fix":
-      "yarn run prettier && yarn run eslint:fix && yarn run tslint:fix",
-    "eslint-check":
-      "eslint --print-config .eslintrc | eslint-config-prettier-check"
+    "prettier": "prettier --single-quote --trailing-comma es5 --bracket-spacing false --semi false --write \"{src,spec}/**/*.js\"",
+    "lint:fix": "yarn run prettier && yarn run eslint:fix && yarn run tslint:fix",
+    "eslint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check"
   },
   "author": "",
   "eslintConfig": {
@@ -119,6 +115,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "ajv": "^6.0.0",
     "axios": "^0.18.0",
     "bignumber.js": "^4.0.2",
     "calculate-size": "^1.1.1",
@@ -134,6 +131,7 @@
     "lodash": "^4.3.0",
     "moment": "^2.13.0",
     "nano-date": "^2.0.1",
+    "predix-ui": "0.0.22",
     "prop-types": "^15.6.1",
     "query-string": "^5.0.0",
     "react": "^16.3.1",
@@ -156,6 +154,7 @@
     "redux-auth-wrapper": "^1.0.0",
     "redux-thunk": "^1.0.3",
     "rome": "^2.1.22",
+    "styled-components": "^3.3.3",
     "uuid": "^3.2.1"
   }
 }

@@ -2,13 +2,15 @@ import React, {PureComponent} from 'react'
 import classnames from 'classnames'
 import getLastValues from 'src/shared/parsing/lastValues'
 import _ from 'lodash'
-
 import {SMALL_CELL_HEIGHT} from 'src/shared/graphs/helpers'
 import {DYGRAPH_CONTAINER_V_MARGIN} from 'src/shared/constants'
 import {generateThresholdsListHexs} from 'src/shared/constants/colorOperations'
 import {ColorNumber} from 'src/types/colors'
 import {Data} from 'src/types/dygraphs'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+
+// import {Card} from 'predix-ui'
+import PxPercentCircleGraph from 'src/shared/components/PxPercentCircleGraph'
 
 interface Props {
   isFetchingInitially: boolean
@@ -38,22 +40,23 @@ class PxPercentCircle extends PureComponent<Props> {
         </div>
       )
     }
-
     return (
-      <div className="single-stat" style={this.styles}>
+      <div className="single-stat">
         <span className={this.className}>
-          {this.completeValue} AVAV
-          {this.renderShadow}
+          <PxPercentCircleGraph
+            completeValue={this.completeValue}
+            styles={this.styles}
+          />
         </span>
       </div>
     )
   }
 
-  private get renderShadow(): JSX.Element {
-    const {lineGraph} = this.props
-
-    return lineGraph && <div className="single-stat--shadow" />
-  }
+  // private get renderShadow(): JSX.Element {
+  //   const {lineGraph} = this.props
+  //
+  //   return lineGraph && <div className="single-stat--shadow" />
+  // }
 
   private get completeValue(): string {
     const {prefix, suffix} = this.props
