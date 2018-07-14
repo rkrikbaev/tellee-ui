@@ -10,6 +10,7 @@ import {
   CELL_TYPE_GAUGE,
   CELL_TYPE_TABLE,
   CELL_TYPE_PX_CIRCLE,
+  CELL_TYPE_PX_TIMESERIES,
 } from 'src/dashboards/graphics/graph'
 
 export const initializeOptions = cellType => {
@@ -54,6 +55,7 @@ export const getCellTypeColors = ({
     case CELL_TYPE_LINE_PLUS_SINGLE_STAT:
     case CELL_TYPE_STACKED:
     case CELL_TYPE_PX_CIRCLE:
+    case CELL_TYPE_PX_TIMESERIES:
     case CELL_TYPE_STEPPLOT: {
       colors = stringifyColorValues(lineColors)
     }

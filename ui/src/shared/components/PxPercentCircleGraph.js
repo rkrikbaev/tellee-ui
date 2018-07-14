@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 class PxPercentCircleGraph extends Component {
   constructor(props) {
     super(props)
-    this.state = {curValue: 5}
+    this.state = {curValue: 10}
   }
 
   componentWillMount() {}

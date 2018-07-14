@@ -45,6 +45,7 @@ export enum CellType {
   News = 'news',
   Guide = 'guide',
   PxPercentCircle = 'px-percent-circle',
+  PxTimeseries = 'px-timeseries',
 }
 
 // corresponds to DashboardQuery on the backend

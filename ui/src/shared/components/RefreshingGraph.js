@@ -11,6 +11,7 @@ import SingleStat from 'shared/components/SingleStat'
 import GaugeChart from 'shared/components/GaugeChart'
 import TableGraph from 'shared/components/TableGraph'
 import PxPercentCircle from 'shared/components/PxPercentCircle'
+import PxTimeSeries from 'shared/components/PxTimeseries'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -24,7 +25,7 @@ const RefreshingSingleStat = AutoRefresh(SingleStat)
 const RefreshingGaugeChart = AutoRefresh(GaugeChart)
 const RefreshingTableGraph = AutoRefresh(TableGraph)
 const RefreshingPxPercentCircle = AutoRefresh(PxPercentCircle)
-
+const RefreshingPxTimeseries = AutoRefresh(PxTimeSeries)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -145,6 +146,31 @@ const RefreshingGraph = ({
   const displayOptions = {
     stepPlot: type === 'line-stepplot',
     stackedGraph: type === 'line-stacked',
+  }
+
+  if (type === 'px-timeseries') {
+    return (
+      <RefreshingPxTimeseries
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
   }
 
   return (

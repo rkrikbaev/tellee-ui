@@ -9,6 +9,7 @@ export const CELL_TYPE_SINGLE_STAT = 'single-stat'
 export const CELL_TYPE_GAUGE = 'gauge'
 export const CELL_TYPE_TABLE = 'table'
 export const CELL_TYPE_PX_CIRCLE = 'px-percent-circle'
+export const CELL_TYPE_PX_TIMESERIES = 'px-timeseries'
 
 const GRAPH_SVGS = {
   line: (
@@ -519,38 +520,12 @@ const GRAPH_SVGS = {
   ),
   'px-percent-circle': (
     <div className="viz-type-selector--graphic">
-      <svg
-        width="100%"
-        height="100%"
-        version="1.1"
-        id="pxPercentCircle"
-        x="0px"
-        y="0px"
-        viewBox="0 0 150 150"
-        preserveAspectRatio="none meet"
-      >
-        <rect
-          x="2"
-          y="108.4"
-          className="viz-type-selector--graphic-line graphic-line-a"
-          width="26.8"
-          height="16.6"
-        />
-        <rect
-          x="31.8"
-          y="82.4"
-          className="viz-type-selector--graphic-line graphic-line-b"
-          width="26.8"
-          height="42.6"
-        />
-        <rect
-          x="61.6"
-          y="28.8"
-          className="viz-type-selector--graphic-line graphic-line-c"
-          width="26.8"
-          height="96.2"
-        />
-      </svg>
+      <img src="/icons/if_13_1320808.png" />
+    </div>
+  ),
+  'px-timeseries': (
+    <div className="viz-type-selector--graphic">
+      <img src="/icons/if_11_1320809.png" />
     </div>
   ),
 }
@@ -600,5 +575,10 @@ export const GRAPH_TYPES = [
     type: CELL_TYPE_PX_CIRCLE,
     menuOption: 'PX Percent Circle',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_CIRCLE],
+  },
+  {
+    type: CELL_TYPE_PX_TIMESERIES,
+    menuOption: 'PX TimeSeries',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_TIMESERIES],
   },
 ]
