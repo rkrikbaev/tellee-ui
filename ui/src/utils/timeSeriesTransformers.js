@@ -58,19 +58,25 @@ export const timeSeriesToPxSeries = raw => {
   const labels = ['time', ...map(sortedLabels, ({label}) => label)]
 
   const tableData = map(sortedTimeSeries, ({time, values}) => [time, ...values])
-  // const timeSeries = tableData.length ? [labels, ...tableData] : [[]]
 
-  const obj = {'jsonflatten': []}
+  const timeSeries = {jsonflatten: []}
   tableData.forEach(function(_value) {
-    obj.jsonflatten.push({
-     'timeStamp':_value[0], 'y0':_value[1], 'y1':_value[2]
+    const map1 = {}
+    _value.forEach(function(_row, _idx) {
+      if (labels[_idx] == 'time'){
+        map1['timeStamp'] = _row
+      }
+      else {
+        map1[labels[_idx]] = _row
+      }
     })
+    timeSeries.jsonflatten.push(map1)
   })
 
-  console.log(JSON.stringify(obj))
-  const timeSeries = obj
   return {
     timeSeries,
     sortedLabels,
+    tableData,
+    labels,
   }
 }
