@@ -3,7 +3,7 @@
   "description": "",
   "main": "",
   "authors": [
-    "Tair <101@isoft.kz>"
+    "Tair"
   ],
   "license": "AGPL-3.0",
   "homepage": "https://github.com/influxdata/chronograf",
@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "px-percent-circle": "^1.1.1",
-    "px-vis-timeseries": "^4.0.1"
+    "px-vis-timeseries": "^4.0.1",
+    "px-kpi": "^5.0.0"
   }
 }

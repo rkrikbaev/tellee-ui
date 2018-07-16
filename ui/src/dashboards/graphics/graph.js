@@ -10,6 +10,7 @@ export const CELL_TYPE_GAUGE = 'gauge'
 export const CELL_TYPE_TABLE = 'table'
 export const CELL_TYPE_PX_CIRCLE = 'px-percent-circle'
 export const CELL_TYPE_PX_TIMESERIES = 'px-timeseries'
+export const CELL_TYPE_PX_KPI = 'px-kpi'
 
 const GRAPH_SVGS = {
   line: (
@@ -528,6 +529,11 @@ const GRAPH_SVGS = {
       <img src="/icons/if_11_1320809.png" />
     </div>
   ),
+  'px-kpi': (
+    <div className="viz-type-selector--graphic">
+      <img src="/icons/if_11_1320809.png" />
+    </div>
+  ),
 }
 
 export const GRAPH_TYPES = [
@@ -580,5 +586,10 @@ export const GRAPH_TYPES = [
     type: CELL_TYPE_PX_TIMESERIES,
     menuOption: 'PX TimeSeries',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_TIMESERIES],
+  },
+  {
+    type: CELL_TYPE_PX_KPI,
+    menuOption: 'PX KPI',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_KPI],
   },
 ]

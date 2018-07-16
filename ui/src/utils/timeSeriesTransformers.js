@@ -48,7 +48,7 @@ export const timeSeriesToTableGraph = raw => {
   }
 }
 
-export const timeSeriesToPxSeries = raw => {
+export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
   const isTable = true
   const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
     raw,
@@ -60,19 +60,28 @@ export const timeSeriesToPxSeries = raw => {
   const tableData = map(sortedTimeSeries, ({time, values}) => [time, ...values])
 
   const timeSeries = {jsonflatten: []}
-  tableData.forEach(function(_value) {
+
+  let sliceArr = 0
+  if (limitOutputForKpi) {sliceArr = tableData.length-30} // get max last 30 records for KPI
+
+  tableData.slice(sliceArr).forEach(function(_value) {
     const map1 = {}
-    _value.forEach(function(_row, _idx) {
-      if (labels[_idx] == 'time'){
-        map1['timeStamp'] = _row
-      }
-      else {
-        if (_row === null){
-          _row = 0
+    if (limitOutputForKpi) {
+      map1['x'] = _value[0]
+      map1['y'] = _value[1]
+    } else {
+      _value.forEach(function(_row, _idx) {
+        if (labels[_idx] === 'time') {
+          map1['timeStamp'] = _row
         }
-        map1[labels[_idx]] = _row
-      }
-    })
+        else {
+          if (_row === null) {
+            _row = 0
+          }
+          map1[labels[_idx]] = _row
+        }
+      })
+    }
     timeSeries.jsonflatten.push(map1)
   })
 

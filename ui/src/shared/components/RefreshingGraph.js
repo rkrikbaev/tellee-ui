@@ -12,6 +12,7 @@ import GaugeChart from 'shared/components/GaugeChart'
 import TableGraph from 'shared/components/TableGraph'
 import PxPercentCircle from 'shared/components/PxPercentCircle'
 import PxTimeSeries from 'shared/components/PxTimeseries'
+import PxKpi from 'shared/components/PxKpi'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -26,6 +27,7 @@ const RefreshingGaugeChart = AutoRefresh(GaugeChart)
 const RefreshingTableGraph = AutoRefresh(TableGraph)
 const RefreshingPxPercentCircle = AutoRefresh(PxPercentCircle)
 const RefreshingPxTimeseries = AutoRefresh(PxTimeSeries)
+const RefreshingPxKpi = AutoRefresh(PxKpi)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -172,7 +174,30 @@ const RefreshingGraph = ({
       />
     )
   }
-
+  if (type === 'px-kpi') {
+    return (
+      <RefreshingPxKpi
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
   return (
     <RefreshingLineGraph
       type={type}
