@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-
+import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 
 import {colorsStringSchema} from 'shared/schemas'
@@ -44,6 +44,12 @@ class PxTimeseries extends Component {
     ) {
       this.parseTimeSeries(nextProps.data, nextProps.isInDataExplorer)
     }
+  }
+
+  resize = () => {
+    console.log("RESIZEEEEE")
+    // hide chart and then resize it!!!
+    this.render()
   }
 
   render() {
@@ -108,32 +114,33 @@ class PxTimeseries extends Component {
 
     const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
-
     // This is A very SICK implementation of series config, since JSON formatting problems for PX,
     // we fall-down in the end to text-to-json manual composing
     let pxSeriesConfig = '{';
     labels.forEach(function(_label, key, arr) {
-      if (_label !== 'time') {
+      if (_label !== 'time'){
         const map2 = {}
-        map2['name'] = _label
-        map2['x'] = 'timeStamp'
-        map2['y'] = _label
-        map2['yAxisUnit'] = suffix
-        map2['color'] = colors[key-1] ? colors[key-1].hex : '#EFEFEF'
+        map2["name"] = _label
+        map2["x"] = 'timeStamp'
+        map2["y"] = _label
+        map2["yAxisUnit"] = suffix
+        map2["color"] = colors[key-1] ? colors[key-1].hex : '#EFEFEF'
         pxSeriesConfig += '"' + _label + '":' + JSON.stringify(map2)
         if (Object.is(arr.length - 1, key)) {pxSeriesConfig += "}" }
-        else { pxSeriesConfig += ","  }
+        else {
+          pxSeriesConfig += ','
+        }
       }
     })
-
     return (
-      <div className="dygraph graph--hasYLabel" style={{height: '100%'}}>
+      <div style={{height: '100%'}}>
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <px-vis-timeseries
-          debounce-resize-timing="250"
+          debounce-resize-timing="60"
           width={containerStyle.width}
           height={containerStyle.height}
+          // prevent-resize = "true"
           chart-horizontal-alignment="center"
           chart-vertical-alignment="center"
           margin='{"top":30,"bottom":60,"left":65,"right":65}'
@@ -145,10 +152,15 @@ class PxTimeseries extends Component {
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
           x-axis-config='{"title":"TimeStamp"}'
-          y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
+          // y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
           toolbar-config='{"config":{"advancedZoom":true,"pan":true,"tooltip":true,"logHover":{"buttonGroup":2,"tooltipLabel":"The submenu item of this menu will define custom mouse interaction","icon":"px-nav:notification","subConfig":{"customClick":{"icon":"px-nav:expand","buttonGroup":3,"tooltipLabel":"define some custom mouse interactions on chart","eventName":"my-custom-click","actionConfig":{"mousedown":"function(mousePos) { console.log(\"custom click on chart. Context is the chart. Mouse pos is available: \" + JSON.stringify(mousePos))}","mouseup":"function(mousePos) { console.log(\"custom action on mouse up the chart \" + JSON.stringify(mousePos));}","mouseout":"function(mousePos) { console.log(\"custom action on mouse out the chart \" + JSON.stringify(mousePos));}","mousemove":"function(mousePos) { console.log(\"custom action on hovering the chart \");}"}},"customClick2":{"buttonGroup":3,"icon":"px-nav:collapse","tooltipLabel":"Remove all custom interactions","actionConfig":{"mousedown":null,"mouseup":null,"mouseout":null,"mousemove":null}}}}}}'
           navigator-config='{"xAxisConfig":{"tickFormat":"%b %d"}}'>
         </px-vis-timeseries>
+        <ReactResizeDetector
+          handleWidth={true}
+          handleHeight={true}
+          onResize={this.resize}
+        />
       </div>
     )
   }

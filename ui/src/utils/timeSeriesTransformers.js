@@ -67,6 +67,9 @@ export const timeSeriesToPxSeries = raw => {
         map1['timeStamp'] = _row
       }
       else {
+        if (_row === null){
+          _row = 0
+        }
         map1[labels[_idx]] = _row
       }
     })
