@@ -72,7 +72,7 @@ export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
     } else {
       _value.forEach(function(_row, _idx) {
         if (labels[_idx] === 'time') {
-          map1['timeStamp'] = _row
+          map1['timeStamp'] = _row + 21600000 //tempopary fix
         }
         else {
           if (_row === null) {
