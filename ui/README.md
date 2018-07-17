@@ -1,3 +1,10 @@
+## For dev
+during devevelopment, to make things easy, run in `ui/build` folder - the following `ln -s ../bower_components .`
+
+=====================================
+## orignal manual
+
+=====================================
 ## Packages
 We are using [yarn](https://yarnpkg.com/en/docs/install) 0.19.1.
 
