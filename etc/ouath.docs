@@ -1,0 +1,36 @@
+
+*** OKTA CONF ***
+export TOKEN_SECRET="test_secret"
+export GENERIC_NAME=okta
+export GENERIC_CLIENT_ID="0oafs2q1kzp11hGMV0h7"
+export GENERIC_CLIENT_SECRET="vvHf9eMDxkiCS1Cmm3JtaAcueDKMTfVTlW0AS2us"
+export GENERIC_AUTH_URL=https://dev-212917.oktapreview.com/oauth2/default/v1/authorize
+export GENERIC_TOKEN_URL=https://dev-212917.oktapreview.com/oauth2/default/v1/token
+export GENERIC_API_URL=https://dev-212917.oktapreview.com/oauth2/default/v1/userinfo
+export PUBLIC_URL="http://localhost:8888"
+export GENERIC_SCOPES=openid,profile,email
+
+
+---login info ---
+biticohe@shinnemo.com
+dev-212917.oktapreview.com
+pwd = ghjgjhg66Adf
+
+https://temp-mail.org
+
+view01@fxprix.com
+pwd = 12jhs7A1hh
+
+
+
+** self hosted **
+export TOKEN_SECRET=test_secret
+export GENERIC_NAME=generic
+export GENERIC_CLIENT_ID=chronograf1
+export GENERIC_CLIENT_SECRET="vvHf9eMDxkiCS1Cmm3"
+export GENERIC_AUTH_URL=http://localhost:4593/api/auth
+export GENERIC_TOKEN_URL=http://localhost:4593/api/token
+export GENERIC_API_URL=http://localhost:4593/api/profile
+export PUBLIC_URL="http://localhost:8888"
+export GENERIC_SCOPES=openid,profile,email
+
