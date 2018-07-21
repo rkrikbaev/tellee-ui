@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+import './require-babel-polyfill'
 
 import React, {PureComponent} from 'react'
 import {render} from 'react-dom'

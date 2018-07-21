@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
@@ -8,14 +7,14 @@ import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 
-const validateTimeSeries = timeseries => {
-  return _.every(timeseries, r =>
-    _.every(
-      r,
-      (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
-    )
-  )
-}
+// const validateTimeSeries = timeseries => {
+//   return _.every(timeseries, r =>
+//     _.every(
+//       r,
+//       (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
+//     )
+//   )
+// }
 @ErrorHandlingWith(InvalidData)
 class PxTimeseries extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class PxTimeseries extends Component {
     this.parseTimeSeries(data, isInDataExplorer)
   }
 
-  parseTimeSeries(data, isInDataExplorer) {
+  parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data, false)
     // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
@@ -46,7 +45,7 @@ class PxTimeseries extends Component {
       data !== nextProps.data ||
       activeQueryIndex !== nextProps.activeQueryIndex
     ) {
-      this.parseTimeSeries(nextProps.data, nextProps.isInDataExplorer)
+      this.parseTimeSeries(nextProps.data)
     }
   }
 
@@ -64,28 +63,28 @@ class PxTimeseries extends Component {
     }
 
     const {
-      data,
+      // data,
       axes,
-      title,
+      // title,
       colors,
-      cellID,
-      onZoom,
-      queries,
-      hoverTime,
-      timeRange,
-      cellHeight,
-      ruleValues,
-      isBarGraph,
+      // cellID,
+      // onZoom,
+      // queries,
+      // hoverTime,
+      // timeRange,
+      // cellHeight,
+      // ruleValues,
+      // isBarGraph,
       isRefreshing,
-      setResolution,
-      isGraphFilled,
-      showSingleStat,
-      displayOptions,
-      staticLegend,
-      underlayCallback,
-      overrideLineColors,
+      // setResolution,
+      // isGraphFilled,
+      // showSingleStat,
+      // displayOptions,
+      // staticLegend,
+      // underlayCallback,
+      // overrideLineColors,
       isFetchingInitially,
-      handleSetHoverTime,
+      // handleSetHoverTime,
     } = this.props
 
     const {labels, timeSeries} = this._timeSeries
@@ -95,52 +94,57 @@ class PxTimeseries extends Component {
       return <GraphSpinner />
     }
 
-    const prefix = axes ? axes.y.prefix : ''
+    // const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
     // This is A very SICK implementation of series config, since JSON formatting problems for PX,
     // we fall-down in the end to text-to-json manual composing
-    let pxSeriesConfig = '{';
+    let pxSeriesConfig = '{'
     labels.forEach(function(_label, key, arr) {
-      if (_label !== 'time'){
+      if (_label !== 'time') {
         const map2 = {}
-        map2["name"] = _label
-        map2["x"] = 'timeStamp'
-        map2["y"] = _label
-        map2["yAxisUnit"] = suffix
-        map2["color"] = colors[key-1] ? colors[key-1].hex : '#EFEFEF'
-        pxSeriesConfig += '"' + _label + '":' + JSON.stringify(map2)
-        if (Object.is(arr.length - 1, key)) {pxSeriesConfig += "}" } else {
+        map2.name = _label
+        map2.x = 'timeStamp'
+        map2.y = _label
+        map2.yAxisUnit = suffix
+        map2.color = colors[key - 1] ? colors[key - 1].hex : '#EFEFEF'
+        pxSeriesConfig += `"${_label}":${JSON.stringify(map2)}`
+        if (Object.is(arr.length - 1, key)) {
+          pxSeriesConfig += '}'
+        } else {
           pxSeriesConfig += ','
         }
       }
     })
 
-    const {width,height} = this.state
+    const {width, height} = this.state
 
     return (
-      <div style={{height: '100%'}} ref={divElement => (this.divElement = divElement)}>
+      <div
+        style={{height: '100%'}}
+        ref={divElement => (this.divElement = divElement)}
+      >
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <px-vis-timeseries
           debounce-resize-timing="60"
           width={width}
-          height={height-250}
-          prevent-resize = "true"
+          height={height - 250}
+          prevent-resize="true"
           chart-horizontal-alignment="center"
           chart-vertical-alignment="center"
-          margin='{"top":30,"bottom":60,"left":65,"right":65}'
-          tooltip-config='{}'
-          register-config='{"type":"horizontal"}'
+          margin="{&quot;top&quot;:30,&quot;bottom&quot;:60,&quot;left&quot;:65,&quot;right&quot;:65}"
+          tooltip-config="{}"
+          register-config="{&quot;type&quot;:&quot;horizontal&quot;}"
           selection-type="xy"
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
           series-config={pxSeriesConfig}
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
-          x-axis-config='{"title":"TimeStamp"}'
+          x-axis-config="{&quot;title&quot;:&quot;TimeStamp&quot;}"
           // y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
-          toolbar-config='{"config":{"advancedZoom":true,"pan":true,"tooltip":true,"logHover":{"buttonGroup":2,"tooltipLabel":"The submenu item of this menu will define custom mouse interaction","icon":"px-nav:notification","subConfig":{"customClick":{"icon":"px-nav:expand","buttonGroup":3,"tooltipLabel":"define some custom mouse interactions on chart","eventName":"my-custom-click","actionConfig":{"mousedown":"function(mousePos) { console.log(\"custom click on chart. Context is the chart. Mouse pos is available: \" + JSON.stringify(mousePos))}","mouseup":"function(mousePos) { console.log(\"custom action on mouse up the chart \" + JSON.stringify(mousePos));}","mouseout":"function(mousePos) { console.log(\"custom action on mouse out the chart \" + JSON.stringify(mousePos));}","mousemove":"function(mousePos) { console.log(\"custom action on hovering the chart \");}"}},"customClick2":{"buttonGroup":3,"icon":"px-nav:collapse","tooltipLabel":"Remove all custom interactions","actionConfig":{"mousedown":null,"mouseup":null,"mouseout":null,"mousemove":null}}}}}}'
-          navigator-config='{"xAxisConfig":{"tickFormat":"%b %d"}}'>
-        </px-vis-timeseries>
+          toolbar-config="{&quot;config&quot;:{&quot;advancedZoom&quot;:true,&quot;pan&quot;:true,&quot;tooltip&quot;:true,&quot;logHover&quot;:{&quot;buttonGroup&quot;:2,&quot;tooltipLabel&quot;:&quot;The submenu item of this menu will define custom mouse interaction&quot;,&quot;icon&quot;:&quot;px-nav:notification&quot;,&quot;subConfig&quot;:{&quot;customClick&quot;:{&quot;icon&quot;:&quot;px-nav:expand&quot;,&quot;buttonGroup&quot;:3,&quot;tooltipLabel&quot;:&quot;define some custom mouse interactions on chart&quot;,&quot;eventName&quot;:&quot;my-custom-click&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:&quot;function(mousePos) { console.log(\&quot;custom click on chart. Context is the chart. Mouse pos is available: \&quot; + JSON.stringify(mousePos))}&quot;,&quot;mouseup&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse up the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mouseout&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse out the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mousemove&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on hovering the chart \&quot;);}&quot;}},&quot;customClick2&quot;:{&quot;buttonGroup&quot;:3,&quot;icon&quot;:&quot;px-nav:collapse&quot;,&quot;tooltipLabel&quot;:&quot;Remove all custom interactions&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:null,&quot;mouseup&quot;:null,&quot;mouseout&quot;:null,&quot;mousemove&quot;:null}}}}}}"
+          navigator-config="{&quot;xAxisConfig&quot;:{&quot;tickFormat&quot;:&quot;%b %d&quot;}}"
+        />
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}

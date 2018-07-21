@@ -34,7 +34,6 @@ class ThemeColorDropdown extends Component {
     }
   }
 
-
   handleClickOutside() {
     this.setState({isOpen: false})
   }
@@ -49,15 +48,34 @@ class ThemeColorDropdown extends Component {
   render() {
     const {selectedTheme} = this.state
     const {isOpen} = this.state
-    const currentTheme= ThemeMenuItems.find(values => values.themeName === selectedTheme)
+    const currentTheme = ThemeMenuItems.find(
+      values => values.themeName === selectedTheme
+    )
     return (
       <div className={classnames('autorefresh-dropdown')}>
         {/* set global styling params */}
-        <CustomProperties global={true} properties={{ '--zsse-branding-color': currentTheme.bradingColor }} />
-        <CustomProperties global={true} properties={{ '--zsse-resize-control': currentTheme.resizeControl }} />
-        <CustomProperties global={true} properties={{ '--zsse-header-text-color': currentTheme.headerTextColor }} />
-        <CustomProperties global={true} properties={{ '--zsse-cell-bg': currentTheme.cellBgColor }} />
-        <CustomProperties global={true} properties={{ '--px-percent-circle-fill-color': '#308ec1' }} />
+        <CustomProperties
+          global={true}
+          properties={{'--zsse-branding-color': currentTheme.bradingColor}}
+        />
+        <CustomProperties
+          global={true}
+          properties={{'--zsse-resize-control': currentTheme.resizeControl}}
+        />
+        <CustomProperties
+          global={true}
+          properties={{
+            '--zsse-header-text-color': currentTheme.headerTextColor,
+          }}
+        />
+        <CustomProperties
+          global={true}
+          properties={{'--zsse-cell-bg': currentTheme.cellBgColor}}
+        />
+        <CustomProperties
+          global={true}
+          properties={{'--px-percent-circle-fill-color': '#308ec1'}}
+        />
 
         {/* eof styling */}
         <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
@@ -65,11 +83,7 @@ class ThemeColorDropdown extends Component {
             className="btn btn-sm btn-warning dropdown-toggle"
             onClick={this.toggleMenu}
           >
-            <span
-              className={classnames(
-                'icon','refresh'
-              )}
-            />
+            <span className={classnames('icon', 'refresh')} />
             <span className="dropdown-selected">{selectedTheme}</span>
             <span className="caret" />
           </div>

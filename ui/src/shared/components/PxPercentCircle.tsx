@@ -3,8 +3,8 @@ import classnames from 'classnames'
 import getLastValues from 'src/shared/parsing/lastValues'
 import _ from 'lodash'
 import {SMALL_CELL_HEIGHT} from 'src/shared/graphs/helpers'
-import {DYGRAPH_CONTAINER_V_MARGIN} from 'src/shared/constants'
-import {generateThresholdsListHexs} from 'src/shared/constants/colorOperations'
+// import {DYGRAPH_CONTAINER_V_MARGIN} from 'src/shared/constants'
+// import {generateThresholdsListHexs} from 'src/shared/constants/colorOperations'
 import {ColorNumber} from 'src/types/colors'
 import {Data} from 'src/types/dygraphs'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -42,7 +42,11 @@ class PxPercentCircle extends PureComponent<Props> {
     return (
       <div className="single-stat">
         <span className={this.className}>
-          <px-percent-circle val={this.completeValue} max="100" thickness="30" />
+          <px-percent-circle
+            val={this.completeValue}
+            max="100"
+            thickness="30"
+          />
         </span>
       </div>
     )
@@ -76,41 +80,41 @@ class PxPercentCircle extends PureComponent<Props> {
     return `${roundedValue}`
   }
 
-  private get styles() {
-    const {data, colors, lineGraph, staticLegendHeight} = this.props
-
-    const {lastValues, series} = getLastValues(data)
-    const firstAlphabeticalSeriesName = _.sortBy(series)[0]
-
-    const firstAlphabeticalindex = _.indexOf(
-      series,
-      firstAlphabeticalSeriesName
-    )
-    const lastValue = lastValues[firstAlphabeticalindex]
-
-    const {bgColor, textColor} = generateThresholdsListHexs({
-      colors,
-      lastValue,
-      cellType: lineGraph ? 'line-plus-single-stat' : 'single-stat',
-    })
-
-    const backgroundColor = bgColor
-    const color = textColor
-
-    const height = `calc(100% - ${staticLegendHeight +
-      DYGRAPH_CONTAINER_V_MARGIN * 2}px)`
-
-    return staticLegendHeight
-      ? {
-          backgroundColor,
-          color,
-          height,
-        }
-      : {
-          backgroundColor,
-          color,
-        }
-  }
+  // private get styles() {
+  //   const {data, colors, lineGraph, staticLegendHeight} = this.props
+  //
+  //   const {lastValues, series} = getLastValues(data)
+  //   const firstAlphabeticalSeriesName = _.sortBy(series)[0]
+  //
+  //   const firstAlphabeticalindex = _.indexOf(
+  //     series,
+  //     firstAlphabeticalSeriesName
+  //   )
+  //   const lastValue = lastValues[firstAlphabeticalindex]
+  //
+  //   const {bgColor, textColor} = generateThresholdsListHexs({
+  //     colors,
+  //     lastValue,
+  //     cellType: lineGraph ? 'line-plus-single-stat' : 'single-stat',
+  //   })
+  //
+  //   const backgroundColor = bgColor
+  //   const color = textColor
+  //
+  //   const height = `calc(100% - ${staticLegendHeight +
+  //     DYGRAPH_CONTAINER_V_MARGIN * 2}px)`
+  //
+  //   return staticLegendHeight
+  //     ? {
+  //         backgroundColor,
+  //         color,
+  //         height,
+  //       }
+  //     : {
+  //         backgroundColor,
+  //         color,
+  //       }
+  // }
 
   private get className(): string {
     const {cellHeight} = this.props

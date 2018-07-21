@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
@@ -8,14 +7,15 @@ import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 
-const validateTimeSeries = timeseries => {
-  return _.every(timeseries, r =>
-    _.every(
-      r,
-      (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
-    )
-  )
-}
+// const validateTimeSeries = timeseries => {
+//   return _.every(timeseries, r =>
+//     _.every(
+//       r,
+//       (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
+//     )
+//   )
+// }
+
 @ErrorHandlingWith(InvalidData)
 class PxKpi extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class PxKpi extends Component {
     this.parseTimeSeries(data, isInDataExplorer)
   }
 
-  parseTimeSeries(data, isInDataExplorer) {
+  parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data, true)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
@@ -46,7 +46,7 @@ class PxKpi extends Component {
       data !== nextProps.data ||
       activeQueryIndex !== nextProps.activeQueryIndex
     ) {
-      this.parseTimeSeries(nextProps.data, nextProps.isInDataExplorer)
+      this.parseTimeSeries(nextProps.data)
     }
   }
 
@@ -64,52 +64,52 @@ class PxKpi extends Component {
     }
 
     const {
-      data,
+      // data,
       axes,
-      title,
-      colors,
-      cellID,
-      onZoom,
-      queries,
-      hoverTime,
-      timeRange,
-      cellHeight,
-      ruleValues,
-      isBarGraph,
+      // title,
+      // colors,
+      // cellID,
+      // onZoom,
+      // queries,
+      // hoverTime,
+      // timeRange,
+      // cellHeight,
+      // ruleValues,
+      // isBarGraph,
       isRefreshing,
-      setResolution,
-      isGraphFilled,
-      showSingleStat,
-      displayOptions,
-      staticLegend,
-      underlayCallback,
-      overrideLineColors,
+      // setResolution,
+      // isGraphFilled,
+      // showSingleStat,
+      // displayOptions,
+      // staticLegend,
+      // underlayCallback,
+      // overrideLineColors,
       isFetchingInitially,
-      handleSetHoverTime,
+      // handleSetHoverTime,
     } = this.props
 
-    const {labels, timeSeries} = this._timeSeries
+    const {timeSeries} = this._timeSeries
 
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
     }
 
-    const options = {
-      ...displayOptions,
-      title,
-      labels,
-      rightGap: 0,
-      yRangePad: 10,
-      labelsKMB: true,
-      fillGraph: true,
-      underlayCallback,
-      axisLabelWidth: 60,
-      drawAxesAtZero: true,
-      axisLineColor: '#383846',
-      gridLineColor: '#383846',
-      connectSeparatedPoints: true,
-    }
+    // const options = {
+    //   ...displayOptions,
+    //   title,
+    //   labels,
+    //   rightGap: 0,
+    //   yRangePad: 10,
+    //   labelsKMB: true,
+    //   fillGraph: true,
+    //   underlayCallback,
+    //   axisLabelWidth: 60,
+    //   drawAxesAtZero: true,
+    //   axisLineColor: '#383846',
+    //   gridLineColor: '#383846',
+    //   connectSeparatedPoints: true,
+    // }
 
     const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
@@ -135,8 +135,8 @@ class PxKpi extends Component {
 
     const {width, height} = this.state
     let sparkWidth = width
-    if (width < 200) {
-      sparkWidth = width-20
+    if (width < 200 && width > 20) {
+      sparkWidth = width - 20
     }
 
     return (

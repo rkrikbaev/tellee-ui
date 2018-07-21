@@ -131,7 +131,6 @@
     "lodash": "^4.3.0",
     "moment": "^2.13.0",
     "nano-date": "^2.0.1",
-    "predix-ui": "0.0.22",
     "prop-types": "^15.6.1",
     "query-string": "^5.0.0",
     "react": "^16.3.1",

@@ -62,19 +62,20 @@ export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
   const timeSeries = {jsonflatten: []}
 
   let sliceArr = 0
-  if (limitOutputForKpi) {sliceArr = tableData.length-30} // get max last 30 records for KPI
+  if (limitOutputForKpi) {
+    sliceArr = tableData.length - 30
+  } // get max last 30 records for KPI
 
   tableData.slice(sliceArr).forEach(function(_value) {
     const map1 = {}
     if (limitOutputForKpi) {
-      map1['x'] = _value[0]
-      map1['y'] = _value[1]
+      map1.x = _value[0]
+      map1.y = _value[1]
     } else {
       _value.forEach(function(_row, _idx) {
         if (labels[_idx] === 'time') {
-          map1['timeStamp'] = _row + 21600000 //tempopary fix
-        }
-        else {
+          map1.timeStamp = _row + 21600000 // tempopary fix
+        } else {
           if (_row === null) {
             _row = 0
           }
