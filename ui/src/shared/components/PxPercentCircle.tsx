@@ -10,7 +10,6 @@ import {Data} from 'src/types/dygraphs'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 
 // import {Card} from 'predix-ui'
-import PxPercentCircleGraph from 'src/shared/components/PxPercentCircleGraph'
 
 interface Props {
   isFetchingInitially: boolean
@@ -43,10 +42,7 @@ class PxPercentCircle extends PureComponent<Props> {
     return (
       <div className="single-stat">
         <span className={this.className}>
-          <PxPercentCircleGraph
-            completeValue={this.completeValue}
-            styles={this.styles}
-          />
+          <px-percent-circle val={this.completeValue} max="100" thickness="30" />
         </span>
       </div>
     )

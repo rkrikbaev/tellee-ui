@@ -21,6 +21,10 @@ class PxTimeseries extends Component {
   constructor(props) {
     super(props)
     this.isValidData = true
+    this.state = {
+      height: 0,
+      width: 0,
+    }
   }
 
   componentWillMount() {
@@ -30,10 +34,10 @@ class PxTimeseries extends Component {
 
   parseTimeSeries(data, isInDataExplorer) {
     this._timeSeries = timeSeriesToPxSeries(data, false)
-   // console.log(JSON.stringify(this._timeSeries.timeSeries))
-   // this.isValidData = validateTimeSeries(
-   //   _.get(this._timeSeries, 'timeSeries', [])
-   // )
+    // console.log(JSON.stringify(this._timeSeries.timeSeries))
+    // this.isValidData = validateTimeSeries(
+    //   _.get(this._timeSeries, 'timeSeries', [])
+    // )
   }
 
   componentWillUpdate(nextProps) {
@@ -47,8 +51,10 @@ class PxTimeseries extends Component {
   }
 
   resize = () => {
-    console.log("RESIZEEEEE")
-    // hide chart and then resize it!!!
+    const height = this.divElement.clientHeight
+    const width = this.divElement.clientWidth
+    this.setState({height})
+    this.setState({width})
     this.render()
   }
 
@@ -89,29 +95,6 @@ class PxTimeseries extends Component {
       return <GraphSpinner />
     }
 
-    const options = {
-      ...displayOptions,
-      title,
-      labels,
-      rightGap: 0,
-      yRangePad: 10,
-      labelsKMB: true,
-      fillGraph: true,
-      underlayCallback,
-      axisLabelWidth: 60,
-      drawAxesAtZero: true,
-      axisLineColor: '#383846',
-      gridLineColor: '#383846',
-      connectSeparatedPoints: true,
-    }
-
-    const containerStyle = {
-      width: 'calc(100% - 32px)',
-      height: 'calc(100% - 16px)',
-      position: 'absolute',
-      top: '8px',
-    }
-
     const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
     // This is A very SICK implementation of series config, since JSON formatting problems for PX,
@@ -126,21 +109,23 @@ class PxTimeseries extends Component {
         map2["yAxisUnit"] = suffix
         map2["color"] = colors[key-1] ? colors[key-1].hex : '#EFEFEF'
         pxSeriesConfig += '"' + _label + '":' + JSON.stringify(map2)
-        if (Object.is(arr.length - 1, key)) {pxSeriesConfig += "}" }
-        else {
+        if (Object.is(arr.length - 1, key)) {pxSeriesConfig += "}" } else {
           pxSeriesConfig += ','
         }
       }
     })
+
+    const {width,height} = this.state
+
     return (
-      <div style={{height: '100%'}}>
+      <div style={{height: '100%'}} ref={divElement => (this.divElement = divElement)}>
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <px-vis-timeseries
           debounce-resize-timing="60"
-          width={containerStyle.width}
-          height={containerStyle.height}
-          // prevent-resize = "true"
+          width={width}
+          height={height-250}
+          prevent-resize = "true"
           chart-horizontal-alignment="center"
           chart-vertical-alignment="center"
           margin='{"top":30,"bottom":60,"left":65,"right":65}'

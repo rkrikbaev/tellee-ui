@@ -46,8 +46,15 @@ class LayoutCell extends Component {
     const child = children.length ? children[0] : children
     const layoutCellGraph = React.cloneElement(child, {cellID: cell.i})
 
+    let customColor = ""
+    let regexColor = /body#[A-Fa-f0-9]{6}/
+    let colorSearch = regexColor.exec(cell.name)
+    if (colorSearch != null){
+      customColor = colorSearch[0].replace("body","")
+    }
+
     return (
-      <div className="dash-graph">
+      <div className="dash-graph" style={{background: customColor}}>
         <Authorized requiredRole={EDITOR_ROLE}>
           <LayoutCellMenu
             cell={cell}

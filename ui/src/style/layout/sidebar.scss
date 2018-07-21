@@ -109,6 +109,7 @@ $sidebar-menu--gutter: 18px;
   Sidebar Logo Square
 */
 .sidebar--square.sidebar--logo {
+  display:none;
   background-color: $sidebar--logo-bg;
   .sidebar--icon {color: $sidebar--logo-color;}
 }

@@ -22,7 +22,9 @@
   left: 0;
   width: 100%;
   height: calc(100% - #{$chronograf-page-header-height}) !important;
-  @include gradient-v($g2-kevlar,$g0-obsidian);
+  // @include gradient-v($g2-kevlar,$g0-obsidian);
+  // @include variable(background, --theme-primary-color, blue);
+  background: var(--zsse-branding-color);
 
   &:only-child {
     top: 0;

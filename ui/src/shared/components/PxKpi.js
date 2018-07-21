@@ -21,6 +21,10 @@ class PxKpi extends Component {
   constructor(props) {
     super(props)
     this.isValidData = true
+    this.state = {
+      height: 0,
+      width: 0,
+    }
   }
 
   componentWillMount() {
@@ -30,10 +34,10 @@ class PxKpi extends Component {
 
   parseTimeSeries(data, isInDataExplorer) {
     this._timeSeries = timeSeriesToPxSeries(data, true)
-   // NEED FIX VALIDATOR!
-   // this.isValidData = validateTimeSeries(
-   //   _.get(this._timeSeries, 'timeSeries', [])
-   // )
+    // NEED FIX VALIDATOR!
+    // this.isValidData = validateTimeSeries(
+    //   _.get(this._timeSeries, 'timeSeries', [])
+    // )
   }
 
   componentWillUpdate(nextProps) {
@@ -47,8 +51,10 @@ class PxKpi extends Component {
   }
 
   resize = () => {
-    console.log("RESIZEEEEE")
-    // hide chart and then resize it!!!
+    const height = this.divElement.clientHeight
+    const width = this.divElement.clientWidth
+    this.setState({height})
+    this.setState({width})
     this.render()
   }
 
@@ -105,36 +111,56 @@ class PxKpi extends Component {
       connectSeparatedPoints: true,
     }
 
-    const containerStyle = {
-      width: 'calc(100% - 32px)',
-      height: 'calc(100% - 16px)',
-      position: 'absolute',
-      top: '8px',
-    }
-
     const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
 
-    let kpiMainValue = timeSeries.jsonflatten[timeSeries.jsonflatten.length-2]
-    let kpiMainPreValue = timeSeries.jsonflatten[timeSeries.jsonflatten.length-3]
-    if (kpiMainValue.y === null) kpiMainValue.y = 0
-    if (kpiMainPreValue.y === null) kpiMainPreValue.y = 0
-    let kpiChangePerc = ((kpiMainValue.y-kpiMainPreValue.y)/kpiMainPreValue.y*100).toFixed(2)
-    if (kpiChangePerc < 0 ) {kpiChangePerc = ~kpiChangePerc+1}
+    const kpiMainValue =
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
+    const kpiMainPreValue =
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 3]
+    if (kpiMainValue.y === null) {
+      kpiMainValue.y = 0
+    }
+    if (kpiMainPreValue.y === null) {
+      kpiMainPreValue.y = 0
+    }
+    let kpiChangePerc = (
+      (kpiMainValue.y - kpiMainPreValue.y) /
+      kpiMainPreValue.y *
+      100
+    ).toFixed(2)
+    if (kpiChangePerc < 0) {
+      kpiChangePerc = ~kpiChangePerc + 1
+    }
+
+    const {width, height} = this.state
+    let sparkWidth = width
+    if (width < 200) {
+      sparkWidth = width-20
+    }
+
     return (
-      <div style={{height: '100%'}}>
+      <div
+        style={{height: '100%'}}
+        ref={divElement => (this.divElement = divElement)}
+      >
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <px-kpi
+          width={width}
+          height={height}
           spark-type="line"
+          spark-width={sparkWidth}
           title="title"
-          value={kpiMainValue.y.toFixed(2)+' '+suffix}
+          value={`${kpiMainValue.y.toFixed(2)} ${suffix}`}
           uom={prefix}
-          status-icon={kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down' }
-          status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red' }
-          status-label={kpiChangePerc+'%'}
-          spark-data={JSON.stringify(timeSeries.jsonflatten)}>
-        </px-kpi>
+          status-icon={
+            kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
+          }
+          status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red'}
+          status-label={`${kpiChangePerc}%`}
+          spark-data={JSON.stringify(timeSeries.jsonflatten)}
+        />
 
         <ReactResizeDetector
           handleWidth={true}

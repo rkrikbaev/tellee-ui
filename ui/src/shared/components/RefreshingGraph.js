@@ -188,6 +188,7 @@ const RefreshingGraph = ({
         templates={templates}
         timeRange={timeRange}
         autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
         isBarGraph={type === 'bar'}
         staticLegend={staticLegend}
         displayOptions={displayOptions}

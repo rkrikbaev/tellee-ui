@@ -1,14 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {isCellUntitled} from 'src/dashboards/utils/cellGetters'
+import CustomProperties from 'react-custom-properties'
 
 const LayoutCellHeader = ({isEditable, cellName}) => {
   const headingClass = `dash-graph--heading ${
     isEditable ? 'dash-graph--draggable dash-graph--heading-draggable' : ''
   }`
 
+  let customColor = ""
+  let regexColor = /head#[A-Fa-f0-9]{6}/
+  let colorSearch = regexColor.exec(cellName)
+  if (colorSearch != null){
+    cellName = cellName.replace(colorSearch,"")
+    customColor = colorSearch[0].replace("head","")
+  }
+
+  let regexColorBody = /body#[A-Fa-f0-9]{6}/
+  let colorSearchBody = regexColorBody.exec(cellName)
+  if (colorSearchBody != null) {
+    cellName = cellName.replace(colorSearchBody, "")
+  }
   return (
-    <div className={headingClass}>
+    <div className={headingClass} style={{background: customColor}}>
       <span
         className={
           isCellUntitled(cellName)

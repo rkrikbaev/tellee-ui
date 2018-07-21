@@ -10,6 +10,7 @@ import SourceIndicator from 'shared/components/SourceIndicator'
 import GraphTips from 'shared/components/GraphTips'
 import DashboardHeaderEdit from 'src/dashboards/components/DashboardHeaderEdit'
 import DashboardSwitcher from 'src/dashboards/components/DashboardSwitcher'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 const DashboardHeader = ({
   names,
@@ -69,6 +70,7 @@ const DashboardHeader = ({
         <div className="page-header__right">
           <GraphTips />
           <SourceIndicator />
+          <ThemeColorDropdown />
           {dashboard ? (
             <Authorized requiredRole={EDITOR_ROLE}>
               <button className="btn btn-primary btn-sm" onClick={onAddCell}>
