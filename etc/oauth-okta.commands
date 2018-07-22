@@ -7,4 +7,4 @@ export GENERIC_TOKEN_URL=https://dev-212917.oktapreview.com/oauth2/default/v1/to
 export GENERIC_API_URL=https://dev-212917.oktapreview.com/oauth2/default/v1/userinfo
 export PUBLIC_URL="http://localhost:8888"
 export GENERIC_SCOPES=openid,profile,email
-
+echo "done, oAuth is now ON!"
