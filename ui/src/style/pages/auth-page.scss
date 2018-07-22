@@ -73,6 +73,15 @@
   width: 100px;
   height: 100px;
 }
+.auth-logo2 {
+  background-image: url(static_assets/zeinetsse-220x70.png);
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 220px;
+  height: 70px;
+  margin: 20px;
+}
 .auth-credits {
   @include no-user-select();
   font-weight: 600;

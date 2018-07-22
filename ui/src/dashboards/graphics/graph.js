@@ -521,17 +521,17 @@ const GRAPH_SVGS = {
   ),
   'px-percent-circle': (
     <div className="viz-type-selector--graphic">
-      <img src="/icons/if_13_1320808.png" />
+      <img src="/static_assets/icons/graph-ico-circle.svg" />
     </div>
   ),
   'px-timeseries': (
     <div className="viz-type-selector--graphic">
-      <img src="/icons/if_11_1320809.png" />
+      <img src="/static_assets/icons/graph-ico-series.svg" />
     </div>
   ),
   'px-kpi': (
     <div className="viz-type-selector--graphic">
-      <img src="/icons/if_11_1320809.png" />
+      <img src="/static_assets/icons/graph-ico-bar-kpi.svg" />
     </div>
   ),
 }

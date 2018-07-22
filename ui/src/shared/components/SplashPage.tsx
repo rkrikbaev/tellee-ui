@@ -8,6 +8,7 @@ const SplashPage: SFC<Props> = ({children}) => (
   <div className="auth-page">
     <div className="auth-box">
       <div className="auth-logo" />
+      <div className="auth-logo2" />
       {children}
     </div>
     <p className="auth-credits">
