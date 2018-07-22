@@ -125,7 +125,8 @@ class Root extends PureComponent<{}, State> {
           />
           <Route path="/sources/:sourceID" component={UserIsAuthenticated(App)}>
             <Route component={CheckSources}>
-              <Route path="status" component={StatusPage} />
+              {/*<Route path="status" component={StatusPage} />*/}
+              <Route path="status" component={DashboardsPage} />
               <Route path="hosts" component={HostsPage} />
               <Route path="hosts/:hostID" component={HostPage} />
               <Route
