@@ -12,6 +12,8 @@ import {
   CELL_TYPE_PX_CIRCLE,
   CELL_TYPE_PX_TIMESERIES,
   CELL_TYPE_PX_KPI,
+  CELL_TYPE_PX_GANTT,
+  CELL_TYPE_PX_RADAR,
 } from 'src/dashboards/graphics/graph'
 
 export const initializeOptions = cellType => {
@@ -58,6 +60,8 @@ export const getCellTypeColors = ({
     case CELL_TYPE_PX_CIRCLE:
     case CELL_TYPE_PX_TIMESERIES:
     case CELL_TYPE_PX_KPI:
+    case CELL_TYPE_PX_GANTT:
+    case CELL_TYPE_PX_RADAR:
     case CELL_TYPE_STEPPLOT: {
       colors = stringifyColorValues(lineColors)
     }

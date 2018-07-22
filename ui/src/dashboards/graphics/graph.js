@@ -11,6 +11,8 @@ export const CELL_TYPE_TABLE = 'table'
 export const CELL_TYPE_PX_CIRCLE = 'px-percent-circle'
 export const CELL_TYPE_PX_TIMESERIES = 'px-timeseries'
 export const CELL_TYPE_PX_KPI = 'px-kpi'
+export const CELL_TYPE_PX_GANTT = 'px-gantt'
+export const CELL_TYPE_PX_RADAR = 'px-radar'
 
 const GRAPH_SVGS = {
   line: (
@@ -534,6 +536,16 @@ const GRAPH_SVGS = {
       <img src="/static_assets/icons/graph-ico-bar-kpi.svg" />
     </div>
   ),
+  'px-gantt': (
+    <div className="viz-type-selector--graphic">
+      <img src="/static_assets/icons/graph-ico-gantt.svg" />
+    </div>
+  ),
+  'px-radar': (
+    <div className="viz-type-selector--graphic">
+      <img src="/static_assets/icons/graph-ico-spider.svg" />
+    </div>
+  ),
 }
 
 export const GRAPH_TYPES = [
@@ -591,5 +603,15 @@ export const GRAPH_TYPES = [
     type: CELL_TYPE_PX_KPI,
     menuOption: 'PX KPI',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_KPI],
+  },
+  {
+    type: CELL_TYPE_PX_GANTT,
+    menuOption: 'D3 Gantt',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
+  },
+  {
+    type: CELL_TYPE_PX_RADAR,
+    menuOption: 'Px Radar',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_RADAR],
   },
 ]

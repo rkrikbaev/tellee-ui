@@ -17,6 +17,7 @@
   "dependencies": {
     "px-percent-circle": "^1.1.1",
     "px-vis-timeseries": "^4.0.1",
-    "px-kpi": "^5.0.0"
+    "px-kpi": "^5.0.0",
+    "px-vis-radar": "^4.0.1"
   }
 }
