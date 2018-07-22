@@ -9,7 +9,7 @@ const ThemeMenuItems = [
   {
     themeName: 'dark',
     themeDescr: 'Dark theme descr',
-    bradingColor: 'linear-gradient(#606c88, #3f4c6b)',
+    bradingColor: 'linear-gradient(#141e30, #243b55)',
     resizeControl: 'inline',
     headerTextColor: '#eeeeee',
     cellBgColor: '',
@@ -17,10 +17,18 @@ const ThemeMenuItems = [
   {
     themeName: 'light',
     themeDescr: 'Light theme descr',
-    bradingColor: 'linear-gradient(#fdfbfb, #ebedee)',
+    bradingColor: 'linear-gradient(#f5f7fa, #c3cfe2)',
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
     cellBgColor: 'linear-gradient(#93a5cf35, #e4efe940)',
+  },
+  {
+    themeName: 'very light',
+    themeDescr: 'Light theme descr',
+    bradingColor: '#ffffff',
+    resizeControl: 'inline',
+    headerTextColor: '#3c475f',
+    cellBgColor: '#ffffff',
   },
 ]
 
@@ -63,6 +71,7 @@ class ThemeColorDropdown extends Component {
             '--zsse-cell-bg': currentTheme.cellBgColor,
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#ffffff',
+            '--px-percent-circle-text-color': '#3c475f',
           }}
         />
 

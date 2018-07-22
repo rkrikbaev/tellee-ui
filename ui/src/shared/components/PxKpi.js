@@ -144,7 +144,7 @@ class PxKpi extends Component {
       sparkHeight = 40
     }
 
-    let sparkAreaBg = '#ffffff70'
+    let sparkAreaBg = '#ffffff50'
     let pkTextColor = '#ffffff'
     if (colors[0].name === 'Ectoplasm') {
       sparkAreaBg = '#646f8880'
@@ -160,6 +160,7 @@ class PxKpi extends Component {
 
         <CustomProperties
           properties={{
+            '--px-kpi-spark-line-color': '#ffffff30',
             '--px-kpi-spark-area-color': sparkAreaBg,
             '--px-base-text-color': pkTextColor,
           }}
