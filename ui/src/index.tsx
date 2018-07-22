@@ -22,7 +22,7 @@ import {
   Purgatory,
 } from 'src/auth'
 import CheckSources from 'src/CheckSources'
-import {StatusPage} from 'src/status'
+// import {StatusPage} from 'src/status'
 import {HostsPage, HostPage} from 'src/hosts'
 import DataExplorerPage from 'src/data_explorer'
 import {DashboardsPage, DashboardPage} from 'src/dashboards'

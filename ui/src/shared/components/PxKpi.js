@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 
+import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
@@ -67,7 +68,7 @@ class PxKpi extends Component {
       // data,
       axes,
       // title,
-      // colors,
+      colors,
       // cellID,
       // onZoom,
       // queries,
@@ -138,6 +139,17 @@ class PxKpi extends Component {
     if (width < 200 && width > 20) {
       sparkWidth = width - 20
     }
+    let sparkHeight = height - 95
+    if (sparkHeight < 40) {
+      sparkHeight = 40
+    }
+
+    let sparkAreaBg = '#ffffff70'
+    let pkTextColor = '#ffffff'
+    if (colors[0].name === 'Ectoplasm') {
+      sparkAreaBg = '#646f8880'
+      pkTextColor = '#3c475f'
+    }
 
     return (
       <div
@@ -146,21 +158,29 @@ class PxKpi extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
 
-        <px-kpi
-          width={width}
-          height={height}
-          spark-type="line"
-          spark-width={sparkWidth}
-          title="title"
-          value={`${kpiMainValue.y.toFixed(2)} ${suffix}`}
-          uom={prefix}
-          status-icon={
-            kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
-          }
-          status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red'}
-          status-label={`${kpiChangePerc}%`}
-          spark-data={JSON.stringify(timeSeries.jsonflatten)}
-        />
+        <CustomProperties
+          properties={{
+            '--px-kpi-spark-area-color': sparkAreaBg,
+            '--px-base-text-color': pkTextColor,
+          }}
+        >
+          <px-kpi
+            width={width}
+            height={height}
+            spark-type="line"
+            spark-width={sparkWidth}
+            spark-height={sparkHeight}
+            title="title"
+            value={`${kpiMainValue.y.toFixed(2)} ${suffix}`}
+            uom={prefix}
+            status-icon={
+              kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
+            }
+            status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red'}
+            status-label={`${kpiChangePerc}%`}
+            spark-data={JSON.stringify(timeSeries.jsonflatten)}
+          />
+        </CustomProperties>
 
         <ReactResizeDetector
           handleWidth={true}

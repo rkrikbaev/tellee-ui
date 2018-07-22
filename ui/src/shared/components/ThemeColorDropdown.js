@@ -17,10 +17,10 @@ const ThemeMenuItems = [
   {
     themeName: 'light',
     themeDescr: 'Light theme descr',
-    bradingColor: 'linear-gradient(#cfd9df, #e2ebf0)',
+    bradingColor: 'linear-gradient(#fdfbfb, #ebedee)',
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
-    cellBgColor: 'linear-gradient(#606c8865, #3f4c6b45)',
+    cellBgColor: 'linear-gradient(#93a5cf35, #e4efe940)',
   },
 ]
 
@@ -56,25 +56,14 @@ class ThemeColorDropdown extends Component {
         {/* set global styling params */}
         <CustomProperties
           global={true}
-          properties={{'--zsse-branding-color': currentTheme.bradingColor}}
-        />
-        <CustomProperties
-          global={true}
-          properties={{'--zsse-resize-control': currentTheme.resizeControl}}
-        />
-        <CustomProperties
-          global={true}
           properties={{
+            '--zsse-branding-color': currentTheme.bradingColor,
+            '--zsse-resize-control': currentTheme.resizeControl,
             '--zsse-header-text-color': currentTheme.headerTextColor,
+            '--zsse-cell-bg': currentTheme.cellBgColor,
+            '--px-percent-circle-fill-color': '#308ec1',
+            '--px-base-text-color': '#ffffff',
           }}
-        />
-        <CustomProperties
-          global={true}
-          properties={{'--zsse-cell-bg': currentTheme.cellBgColor}}
-        />
-        <CustomProperties
-          global={true}
-          properties={{'--px-percent-circle-fill-color': '#308ec1'}}
         />
 
         {/* eof styling */}
