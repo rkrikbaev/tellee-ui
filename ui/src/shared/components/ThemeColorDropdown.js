@@ -20,7 +20,7 @@ const ThemeMenuItems = [
     bradingColor: 'linear-gradient(#cfd9df, #e2ebf0)',
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
-    cellBgColor: '#ffffff45',
+    cellBgColor: 'linear-gradient(#606c8865, #3f4c6b45)',
   },
 ]
 

@@ -76,7 +76,7 @@ $dash-graph-options-arrow: 8px;
 
 .cell-shell {
   background-color: $g3-castle;
-  background-color: var(--zsse-cell-bg);
+  background: var(--zsse-cell-bg);
   border-radius: $radius;
   border: 0px solid $g3-castle;
   transition-property: left, top, border-color, background-color;
