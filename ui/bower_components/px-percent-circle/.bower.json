@@ -1,0 +1,68 @@
+{
+  "name": "px-percent-circle",
+  "version": "1.1.1",
+  "main": [
+    "px-percent-circle.html"
+  ],
+  "ignore": [
+    "*.enc",
+    ".*",
+    "npm-debug.log",
+    "gulpfile.js",
+    "sass",
+    "bower_components",
+    "node_modules",
+    "test",
+    "scripts",
+    ".github",
+    "px-percent-circle.png",
+    "HISTORY.md",
+    "CONTRIBUTING.md",
+    "OSS_Notice.pdf",
+    ".editorconfig",
+    ".jshint",
+    ".gitignore",
+    "LICENSE.md",
+    "gulpfile.js",
+    "monogram-wdmk.png",
+    "README.md",
+    "wct.conf.json"
+  ],
+  "dependencies": {
+    "polymer": "#1.9 - 2"
+  },
+  "devDependencies": {
+    "px-normalize-design": "^1.0.0",
+    "px-box-sizing-design": "^1.0.0",
+    "px-demo": "^3.0.0",
+    "px-theme": "^3.0.0",
+    "web-component-tester": "^6.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "^1.9.0"
+      },
+      "devDependencies": {
+        "web-component-tester": "^5.0.0"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/predixdesignsystem/px-percent-circle",
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.1",
+    "commit": "02ee4d4db8a965e28749577a393ce6dece7c94a8"
+  },
+  "_source": "https://github.com/predixdesignsystem/px-percent-circle.git",
+  "_target": "^1.1.1",
+  "_originalSource": "px-percent-circle",
+  "_direct": true
+}

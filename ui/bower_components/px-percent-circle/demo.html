@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      px-percent-circle Demo</title>
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../px-theme/px-theme-styles.html">
+
+
+
+    <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+    <link rel="import" href="px-percent-circle.html" />
+    <custom-style>
+      <style include="px-theme-styles" is="custom-style">
+        .small {
+          width: 100px;
+          height: 100px;
+        }
+        .medium {
+          width: 150px;
+          height: 150px;
+          --px-percent-circle-fill-color: red;
+        }
+        .large {
+          width: 200px;
+          height: 200px;
+          --px-percent-circle-fill-color: orange;
+        }
+        .widget {
+          width: 400px;
+          height: 300px;
+        }
+      </style>
+    </custom-style>
+  </head>
+
+  <body>
+
+    <h3>Demo</h3>
+    Size based on parent &lt;div&gt; element:
+    <div class="small">
+      <px-percent-circle thickness="10"></px-percent-circle>
+    </div>
+    <br />
+    Size set explicitly on the component:
+    <px-percent-circle class="medium" val="1" max="3" thickness="15"></px-percent-circle>
+    <br />
+    Text scales with component:
+    <px-percent-circle class="large" val="80" max="100" thickness="20"></px-percent-circle>
+    <br />
+    Default fill color ($dv-basic-blue) and thickness (30px):
+    <div class="widget">
+      <px-percent-circle val="100" max="100"></px-percent-circle>
+    </div>
+
+  </body>
+
+</html>

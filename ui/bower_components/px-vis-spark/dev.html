@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      px-vis-spark Demo</title>
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+    <link rel="import" href="px-vis-spark.html" />
+  </head>
+
+  <body>
+
+    <h3>Demo</h3>
+
+    <px-vis-spark id="spark"></px-vis-spark>
+
+    <script>
+    var data = [{
+        'x': 1397102460000,
+        'y': 0.56
+      },{
+        'x': 1397139660000,
+        'y': 0.4
+      },{
+        'x': 1397177400000,
+        'y': 0.43
+      },{
+        'x': 1397228040000,
+        'y': 0.33
+      },{
+        'x': 1397248260000,
+        'y': 0.47
+      },{
+        'x': 1397291280000,
+        'y': 0.41
+      },{
+        'x': 1397318100000,
+        'y': 0.26
+      },{
+        'x': 1397342100000,
+        'y': 0.42
+      },{
+        'x': 1397390820000,
+        'y': 0.27
+      },{
+        'x': 1397408100000,
+        'y': 0.38
+      },{
+        'x': 1397458800000,
+        'y': 0.36
+      },{
+        'x': 1397522940000,
+        'y': 0.32
+    }];
+    var spark = document.querySelector("#spark");
+    spark.setAttribute("data", JSON.stringify(data));
+    </script>
+  </body>
+
+</html>

@@ -3,7 +3,12 @@ artifacts/
 spec/allSpecs.js
 dev/
 dist/
-bower_components/
 log/
 .tern-project
 yarn-error.log
+!bower_components/
+bower_components/*
+!bower_components/px-kpi/
+!bower_components/px-vis-spark/
+!bower_components/px-percent-circle/
+!bower_components/px-vis-timeseries/
