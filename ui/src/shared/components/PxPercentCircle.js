@@ -7,6 +7,12 @@ import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 
+import {
+  COLOR_TYPE_MIN,
+  COLOR_TYPE_MAX,
+  // MIN_THRESHOLDS,
+} from 'shared/constants/thresholds'
+
 // const validateTimeSeries = timeseries => {
 //   return _.every(timeseries, r =>
 //     _.every(
@@ -65,9 +71,11 @@ class PxPercentCircle extends Component {
 
     const {
       // data,
-      axes,
+      // axes,
+      prefix,
+      // suffix,
       // title,
-      // colors,
+      colors,
       // cellID,
       // onZoom,
       // queries,
@@ -119,9 +127,6 @@ class PxPercentCircle extends Component {
     //   colors.find(color => color.type === COLOR_TYPE_MAX).value
     // )
 
-    // const prefix = axes ? axes.y.prefix : ''
-    const suffix = axes ? axes.y.suffix : ''
-
     const kpiMainValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
 
@@ -140,6 +145,16 @@ class PxPercentCircle extends Component {
       _height = _width
     }
 
+    if (!colors || colors.length === 0) {
+      return <InvalidData />
+    }
+    // Distill out max and min values
+    const minValue = Number(
+      colors.find(color => color.type === COLOR_TYPE_MIN).value
+    )
+    const maxValue = Number(
+      colors.find(color => color.type === COLOR_TYPE_MAX).value
+    )
     return (
       <div
         style={{height: '100%'}}
@@ -148,9 +163,10 @@ class PxPercentCircle extends Component {
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <px-percent-circle
-          val={`${kpiMainValue.y.toFixed(2)} ${suffix}`}
-          max="100"
-          thickness="30"
+          val={`${kpiMainValue.y.toFixed(2)}`}
+          max={maxValue}
+          min={minValue}
+          thickness={prefix}
           width={_width}
           height={_height}
         />
@@ -189,6 +205,7 @@ PxPercentCircle.defaultProps = {
 
 PxPercentCircle.propTypes = {
   cellID: string,
+  prefix: string,
   axes: shape({
     y: shape({
       bounds: array,

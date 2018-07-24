@@ -57,7 +57,10 @@ export const getCellTypeColors = ({
     case CELL_TYPE_LINE:
     case CELL_TYPE_LINE_PLUS_SINGLE_STAT:
     case CELL_TYPE_STACKED:
-    case CELL_TYPE_PX_CIRCLE:
+    case CELL_TYPE_PX_CIRCLE: {
+      colors = stringifyColorValues(gaugeColors)
+      break
+    }
     case CELL_TYPE_PX_TIMESERIES:
     case CELL_TYPE_PX_KPI:
     case CELL_TYPE_PX_GANTT:

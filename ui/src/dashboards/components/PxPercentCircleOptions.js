@@ -8,6 +8,9 @@ import uuid from 'uuid'
 
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import Threshold from 'src/dashboards/components/Threshold'
+// *****************************************************
+// COMPONENT NOTES : thickness is prefix!
+// *****************************************************
 
 import {
   COLOR_TYPE_THRESHOLD,
@@ -172,7 +175,7 @@ class PxPercentCircleOptions extends Component {
         autoHide={false}
       >
         <div className="display-options--cell-wrapper">
-          <h5 className="display-options--header">Gauge Controls</h5>
+          <h5 className="display-options--header">PX Percent Circle Controls</h5>
           <div className="thresholds-list">
             <button
               className="btn btn-sm btn-primary"
@@ -198,10 +201,10 @@ class PxPercentCircleOptions extends Component {
           </div>
           <div className="graph-options-group form-group-wrapper">
             <div className="form-group col-xs-6">
-              <label>Prefix</label>
+              <label>Thickness</label>
               <input
                 className="form-control input-sm"
-                placeholder="%, MPH, etc."
+                placeholder="circle thickness in pixels (1-30)"
                 defaultValue={prefix}
                 onChange={this.handleUpdatePrefix}
                 maxLength="5"
