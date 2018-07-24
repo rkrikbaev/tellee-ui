@@ -79,6 +79,15 @@ class DashboardsPageContents extends Component {
               </div>
             </div>
           </div>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel-body">
+                <span>
+                  Version info: <strong>beta 1</strong>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </FancyScrollbar>
     )

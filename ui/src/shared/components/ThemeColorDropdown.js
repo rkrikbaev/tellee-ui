@@ -20,7 +20,7 @@ const ThemeMenuItems = [
     bradingColor: 'linear-gradient(#f5f7fa, #c3cfe2)',
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
-    cellBgColor: 'linear-gradient(#93a5cf35, #e4efe940)',
+    cellBgColor: 'linear-gradient(#ebedee80, #fdfbfb80)',
   },
   {
     themeName: 'very light',
@@ -72,6 +72,29 @@ class ThemeColorDropdown extends Component {
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#ffffff',
             '--px-percent-circle-text-color': '#3c475f',
+
+            '--px-vis-gridlines-color': '#b2babf',
+            '--px-vis-cursor-line-color': '#676a6f',
+
+            '--px-vis-register-box': '#1be200',
+            '--px-vis-register-data-value': '#434547',
+            '--px-vis-register-series-name': '#919699',
+
+            '--px-vis-series-color-0': '#60C1F8',
+
+            '--px-vis-axis-color': '#b2babf',
+            '--px-vis-axis-title-color': '#3c475f',
+            '--px-vis-axis-inline-title-color': '#919699',
+            '--px-vis-axis-inline-type-color': '#919699',
+            '--px-vis-axis-inline-box-color': '#b2babf',
+
+            '--px-tooltip-background-color': '#3c475f',
+            '--px-tooltip-text-color': '#f8425f',
+            '--px-tooltip-light-background-color': '#f8425f',
+            '--px-tooltip-light-text-color': '#f8425f',
+            '--px-tooltip-light-border-color': '#f8425f',
+
+            '--px-vis-font-family': 'Arial',
           }}
         />
 

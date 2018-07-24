@@ -47,7 +47,7 @@ class LayoutCell extends Component {
     const layoutCellGraph = React.cloneElement(child, {cellID: cell.i})
 
     let customColor = ''
-    const regexColor = /body#[A-Fa-f0-9]{6}/
+    const regexColor = /body#[A-Fa-f0-9]{6,8}/
     const colorSearch = regexColor.exec(cell.name)
     if (colorSearch !== null) {
       customColor = colorSearch[0].replace('body', '')

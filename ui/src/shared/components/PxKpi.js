@@ -157,7 +157,7 @@ class PxKpi extends Component {
     let sparkAreaBg = '#ffffff50'
     let pkTextColor = '#ffffff'
     if (staticLegend) {
-      sparkAreaBg = '#646f8880'
+      sparkAreaBg = '#308EC190'
       pkTextColor = '#3c475f'
     }
 
