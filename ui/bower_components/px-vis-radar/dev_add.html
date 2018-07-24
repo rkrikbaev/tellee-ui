@@ -1,0 +1,134 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      px-vis-radar Demo</title>
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../px-theme/px-theme-styles.html">
+    <!-- <link rel="import" href="../px-dark-theme/px-dark-theme-styles.html"> -->
+
+    <custom-style>
+      <style include="px-theme-styles" is="custom-style"></style>
+    </custom-style>
+
+    <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+    <link rel="import" href="../iron-ajax/iron-ajax.html"/>
+
+    <link rel="import" href="../px-vis/px-vis-chart-navigator.html" />
+    <link rel="import" href="../px-rangepicker/px-rangepicker.html" />
+    <link rel="import" href="px-vis-radar.html" />
+    <link rel="import" href="../px-slider/px-slider.html" />
+  </head>
+
+  <body>
+  <!-- <body style="padding:30px; background-color: rgb(27,42,51);"> -->
+
+
+    <h3>Radar Chart</h3>
+    <dom-bind>
+    <template is="dom-bind">
+      <div id="bigdiv" style="height:800px">
+        <button id="btn">add</button>
+        <button id="btnR">remove</button>
+        <h3>Radar Chart linked with a rangepicker and navigator</h3>
+        <px-rangepicker
+          id="rangepicker"
+          range="{{range}}"
+          date-format="YYYY/MM/DD"
+          time-format="hh:mm:ss A"
+          show-buttons="true"
+          show-time-zone="text">
+        </px-rangepicker>
+
+        <br />
+
+        <px-vis-radar
+          id="parall"
+          height="800"
+show-tooltip
+          chart-data="[[chartData]]"
+          skip-keys='{"UnitNumber":true,"DLN_MODE":true}'
+          series-key="TimeStamp"
+          tooltip-config='{
+            "tooltipStyle": "light",
+            "forceDateTimeDisplay": true
+          }'
+          selected-domain="{{selectedDomain}}"
+          generate-axes-from-data
+          brush-to-remove
+          truncation-length="200"
+          series-config='{
+              "TTXD1_1":{
+                "yAxisUnit": "Hz",
+                "title": "verylongnasdasdame"
+              },
+              "TTXD1_12":{
+                "yAxisUnit": "F",
+                "title": "stout"
+              }
+            }'>
+        </px-vis-radar>
+
+        <iron-ajax
+          url="../px-demo-data/demo-data/apm/timeseries_demo.json"
+          handle-as="json"
+          auto
+          last-response="{{chartData}}">
+        </iron-ajax>
+      </div>
+    </template>
+  </dom-bind>
+  </body>
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      var chart = document.getElementById('parall'),
+          rangepicker = document.getElementById('rangepicker'),
+          btnSnap = document.getElementById('btnSnap'),
+          parall = document.getElementById('parall'),
+          navigator = document.getElementById('navigator'),
+          btn = document.getElementById('btn'),
+          btnR = document.getElementById('btnR'),
+          bigdiv = document.getElementById('bigdiv');
+
+      rangepicker.range = {"from":"2016-06-22T15:08:00Z","to":"2016-06-22T20:08:00.000Z"};
+
+      btn.addEventListener('click', function() {
+        var newDiv = document.createElement('div'),
+            newChart;
+
+        for(var i=0; i<1; i++) {
+          newDiv.classList.add('divwrapper');
+
+          newChart = document.createElement('px-vis-radar');
+          newChart.generateAxesFromData = true;
+          newChart.preventResize = true;
+          newChart.chartData = chart.chartData;
+          newChart.seriesConfig = chart.seriesConfig;
+          newChart.height = chart.height;
+          newChart.margin = chart.margin;
+          newChart.width = chart.width;
+          newChart.skipKeys = chart.skipKeys;
+          newChart.seriesKey = chart.seriesKey;
+          newChart.selectedDomain = chart.selectedDomain
+          Polymer.dom(newDiv).appendChild(newChart);
+        }
+
+        Polymer.dom(bigdiv).appendChild(newDiv);
+      });
+
+      btnR.addEventListener('click', function() {
+        var wrappers = document.getElementsByClassName('divwrapper');
+        Polymer.dom(bigdiv).removeChild(wrappers[wrappers.length - 1]);
+
+      });
+
+    });
+  </script>
+
+</html>

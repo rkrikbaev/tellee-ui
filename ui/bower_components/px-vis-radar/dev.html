@@ -1,0 +1,330 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      px-vis-radar Demo</title>
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../px-theme/px-theme-styles.html">
+    <!-- <link rel="import" href="../px-dark-theme/px-dark-theme-styles.html"> -->
+
+    <custom-style>
+      <style include="px-theme-styles" is="custom-style"></style>
+    </custom-style>
+
+    <!-- Import custom element. Note: see comment about relative paths to dependencies in the *.html file referenced below -->
+    <link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+    <link rel="import" href="../iron-ajax/iron-ajax.html"/>
+
+    <link rel="import" href="../px-vis/px-vis-chart-navigator.html" />
+    <!-- <link rel="import" href="../px-rangepicker/px-rangepicker.html" /> -->
+    <link rel="import" href="px-vis-radar.html" />
+    <link rel="import" href="../px-slider/px-slider.html" />
+  </head>
+
+  <body>
+  <!-- <body style="padding:30px; background-color: rgb(27,42,51);"> -->
+
+
+    <h3>Radar Chart</h3>
+    <dom-bind>
+    <template is="dom-bind">
+      <h3>Radar Chart linked with a rangepicker and navigator</h3>
+      <px-rangepicker
+        id="rangepicker"
+        range="{{range}}"
+        date-format="YYYY/MM/DD"
+        time-format="hh:mm:ss A"
+        show-buttons="true"
+        show-time-zone="text">
+      </px-rangepicker>
+      <br />
+      <span>Open new tab with snapshot of parallel chart with its navigator</span>
+      <button id="btnSnap">Smile!</button>
+      <br />
+      <br />
+      <br />
+      <div style="height:800px">
+      <px-vis-radar
+        id="parall"
+        height="800"
+        show-tooltip
+        chart-data="[[chartData]]"
+        skip-keys='{"UnitNumber":true,"DLN_MODE":true}'
+        series-key="TimeStamp"
+        tooltip-config='{
+          "tooltipStyle": "light",
+          "forceDateTimeDisplay": true
+        }'
+        time-domain="{{selectedDomain}}"
+        generate-axes-from-data
+        brush-to-remove
+        series-config='{
+            "TimeStamp":{
+              "color": ["red", "blue"]
+            },
+            "TTXD1_1":{
+              "yAxisUnit": "Hz",
+              "title": "verylongname"
+            },
+            "TTXD1_12":{
+              "yAxisUnit": "F",
+              "title": "stout"
+            }
+          }'>
+      </px-vis-radar>
+      </div>
+      <div style="height:100px">
+        <px-vis-chart-navigator
+            id="navigator"
+            gradient-colors='["red", "blue"]'
+            prevent-resize
+            prevent-web-worker-synchronization
+            width="1280"
+            height="100"
+            x-axis-type="time"
+            y-axis-type="linear"
+            range="[[range]]"
+            margin='{
+              "top": 5,
+              "right": 10,
+              "bottom": 20,
+              "left": 10
+            }'
+            chart-extents='{
+                            "x":["dynamic","dynamic"],
+                            "y":["dynamic","dynamic"]
+                          }'
+            chart-data="[[chartData]]"
+            series-config='{
+              "TTXD1_1":{
+                "type": "line",
+                "name": "TTXD1_1",
+                "x":"TimeStamp",
+                "y":"TTXD1_1"
+              }
+            }'
+            selected-domain="{{selectedDomain}}"
+            gradient-overlay>
+          </px-vis-chart-navigator>
+        </div>
+
+
+        <br />
+        <br />
+        <br />
+        <h3>Radar Chart demonstrating responsive behavior</h3>
+        <button id="btnInc">Increase wrapper width</button>
+        <button id="btnDec">Decrease wrapper width</button>
+        <button id="btnIH">Increase wrapper height</button>
+        <button id="btnDH">Decrease wrapper height</button>
+        <br />
+        <br />
+        <br />
+        <div id="wrap" style="height:600px; width:600px; border:1px solid black">
+          <px-vis-radar
+            id="chart"
+            chart-data="[[chartData]]"
+            skip-keys='{"UnitNumber":true,"DLN_MODE":true}'
+            series-key="TimeStamp"
+            generate-axes-from-data
+            margin='{
+              "left": 0,
+              "right": 0,
+              "top": 0,
+              "bottom": 0
+            }'
+          ></px-vis-radar>
+        </div>
+
+      <br />
+      <br />
+      <br />
+      <h3>Radar Chart with developer specified axes and control of axis extents</h3>
+      <div style="width: 500px;">
+        <px-slider id="slider" is-range value="-1050" start-value="-1050" end-value="217" min="-1050" max="217" step="1"></px-slider>
+        <button id="sliderButton">Submit</button>
+      </div>
+      <px-vis-radar
+        id="sliderChart"
+        width="1300"
+        height="800"
+        brush-to-remove
+        chart-data="[[chartData]]"
+        series-key="TimeStamp"
+        axes='["DWATT", "TTXD1_1", "TTXD1_2", "TTXD1_3", "TTXD1_4", "TTXD1_5", "TTXD1_6", "TTXD1_7", "TTXD1_8", "TTXD1_9", "TTXD1_10", "TTXD1_11", "TTXD1_12", "TTXD1_13",  "TTXD1_14", "TTXD1_15", "TTXD1_16", "TTXD1_17", "TTXD1_18", "TTXD1_19", "TTXD1_20", "TTXD1_21", "TTXD1_22", "TTXD1_23", "TTXD1_24", "TTXD1_25", "TTXD1_26",  "TTXD1_27", "TTXD1_28", "TTXD1_29", "TTXD1_30", "TTXD1_31"]'>
+      </px-vis-radar>
+
+      <br />
+      <br />
+      <br />
+      <h3>Radar Chart with a category specified to color the lines</h3>
+      <px-vis-radar
+        width="1300"
+        height="800"
+        chart-data="[[chartData]]"
+        skip-keys='{"UnitNumber":true}'
+        series-key="TimeStamp"
+        category-key="DLN_MODE"
+        categories='[1,2,3,4]'
+        generate-axes-from-data
+      ></px-vis-radar>
+
+      <br />
+      <br />
+      <br />
+      <h3>Radar Chart with generated axes and developer specified keys to skip</h3>
+      <px-vis-radar
+        width="1300"
+        height="800"
+        chart-data="[[chartData]]"
+        series-config='{"TimeStamp": {"color": "rgb(255,0,0)"}}'
+        skip-keys='{"UnitNumber":true,"DLN_MODE":true,"DWATT":true,"TTXD1_31":true,"TTXD1_30":true,"TTXD1_29":true,"TTXD1_28":true,"TTXD1_27":true,"TTXD1_26":true,"TTXD1_25":true,"TTXD1_24":true,"TTXD1_23":true,"TTXD1_22":true,"TTXD1_21":true}'
+        series-key="TimeStamp"
+        generate-axes-from-data
+      ></px-vis-radar>
+
+      <br />
+      <br />
+      <br />
+      <h3>Radar Chart with three axes</h3>
+      <px-vis-radar
+        width="1300"
+        height="500"
+        margin='{
+              "left": -120,
+              "right": -120,
+              "top": 0,
+              "bottom": 0
+            }'
+        chart-data="[[chartData]]"
+        axes='["TTXD1_1", "TTXD1_2", "TTXD1_3"]'
+        series-key="TimeStamp"
+      ></px-vis-radar>
+
+      <br />
+      <br />
+      <br />
+      <h3>Radar Chart with 5 axes</h3>
+      <px-vis-radar
+        width="1300"
+        height="550"
+        muted-axes='{"TTXD1_2":true}'
+        chart-data="[[chartData]]"
+        skip-keys='{"TimeStamp":true}'
+        series-key="TimeStamp"
+        axes='["TTXD1_1", "TTXD1_2", "TTXD1_3", "TTXD1_4", "TTXD1_5"]'
+        render-to-svg
+      ></px-vis-radar>
+
+      <iron-ajax
+        url="../px-demo-data/demo-data/apm/timeseries_demo.json"
+        handle-as="json"
+        auto
+        last-response="{{chartData}}">
+      </iron-ajax>
+
+    </template>
+    </dom-bind>
+  </body>
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      var btnInc = document.getElementById('btnInc'),
+          btnDec = document.getElementById('btnDec'),
+          btnIH = document.getElementById('btnIH'),
+          btnDH = document.getElementById('btnDH'),
+          wrap = document.getElementById('wrap'),
+          chart = document.getElementById('chart'),
+          rangepicker = document.getElementById('rangepicker'),
+          btnSnap = document.getElementById('btnSnap'),
+          parall = document.getElementById('parall'),
+          navigator = document.getElementById('navigator'),
+          slider = document.getElementById('slider'),
+          sliderButton = document.getElementById('sliderButton'),
+          sliderChart = document.getElementById('sliderChart');
+
+      rangepicker.range = {"from":"2016-06-22T15:08:00Z","to":"2016-06-22T20:08:00.000Z"};
+
+      sliderButton.addEventListener('click', function() {
+        sliderChart.set('chartExtents', {'y': [slider.value , slider.endValue]});
+      });
+
+      btnSnap.addEventListener('click', function() {
+
+        //fetch svg+canvas from chart and svg
+        //from navigator and render them on a canvas
+        // var canvas = document.createElement('canvas'),
+        //         context,
+        //         chartCanvasContext = parall.canvasContext,
+        //         svgChart = parall.pxSvgElem,
+        //         svgNavigator = navigator.pxSvgElem,
+        //         count = 0;
+
+        // canvas.width = Math.max(chartCanvasContext.canvas.width, navigator.width);
+        // canvas.height = chartCanvasContext.canvas.height + navigator.height;
+        // context = canvas.getContext('2d');
+
+        // //render chart canvas
+        // context.drawImage(chartCanvasContext.canvas, 0, 0);
+
+        // //to be called when svg is done drawing
+        // var callback = function(res) {
+        //   if(count === 0) {
+        //     //first svg has rendered, wait for second one
+        //     count++;
+        //   } else {
+
+        //     //everything done
+        //     window.open().location = res.toDataURL("image/png");
+        //   }
+        parall.getImage(function(result) {
+            var img = document.createElement('img');
+            img.src= result.image;
+            document.body.appendChild(img);
+         //   window.open().location = result.image;
+          }, false);
+
+
+        //render chart svg and navigator svg
+        // parall._drawSVGOnCanvas(canvas, callback);
+        // navigator._drawSVGOnCanvas(canvas, callback, 0, parall.height);
+      });
+
+      btnInc.addEventListener('click', function() {
+        var width = window.getComputedStyle(wrap).getPropertyValue("width");
+        var cur = width.substr(0, width.length-2);
+        wrap.style['width'] = Number(cur) + 150 + 'px';
+        chart.notifyResize();
+      });
+
+      btnDec.addEventListener('click', function() {
+        var width = window.getComputedStyle(wrap).getPropertyValue("width");
+        var cur = width.substr(0, width.length-2);
+        wrap.style['width'] = Number(cur) - 150 + 'px';
+        chart.notifyResize();
+      });
+
+      btnIH.addEventListener('click', function() {
+
+        var width = window.getComputedStyle(wrap).getPropertyValue("height");
+        var cur = width.substr(0, width.length-2);
+        wrap.style['height'] = Number(cur) + 150 + 'px';
+        chart.notifyResize();
+      });
+
+      btnDH.addEventListener('click', function() {
+        var width = window.getComputedStyle(wrap).getPropertyValue("height");
+        var cur = width.substr(0, width.length-2);
+        wrap.style['height'] = Number(cur) - 150 + 'px';
+        chart.notifyResize();
+      });
+
+    });
+  </script>
+
+</html>

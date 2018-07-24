@@ -175,7 +175,9 @@ class PxPercentCircleOptions extends Component {
         autoHide={false}
       >
         <div className="display-options--cell-wrapper">
-          <h5 className="display-options--header">PX Percent Circle Controls</h5>
+          <h5 className="display-options--header">
+            PX Percent Circle Controls
+          </h5>
           <div className="thresholds-list">
             <button
               className="btn btn-sm btn-primary"
