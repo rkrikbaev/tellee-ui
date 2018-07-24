@@ -8,6 +8,7 @@ import SingleStatOptions from 'src/dashboards/components/SingleStatOptions'
 import AxesOptions from 'src/dashboards/components/AxesOptions'
 import TableOptions from 'src/dashboards/components/TableOptions'
 import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOptions'
+import PxKpiOptions from 'src/dashboards/components/PxKpiOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -54,6 +55,13 @@ class DisplayOptions extends Component {
         return <SingleStatOptions onResetFocus={onResetFocus} />
       case 'px-percent-circle':
         return <PxPercentCircleOptions onResetFocus={onResetFocus} />
+      case 'px-kpi':
+        return (
+          <PxKpiOptions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
       case 'table':
         return (
           <TableOptions

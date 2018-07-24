@@ -118,20 +118,15 @@ class PxPercentCircle extends Component {
     // const maxValue = Number(
     //   colors.find(color => color.type === COLOR_TYPE_MAX).value
     // )
-    // console.log("max"+JSON.stringify(colors))
 
     // const prefix = axes ? axes.y.prefix : ''
     const suffix = axes ? axes.y.suffix : ''
 
     const kpiMainValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
-    const kpiMainPreValue =
-      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 3]
-    if (kpiMainValue.y === null) {
-      kpiMainValue.y = 0
-    }
-    if (kpiMainPreValue.y === null) {
-      kpiMainPreValue.y = 0
+
+    if (kpiMainValue === undefined) {
+      return <InvalidData />
     }
 
     const {width, height} = this.state

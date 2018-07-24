@@ -3,19 +3,23 @@ import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 
+import _ from 'lodash'
 import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
+// *****************************************************
+// COMPONENT NOTES : showlegend is skark =  dark/light
+// *****************************************************
 
-// const validateTimeSeries = timeseries => {
-//   return _.every(timeseries, r =>
-//     _.every(
-//       r,
-//       (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
-//     )
-//   )
-// }
+const validateTimeSeries = timeseries => {
+  return _.every(timeseries, r =>
+    _.every(
+      r,
+      (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
+    )
+  )
+}
 
 @ErrorHandlingWith(InvalidData)
 class PxKpi extends Component {
@@ -35,10 +39,7 @@ class PxKpi extends Component {
 
   parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data, true)
-    // NEED FIX VALIDATOR!
-    // this.isValidData = validateTimeSeries(
-    //   _.get(this._timeSeries, 'timeSeries', [])
-    // )
+    this.isValidData = validateTimeSeries(_.get(this._timeSeries, 'x', []))
   }
 
   componentWillUpdate(nextProps) {
@@ -67,8 +68,8 @@ class PxKpi extends Component {
     const {
       // data,
       axes,
-      // title,
-      colors,
+      title,
+      // colors,
       // cellID,
       // onZoom,
       // queries,
@@ -82,7 +83,7 @@ class PxKpi extends Component {
       // isGraphFilled,
       // showSingleStat,
       // displayOptions,
-      // staticLegend,
+      staticLegend,
       // underlayCallback,
       // overrideLineColors,
       isFetchingInitially,
@@ -113,12 +114,21 @@ class PxKpi extends Component {
     // }
 
     const prefix = axes ? axes.y.prefix : ''
-    const suffix = axes ? axes.y.suffix : ''
+    const suffix = axes ? axes.y.suffix : '%'
 
     const kpiMainValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
     const kpiMainPreValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 3]
+
+    if (kpiMainValue === undefined) {
+      return <InvalidData />
+    }
+
+    if (kpiMainPreValue === undefined) {
+      return <InvalidData />
+    }
+
     if (kpiMainValue.y === null) {
       kpiMainValue.y = 0
     }
@@ -146,7 +156,7 @@ class PxKpi extends Component {
 
     let sparkAreaBg = '#ffffff50'
     let pkTextColor = '#ffffff'
-    if (colors[0].name === 'Ectoplasm') {
+    if (staticLegend) {
       sparkAreaBg = '#646f8880'
       pkTextColor = '#3c475f'
     }
@@ -171,14 +181,14 @@ class PxKpi extends Component {
             spark-type="line"
             spark-width={sparkWidth}
             spark-height={sparkHeight}
-            title="title"
-            value={`${kpiMainValue.y.toFixed(2)} ${suffix}`}
-            uom={prefix}
+            title={title}
+            value={`${kpiMainValue.y.toFixed(2)} ${prefix}`}
+            uom={title}
             status-icon={
               kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
             }
             status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red'}
-            status-label={`${kpiChangePerc}%`}
+            status-label={`${kpiChangePerc}${suffix}`}
             spark-data={JSON.stringify(timeSeries.jsonflatten)}
           />
         </CustomProperties>

@@ -63,14 +63,20 @@ export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
 
   let sliceArr = 0
   if (limitOutputForKpi) {
-    sliceArr = tableData.length - 30
+    if (tableData.length > 30) {
+      sliceArr = tableData.length - 30
+    }
   } // get max last 30 records for KPI
 
   tableData.slice(sliceArr).forEach(function(_value) {
     const map1 = {}
     if (limitOutputForKpi) {
       map1.x = _value[0]
-      map1.y = _value[1]
+      let yval = _value[1]
+      if (yval === null) {
+        yval = 0
+      }
+      map1.y = yval
     } else {
       _value.forEach(function(_row, _idx) {
         if (labels[_idx] === 'time') {
