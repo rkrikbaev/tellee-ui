@@ -83,7 +83,7 @@ class DashboardsPageContents extends Component {
             <div className="col-md-12">
               <div className="panel-body">
                 <span>
-                  Version info: <strong>beta 1</strong>
+                  Version info: <strong>beta 2</strong>
                 </span>
               </div>
             </div>

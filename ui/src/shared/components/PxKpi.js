@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
 
 import _ from 'lodash'
 import CustomProperties from 'react-custom-properties'
@@ -38,7 +38,7 @@ class PxKpi extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data, true)
+    this._timeSeries = timeSeriesToPxKpi(data)
     this.isValidData = validateTimeSeries(_.get(this._timeSeries, 'x', []))
   }
 
@@ -117,9 +117,9 @@ class PxKpi extends Component {
     const suffix = axes ? axes.y.suffix : '%'
 
     const kpiMainValue =
-      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
     const kpiMainPreValue =
-      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 3]
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
 
     if (kpiMainValue === undefined) {
       return <InvalidData />

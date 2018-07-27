@@ -48,7 +48,85 @@ export const timeSeriesToTableGraph = raw => {
   }
 }
 
-export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
+// function *flatEntries(map) {
+//   for (let [k, v] of map) {
+//     yield k;
+//     yield v;
+//   }
+// }
+
+export const timeSeriesToPxSeries = (raw = []) => {
+  const isTable = true
+  const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
+    raw,
+    isTable
+  )
+
+  const timeCorrectionGlitch = 21600000
+
+  const regexEvent = /color:(.*?),icon:(.*?),text:(.*?)$/
+
+  let labels = ['time', ...map(sortedLabels, ({label}) => label)]
+
+  let _labels = labels // copy labels
+
+  const tableData = map(sortedTimeSeries, ({time, values}) => [time, ...values])
+
+  const timeSeries = {jsonflatten: []}
+
+  const sliceArr = 0
+
+  const eventsData = []
+  const eventsConfig = {}
+
+  tableData.slice(sliceArr).forEach(function(_value) {
+    const map1 = {}
+    _value.forEach(function(_row, _idx) {
+      const currentLabel = labels[_idx]
+      if (currentLabel.endsWith('.eventInfo') && _row !== null) {
+        //
+        _labels = _labels.filter(e => e !== currentLabel) // HAHAHA
+        const parsedEvent = regexEvent.exec(_row)
+        if (parsedEvent !== null) {
+          const eventText = parsedEvent[3]
+          eventsData.push({
+            time: _value[0] + timeCorrectionGlitch,
+            label: eventText,
+          })
+          eventsConfig[eventText] = {
+            color: `${parsedEvent[1]}`,
+            type: 'fa',
+            icon: `${parsedEvent[2]}`,
+            offset: [0, 0],
+            lineWeight: 6,
+            size: 24,
+          }
+        }
+      } else if (currentLabel === 'time') {
+        map1.timeStamp = _row + timeCorrectionGlitch // tempopary fix
+      } else {
+        if (_row === null) {
+          _row = 0
+        }
+        map1[labels[_idx]] = _row
+      }
+    })
+    timeSeries.jsonflatten.push(map1)
+  })
+
+  labels = _labels
+
+  return {
+    timeSeries,
+    sortedLabels,
+    tableData,
+    labels,
+    eventsData,
+    eventsConfig,
+  }
+}
+
+export const timeSeriesToPxKpi = (raw = []) => {
   const isTable = true
   const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
     raw,
@@ -62,33 +140,18 @@ export const timeSeriesToPxSeries = (raw = [], limitOutputForKpi) => {
   const timeSeries = {jsonflatten: []}
 
   let sliceArr = 0
-  if (limitOutputForKpi) {
-    if (tableData.length > 30) {
-      sliceArr = tableData.length - 30
-    }
-  } // get max last 30 records for KPI
+  if (tableData.length > 30) {
+    sliceArr = tableData.length - 30
+  }
 
   tableData.slice(sliceArr).forEach(function(_value) {
     const map1 = {}
-    if (limitOutputForKpi) {
-      map1.x = _value[0]
-      let yval = _value[1]
-      if (yval === null) {
-        yval = 0
-      }
-      map1.y = yval
-    } else {
-      _value.forEach(function(_row, _idx) {
-        if (labels[_idx] === 'time') {
-          map1.timeStamp = _row + 21600000 // tempopary fix
-        } else {
-          if (_row === null) {
-            _row = 0
-          }
-          map1[labels[_idx]] = _row
-        }
-      })
+    map1.x = _value[0]
+    let yval = _value[1]
+    if (yval === null) {
+      yval = 0
     }
+    map1.y = yval
     timeSeries.jsonflatten.push(map1)
   })
 

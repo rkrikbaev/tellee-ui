@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
@@ -39,7 +39,7 @@ class PxPercentCircle extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data, true)
+    this._timeSeries = timeSeriesToPxKpi(data)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])

@@ -32,7 +32,7 @@ class PxTimeseries extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data, false)
+    this._timeSeries = timeSeriesToPxSeries(data)
     // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
@@ -87,7 +87,7 @@ class PxTimeseries extends Component {
       // handleSetHoverTime,
     } = this.props
 
-    const {labels, timeSeries} = this._timeSeries
+    const {labels, timeSeries, eventsData, eventsConfig} = this._timeSeries
 
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
@@ -106,6 +106,7 @@ class PxTimeseries extends Component {
         map2.x = 'timeStamp'
         map2.y = _label
         map2.yAxisUnit = suffix
+        map2.mutedOpacity = '0'
         map2.color = colors[key - 1] ? colors[key - 1].hex : '#EFEFEF'
         pxSeriesConfig += `"${_label}":${JSON.stringify(map2)}`
         if (Object.is(arr.length - 1, key)) {
@@ -118,6 +119,13 @@ class PxTimeseries extends Component {
 
     const {width, height} = this.state
 
+    let disableNavigator = false
+    let _height = height - 250
+    if (height < 400) {
+      disableNavigator = true
+      _height = height - 110
+    }
+
     return (
       <div
         style={{height: '100%'}}
@@ -128,22 +136,25 @@ class PxTimeseries extends Component {
         <px-vis-timeseries
           debounce-resize-timing="60"
           width={width}
-          height={height - 250}
+          height={_height}
           prevent-resize="true"
           chart-horizontal-alignment="center"
           chart-vertical-alignment="center"
-          margin="{&quot;top&quot;:30,&quot;bottom&quot;:60,&quot;left&quot;:65,&quot;right&quot;:65}"
+          margin="{&quot;top&quot;:30,&quot;bottom&quot;:40,&quot;left&quot;:50,&quot;right&quot;:35}"
           tooltip-config="{}"
           register-config="{&quot;type&quot;:&quot;horizontal&quot;}"
           selection-type="xy"
+          show-tooltip="true"
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
           series-config={pxSeriesConfig}
+          event-config={JSON.stringify(eventsConfig)}
+          event-data={JSON.stringify(eventsData)}
+          {...(disableNavigator ? {'disable-navigator': true} : {})}
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
           x-axis-config="{&quot;title&quot;:&quot;TimeStamp&quot;}"
           // y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
-          toolbar-config="{&quot;config&quot;:{&quot;advancedZoom&quot;:true,&quot;pan&quot;:true,&quot;tooltip&quot;:true,&quot;logHover&quot;:{&quot;buttonGroup&quot;:2,&quot;tooltipLabel&quot;:&quot;The submenu item of this menu will define custom mouse interaction&quot;,&quot;icon&quot;:&quot;px-nav:notification&quot;,&quot;subConfig&quot;:{&quot;customClick&quot;:{&quot;icon&quot;:&quot;px-nav:expand&quot;,&quot;buttonGroup&quot;:3,&quot;tooltipLabel&quot;:&quot;define some custom mouse interactions on chart&quot;,&quot;eventName&quot;:&quot;my-custom-click&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:&quot;function(mousePos) { console.log(\&quot;custom click on chart. Context is the chart. Mouse pos is available: \&quot; + JSON.stringify(mousePos))}&quot;,&quot;mouseup&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse up the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mouseout&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse out the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mousemove&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on hovering the chart \&quot;);}&quot;}},&quot;customClick2&quot;:{&quot;buttonGroup&quot;:3,&quot;icon&quot;:&quot;px-nav:collapse&quot;,&quot;tooltipLabel&quot;:&quot;Remove all custom interactions&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:null,&quot;mouseup&quot;:null,&quot;mouseout&quot;:null,&quot;mousemove&quot;:null}}}}}}"
-          navigator-config="{&quot;xAxisConfig&quot;:{&quot;tickFormat&quot;:&quot;%b %d&quot;}}"
+          // toolbar-config="{&quot;config&quot;:{&quot;advancedZoom&quot;:true,&quot;pan&quot;:true,&quot;tooltip&quot;:true,&quot;logHover&quot;:{&quot;buttonGroup&quot;:2,&quot;tooltipLabel&quot;:&quot;The submenu item of this menu will define custom mouse interaction&quot;,&quot;icon&quot;:&quot;px-nav:notification&quot;,&quot;subConfig&quot;:{&quot;customClick&quot;:{&quot;icon&quot;:&quot;px-nav:expand&quot;,&quot;buttonGroup&quot;:3,&quot;tooltipLabel&quot;:&quot;define some custom mouse interactions on chart&quot;,&quot;eventName&quot;:&quot;my-custom-click&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:&quot;function(mousePos) { console.log(\&quot;custom click on chart. Context is the chart. Mouse pos is available: \&quot; + JSON.stringify(mousePos))}&quot;,&quot;mouseup&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse up the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mouseout&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse out the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mousemove&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on hovering the chart \&quot;);}&quot;}},&quot;customClick2&quot;:{&quot;buttonGroup&quot;:3,&quot;icon&quot;:&quot;px-nav:collapse&quot;,&quot;tooltipLabel&quot;:&quot;Remove all custom interactions&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:null,&quot;mouseup&quot;:null,&quot;mouseout&quot;:null,&quot;mousemove&quot;:null}}}}}}"
         />
         <ReactResizeDetector
           handleWidth={true}

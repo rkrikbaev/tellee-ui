@@ -32,7 +32,7 @@ class PxRadar extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data, false)
+    this._timeSeries = timeSeriesToPxSeries(data)
     // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])

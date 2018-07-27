@@ -34,7 +34,7 @@ class PxGantt extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data, true)
+    this._timeSeries = timeSeriesToPxSeries(data)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
