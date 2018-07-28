@@ -18,6 +18,8 @@
     "px-percent-circle": "^1.1.1",
     "px-vis-timeseries": "^4.0.1",
     "px-kpi": "^5.0.0",
-    "px-vis-radar": "^4.0.1"
+    "px-vis-radar": "^4.0.1",
+    "px-inbox": "^2.3.5",
+    "px-key-value-pair": "^2.0.0"
   }
 }

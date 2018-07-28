@@ -13,3 +13,4 @@ bower_components/*
 !bower_components/px-percent-circle/
 !bower_components/px-vis-timeseries/
 !bower_components/px-vis-radar/
+!bower_components/px-inbox/
