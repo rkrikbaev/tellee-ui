@@ -30,7 +30,8 @@ $panel-gutter: 30px;
 }
 
 .panel-body {
-  background-color: $g3-castle;
+  // background-color: $g3-castle;
+  background-color: var(--zsse-cell-bg);
   padding: $panel-gutter;
 
   .panel-heading + &,

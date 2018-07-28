@@ -49,6 +49,8 @@ export enum CellType {
   PxKpi = 'px-kpi',
   PxGantt = 'px-gantt',
   PxRadar = 'px-radar',
+  PxInbox = 'px-inbox',
+  PxMstat = 'px-mstat',
 }
 
 // corresponds to DashboardQuery on the backend

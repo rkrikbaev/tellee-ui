@@ -15,6 +15,8 @@ import PxTimeSeries from 'shared/components/PxTimeseries'
 import PxKpi from 'shared/components/PxKpi'
 import PxGantt from 'shared/components/PxGantt'
 import PxRadar from 'shared/components/PxRadar'
+import PxMstat from 'shared/components/PxMstat'
+import PxInbox from 'shared/components/PxInbox'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -32,6 +34,8 @@ const RefreshingPxTimeseries = AutoRefresh(PxTimeSeries)
 const RefreshingPxKpi = AutoRefresh(PxKpi)
 const RefreshingPxGantt = AutoRefresh(PxGantt)
 const RefreshingPxRadar = AutoRefresh(PxRadar)
+const RefreshingPxMstat = AutoRefresh(PxMstat)
+const RefreshingPxInbox = AutoRefresh(PxInbox)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -208,6 +212,56 @@ const RefreshingGraph = ({
   if (type === 'px-gantt') {
     return (
       <RefreshingPxGantt
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
+  if (type === 'px-inbox') {
+    return (
+      <RefreshingPxInbox
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
+  if (type === 'px-mstat') {
+    return (
+      <RefreshingPxMstat
         type={type}
         axes={axes}
         cellID={cellID}

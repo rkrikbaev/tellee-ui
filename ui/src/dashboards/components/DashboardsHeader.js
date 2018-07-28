@@ -1,5 +1,5 @@
 import React from 'react'
-
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 import SourceIndicator from 'shared/components/SourceIndicator'
 
 const DashboardsHeader = () => (
@@ -10,6 +10,7 @@ const DashboardsHeader = () => (
       </div>
       <div className="page-header__right">
         <SourceIndicator />
+        <ThemeColorDropdown />
       </div>
     </div>
   </div>

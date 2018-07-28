@@ -13,7 +13,7 @@ $template-control-dropdown-max-width: 300px;
 .template-control-bar {
   position: relative;
   display: none;
-  background-color: $g3-castle;
+  background-color: #b2babf;
 
   &.show {
     display: block;
@@ -28,7 +28,7 @@ $template-control-dropdown-max-width: 300px;
     width: calc(100% - 16px);
     height: 16px;
     pointer-events: none;
-    @include gradient-v($g2-kevlar, fade-out($g2-kevlar, 1));
+    // @include gradient-v($g2-kevlar, fade-out($g2-kevlar, 1));
   }
 }
 .template-control--container {

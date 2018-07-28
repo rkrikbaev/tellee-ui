@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import classnames from 'classnames'
 import OnClickOutside from 'shared/components/OnClickOutside'
-
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import cookie from 'react-cookies'
 import CustomProperties from 'react-custom-properties'
 
 const ThemeMenuItems = [
@@ -38,7 +38,7 @@ class ThemeColorDropdown extends Component {
     super(props)
     this.state = {
       isOpen: false,
-      selectedTheme: 'light',
+      selectedTheme: cookie.load('selectedTheme') || 'light',
     }
   }
 
@@ -49,6 +49,7 @@ class ThemeColorDropdown extends Component {
   handleSelection = themeName => () => {
     this.setState({isOpen: false})
     this.setState({selectedTheme: themeName})
+    cookie.save('selectedTheme', themeName, {path: '/'})
   }
 
   toggleMenu = () => this.setState({isOpen: !this.state.isOpen})
@@ -65,6 +66,7 @@ class ThemeColorDropdown extends Component {
         <CustomProperties
           global={true}
           properties={{
+            // REORGANIZE THIS !!!!!!!!!!!
             '--zsse-branding-color': currentTheme.bradingColor,
             '--zsse-resize-control': currentTheme.resizeControl,
             '--zsse-header-text-color': currentTheme.headerTextColor,
@@ -108,7 +110,7 @@ class ThemeColorDropdown extends Component {
             className="btn btn-sm btn-warning dropdown-toggle"
             onClick={this.toggleMenu}
           >
-            <span className={classnames('icon', 'refresh')} />
+            <span className={classnames('icon', 'eye-open')} />
             <span className="dropdown-selected">{selectedTheme}</span>
             <span className="caret" />
           </div>
