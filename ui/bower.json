@@ -20,7 +20,8 @@
     "px-kpi": "^5.0.0",
     "px-vis-radar": "^4.0.1",
     "px-inbox": "^2.3.5",
-    "px-key-value-pair": "^2.0.0"
+    "px-key-value-pair": "^2.0.0",
+    "px-gauge": "^2.3.0"
   },
   "devDependencies": {
     "px-colors-design": "^1.0.8",

@@ -5,5 +5,6 @@ declare namespace JSX {
     'px-vis-radar': any
     'px-kpi': any
     'px-inbox': any
+    'px-gauge': any
   }
 }

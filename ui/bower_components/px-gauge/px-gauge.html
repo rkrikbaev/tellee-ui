@@ -1,0 +1,571 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+  Relative paths assume component is being run from inside an app or another component, where dependencies are flat
+  siblings. When this component is run from its own repo (e.g. tests, examples), we assume the server is started with
+  'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
+-->
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="css/px-gauge-styles.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html" />
+<link rel="import" href="../px-vis/px-vis-behavior-common.html"/>
+<link rel="import" href="../px-d3-imports/px-d3-imports-step-one.html"/>
+<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
+
+<!--
+
+### Usage
+
+Simple
+
+    <px-gauge value="10"></px-gauge>
+
+Advanced
+
+    <px-gauge value="30"
+        min="0"
+        max="100"
+        bar-width="0"
+        unit="unit"
+        error="[ [0, 12], [79, 100] ]"
+        abnormal="[  [12, 32], [68, 79]  ]"
+        anomaly="[ [32, 45],  [54, 68]  ]"
+        normal="[ [45, 54] ]">
+    </px-gauge>
+
+### Styling
+  The following custom properties are available for styling.
+
+Custom property | Description
+----------------|-------------
+`--px-gauge-fill-error-color` | Color of the gauge fill in error state
+`--px-gauge-fill-anomaly-color` | Color of the gauge fill in anomaly state
+`--px-gauge-fill-abnormal-color` | Color of the gauge fill in abnormal state
+`--px-gauge-fill-normal-color` | Color of the gauge fill in normal state
+`--px-gauge-empty-color` | Color of the gauge background
+`--px-gauge-needle-color` | Color of the gauge needle
+
+@element px-gauge
+@homepage index.html
+@demo index.html
+-->
+
+<dom-module id="px-gauge">
+  <template>
+    <style include="px-gauge-styles"></style>
+    <div id="chart">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        id="chartSVG">
+        <g id="chartG">
+          <path class="arc chart-filled"></path>
+          <path class="arc chart-empty"></path>
+          <path class="needle" transform="rotate(-180)"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="text-wrapper text--center">
+      <span class="text-value">{{_valueOfProcess}}</span>
+      <span class="text-unit">{{unit}}</span>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'px-gauge',
+
+    behaviors: [
+      PxVisBehavior.sizing,
+      PxVisBehavior.svgDefinition,
+      Polymer.IronResizableBehavior
+    ],
+
+    /**
+     * Properties block, expose attribute values to the DOM via 'reflect'
+     *
+     * @property properties
+     * @type Object
+     */
+    properties: {
+      /**
+       * Current value of the gauge.
+       * @property value
+       * @type {Number}
+       * @default `0`
+       */
+      value: {
+        type: Number,
+        value: 0
+      },
+
+      /**
+       * Array of error ranges, expressed as pairs of numbers (not percentages).
+       * If current value belongs to an error range, state of filled gauge bar will be changed to error and color of error state will be applied to filled bar.
+       * @property error
+       * @type {Array}
+       * @default `[]`
+       *
+       */
+      error: {
+        type: Array,
+        value: function() {
+          return [];
+        },
+        notify: true,
+        observer: '_changeFilledGaugeBarState'
+      },
+
+      /**
+       * Array of anomaly ranges, expressed as pairs of numbers (not percentages).
+       * If current value belongs to an anomaly range, state of filled gauge bar will be changed to anomaly and color of anomaly state will be applied to filled bar
+       * @type {Array}
+       * @default `[]`
+       */
+      anomaly: {
+        type: Array,
+        value: function() {
+          return [];
+        },
+        notify: true,
+        observer: '_changeFilledGaugeBarState'
+      },
+
+      /**
+       * Array of abnormal ranges, expressed as pairs of numbers (not percentages).
+       * If current value belongs to an abnormal range, state of filled gauge bar will be changed to abnormal and color of abnormal state will be applied to filled bar
+       * @property abnormal
+       * @type {Array}
+       * @default `[]`
+       */
+      abnormal: {
+        type: Array,
+        value: function() {
+          return [];
+        },
+        notify: true,
+        observer: '_changeFilledGaugeBarState'
+      },
+
+      /**
+       * Array of normal ranges, expressed as pairs of numbers (not percentages).
+       * If current value belongs to a normal range, state of filled gauge bar will be changed to normal and color of normal state will be applied to filled bar
+       * @property normal
+       * @type {Array}
+       * @default `[[0, 100]]`
+       */
+      normal: {
+        type: Array,
+        value: function() {
+          return [[0, 100]];
+        },
+        notify: true,
+        observer: '_changeFilledGaugeBarState'
+      },
+
+      /**
+       * List of states that can apply to filled gauge bar. Private, since the 4 corresponding properties are currently fixed.
+       * @property _states
+       * @type {Array}
+       * @default `['error', 'abnormal', 'anomaly', 'normal']`
+       */
+      _states: {
+        type: Array,
+        value: function() {
+          return ['error', 'abnormal', 'anomaly', 'normal'];
+        },
+        notify: true,
+        observer: '_changeFilledGaugeBarState'
+      },
+
+      /**
+       * Minimum value
+       * @property min
+       * @type {Number}
+       * @default `0`
+       */
+      min: {
+        type: Number,
+        value: 0
+      },
+
+      /**
+       * Maximum value
+       * @property max
+       * @type {Number}
+       * @default `100`
+       */
+      max: {
+        type: Number,
+        value: 100
+      },
+
+      /**
+       * Unit label to display next to the gauge value.
+       * @property unit
+       * @type {String}
+       * @default `unit`
+       */
+      unit: {
+        type: String,
+        value: ''
+      },
+
+      /**
+       * This property is use for display the changing of value number
+       * @property _valueOfProcess
+       * @type {Number}
+       * @default `0`
+       */
+      _valueOfProcess: {
+        type: Number,
+        value: 0,
+        notify: true
+      },
+
+      /**
+       * Width of gauge bar. This property also impacts the size of the text labels.
+       * If value of barWidth is 0, barWidth will be calculated based off the width of the gauge.
+       * @property barWidth
+       * @type {Number}
+       * @default `0`
+       */
+      barWidth: {
+        type: Number,
+        value: 0,
+        notify: true
+      },
+
+      _actualBarWidth: {
+        type: Number,
+        computed: '_computeActualBarWidth(barWidth, width)',
+        observer: '_barWidthChanged'
+      },
+
+      /**
+       * Percent of input value base on min and max value
+       * @property _calculatedValue
+       * @type {Number}
+       * @default `0`
+       */
+      _calculatedValue: {
+        type: Number,
+        value: 0,
+        computed: '_computeValue(value, min, max)',
+        observer: '_valueChanged'
+      },
+
+      /**
+       * Margin between SVG and parent node
+       * @property margin
+       * @type {Object}
+       * @default `0`
+       */
+      margin: {
+        type: Object,
+        value: function() {
+          return {
+            top: 0,
+            right: 0,
+            bottom: 10,
+            left: 0
+          }
+        }
+      },
+      /**
+      * Prevents the chart from automatically resizing to fit its container
+      * @property preventResize
+      * @type Boolean
+      * @default false
+      */
+      preventResize: {
+        type: Boolean,
+        value: false
+      },
+
+      _filledBarArc: {
+        type: Object
+      },
+
+      _emptyBarArc: {
+        type: Object
+      },
+
+      _targetPerc: {
+        type: Number,
+        value: 0
+      }
+    },
+
+    observers: [
+      '_drawChart(width, height, _chart)'
+    ],
+
+    listeners: {
+      'iron-resize': '_onIronResize'
+    },
+
+    attached: function() {
+      this.set('svg', Px.d3.select(this.$$('#chartSVG')));
+      this.set('_chart', this.svg.select('#chartG'));
+      this.notifyResize();
+    },
+
+    /**
+     * Resizes the chart based on a container resize if prevent-resize is false (default)
+     *
+     * Can also be called manually to force a chart resize to container.
+     */
+    _onIronResize: function() {
+      this.debounce('ironresize', function() {
+         if(!this.preventResize) {
+           var wrapperRect = this.$.chart.getBoundingClientRect();
+
+          if (!wrapperRect.width) {
+            // If no height, toss this back and wait for the next animation frame
+            // to try again.
+            window.requestAnimationFrame(function() {
+              this.async(this.notifyResize, 1);
+            }.bind(this));
+            return;
+          }
+
+          this.set('width', Math.max(wrapperRect.width,0));
+          this.set('height', this.width/2);
+         }
+      },100);
+    },
+
+    /**
+     * Calculate percentage of input value base on min and max value
+     * @private
+     * @method _computeValue
+     * @return {Number} - The number will be used to calculate needle position
+     */
+    _computeValue: function() {
+      return ((this.value - this.min) / (this.max - this.min));
+    },
+
+    _computeActualBarWidth: function(barWidth, width) {
+      return parseInt(parseInt(this.barWidth || 0) || (50 * this.width / 300));
+    },
+
+    /**
+     * Select elements and convert them to D3 element object
+     * @private
+     * @method _d3Select
+     * @param {String} selector - a valid CSS selector
+     * @return {Object} - D3 element object
+     */
+    _d3Select: function(selector) {
+      return Px.d3.select(this.$$(selector));
+    },
+
+    /**
+     * Convert from percentage to degree
+     * @private
+     * @method _percToDeg
+     * @param {Number} perc - percentage
+     * @return {Number} - The number which is converted from percentage to degree
+     */
+    _percToDeg: function(perc) {
+      return perc * 360;
+    },
+
+    /**
+     * Convert from percentage to radian
+     * @private
+     * @method _percToRad
+     * @param {Number} perc - percentage
+     * @return {Number} - The number which is converted from percentage to radian
+     */
+    _percToRad: function(perc) {
+      return this._degToRad(this._percToDeg(perc));
+    },
+
+    /**
+     * Convert from degree to radian
+     * @private
+     * @method _degToRad
+     * @param {Number} deg - degree
+     * @return {Number} - The number which is converted from degree to radian
+     */
+    _degToRad: function(deg) {
+      return deg * Math.PI / 180;
+    },
+
+    /**
+     * Change position of needle and update gauge bars follow _calculatedValue
+     * @private
+     * @method _valueChanged
+     */
+    _valueChanged: function() {
+      this._chart && this._moveTo(this._calculatedValue);
+    },
+
+    /**
+     * Re-render gauge bars with new bar width
+     * @private
+     * @method _barWidthChanged
+     */
+    _barWidthChanged: function() {
+      this._drawChart();
+      this._chart && this._moveTo(this._calculatedValue);
+    },
+
+    /**
+     * @method _drawChart
+     * draws _chart. Debounced.
+     */
+    _drawChart: function() {
+      if(this.svg) {
+        // multiple calls to _drawChart need to be debounced
+        this.debounce('_drawChartDebounced', function() {
+          this._drawChartDebounced();
+          this._moveTo(this._calculatedValue);
+        }, 310);
+      }
+    },
+
+    /**
+     * Calculate element attributes and append require elements to main element
+     * @private
+     * @method _renderChart
+     */
+    _drawChartDebounced: function() {
+      this.svg.attr("width", this.width + this.margin.left + this.margin.right);
+      this.svg.attr("height", this.height + this.margin.top + this.margin.bottom);
+      this._chart.attr('transform', "translate(" + ((this.width + this.margin.left) / 2) + ", " + ((this.height + this.margin.top)) + ")");
+
+      this._calculateGaugeBarsArc();
+      this._adjustFontSize();
+      this._generateNeedlePath();
+    },
+
+    /**
+     * Calculate gauge bars radius and size, then append them to main element
+     * @private
+     * @method _calculateGaugeBarsArc
+     */
+    _calculateGaugeBarsArc: function() {
+      var radius   = this.width / 2,
+        chartInset = 10;
+
+      this._filledBarArc = Px.d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - this._actualBarWidth);
+      this._emptyBarArc = Px.d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - this._actualBarWidth);
+    },
+
+    /**
+     * Generate needle paths
+     * @private
+     * @method _generateNeedlePath
+     */
+    _generateNeedlePath: function() {
+      this._chart.select('.needle')
+        .attr('d', "M 0.114 -" + (this.width / 60) + " c 0 0 0.298 1.273 " + ((this.width / 2) - 10) + " " + (this.width / 90) + " c 1.071 0.06 1.091 1.233 -0.035 " + (this.width / 80) + " C " + ((this.width / 2) - 10) + " 1.876 1.683 " + (this.width / 60) + " 0.114 " + (this.width / 60) + " Z");
+    },
+
+    /**
+     * Adjust font-size of number and unit label base on bar width
+     * @private
+     * @method _adjustFontSize
+     */
+    _adjustFontSize: function() {
+      this._d3Select('.text-value').style('font-size', this._actualBarWidth + 'px');
+      this._d3Select('.text-unit').style('font-size', (this._actualBarWidth * 0.8333) + 'px');
+    },
+
+    /**
+     * Calculate start and end radian of gauge bars.
+     * @private
+     * @method _repaintGauge
+     */
+    _repaintGauge: function() {
+      var nextStart = .75;
+      var arcStartRad = this._percToRad(nextStart);
+      var arcEndRad = arcStartRad + this._percToRad(this._currentPerc / 2);
+
+      this._filledBarArc.startAngle(arcStartRad).endAngle(arcEndRad);
+
+      nextStart += this._currentPerc / 2;
+      arcStartRad = this._percToRad(nextStart);
+      arcEndRad = arcStartRad + this._percToRad((1 - this._currentPerc) / 2);
+      this._emptyBarArc.startAngle(arcStartRad).endAngle(arcEndRad);
+
+      this._chart.select(".chart-filled").attr('d', this._filledBarArc);
+      this._chart.select(".chart-empty").attr('d', this._emptyBarArc);
+
+      this._changeFilledGaugeBarState();
+    },
+
+    /**
+     * Check which state can be applied to filled gauge bar by current value
+     * @private
+     * @method _changeFilledGaugeBarColor
+     */
+    _changeFilledGaugeBarState: function() {
+      this._chart && this._states && this._states.forEach((function(state) {
+        var isMatched = false;
+        var ranges = this[state];
+
+      if(ranges) {
+          for (var i = 0; i < ranges.length; i++) {
+            var range = ranges[i];
+            if (!isMatched) {
+              isMatched = (this.value > range[0] && this.value <= range[1]);
+            }
+          }
+          this._chart.select(".chart-filled").classed(state, isMatched);
+      }
+      }).bind(this));
+    },
+
+    /**
+     * Change position of needle base on _calculatedValue
+     * @private
+     * @method _moveTo
+     */
+    _moveTo: function(targetPerc) {
+      if(this._filledBarArc && this._emptyBarArc) {
+        targetPerc = targetPerc || 0;
+
+        if (targetPerc > 1) return;
+
+        var scale = Px.d3.scaleLinear().range([0, 1]).domain([0, 1]);
+        var oldPerc = this._targetPerc;
+
+        this._chart.transition()
+          .delay(100)
+          .ease(Px.d3.easeCubic)
+          .duration(800)
+          .select('.needle')
+          .tween('progress', (function() {
+            return (function(percentOfPercent) {
+              this._currentPerc = oldPerc + percentOfPercent * (targetPerc - oldPerc);
+              this.set('_valueOfProcess', (percentOfPercent == 1 ? this.value : parseInt(this.min + (this._currentPerc * (this.max - this.min)))) || 0);
+              this._repaintGauge();
+              return this._d3Select('.needle').attr('transform', "rotate(" + (-180 + (scale(this._currentPerc) * 180 )) + ")");
+            }).bind(this);
+          }).bind(this))
+          .on("end", function() {
+            this.set('_targetPerc', targetPerc);
+          }.bind(this));
+      }
+    }
+  });
+</script>
