@@ -13,6 +13,8 @@ const ThemeMenuItems = [
     resizeControl: 'inline',
     headerTextColor: '#eeeeee',
     cellBgColor: '',
+    formsBg: '#202028',
+    formsColor: '#d4d7dd',
   },
   {
     themeName: 'light',
@@ -21,6 +23,8 @@ const ThemeMenuItems = [
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
     cellBgColor: 'linear-gradient(#ebedee80, #fdfbfb80)',
+    formsBg: '#d4d7dd',
+    formsColor: '#202028',
   },
   {
     themeName: 'very light',
@@ -29,6 +33,8 @@ const ThemeMenuItems = [
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
     cellBgColor: '#ffffff',
+    formsBg: '#d4d7dd',
+    formsColor: '#202028',
   },
 ]
 
@@ -71,6 +77,8 @@ class ThemeColorDropdown extends Component {
             '--zsse-resize-control': currentTheme.resizeControl,
             '--zsse-header-text-color': currentTheme.headerTextColor,
             '--zsse-cell-bg': currentTheme.cellBgColor,
+            '--zsse-form-bg': currentTheme.formsBg,
+            '--zsse-form-color': currentTheme.formsColor,
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#3c475f',
             '--px-percent-circle-text-color': '#3c475f',

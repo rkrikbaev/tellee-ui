@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
 
 // import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
@@ -34,7 +34,7 @@ class PxMstat extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data)
+    this._timeSeries = timeSeriesToPxKpi(data)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
@@ -66,7 +66,7 @@ class PxMstat extends Component {
 
     const {
       // data,
-      // axes,
+      axes,
       // title,
       // colors,
       // cellID,
@@ -89,7 +89,7 @@ class PxMstat extends Component {
       // handleSetHoverTime,
     } = this.props
 
-    const {labels, timeSeries} = this._timeSeries
+    const {labels, tableData} = this._timeSeries
 
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
@@ -112,9 +112,17 @@ class PxMstat extends Component {
     //   connectSeparatedPoints: true,
     // }
 
-    // const prefix = axes ? axes.y.prefix : ''
+    const prefix = axes ? axes.y.prefix : ''
+    // prefix is icon list with comma separated delim.
+    const prefixArray = prefix.split(',')
+    const iconsArray = []
+    prefixArray.forEach(key => {
+      iconsArray.push(key)
+    })
     // const suffix = axes ? axes.y.suffix : ''
+    const _labels = labels.filter(e => e !== 'time')
 
+    const cols = `col-md-${12 / _labels.length} tile_stats_count`
     return (
       <div
         style={{height: '100%'}}
@@ -122,29 +130,36 @@ class PxMstat extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
 
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-4">
-              <div className="tile purple">
-                <p>Hello Purple, this is a colored tile.</p>
-                <h3 className="title">30</h3>
+        <div className="row tile_count">
+          {_labels.map((value, key) => (
+            <div className={cols} key={key}>
+              <span className="count_top">
+                <px-icon
+                  className="icon"
+                  icon={
+                    typeof iconsArray[key] === 'undefined'
+                      ? 'px-utl:attribute'
+                      : iconsArray[key]
+                  }
+                />{' '}
+                {value}
+              </span>
+              <div className="count">
+                {tableData[0][key + 1] === null
+                  ? '0'
+                  : tableData[0][key + 1].toFixed(2)}
               </div>
+              <span className="count_bottom">
+                <i className="green">
+                  {tableData[1][key + 1] === null
+                    ? '0'
+                    : tableData[1][key + 1].toFixed(2)}
+                </i>{' '}
+                prev. value
+              </span>
             </div>
-            <div className="col-sm-4">
-              <div className="tile red">
-                <p>Hello Red, this is a colored tile.</p>
-                <h3 className="title">6776</h3>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="tile orange">
-                <p>Hello Orange, this is a colored tile.</p>
-                <h3 className="title">0</h3>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}

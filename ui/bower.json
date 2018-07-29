@@ -21,5 +21,9 @@
     "px-vis-radar": "^4.0.1",
     "px-inbox": "^2.3.5",
     "px-key-value-pair": "^2.0.0"
+  },
+  "devDependencies": {
+    "px-colors-design": "^1.0.8",
+    "px-box-design": "^1.0.4"
   }
 }

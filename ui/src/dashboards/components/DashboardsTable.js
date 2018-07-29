@@ -38,19 +38,15 @@ const DashboardsTable = ({
 }) => {
   return dashboards && dashboards.length ? (
     <table className="table v-center admin-table table-highlight">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Template Variables</th>
-          <th />
-        </tr>
-      </thead>
       <tbody>
         {_.sortBy(dashboards, d => d.name.toLowerCase()).map(dashboard => (
-          <tr key={dashboard.id}>
+          <tr key={dashboard.id} className="dashboardsListTd">
+            <td width="16">
+              <px-icon class="blue" icon="px-fea:analysis"></px-icon>
+            </td>
             <td>
               <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
-                {dashboard.name}
+                <h2>{dashboard.name}</h2>
               </Link>
             </td>
             <td>

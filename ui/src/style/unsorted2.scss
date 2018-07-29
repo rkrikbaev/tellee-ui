@@ -1,70 +1,318 @@
-$color_purple: #5133AB;
-$color_red: #AC193D;
-$color_orange: #DC572E;
-$color_green: #00A600;
-$color_blue: #2672EC;
+.blue {
+  color: #3498db;
+}
 
-// colors from http://www.creepyed.com/2012/09/windows-8-colors-hex-code/
+.purple {
+  color: #9b59b6;
+}
+
+.green {
+  color: #1abb9c;
+}
+
+.aero {
+  color: #9cc2cb;
+}
+
+.red {
+  color: #e74c3c;
+}
+
+.dark {
+  color: #34495e;
+}
+
+.border-blue {
+  border-color: #3498db !important;
+}
+
+.border-purple {
+  border-color: #9b59b6 !important;
+}
+
+.border-green {
+  border-color: #1abb9c !important;
+}
+
+.border-aero {
+  border-color: #9cc2cb !important;
+}
+
+.border-red {
+  border-color: #e74c3c !important;
+}
+
+.border-dark {
+  border-color: #34495e !important;
+}
+
+.bg-white {
+  background: #fff !important;
+  border: 1px solid #fff !important;
+  color: #73879c;
+}
+
+.bg-green {
+  background: #1abb9c !important;
+  border: 1px solid #1abb9c !important;
+  color: #fff;
+}
+
+.bg-red {
+  background: #e74c3c !important;
+  border: 1px solid #e74c3c !important;
+  color: #fff;
+}
+
+.bg-blue {
+  background: #3498db !important;
+  border: 1px solid #3498db !important;
+  color: #fff;
+}
+
+.bg-orange {
+  background: #f39c12 !important;
+  border: 1px solid #f39c12 !important;
+  color: #fff;
+}
+
+.bg-purple {
+  background: #9b59b6 !important;
+  border: 1px solid #9b59b6 !important;
+  color: #fff;
+}
+
+.bg-blue-sky {
+  background: #50c1cf !important;
+  border: 1px solid #50c1cf !important;
+  color: #fff;
+}
+
+.tiles,
+.top_tiles {
+  margin-bottom: 0;
+}
 
 
-.tile {
-  width: 100%;
-  display: inline-block;
-  box-sizing: border-box;
+.tiles {
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+  padding-top: 5px;
+}
+
+.top_tiles .tile h2 {
+  font-size: 30px;
+  line-height: 30px;
+  margin: 3px 0 7px;
+  font-weight: 700;
+}
+
+.tile_count .tile_stats_count,
+ul.quick-list li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tile_info a {
+  text-overflow: ellipsis;
+}
+
+.tile_count {
+  margin: 20px;
+}
+
+.tile_count .tile_stats_count {
+  border-bottom: 1px solid #d9dee4;
+  padding: 0 10px 0 20px;
+  position: relative;
+}
+
+.tile_count .tile_stats_count:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 65px;
+  border-right: 2px solid #adb2b5;
+  margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+  footer {
+    margin-left: 230px;
+  }
+  .tile_count .tile_stats_count {
+    margin-bottom: 10px;
+    border-bottom: 0;
+    padding-bottom: 10px;
+  }
+  .tile_count .tile_stats_count:first-child:before {
+    border-left: 0;
+  }
+}
+
+.tile_count .tile_stats_count .count {
+  font-size: 30px;
+  line-height: 47px;
+  //font-weight: 600;
+  color: #0a3142;
+}
+
+.count_top, .count_bottom{
+  color: #0a3142;
+}
+
+@media (min-width: 768px) {
+  .tile_count .tile_stats_count .count {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1100px) {
+  .tile_count .tile_stats_count .count {
+    font-size: 30px;
+  }
+}
+
+.tile_count .tile_stats_count span {
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .tile_count .tile_stats_count span {
+    font-size: 13px;
+  }
+}
+
+.tile_count .tile_stats_count .count_bottom i {
+  width: 12px;
+}
+
+.tile-stats {
+  position: relative;
+  display: block;
+  margin-bottom: 12px;
+  border: 1px solid #e4e4e4;
+  -webkit-border-radius: 5px;
+  overflow: hidden;
+  padding-bottom: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 5px;
   background: #fff;
-  padding: 10px;
-  margin: 3px;
+  transition: all 0.3s ease-in-out;
+}
 
-  .title {
-    margin: 0px;
-    font-size: 35px;
-  }
+.tile-stats:hover .icon i {
+  animation-name: tansformAnimation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  color: rgba(58, 58, 58, 0.41);
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  -webkit-animation-name: tansformAnimation;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-name: tansformAnimation;
+  -moz-animation-duration: 0.5s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-timing-function: ease;
+  -moz-animation-fill-mode: forwards;
+}
 
-  p {
-    margin: 0px;
-  }
+.tile-stats .icon {
+  width: 20px;
+  height: 20px;
+  color: #bab8b8;
+  position: absolute;
+  right: 53px;
+  top: 22px;
+  z-index: 1;
+}
 
-  &.purple, &.blue, &.red, &.orange, &.green {
-    color: #fff;
-  }
+.tile-stats .icon i {
+  margin: 0;
+  font-size: 60px;
+  line-height: 0;
+  vertical-align: bottom;
+  padding: 0;
+}
 
-  &.purple {
-    background: $color_purple;
+.tile-stats .count {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.65857;
+}
 
-    &:hover {
-      background: darken($color_purple, 10%);
-    }
-  }
+.tile-stats .count,
+.tile-stats h3,
+.tile-stats p {
+  position: relative;
+  margin: 0 0 0 10px;
+  z-index: 5;
+  padding: 0;
+}
 
-  &.red {
-    background: $color_red;
+.tile-stats h3 {
+  color: #bab8b8;
+}
 
-    &:hover {
-      background: darken($color_red, 10%);
-    }
-  }
+.tile-stats p {
+  margin-top: 5px;
+  font-size: 12px;
+}
 
-  &.green {
-    background: $color_green;
+.tile-stats > .dash-box-footer {
+  position: relative;
+  text-align: center;
+  margin-top: 5px;
+  padding: 3px 0;
+  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.1);
+}
 
-    &:hover {
-      background: darken($color_green, 10%);
-    }
-  }
+.tile-stats > .dash-box-footer:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.15);
+}
 
-  &.blue {
-    background: $color_blue;
+table.tile_info {
+  padding: 10px 15px;
+}
 
-    &:hover {
-      background: darken($color_blue, 10%);
-    }
-  }
+table.tile_info span.right {
+  margin-right: 0;
+  float: right;
+  position: absolute;
+  right: 4%;
+}
 
-  &.orange {
-    background: $color_orange;
+.tile_header {
+  border-bottom: transparent;
+  padding: 7px 15px;
+  margin-bottom: 15px;
+  background: #e7e7e7;
+}
 
-    &:hover {
-      background: darken($color_orange, 10%);
-    }
-  }
+.tile_head h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.tiles-bottom {
+  padding: 5px 10px;
+  margin-top: 10px;
+  background: rgba(194, 194, 194, 0.3);
+  text-align: left;
+}
+
+
+.dashboardsListTd{
+  border-bottom: 2px solid #3a383810 !important;
 }

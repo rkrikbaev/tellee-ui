@@ -82,9 +82,11 @@ class DashboardsPageContents extends Component {
           <div className="row">
             <div className="col-md-12">
               <div className="panel-body">
-                <span>
-                  Version info: <strong>beta 2</strong>
-                </span>
+                <div className="box">
+                  <h2 className="panel-title">
+                    Version info: <strong>beta 2</strong>
+                  </h2>
+                </div>
               </div>
             </div>
           </div>

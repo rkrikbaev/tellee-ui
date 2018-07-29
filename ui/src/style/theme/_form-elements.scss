@@ -7,9 +7,9 @@
   width: 100%;
   border: 2px solid $g5-pepper;
   border-radius: $radius;
-  color: $g15-platinum;
+  color: var(--zsse-form-color);
   letter-spacing: 0px;
-  background-color: $g2-kevlar;
+  background-color: var(--zsse-form-bg);
   font-weight: 600;
   box-shadow: none;
   outline: none;
