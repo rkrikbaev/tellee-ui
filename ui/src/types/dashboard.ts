@@ -51,6 +51,7 @@ export enum CellType {
   PxRadar = 'px-radar',
   PxInbox = 'px-inbox',
   PxMstat = 'px-mstat',
+  PxGauge = 'px-gauge',
 }
 
 // corresponds to DashboardQuery on the backend

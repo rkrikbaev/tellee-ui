@@ -16,6 +16,7 @@ import {
   CELL_TYPE_PX_RADAR,
   CELL_TYPE_PX_MSTAT,
   CELL_TYPE_PX_INBOX,
+  CELL_TYPE_PX_GAUGE,
 } from 'src/dashboards/graphics/graph'
 
 export const initializeOptions = cellType => {
@@ -60,6 +61,10 @@ export const getCellTypeColors = ({
     case CELL_TYPE_LINE_PLUS_SINGLE_STAT:
     case CELL_TYPE_STACKED:
     case CELL_TYPE_PX_CIRCLE: {
+      colors = stringifyColorValues(gaugeColors)
+      break
+    }
+    case CELL_TYPE_PX_GAUGE: {
       colors = stringifyColorValues(gaugeColors)
       break
     }

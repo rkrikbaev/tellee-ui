@@ -226,6 +226,14 @@ Custom property | Description
         value: ''
       },
 
+      width: {
+        type: Number,
+        value: 200
+      },
+      height: {
+        type: Number,
+        value: 150
+      },
       /**
        * This property is use for display the changing of value number
        * @property _valueOfProcess
@@ -345,8 +353,8 @@ Custom property | Description
             return;
           }
 
-          this.set('width', Math.max(wrapperRect.width,0));
-          this.set('height', this.width/2);
+          this.set('width', this.width);
+          this.set('height', this.height);
          }
       },100);
     },
@@ -449,8 +457,8 @@ Custom property | Description
      */
     _drawChartDebounced: function() {
       this.svg.attr("width", this.width + this.margin.left + this.margin.right);
-      this.svg.attr("height", this.height + this.margin.top + this.margin.bottom);
-      this._chart.attr('transform', "translate(" + ((this.width + this.margin.left) / 2) + ", " + ((this.height + this.margin.top)) + ")");
+      this.svg.attr("height", this.height/2 + this.margin.top + this.margin.bottom);
+      this._chart.attr('transform', "translate(" + ((this.width + this.margin.left) / 2) + ", " + ((this.height/2 + this.margin.top)) + ")");
 
       this._calculateGaugeBarsArc();
       this._adjustFontSize();

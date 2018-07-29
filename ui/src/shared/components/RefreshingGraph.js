@@ -17,6 +17,7 @@ import PxGantt from 'shared/components/PxGantt'
 import PxRadar from 'shared/components/PxRadar'
 import PxMstat from 'shared/components/PxMstat'
 import PxInbox from 'shared/components/PxInbox'
+import PxGauge from 'shared/components/PxGauge'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -36,6 +37,7 @@ const RefreshingPxGantt = AutoRefresh(PxGantt)
 const RefreshingPxRadar = AutoRefresh(PxRadar)
 const RefreshingPxMstat = AutoRefresh(PxMstat)
 const RefreshingPxInbox = AutoRefresh(PxInbox)
+const RefreshingPxGauge = AutoRefresh(PxGauge)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -92,6 +94,26 @@ const RefreshingGraph = ({
   if (type === 'px-percent-circle') {
     return (
       <RefreshingPxPercentCircle
+        type={type}
+        colors={colors}
+        key={manualRefresh}
+        queries={[queries[0]]}
+        templates={templates}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        resizerTopHeight={resizerTopHeight}
+        editQueryStatus={editQueryStatus}
+        cellID={cellID}
+        prefix={prefix}
+        suffix={suffix}
+        inView={inView}
+      />
+    )
+  }
+
+  if (type === 'px-gauge') {
+    return (
+      <RefreshingPxGauge
         type={type}
         colors={colors}
         key={manualRefresh}

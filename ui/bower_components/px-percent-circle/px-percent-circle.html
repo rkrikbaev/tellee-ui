@@ -24,7 +24,7 @@ Custom property | Description
 <dom-module id="px-percent-circle">
   <template>
     <style include="px-percent-circle-styles"></style>
-
+    <div id="chart">
     <svg id="container" height$="[[heigth]]" width$="[[width]]">
       <circle id="background" cx$="[[_cx]]" cy$="[[_cy]]" r$="[[_r]]" stroke-width$="[[_thickness]]"></circle>
       <path id="arc" stroke-width$="[[_thickness]]" d$="[[_arcPath]]"></path>
@@ -33,6 +33,7 @@ Custom property | Description
         <tspan id="percent" font-size$="[[_placement.pf]]" dx$="[[_placement.px]]" dy$="[[_placement.py]]">%</tspan>
       </text>
     </svg>
+    </div>
   </template>
 </dom-module>
 
