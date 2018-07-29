@@ -175,9 +175,7 @@ class PxGaugeOptions extends Component {
         autoHide={false}
       >
         <div className="display-options--cell-wrapper">
-          <h5 className="display-options--header">
-            PX Gauge Controls
-          </h5>
+          <h5 className="display-options--header">PX Gauge Controls</h5>
           <div className="thresholds-list">
             <button
               className="btn btn-sm btn-primary"
@@ -253,6 +251,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateGaugeColors: bindActionCreators(updateGaugeColors, dispatch),
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(
-  PxGaugeOptions
-)
+export default connect(mapStateToProps, mapDispatchToProps)(PxGaugeOptions)

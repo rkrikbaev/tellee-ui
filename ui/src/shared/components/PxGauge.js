@@ -73,7 +73,7 @@ class PxGauge extends Component {
       // data,
       // axes,
       prefix,
-      suffix,
+      // suffix,
       // title,
       colors,
       // cellID,
@@ -169,12 +169,12 @@ class PxGauge extends Component {
           width={_width}
           height={_height}
           bar-width="0"
-          unit={suffix}
-          error='[[0,12],[79,100]]'
-          abnormal='[[12,32],[68,79]]'
-          anomaly='[[32,45],[54,68]]'
-          normal='[[45,54]]'>
-        </px-gauge>
+          unit={prefix}
+          error="[[0,12],[79,100]]"
+          abnormal="[[12,32],[68,79]]"
+          anomaly="[[32,45],[54,68]]"
+          normal="[[45,54]]"
+        />
 
         <ReactResizeDetector
           handleWidth={true}

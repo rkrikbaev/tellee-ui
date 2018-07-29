@@ -42,7 +42,7 @@ const DashboardsTable = ({
         {_.sortBy(dashboards, d => d.name.toLowerCase()).map(dashboard => (
           <tr key={dashboard.id} className="dashboardsListTd">
             <td width="16">
-              <px-icon class="blue" icon="px-fea:analysis"></px-icon>
+              <px-icon class="blue" icon="px-fea:analysis" />
             </td>
             <td>
               <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
