@@ -151,24 +151,25 @@ class Gauge extends Component {
     }
   }
 
-  drawGaugeLines = (ctx, xc, yc, radius, gradientThickness) => {
-    const {
-      degree,
-      lineCount,
-      lineColor,
-      lineStrokeSmall,
-      lineStrokeLarge,
-      tickSizeSmall,
-      tickSizeLarge,
-    } = GAUGE_SPECS
+  drawGaugeLines = (ctx, xc, yc) => {
+    // , radius, gradientThickness (from function params)
+    // const {
+    //   degree,
+    //   lineCount,
+    //   lineColor,
+    //   lineStrokeSmall,
+    //   lineStrokeLarge,
+    //   tickSizeSmall,
+    //   tickSizeLarge,
+    // } = GAUGE_SPECS
 
-    const arcStart = Math.PI * 0.75
-    const arcLength = Math.PI * 1.5
-    const arcStop = arcStart + arcLength
-    const lineSmallCount = lineCount * 5
-    const startDegree = degree * 135
-    const arcLargeIncrement = arcLength / lineCount
-    const arcSmallIncrement = arcLength / lineSmallCount
+    // const arcStart = Math.PI * 0.75
+    // const arcLength = Math.PI * 1.5
+    // const arcStop = arcStart + arcLength
+    // const lineSmallCount = lineCount * 5
+    // const startDegree = degree * 135
+    // const arcLargeIncrement = arcLength / lineCount
+    // const arcSmallIncrement = arcLength / lineSmallCount
 
     // Semi-circle
     // const arcRadius = radius + gradientThickness * 0.8
@@ -231,8 +232,8 @@ class Gauge extends Component {
     minValue,
     maxValue
   ) => {
-    const {prefix, suffix} = this.props
-    const {degree, lineCount, labelColor, labelFontSize} = GAUGE_SPECS
+    // const {prefix, suffix} = this.props
+    const {lineCount, labelColor, labelFontSize} = GAUGE_SPECS // degree,
 
     const incrementValue = (maxValue - minValue) / lineCount
 
@@ -243,16 +244,16 @@ class Gauge extends Component {
     }
     gaugeValues.push((Math.round(maxValue * 100) / 100).toString())
 
-    const startDegree = degree * 135
-    const arcLength = Math.PI * 1.5
-    const arcIncrement = arcLength / lineCount
+    // const startDegree = degree * 135
+    // const arcLength = Math.PI * 1.5
+    // const arcIncrement = arcLength / lineCount
 
     // Format labels text
     ctx.font = `bold ${labelFontSize}px Helvetica`
     ctx.fillStyle = labelColor
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'right'
-    let labelRadius
+    // let labelRadius
 
     // for (let i = 0; i <= lineCount; i++) {
     //   if (i === 3) {
@@ -296,7 +297,7 @@ class Gauge extends Component {
 
   drawNeedle = (ctx, radius, minValue, maxValue) => {
     const {gaugePosition} = this.props
-    const {degree, needleColor0, needleColor1} = GAUGE_SPECS
+    const {degree} = GAUGE_SPECS // const {degree, needleColor0, needleColor1} = GAUGE_SPECS
     const arcDistance = Math.PI * 1.5
 
     const needleRotation = (gaugePosition - minValue) / (maxValue - minValue)
