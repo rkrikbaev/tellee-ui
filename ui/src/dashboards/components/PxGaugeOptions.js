@@ -9,7 +9,7 @@ import uuid from 'uuid'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import Threshold from 'src/dashboards/components/Threshold'
 // *****************************************************
-// COMPONENT NOTES : thickness is prefix!
+// COMPONENT NOTES :
 // *****************************************************
 
 import {
@@ -28,6 +28,16 @@ import {ErrorHandling} from 'src/shared/decorators/errors'
 
 @ErrorHandling
 class PxGaugeOptions extends Component {
+  constructor() {
+    super()
+    this.state = {
+      range1: '0,0',
+      range2: '0,0',
+      range3: '0,0',
+      range4: '0,0',
+    }
+  }
+
   handleAddThreshold = () => {
     const {gaugeColors, handleUpdateGaugeColors, onResetFocus} = this.props
     const sortedColors = _.sortBy(gaugeColors, color => color.value)
@@ -144,6 +154,52 @@ class PxGaugeOptions extends Component {
     handleUpdateAxes(newAxes)
   }
 
+  handleLoadRanges = () => {
+    const {
+      axes: {
+        y: {prefix},
+      },
+    } = this.props
+    const regexRanges = /(?:\[\[(.*?)\]\])/gm
+    const rangevals = prefix.split(regexRanges)
+    this.setState({
+      range1: typeof rangevals[1] === 'undefined' ? '0,0' : rangevals[1],
+    })
+    this.setState({
+      range2: typeof rangevals[3] === 'undefined' ? '0,0' : rangevals[3],
+    })
+    this.setState({
+      range3: typeof rangevals[5] === 'undefined' ? '0,0' : rangevals[5],
+    })
+    this.setState({
+      range4: typeof rangevals[7] === 'undefined' ? '0,0' : rangevals[7],
+    })
+  }
+
+  handleUpdateRanges = () => {
+    const newRule = `[[${this.state.range1}]]:[[${this.state.range2}]]:[[${
+      this.state.range3
+    }]]:[[${this.state.range4}]]`
+
+    const {handleUpdateAxes, axes} = this.props
+    const newAxes = {...axes, y: {...axes.y, prefix: newRule}}
+
+    handleUpdateAxes(newAxes)
+  }
+
+  handleUpdateRange1 = e => {
+    this.setState({range1: e.target.value})
+  }
+  handleUpdateRange2 = e => {
+    this.setState({range2: e.target.value})
+  }
+  handleUpdateRange3 = e => {
+    this.setState({range3: e.target.value})
+  }
+  handleUpdateRange4 = e => {
+    this.setState({range4: e.target.value})
+  }
+
   handleUpdateSuffix = e => {
     const {handleUpdateAxes, axes} = this.props
     const newAxes = {...axes, y: {...axes.y, suffix: e.target.value}}
@@ -162,12 +218,12 @@ class PxGaugeOptions extends Component {
     const {
       gaugeColors,
       axes: {
-        y: {prefix, suffix},
+        y: {suffix},
       },
     } = this.props
 
     const disableMaxColor = gaugeColors.length > MIN_THRESHOLDS
-    const disableAddThreshold = gaugeColors.length > MAX_THRESHOLDS
+    // const disableAddThreshold = gaugeColors.length > MAX_THRESHOLDS
 
     return (
       <FancyScrollbar
@@ -177,13 +233,13 @@ class PxGaugeOptions extends Component {
         <div className="display-options--cell-wrapper">
           <h5 className="display-options--header">PX Gauge Controls</h5>
           <div className="thresholds-list">
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={this.handleAddThreshold}
-              disabled={disableAddThreshold}
-            >
-              <span className="icon plus" /> Add Threshold
-            </button>
+            {/* <button*/}
+            {/* className="btn btn-sm btn-primary"*/}
+            {/* onClick={this.handleAddThreshold}*/}
+            {/* disabled={disableAddThreshold}*/}
+            {/* >*/}
+            {/* <span className="icon plus" /> Add Threshold*/}
+            {/* </button>*/}
             {this.sortedGaugeColors.map((color, index) => (
               <Threshold
                 isMin={index === 0}
@@ -200,26 +256,87 @@ class PxGaugeOptions extends Component {
             ))}
           </div>
           <div className="graph-options-group form-group-wrapper">
-            <div className="form-group col-xs-6">
-              <label>Thickness</label>
-              <input
-                className="form-control input-sm"
-                placeholder="circle thickness in pixels (1-30)"
-                defaultValue={prefix}
-                onChange={this.handleUpdatePrefix}
-                maxLength="5"
-              />
-            </div>
-            <div className="form-group col-xs-6">
+            {/* <div className="form-group col-xs-6">*/}
+            {/* <label>Prefix</label>*/}
+            {/* <input*/}
+            {/* className="form-control input-sm"*/}
+            {/* placeholder="Prefix"*/}
+            {/* defaultValue={prefix}*/}
+            {/* onChange={this.handleUpdatePrefix}*/}
+            {/* maxLength="100"*/}
+            {/* />*/}
+            {/* </div>*/}
+            <div className="form-group col-xs-12">
               <label>Suffix</label>
               <input
                 className="form-control input-sm"
                 placeholder="%, MPH, etc."
                 defaultValue={suffix}
                 onChange={this.handleUpdateSuffix}
-                maxLength="5"
+                maxLength="100"
               />
             </div>
+          </div>
+
+          <div className="form-group col-xs-3">
+            <label>Error</label>
+            <input
+              name="rangeerror"
+              className="form-control input-sm"
+              placeholder="Prefix"
+              value={this.state.range1}
+              onChange={this.handleUpdateRange1}
+              maxLength="5"
+            />
+          </div>
+          <div className="form-group col-xs-3">
+            <label>Abnormal</label>
+            <input
+              name="rangeabnormal"
+              className="form-control input-sm"
+              placeholder="%, MPH, etc."
+              value={this.state.range2}
+              onChange={this.handleUpdateRange2}
+              maxLength="5"
+            />
+          </div>
+          <div className="form-group col-xs-3">
+            <label>Anomaly</label>
+            <input
+              name="rangeanomaly"
+              className="form-control input-sm"
+              placeholder="Prefix"
+              value={this.state.range3}
+              onChange={this.handleUpdateRange3}
+              maxLength="5"
+            />
+          </div>
+          <div className="form-group col-xs-3">
+            <label>Normal</label>
+            <input
+              name="rangenormal"
+              className="form-control input-sm"
+              placeholder="%, MPH, etc."
+              value={this.state.range4}
+              onChange={this.handleUpdateRange4}
+              maxLength="5"
+            />
+          </div>
+          <div className="form-group col-xs-6">
+            <button
+              className="btn btn-sm btn-default"
+              onClick={this.handleLoadRanges}
+            >
+              <span className="icon plus" /> Load Threshold
+            </button>
+          </div>
+          <div className="form-group col-xs-6">
+            <button
+              className="btn btn-sm btn-primary"
+              onClick={this.handleUpdateRanges}
+            >
+              <span className="icon plus" /> Set Threshold
+            </button>
           </div>
         </div>
       </FancyScrollbar>

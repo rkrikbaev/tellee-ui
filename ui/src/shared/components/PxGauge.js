@@ -73,7 +73,7 @@ class PxGauge extends Component {
       // data,
       // axes,
       prefix,
-      // suffix,
+      suffix,
       // title,
       colors,
       // cellID,
@@ -155,6 +155,17 @@ class PxGauge extends Component {
     const maxValue = Number(
       colors.find(color => color.type === COLOR_TYPE_MAX).value
     )
+
+    const arrayOfStates = prefix.split(':')
+    const error =
+      typeof arrayOfStates[0] === 'undefined' ? '[[0,0]]' : arrayOfStates[0]
+    const abnormal =
+      typeof arrayOfStates[1] === 'undefined' ? '[[0,0]]' : arrayOfStates[1]
+    const anomaly =
+      typeof arrayOfStates[2] === 'undefined' ? '[[0,0]]' : arrayOfStates[2]
+    const normal =
+      typeof arrayOfStates[3] === 'undefined' ? '[[0,0]]' : arrayOfStates[3]
+
     return (
       <div
         style={{height: '100%'}}
@@ -169,11 +180,11 @@ class PxGauge extends Component {
           width={_width}
           height={_height}
           bar-width="0"
-          unit={prefix}
-          error="[[0,12],[79,100]]"
-          abnormal="[[12,32],[68,79]]"
-          anomaly="[[32,45],[54,68]]"
-          normal="[[45,54]]"
+          unit={suffix}
+          error={error}
+          abnormal={abnormal}
+          anomaly={anomaly}
+          normal={normal}
         />
 
         <ReactResizeDetector
@@ -212,6 +223,7 @@ PxGauge.defaultProps = {
 PxGauge.propTypes = {
   cellID: string,
   prefix: string,
+  suffix: string,
   axes: shape({
     y: shape({
       bounds: array,
