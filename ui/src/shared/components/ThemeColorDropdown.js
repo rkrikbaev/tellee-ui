@@ -82,6 +82,7 @@ class ThemeColorDropdown extends Component {
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#3c475f',
             '--px-percent-circle-text-color': '#3c475f',
+            '--px-gauge-empty-color': '#b2babf',
 
             '--px-vis-gridlines-color': '#b2babf',
             '--px-vis-cursor-line-color': '#676a6f',

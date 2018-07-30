@@ -41,7 +41,7 @@ class Gauge extends Component {
 
     const centerX = canvas.width / 2
     const centerY = canvas.height / 2 * 1.13
-    const radius = Math.min(canvas.width, canvas.height) / 2 * 0.5
+    const radius = Math.min(canvas.width, canvas.height) / 1.4 * 0.5
 
     const {minLineWidth, minFontSize} = GAUGE_SPECS
     const gradientThickness = Math.max(minLineWidth, radius / 4)
@@ -171,55 +171,55 @@ class Gauge extends Component {
     const arcSmallIncrement = arcLength / lineSmallCount
 
     // Semi-circle
-    const arcRadius = radius + gradientThickness * 0.8
-    ctx.beginPath()
-    ctx.arc(xc, yc, arcRadius, arcStart, arcStop)
-    ctx.lineWidth = 3
-    ctx.lineCap = 'round'
-    ctx.strokeStyle = lineColor
-    ctx.stroke()
-    ctx.closePath()
+    // const arcRadius = radius + gradientThickness * 0.8
+    // ctx.beginPath()
+    // ctx.arc(xc, yc, arcRadius, arcStart, arcStop)
+    // ctx.lineWidth = 3
+    // ctx.lineCap = 'round'
+    // ctx.strokeStyle = lineColor
+    // ctx.stroke()
+    // ctx.closePath()
 
     // Match center of canvas to center of gauge
     ctx.translate(xc, yc)
 
     // Draw Large ticks
-    for (let lt = 0; lt <= lineCount; lt++) {
-      // Rototion before drawing line
-      ctx.rotate(startDegree)
-      ctx.rotate(lt * arcLargeIncrement)
-      // Draw line
-      ctx.beginPath()
-      ctx.lineWidth = lineStrokeLarge
-      ctx.lineCap = 'round'
-      ctx.strokeStyle = lineColor
-      ctx.moveTo(arcRadius, 0)
-      ctx.lineTo(arcRadius + tickSizeLarge, 0)
-      ctx.stroke()
-      ctx.closePath()
-      // Return to starting rotation
-      ctx.rotate(-lt * arcLargeIncrement)
-      ctx.rotate(-startDegree)
-    }
+    // for (let lt = 0; lt <= lineCount; lt++) {
+    //   // Rototion before drawing line
+    //   ctx.rotate(startDegree)
+    //   ctx.rotate(lt * arcLargeIncrement)
+    //   // Draw line
+    //   ctx.beginPath()
+    //   ctx.lineWidth = lineStrokeLarge
+    //   ctx.lineCap = 'round'
+    //   ctx.strokeStyle = lineColor
+    //   ctx.moveTo(arcRadius, 0)
+    //   ctx.lineTo(arcRadius + tickSizeLarge, 0)
+    //   ctx.stroke()
+    //   ctx.closePath()
+    //   // Return to starting rotation
+    //   ctx.rotate(-lt * arcLargeIncrement)
+    //   ctx.rotate(-startDegree)
+    // }
 
     // Draw Small ticks
-    for (let lt = 0; lt <= lineSmallCount; lt++) {
-      // Rototion before drawing line
-      ctx.rotate(startDegree)
-      ctx.rotate(lt * arcSmallIncrement)
-      // Draw line
-      ctx.beginPath()
-      ctx.lineWidth = lineStrokeSmall
-      ctx.lineCap = 'round'
-      ctx.strokeStyle = lineColor
-      ctx.moveTo(arcRadius, 0)
-      ctx.lineTo(arcRadius + tickSizeSmall, 0)
-      ctx.stroke()
-      ctx.closePath()
-      // Return to starting rotation
-      ctx.rotate(-lt * arcSmallIncrement)
-      ctx.rotate(-startDegree)
-    }
+    // for (let lt = 0; lt <= lineSmallCount; lt++) {
+    //   // Rototion before drawing line
+    //   ctx.rotate(startDegree)
+    //   ctx.rotate(lt * arcSmallIncrement)
+    //   // Draw line
+    //   ctx.beginPath()
+    //   ctx.lineWidth = lineStrokeSmall
+    //   ctx.lineCap = 'round'
+    //   ctx.strokeStyle = lineColor
+    //   ctx.moveTo(arcRadius, 0)
+    //   ctx.lineTo(arcRadius + tickSizeSmall, 0)
+    //   ctx.stroke()
+    //   ctx.closePath()
+    //   // Return to starting rotation
+    //   ctx.rotate(-lt * arcSmallIncrement)
+    //   ctx.rotate(-startDegree)
+    // }
   }
 
   drawGaugeLabels = (
@@ -254,30 +254,30 @@ class Gauge extends Component {
     ctx.textAlign = 'right'
     let labelRadius
 
-    for (let i = 0; i <= lineCount; i++) {
-      if (i === 3) {
-        ctx.textAlign = 'center'
-        labelRadius = radius + gradientThickness + 30
-      } else {
-        labelRadius = radius + gradientThickness + 23
-      }
-      if (i > 3) {
-        ctx.textAlign = 'left'
-      }
-      const labelText = `${prefix}${gaugeValues[i]}${suffix}`
-
-      ctx.rotate(startDegree)
-      ctx.rotate(i * arcIncrement)
-      ctx.translate(labelRadius, 0)
-      ctx.rotate(i * -arcIncrement)
-      ctx.rotate(-startDegree)
-      ctx.fillText(labelText, 0, 0)
-      ctx.rotate(startDegree)
-      ctx.rotate(i * arcIncrement)
-      ctx.translate(-labelRadius, 0)
-      ctx.rotate(i * -arcIncrement)
-      ctx.rotate(-startDegree)
-    }
+    // for (let i = 0; i <= lineCount; i++) {
+    //   if (i === 3) {
+    //     ctx.textAlign = 'center'
+    //     labelRadius = radius + gradientThickness + 30
+    //   } else {
+    //     labelRadius = radius + gradientThickness + 23
+    //   }
+    //   if (i > 3) {
+    //     ctx.textAlign = 'left'
+    //   }
+    //   const labelText = `${prefix}${gaugeValues[i]}${suffix}`
+    //
+    //   ctx.rotate(startDegree)
+    //   ctx.rotate(i * arcIncrement)
+    //   ctx.translate(labelRadius, 0)
+    //   ctx.rotate(i * -arcIncrement)
+    //   ctx.rotate(-startDegree)
+    //   ctx.fillText(labelText, 0, 0)
+    //   ctx.rotate(startDegree)
+    //   ctx.rotate(i * arcIncrement)
+    //   ctx.translate(-labelRadius, 0)
+    //   ctx.rotate(i * -arcIncrement)
+    //   ctx.rotate(-startDegree)
+    // }
   }
 
   drawGaugeValue = (ctx, radius, labelValueFontSize) => {
@@ -302,17 +302,17 @@ class Gauge extends Component {
     const needleRotation = (gaugePosition - minValue) / (maxValue - minValue)
 
     const needleGradient = ctx.createLinearGradient(0, -10, 0, radius)
-    needleGradient.addColorStop(0, needleColor0)
-    needleGradient.addColorStop(1, needleColor1)
+    needleGradient.addColorStop(0, '#000000')
+    needleGradient.addColorStop(1, '#000000')
 
     // Starting position of needle is at minimum
     ctx.rotate(degree * 45)
     ctx.rotate(arcDistance * needleRotation)
     ctx.beginPath()
     ctx.fillStyle = needleGradient
-    ctx.arc(0, 0, 10, 0, Math.PI, true)
-    ctx.lineTo(0, radius)
-    ctx.lineTo(10, 0)
+    ctx.arc(0, 0, 4, 0, Math.PI, true)
+    ctx.lineTo(0, radius + 10)
+    ctx.lineTo(4, 0)
     ctx.fill()
   }
 

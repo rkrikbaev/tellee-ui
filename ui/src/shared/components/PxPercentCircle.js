@@ -128,7 +128,7 @@ class PxPercentCircle extends Component {
     // )
 
     const kpiMainValue =
-      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 2]
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
 
     if (kpiMainValue === undefined) {
       return <InvalidData />
