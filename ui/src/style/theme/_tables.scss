@@ -3,11 +3,8 @@
    -----------------------------------------------------------------------------
 */
 
-$table--border-color: var(--zsse-table-border);
-$table--highlight-color: var(--zsse-table-highlight);
-//
-$table--header-color: var(--zsse-table-headercolor);
-$table--body-text-color: var(--zsee-table-body-text-color);
+$table--border-color: $g5-pepper;
+$table--highlight-color: $g4-onyx;
 
 .table {
   width: 100%;
@@ -40,7 +37,7 @@ $table--body-text-color: var(--zsee-table-body-text-color);
   // Header
   > thead > tr > th,
   > thead > tr > td {
-    color: $table--header-color;
+    color: $g17-whisper;
     font-weight: 600;
     padding: 8px;
     @extend %no-user-select;
@@ -51,7 +48,7 @@ $table--body-text-color: var(--zsee-table-body-text-color);
   // Body
   > tbody > tr > td {
     text-align: left;
-    color: $table--body-text-color;
+    color: $g13-mist;
     font-weight: 500;
     padding: 4px 8px;
     border: 0;

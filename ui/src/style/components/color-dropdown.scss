@@ -38,7 +38,7 @@ $color-dropdown--name-padding: 20px;
   z-index: 5;
   width: 100%;
   border-radius: 4px;
-  box-shadow: 0 2px 5px 0.6px fade-out($g0-obsidian, 0.7);
+  box-shadow: 0 2px 5px 0.6px fade-out($g0-obsidian-a, 0.7);
   @include gradient-h($g0-obsidian, $g2-kevlar);
 }
 .color-dropdown--item {

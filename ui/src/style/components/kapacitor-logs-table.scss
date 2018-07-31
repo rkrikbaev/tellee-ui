@@ -34,7 +34,7 @@ $logs-margin: 4px;
   left: 0;
   width: 100%;
   height: calc(100% - #{$logs-table-header-height}) !important;
-  @include gradient-v(mix($g3-castle, $g2-kevlar),mix($g1-raven, $g0-obsidian));
+  @include gradient-v(mix($g3-castle-a, $g2-kevlar-a),mix($g1-raven-a, $g0-obsidian-a));
 }
 
 .logs-table--row {

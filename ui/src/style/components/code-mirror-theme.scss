@@ -34,7 +34,7 @@
 }
 
 .cm-s-material .CodeMirror-gutters .CodeMirror-gutter {
-  background-color: fade-out($g4-onyx, 0.75);
+  background-color: fade-out($g4-onyx-a, 0.75);
   height: calc(100% + 30px);
 }
 
@@ -67,7 +67,7 @@
 
 .cm-s-material div.CodeMirror-selected,
 .cm-s-material.CodeMirror-focused div.CodeMirror-selected {
-  background-color: fade-out($g8-storm, 0.7);
+  background-color: fade-out($g8-storm-a, 0.7);
 }
 
 .cm-s-material .CodeMirror-line::selection,

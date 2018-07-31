@@ -2,29 +2,60 @@
    Influx Color Palette
    -----------------------------------------------------------------------------
 */
+// original for reference
+//g0-obsidian: #0f0e15;
+//$g1-raven: #1c1c21;
+//$g2-kevlar: #202028;
+//$g3-castle: #292933;
+//$g4-onyx: #31313d;
+//$g5-pepper: #383846;
+//$g6-smoke: #434453;
+//$g7-graphite: #545667;
+//$g8-storm: #676978;
+//$g9-mountain: #757888;
+//$g10-wolf: #8e91a1;
+//$g11-sidewalk: #999dab;
+//$g12-forge: #a4a8b6;
+//$g13-mist: #bec2cc;
+//$g14-chromium: #c6cad3;
+//$g15-platinum: #d4d7dd;
+//$g16-pearl: #e7e8eb;
+//$g17-whisper: #eeeff2;
+//$g18-cloud: #f6f6f8;
+//$g19-ghost: #fafafc;
+//$g20-white: #ffffff;
 
 // Nuetrals (Dark to Light)
-$g0-obsidian: #0f0e15;
-$g1-raven: #1c1c21;
-$g2-kevlar: #202028;
-$g3-castle: #292933;
-$g4-onyx: #31313d;
-$g5-pepper: #383846;
-$g6-smoke: #434453;
-$g7-graphite: #545667;
-$g8-storm: #676978;
-$g9-mountain: #757888;
-$g10-wolf: #8e91a1;
-$g11-sidewalk: #999dab;
-$g12-forge: #a4a8b6;
-$g13-mist: #bec2cc;
-$g14-chromium: #c6cad3;
-$g15-platinum: #d4d7dd;
-$g16-pearl: #e7e8eb;
-$g17-whisper: #eeeff2;
-$g18-cloud: #f6f6f8;
-$g19-ghost: #fafafc;
-$g20-white: #ffffff;
+$g0-obsidian: var(--zsse-g0-obsidian);
+$g1-raven:  var(--zsse-g1-raven);
+$g2-kevlar:  var(--zsse-g2-kevlar);
+$g3-castle: var(--zsse-g3-castle);
+$g4-onyx:  var(--zsse-g4-onyx);
+$g5-pepper:  var(--zsse-g5-pepper);
+$g6-smoke:  var(--zsse-g6-smoke);
+$g7-graphite:  var(--zsse-g7-graphite);
+$g8-storm:  var(--zsse-g8-storm);
+$g9-mountain:  var(--zsse-g9-mountain);
+$g10-wolf:  var(--zsse-g10-wolf);
+$g11-sidewalk:  var(--zsse-g11-sidewalk);
+$g12-forge:  var(--zsse-g12-forge);
+$g13-mist:  var(--zsse-g13-mist);
+$g14-chromium:  var(--zsse-g14-chromium);
+$g15-platinum:  var(--zsse-g15-platinum);
+$g16-pearl:  var(--zsse-g16-pearl);
+$g17-whisper:  var(--zsse-g17-whisper);
+$g18-cloud:  var(--zsse-g18-cloud);
+$g19-ghost:  var(--zsse-g19-ghost);
+$g20-white:  var(--zsse-g20-white);
+
+// thoose for a tag cant be remapped, usually fades and gradients
+$g0-obsidian-a: #0f0e15;
+$g1-raven-a: #1c1c21;
+$g2-kevlar-a: #202028;
+$g3-castle-a: #292933;
+$g4-onyx-a: #31313d;
+$g8-storm-a: #676978;
+$g20-white-a: #ffffff;
 
 // Telegraf (Dark to Light)
 $c-basalt: #2F1F29;

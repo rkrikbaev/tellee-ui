@@ -76,9 +76,8 @@ $dash-graph-options-arrow: 8px;
 
 .cell-shell {
   background-color: $g3-castle;
-  background: var(--zsse-cell-bg);
   border-radius: $radius;
-  border: 0px solid $g3-castle;
+  border: 2px solid $g3-castle;
   transition-property: left, top, border-color, background-color;
 }
 
@@ -152,8 +151,7 @@ $dash-graph-options-arrow: 8px;
   border-radius: $radius-small;
   font-weight: 600;
   font-size: 13px;
-  //color: $g14-chromium;
-  color: var(--zsse-header-text-color);
+  color: $g14-chromium;
   transition: color 0.25s ease, background-color 0.25s ease;
   &.dash-graph--heading-draggable:hover {
     cursor: move;
@@ -418,7 +416,7 @@ $dash-graph-options-arrow: 8px;
 
 .react-grid-item {
   &.resizing {
-    background-color: fade-out($g3-castle, 0.09);
+    background-color: fade-out($g3-castle-a, 0.09);
     border-color: $c-pool;
     border-image-slice: 3%;
     border-image-repeat: initial;
@@ -434,7 +432,7 @@ $dash-graph-options-arrow: 8px;
     }
   }
   &.react-draggable-dragging {
-    background-color: fade-out($g3-castle, 0.09);
+    background-color: fade-out($g3-castle-a, 0.09);
     border-color: $c-pool;
     border-image-slice: 3%;
     border-image-repeat: initial;
@@ -451,7 +449,6 @@ $dash-graph-options-arrow: 8px;
     }
   }
   & > .react-resizable-handle {
-    display: var(--zsse-resize-control);
     background-image: none;
     cursor: nwse-resize;
     &:before,

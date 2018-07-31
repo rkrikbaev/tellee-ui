@@ -13,7 +13,7 @@ $template-control-dropdown-max-width: 300px;
 .template-control-bar {
   position: relative;
   display: none;
-  background-color: #b2babf;
+  background-color: $g3-castle;
 
   &.show {
     display: block;

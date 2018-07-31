@@ -105,8 +105,8 @@ $threesizer-handle: 30px;
 
 $threesizer-shadow-size: 9px;
 $threesizer-z-index: 2;
-$threesizer-shadow-start: fade-out($g0-obsidian, 0.82);
-$threesizer-shadow-stop: fade-out($g0-obsidian, 1);
+$threesizer-shadow-start: fade-out($g0-obsidian-a, 0.82);
+$threesizer-shadow-stop: fade-out($g0-obsidian-a, 1);
 
 .threesizer--contents {
   display: flex;

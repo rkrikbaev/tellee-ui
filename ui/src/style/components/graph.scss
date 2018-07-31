@@ -5,11 +5,6 @@
 $graph-heading-height: 44px;
 $graph-gutter: 16px;
 
-$table--border-color: var(--zsse-table-border);
-$table--highlight-color: var(--zsse-table-highlight);
-//
-$table--header-color: var(--zsse-table-headercolor);
-$table--body-text-color: var(--zsee-table-body-text-color);
 /*
   Graph Styles
   ---------------------------------------------
@@ -93,7 +88,7 @@ $table--body-text-color: var(--zsee-table-body-text-color);
 .graph .table-container,
 .graph-container {
   top: $graph-gutter;
-  background-color: $table--highlight-color;
+  background-color: $g3-castle;
   border-radius: 0 0 $radius $radius;
   height: calc(100% - #{($graph-heading-height + ($graph-gutter * 2))});
 }

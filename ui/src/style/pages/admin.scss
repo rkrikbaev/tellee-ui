@@ -7,13 +7,6 @@
     Admin Table
     ----------------------------------------------------------------------------
 */
-
-$table--border-color: var(--zsse-table-border);
-$table--highlight-color: var(--zsse-table-highlight);
-//
-$table--header-color: var(--zsse-table-headercolor);
-$table--body-text-color: var(--zsee-table-body-text-color);
-
 .admin-table .dropdown-toggle {
   background-color: transparent;
   font-weight: 600;
@@ -103,7 +96,7 @@ pre.admin-table--query {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $table--header-color;
+  background-color: $g4-onyx;
   border-radius: $radius-small $radius-small 0 0;
 
   h4 {
@@ -130,7 +123,7 @@ pre.admin-table--query {
 }
 
 .db-manager-table {
-  background-color: $table--highlight-color;
+  background-color: $g4-onyx;
   padding: 9px 11px;
   border-radius: 0 0 $radius-small $radius-small;
 

@@ -14,27 +14,27 @@
   position: absolute;
   pointer-events: none;
   display: none;
-  background: fade-out($g20-white, 1);
+  background: fade-out($g20-white-a, 1);
   background: -moz-linear-gradient(
     top,
-    fade-out($g20-white, 1) 0%,
-    fade-out($g20-white, 0.71) 6%,
-    fade-out($g20-white, 0.71) 80%,
-    fade-out($g20-white, 1) 100%
+    fade-out($g20-white-a, 1) 0%,
+    fade-out($g20-white-a, 0.71) 6%,
+    fade-out($g20-white-a, 0.71) 80%,
+    fade-out($g20-white-a, 1) 100%
   );
   background: -webkit-linear-gradient(
     top,
-    fade-out($g20-white, 1) 0%,
-    fade-out($g20-white, 0.71) 6%,
-    fade-out($g20-white, 0.71) 80%,
-    fade-out($g20-white, 1) 100%
+    fade-out($g20-white-a, 1) 0%,
+    fade-out($g20-white-a, 0.71) 6%,
+    fade-out($g20-white-a, 0.71) 80%,
+    fade-out($g20-white-a, 1) 100%
   );
   background: linear-gradient(
     to bottom,
-    fade-out($g20-white, 1) 0%,
-    fade-out($g20-white, 0.71) 6%,
-    fade-out($g20-white, 0.71) 80%,
-    fade-out($g20-white, 1) 100%
+    fade-out($g20-white-a, 1) 0%,
+    fade-out($g20-white-a, 0.71) 6%,
+    fade-out($g20-white-a, 0.71) 80%,
+    fade-out($g20-white-a, 1) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='fade-out($g20-white, 0.71)', endColorstr='fade-out($g20-white, 0.71)',GradientType=0 );
 }
@@ -156,7 +156,7 @@
 //  z-index: -1;
 //}
 .single-stat--small .single-stat--shadow:after {
-  box-shadow: fade-out($g2-kevlar, 0.3) 0 0 30px 10px;
+  box-shadow: fade-out($g2-kevlar-a, 0.3) 0 0 30px 10px;
 }
 
 /*

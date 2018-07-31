@@ -4,47 +4,7 @@ import OnClickOutside from 'shared/components/OnClickOutside'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 import cookie from 'react-cookies'
 import CustomProperties from 'react-custom-properties'
-
-const ThemeMenuItems = [
-  {
-    themeName: 'dark',
-    themeDescr: 'Темная сторона',
-    bradingColor: '#0F0E15',
-    resizeControl: 'inline',
-    headerTextColor: '#eeeeee',
-    headerBackground: '#0F0E15',
-    cellBgColor: '',
-    formsBg: '#202028',
-    formsColor: '#d4d7dd',
-    formsBorder: '2px solid #383846',
-    formsgBgFocus: '#202028',
-    tableBorder: '#383846',
-    tableHightlight: '#31313d',
-    tableHeadColor: '#eeeff2',
-    tableBodyColor: '#bec2cc',
-    panelbg: '#292933',
-    panelsolidbg: '#3c3c4b',
-  },
-  {
-    themeName: 'light',
-    themeDescr: 'Светлая тема',
-    bradingColor: 'linear-gradient(#f5f7fa, #c3cfe2)',
-    resizeControl: 'inline',
-    headerTextColor: '#3c475f',
-    headerBackground: '#73778d',
-    cellBgColor: 'linear-gradient(#ebedee80, #fdfbfb80)',
-    formsBg: '#d4d7dd',
-    formsColor: '#202028',
-    formsBorder: '2px solid #a7a8b1',
-    formsBgFocus: '#5a585b',
-    tableBorder: '#d1d3dd',
-    tableHightlight: '#e1e3ee',
-    tableHeadColor: '#202028',
-    tableBodyColor: '#3c475f',
-    panelbg: '#fafafc',
-    panelsolidbg: '#fafafc',
-  },
-]
+import {ThemesPallete} from 'shared/constants/themespallete.js'
 
 @ErrorHandling
 class ThemeColorDropdown extends Component {
@@ -71,7 +31,7 @@ class ThemeColorDropdown extends Component {
   render() {
     const {selectedTheme} = this.state
     const {isOpen} = this.state
-    const currentTheme = ThemeMenuItems.find(
+    const currentTheme = ThemesPallete.find(
       values => values.themeName === selectedTheme
     )
     return (
@@ -80,25 +40,28 @@ class ThemeColorDropdown extends Component {
         <CustomProperties
           global={true}
           properties={{
-            // Main
-            '--zsse-branding-color': currentTheme.bradingColor,
-            '--zsse-resize-control': currentTheme.resizeControl,
-            '--zsse-header-text-color': currentTheme.headerTextColor,
-            '--zsse-header-bg': currentTheme.headerBackground,
-            '--zsse-cell-bg': currentTheme.cellBgColor,
-            // panels
-            '--zsse-panel-bg': currentTheme.panelbg,
-            '--zsse-panelsolid-bg': currentTheme.panelsolidbg,
-            // forms ...
-            '--zsse-form-bg': currentTheme.formsBg,
-            '--zsse-form-bg-focus': currentTheme.formsBgFocus,
-            '--zsse-form-color': currentTheme.formsColor,
-            '--zsse-form-border': currentTheme.formsBorder,
-            // tables
-            '--zsse-table-border': currentTheme.tableBorder,
-            '--zsse-table-highlight': currentTheme.tableHightlight,
-            '--zsse-table-headercolor': currentTheme.tableHeadColor,
-            '--zsee-table-body-text-color': currentTheme.tableBodyColor,
+            // Colors override
+            '--zsse-g0-obsidian': currentTheme.g0obsidian,
+            '--zsse-g1-raven': currentTheme.g1raven,
+            '--zsse-g2-kevlar': currentTheme.g2kevlar,
+            '--zsse-g3-castle': currentTheme.g3castle,
+            '--zsse-g4-onyx': currentTheme.g4onyx,
+            '--zsse-g5-pepper': currentTheme.g5pepper,
+            '--zsse-g6-smoke': currentTheme.g6smoke,
+            '--zsse-g7-graphite': currentTheme.g7graphite,
+            '--zsse-g8-storm': currentTheme.g8storm,
+            '--zsse-g9-mountain': currentTheme.g9mountain,
+            '--zsse-g10-wolf': currentTheme.g10wolf,
+            '--zsse-g11-sidewalk': currentTheme.g11sidewalk,
+            '--zsse-g12-forge': currentTheme.g12forge,
+            '--zsse-g13-mist': currentTheme.g13mist,
+            '--zsse-g14-chromium': currentTheme.g14chromium,
+            '--zsse-g15-platinum': currentTheme.g15platinum,
+            '--zsse-g16-pearl': currentTheme.g16pearl,
+            '--zsse-g17-whisper': currentTheme.g17whisper,
+            '--zsse-g18-cloud': currentTheme.g18cloud,
+            '--zsse-g19-ghost': currentTheme.g19ghost,
+            '--zsse-g20-white': currentTheme.g20white,
             // px....
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#3c475f',
@@ -146,7 +109,7 @@ class ThemeColorDropdown extends Component {
           </div>
           <ul className="dropdown-menu">
             <li className="dropdown-header">Выберите тему</li>
-            {ThemeMenuItems.map(item => (
+            {ThemesPallete.map(item => (
               <li className="dropdown-item" key={item.themeName}>
                 <a href="#" onClick={this.handleSelection(item.themeName)}>
                   {item.themeDescr}
