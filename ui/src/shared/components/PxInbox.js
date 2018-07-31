@@ -221,8 +221,6 @@ class PxInbox extends Component {
           properties={{
             '--px-inbox-height': _height,
             '--px-inbox-list-width': _width,
-            '--px-inbox-border-color': '#eeeeee',
-            '--px-inbox-li-background-color--selected': '#3c475f',
           }}
         >
           <px-inbox-demo list-items={JSON.stringify(demoValue)} />

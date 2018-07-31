@@ -111,38 +111,43 @@ class ThemeColorDropdown extends Component {
             '--zsse-c-sulfur': currentTheme.csulfur,
             '--zsse-c-daisy': currentTheme.cdaisy,
             '--zsse-c-banana': currentTheme.cbanana,
+            // custom styles
+            '--zsse-page-header': currentTheme.pageHeaderBg,
             // px components
-            '--px-percent-circle-fill-color': '#308ec1',
-            '--px-base-text-color': '#3c475f',
-            '--px-percent-circle-text-color': '#3c475f',
-            '--px-gauge-empty-color': '#b2babf',
+            '--px-percent-circle-fill-color': currentTheme.cocean,
+            '--px-base-text-color': currentTheme.g17whisper,
+            '--px-percent-circle-text-color': currentTheme.g17whisper,
+            '--px-percent-circle-background-color': currentTheme.g6smoke,
+            '--px-gauge-empty-color': currentTheme.g6smoke,
 
-            '--px-vis-gridlines-color': '#b2babf',
-            '--px-vis-cursor-line-color': '#676a6f',
+            '--px-vis-gridlines-color': currentTheme.g8storm,
+            '--px-vis-cursor-line-color': currentTheme.g17whisper,
 
-            '--px-vis-register-box': '#1be200',
-            '--px-vis-register-data-value': '#434547',
-            '--px-vis-register-series-name': '#4f5e7e',
+            '--px-vis-register-data-value': currentTheme.g14chromium,
+            '--px-vis-register-series-name': currentTheme.g17whisper,
             '--px-vis-register-border-color': '#ffffff00',
             '--px-vis-register-font-size': '12px',
 
-            '--px-vis-series-color-0': '#60C1F8',
+            '--px-vis-series-color-0': currentTheme.cocean,
 
-            '--px-vis-axis-color': '#b2babf',
-            '--px-vis-axis-title-color': '#3c475f',
-            '--px-vis-axis-inline-title-color': '#919699',
-            '--px-vis-axis-inline-type-color': '#919699',
-            '--px-vis-axis-inline-box-color': '#b2babf',
+            '--px-vis-axis-color': currentTheme.g8storm,
+            '--px-vis-axis-title-color': currentTheme.g17whisper,
+            '--px-vis-axis-inline-title-color': currentTheme.g7graphite,
+            '--px-vis-axis-inline-type-color': currentTheme.g7graphite,
+            '--px-vis-axis-inline-box-color': currentTheme.g8storm,
 
             '--px-tooltip-background-color': '#ffffffdc',
-            '--px-tooltip-text-color': '#3c475f',
-            // '--px-tooltip-light-background-color': '#f8425f',
-            '--px-tooltip-light-text-color': '#3c475f',
-            // '--px-tooltip-light-border-color': '#f8425f',
+            '--px-tooltip-text-color': currentTheme.g17whisper,
+            '--px-tooltip-light-text-color': currentTheme.g17whisper,
             '--px-vis-font-family': 'Arial',
             '--px-vis-event-line-color': '#3c475f50',
             '--px-vis-nav-brush-opacity': 0.1,
-            '--px-vis-nav-brush-outline-color': '#b2babf',
+            '--px-vis-nav-brush-outline-color': currentTheme.g14chromium,
+
+            '--px-inbox-li-background-color': currentTheme.g4onyx,
+            '--px-inbox-li-background-color--hover': currentTheme.g6smoke,
+            '--px-inbox-li-background-color--selected': currentTheme.g8storm,
+            '--px-inbox-border-color': currentTheme.g10wolf,
           }}
         />
 

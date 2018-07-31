@@ -17,6 +17,8 @@ import SourceForm from 'src/sources/components/SourceForm'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import SourceIndicator from 'shared/components/SourceIndicator'
 import {DEFAULT_SOURCE} from 'shared/constants'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
+
 const initialPath = '/sources/new'
 
 import {
@@ -221,6 +223,7 @@ class SourcePage extends Component {
               {isInitialSource ? null : (
                 <div className="page-header__right">
                   <SourceIndicator />
+                  <ThemeColorDropdown />
                 </div>
               )}
             </div>

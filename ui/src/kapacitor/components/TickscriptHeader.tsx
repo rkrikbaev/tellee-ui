@@ -4,6 +4,7 @@ import SourceIndicator from 'src/shared/components/SourceIndicator'
 import LogsToggle from 'src/kapacitor/components/LogsToggle'
 import ConfirmButton from 'src/shared/components/ConfirmButton'
 import TickscriptSave, {Task} from 'src/kapacitor/components/TickscriptSave'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 interface Props {
   task: Task
@@ -39,6 +40,7 @@ const TickscriptHeader: SFC<Props> = ({
       )}
       <div className="page-header__right">
         <SourceIndicator />
+        <ThemeColorDropdown />
         <TickscriptSave
           task={task}
           onSave={onSave}

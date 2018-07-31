@@ -82,6 +82,8 @@ export const ThemesPallete = [
     csulfur: '#FFE480',
     cdaisy: '#FFF6B8',
     cbanana: '#FFFDDE',
+    // ZSSE Custom!
+    pageHeaderBg: '#0f0e15', // original g0obsidian color
   },
   // --------------------------------------------------------------------//
   // --------------------------------------------------------------------//
@@ -168,5 +170,7 @@ export const ThemesPallete = [
     csulfur: '#ECAF68',
     cdaisy: '#F2C89A',
     cbanana: '#F4D2AD',
+    // ZSSE Custom!
+    pageHeaderBg: '#c5d1d8', // mountain
   },
 ]

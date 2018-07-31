@@ -155,10 +155,10 @@ class PxKpi extends Component {
     }
 
     let sparkAreaBg = '#ffffff50'
-    let pkTextColor = '#ffffff'
+    let pkTextColor = 'var(--zsse-g4-onyx)'
     if (staticLegend) {
-      sparkAreaBg = '#308EC190'
-      pkTextColor = '#3c475f'
+      sparkAreaBg = 'var(--zsse-c-ocean)'
+      pkTextColor = 'var(--zsse-g14-chromium)'
     }
 
     return (

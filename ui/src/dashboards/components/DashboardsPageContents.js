@@ -84,7 +84,7 @@ class DashboardsPageContents extends Component {
               <div className="panel-body">
                 <div className="box">
                   <h2 className="panel-title">
-                    Version info: <strong>beta 2</strong>
+                    Chronograf-PredixUi: <strong>beta 3</strong>
                   </h2>
                 </div>
               </div>

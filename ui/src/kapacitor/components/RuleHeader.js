@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import RuleHeaderSave from 'src/kapacitor/components/RuleHeaderSave'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 @ErrorHandling
 class RuleHeader extends Component {
@@ -17,6 +18,9 @@ class RuleHeader extends Component {
         <div className="page-header__container">
           <div className="page-header__left">
             <h1 className="page-header__title">Alert Rule Builder</h1>
+          </div>
+          <div className="page-header__right">
+            <ThemeColorDropdown />
           </div>
           <RuleHeaderSave
             source={source}

@@ -1,93 +1,3 @@
-.blue {
-  color: #3498db;
-}
-
-.purple {
-  color: #9b59b6;
-}
-
-.green {
-  color: #1abb9c;
-}
-
-.aero {
-  color: #9cc2cb;
-}
-
-.red {
-  color: #e74c3c;
-}
-
-.dark {
-  color: #34495e;
-}
-
-.border-blue {
-  border-color: #3498db !important;
-}
-
-.border-purple {
-  border-color: #9b59b6 !important;
-}
-
-.border-green {
-  border-color: #1abb9c !important;
-}
-
-.border-aero {
-  border-color: #9cc2cb !important;
-}
-
-.border-red {
-  border-color: #e74c3c !important;
-}
-
-.border-dark {
-  border-color: #34495e !important;
-}
-
-.bg-white {
-  background: #fff !important;
-  border: 1px solid #fff !important;
-  color: #73879c;
-}
-
-.bg-green {
-  background: #1abb9c !important;
-  border: 1px solid #1abb9c !important;
-  color: #fff;
-}
-
-.bg-red {
-  background: #e74c3c !important;
-  border: 1px solid #e74c3c !important;
-  color: #fff;
-}
-
-.bg-blue {
-  background: #3498db !important;
-  border: 1px solid #3498db !important;
-  color: #fff;
-}
-
-.bg-orange {
-  background: #f39c12 !important;
-  border: 1px solid #f39c12 !important;
-  color: #fff;
-}
-
-.bg-purple {
-  background: #9b59b6 !important;
-  border: 1px solid #9b59b6 !important;
-  color: #fff;
-}
-
-.bg-blue-sky {
-  background: #50c1cf !important;
-  border: 1px solid #50c1cf !important;
-  color: #fff;
-}
-
 .tiles,
 .top_tiles {
   margin-bottom: 0;
@@ -155,11 +65,11 @@ ul.quick-list li {
   font-size: 30px;
   line-height: 47px;
   //font-weight: 600;
-  color: #0a3142;
+  color: $g14-chromium;
 }
 
 .count_top, .count_bottom{
-  color: #0a3142;
+  color: $g10-wolf;
 }
 
 @media (min-width: 768px) {

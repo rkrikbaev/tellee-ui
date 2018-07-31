@@ -26,9 +26,9 @@
 //$g20-white: #ffffff;
 
 // Nuetrals (Dark to Light)
-$g0-obsidian: var(--zsse-g0-obsidian);
+$g0-obsidian: var(--zsse-g0-obsidian, #0f0e15);
 $g1-raven:  var(--zsse-g1-raven);
-$g2-kevlar:  var(--zsse-g2-kevlar);
+$g2-kevlar:  var(--zsse-g2-kevlar, #202028);
 $g3-castle: var(--zsse-g3-castle);
 $g4-onyx:  var(--zsse-g4-onyx);
 $g5-pepper:  var(--zsse-g5-pepper);
@@ -37,7 +37,7 @@ $g7-graphite:  var(--zsse-g7-graphite);
 $g8-storm:  var(--zsse-g8-storm);
 $g9-mountain:  var(--zsse-g9-mountain);
 $g10-wolf:  var(--zsse-g10-wolf);
-$g11-sidewalk:  var(--zsse-g11-sidewalk);
+$g11-sidewalk:  var(--zsse-g11-sidewalk, #999dab);
 $g12-forge:  var(--zsse-g12-forge);
 $g13-mist:  var(--zsse-g13-mist);
 $g14-chromium:  var(--zsse-g14-chromium);
@@ -46,7 +46,7 @@ $g16-pearl:  var(--zsse-g16-pearl);
 $g17-whisper:  var(--zsse-g17-whisper);
 $g18-cloud:  var(--zsse-g18-cloud);
 $g19-ghost:  var(--zsse-g19-ghost);
-$g20-white:  var(--zsse-g20-white);
+$g20-white:  var(--zsse-g20-white, #ffffff);
 
 //// thoose for a tag cant be remapped, usually fades and gradients
 $g0-obsidian-a: #0f0e15;
@@ -133,7 +133,7 @@ $c-abyss: var(--zsse-c-abyss);
 $c-sapphire: var(--zsse-c-sapphire);
 $c-ocean: var(--zsse-c-ocean);
 $c-ocean-disabled: var(--zsse-c-ocean-disabled);
-$c-pool: var(--zsse-c-pool);
+$c-pool: var(--zsse-c-pool, #22ADF6);
 $c-pool-disabled: var(--zsse-c-pool-disabled);
 $c-laser: var(--zsse-c-laser);
 $c-hydrogen: var(--zsse-c-hydrogen);
