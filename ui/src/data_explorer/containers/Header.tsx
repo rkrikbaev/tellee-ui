@@ -5,6 +5,7 @@ import TimeRangeDropdown from 'src/shared/components/TimeRangeDropdown'
 import SourceIndicator from 'src/shared/components/SourceIndicator'
 import GraphTips from 'src/shared/components/GraphTips'
 import {TimeRange} from 'src/types'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 interface Props {
   onChooseAutoRefresh: () => void
@@ -34,6 +35,7 @@ class Header extends PureComponent<Props> {
           <div className="page-header__right">
             <GraphTips />
             <SourceIndicator />
+            <ThemeColorDropdown />
             <div
               className="btn btn-sm btn-default"
               onClick={showWriteForm}

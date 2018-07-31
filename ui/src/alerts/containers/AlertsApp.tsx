@@ -16,6 +16,7 @@ import {timeRanges} from 'src/shared/data/timeRanges'
 
 import {Source, TimeRange} from 'src/types'
 import {Alert} from '../../types/alerts'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 interface Props {
   source: Source
@@ -102,6 +103,7 @@ class AlertsApp extends PureComponent<Props, State> {
             </div>
             <div className="page-header__right">
               <SourceIndicator />
+              <ThemeColorDropdown />
               <CustomTimeRangeDropdown
                 onApplyTimeRange={this.handleApplyTime}
                 timeRange={timeRange}

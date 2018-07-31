@@ -13,6 +13,7 @@ import QuestionMarkTooltip from 'src/shared/components/QuestionMarkTooltip'
 
 import {Source, Kapacitor, AlertRule} from 'src/types'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 interface Props {
   source: Source
@@ -100,6 +101,7 @@ const PageContents: SFC<PageContentsProps> = ({children}) => (
             tipContent="<b>Alert Rules</b> generate a TICKscript for<br/>you using our Builder UI.<br/><br/>Not all TICKscripts can be edited<br/>using the Builder."
           />
           <SourceIndicator />
+          <ThemeColorDropdown />
         </div>
       </div>
     </div>

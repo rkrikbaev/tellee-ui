@@ -8,33 +8,41 @@ import CustomProperties from 'react-custom-properties'
 const ThemeMenuItems = [
   {
     themeName: 'dark',
-    themeDescr: 'Dark theme descr',
-    bradingColor: 'linear-gradient(#141e30, #243b55)',
+    themeDescr: 'Темная сторона',
+    bradingColor: '#0F0E15',
     resizeControl: 'inline',
     headerTextColor: '#eeeeee',
+    headerBackground: '#0F0E15',
     cellBgColor: '',
     formsBg: '#202028',
     formsColor: '#d4d7dd',
+    formsBorder: '2px solid #383846',
+    formsgBgFocus: '#202028',
+    tableBorder: '#383846',
+    tableHightlight: '#31313d',
+    tableHeadColor: '#eeeff2',
+    tableBodyColor: '#bec2cc',
+    panelbg: '#292933',
+    panelsolidbg: '#3c3c4b',
   },
   {
     themeName: 'light',
-    themeDescr: 'Light theme descr',
+    themeDescr: 'Светлая тема',
     bradingColor: 'linear-gradient(#f5f7fa, #c3cfe2)',
     resizeControl: 'inline',
     headerTextColor: '#3c475f',
+    headerBackground: '#73778d',
     cellBgColor: 'linear-gradient(#ebedee80, #fdfbfb80)',
     formsBg: '#d4d7dd',
     formsColor: '#202028',
-  },
-  {
-    themeName: 'very light',
-    themeDescr: 'Light theme descr',
-    bradingColor: '#ffffff',
-    resizeControl: 'inline',
-    headerTextColor: '#3c475f',
-    cellBgColor: '#ffffff',
-    formsBg: '#d4d7dd',
-    formsColor: '#202028',
+    formsBorder: '2px solid #a7a8b1',
+    formsBgFocus: '#5a585b',
+    tableBorder: '#d1d3dd',
+    tableHightlight: '#e1e3ee',
+    tableHeadColor: '#202028',
+    tableBodyColor: '#3c475f',
+    panelbg: '#fafafc',
+    panelsolidbg: '#fafafc',
   },
 ]
 
@@ -72,13 +80,26 @@ class ThemeColorDropdown extends Component {
         <CustomProperties
           global={true}
           properties={{
-            // REORGANIZE THIS !!!!!!!!!!!
+            // Main
             '--zsse-branding-color': currentTheme.bradingColor,
             '--zsse-resize-control': currentTheme.resizeControl,
             '--zsse-header-text-color': currentTheme.headerTextColor,
+            '--zsse-header-bg': currentTheme.headerBackground,
             '--zsse-cell-bg': currentTheme.cellBgColor,
+            // panels
+            '--zsse-panel-bg': currentTheme.panelbg,
+            '--zsse-panelsolid-bg': currentTheme.panelsolidbg,
+            // forms ...
             '--zsse-form-bg': currentTheme.formsBg,
+            '--zsse-form-bg-focus': currentTheme.formsBgFocus,
             '--zsse-form-color': currentTheme.formsColor,
+            '--zsse-form-border': currentTheme.formsBorder,
+            // tables
+            '--zsse-table-border': currentTheme.tableBorder,
+            '--zsse-table-highlight': currentTheme.tableHightlight,
+            '--zsse-table-headercolor': currentTheme.tableHeadColor,
+            '--zsee-table-body-text-color': currentTheme.tableBodyColor,
+            // px....
             '--px-percent-circle-fill-color': '#308ec1',
             '--px-base-text-color': '#3c475f',
             '--px-percent-circle-text-color': '#3c475f',
@@ -116,7 +137,7 @@ class ThemeColorDropdown extends Component {
         {/* eof styling */}
         <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
           <div
-            className="btn btn-sm btn-warning dropdown-toggle"
+            className="btn btn-sm btn-info dropdown-toggle"
             onClick={this.toggleMenu}
           >
             <span className={classnames('icon', 'eye-open')} />
@@ -124,11 +145,11 @@ class ThemeColorDropdown extends Component {
             <span className="caret" />
           </div>
           <ul className="dropdown-menu">
-            <li className="dropdown-header">Color Theme</li>
+            <li className="dropdown-header">Выберите тему</li>
             {ThemeMenuItems.map(item => (
               <li className="dropdown-item" key={item.themeName}>
                 <a href="#" onClick={this.handleSelection(item.themeName)}>
-                  {item.themeName}
+                  {item.themeDescr}
                 </a>
               </li>
             ))}

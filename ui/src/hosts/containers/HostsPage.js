@@ -14,6 +14,7 @@ import {getEnv} from 'src/shared/apis/env'
 import {setAutoRefresh} from 'shared/actions/app'
 import {notify as notifyAction} from 'shared/actions/notifications'
 import {generateForHosts} from 'src/utils/tempVars'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 import {
   notifyUnableToGetHosts,
@@ -126,6 +127,7 @@ export class HostsPage extends Component {
             </div>
             <div className="page-header__right">
               <SourceIndicator />
+              <ThemeColorDropdown />
               <AutoRefreshDropdown
                 iconName="refresh"
                 selected={autoRefresh}

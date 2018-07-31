@@ -8,6 +8,12 @@
 
 // table-custom class allows us to make a table from divs so we can use
 // forms inside a table
+$table--border-color: var(--zsse-table-border);
+$table--highlight-color: var(--zsse-table-highlight);
+//
+$table--header-color: var(--zsse-table-headercolor);
+$table--body-text-color: var(--zsee-table-body-text-color);
+
 .table-custom {
   display: table !important;
   border-collapse: separate;
@@ -175,7 +181,7 @@ $table-tab-scrollbar-height: 6px;
 
 .table > tbody > tr.highlight,
 .table.table-highlight > tbody > tr.highlight {
-  background-color: $g4-onyx;
+  background-color: $table--highlight-color;
 }
 
 /*

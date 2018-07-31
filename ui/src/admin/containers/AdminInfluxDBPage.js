@@ -33,6 +33,7 @@ import SourceIndicator from 'shared/components/SourceIndicator'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import SubSections from 'shared/components/SubSections'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 import {notify as notifyAction} from 'shared/actions/notifications'
 
@@ -230,6 +231,7 @@ class AdminInfluxDBPage extends Component {
             </div>
             <div className="page-header__right">
               <SourceIndicator />
+              <ThemeColorDropdown />
             </div>
           </div>
         </div>

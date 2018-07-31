@@ -9,6 +9,7 @@ import UsersPage from 'src/admin/containers/chronograf/UsersPage'
 import AllUsersPage from 'src/admin/containers/chronograf/AllUsersPage'
 import OrganizationsPage from 'src/admin/containers/chronograf/OrganizationsPage'
 import ProvidersPage from 'src/admin/containers/ProvidersPage'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 import {
   isUserAuthorized,
@@ -53,6 +54,9 @@ const AdminChronografPage = ({me, source, params: {tab}}) => (
       <div className="page-header__container">
         <div className="page-header__left">
           <h1 className="page-header__title">Chronograf Admin</h1>
+        </div>
+        <div className="page-header__right">
+          <ThemeColorDropdown />
         </div>
       </div>
     </div>

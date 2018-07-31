@@ -62,25 +62,6 @@ class SideNav extends PureComponent<Props> {
           </Link>
         </div>
         <NavBlock
-          highlightWhen={['hosts']}
-          icon="cubo-node"
-          link={`${sourcePrefix}/hosts`}
-          location={location}
-        >
-          <NavHeader link={`${sourcePrefix}/hosts`} title="Host List" />
-        </NavBlock>
-        <NavBlock
-          highlightWhen={['data-explorer', 'delorean']}
-          icon="graphline"
-          link={dataExplorerLink}
-          location={location}
-        >
-          <NavHeader link={dataExplorerLink} title="Data Explorer" />
-          <FeatureFlag name="time-machine">
-            <NavHeader link={`${sourcePrefix}/delorean`} title="Time Machine" />
-          </FeatureFlag>
-        </NavBlock>
-        <NavBlock
           highlightWhen={['dashboards']}
           icon="dash-h"
           link={`${sourcePrefix}/dashboards`}
@@ -102,7 +83,25 @@ class SideNav extends PureComponent<Props> {
             Alert History
           </NavListItem>
         </NavBlock>
-
+        <NavBlock
+          highlightWhen={['data-explorer', 'delorean']}
+          icon="graphline"
+          link={dataExplorerLink}
+          location={location}
+        >
+          <NavHeader link={dataExplorerLink} title="Data Explorer" />
+          <FeatureFlag name="time-machine">
+            <NavHeader link={`${sourcePrefix}/delorean`} title="Time Machine" />
+          </FeatureFlag>
+        </NavBlock>
+        <NavBlock
+          highlightWhen={['hosts']}
+          icon="cubo-node"
+          link={`${sourcePrefix}/hosts`}
+          location={location}
+        >
+          <NavHeader link={`${sourcePrefix}/hosts`} title="Host List" />
+        </NavBlock>
         <Authorized
           requiredRole={ADMIN_ROLE}
           replaceWithIfNotUsingAuth={

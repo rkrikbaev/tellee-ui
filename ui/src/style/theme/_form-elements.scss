@@ -5,7 +5,7 @@
 
 .form-control {
   width: 100%;
-  border: 2px solid $g5-pepper;
+  border: var(--zsse-form-border);
   border-radius: $radius;
   color: var(--zsse-form-color);
   letter-spacing: 0px;
@@ -29,7 +29,7 @@
     border-color: $c-pool;
     color: $g20-white;
     box-shadow: 0 0 6px 0 $c-pool;
-    background-color: $g2-kevlar;
+    background-color: var(--zsse-form-bg-focus);
   }
 
   // Disabled State

@@ -47,8 +47,8 @@ $subsection-font: 17px;
     &:hover,
     &.active {
         cursor: pointer;
-        color: $g18-cloud;
-        background-color: $g3-castle;
+        color: var(--zsse-table-headercolor);
+        background-color: var(--zsse-panelsolid-bg);
     }
 }
 

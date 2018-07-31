@@ -12,6 +12,7 @@ import {bodyNodes} from 'src/ifql/helpers'
 import {getSuggestions, getAST} from 'src/ifql/apis'
 import * as argTypes from 'src/ifql/constants/argumentTypes'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 interface Props {
   links: Links
@@ -71,6 +72,7 @@ export class IFQLPage extends PureComponent<Props, State> {
                   <h1 className="page-header__title">Time Machine</h1>
                 </div>
                 <div className="page-header__right">
+                  <ThemeColorDropdown />
                   <button
                     className="btn btn-sm btn-primary"
                     onClick={this.handleSubmitScript}

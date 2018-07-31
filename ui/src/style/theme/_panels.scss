@@ -31,7 +31,7 @@ $panel-gutter: 30px;
 
 .panel-body {
   // background-color: $g3-castle;
-  background-color: var(--zsse-cell-bg);
+  background-color: var(--zsse-panel-bg);
   padding: $panel-gutter;
 
   .panel-heading + &,
@@ -82,7 +82,7 @@ $panel-gutter: 30px;
 //  Solid Panels
 //  ----------------------------------------------------------------------------
 .panel.panel-solid {
-  background-color: $g3-castle;
+  background-color: var(--zsse-panelsolid-bg);
   border-radius: 4px;
 
   .panel-heading {

@@ -15,7 +15,7 @@ $page-header-weight: 400 !important;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: $g0-obsidian;
+  background-color: var(--zsse-header-bg, $g0-obsidian);
   border: none;
   margin: 0;
 }

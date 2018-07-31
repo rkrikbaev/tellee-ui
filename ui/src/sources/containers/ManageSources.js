@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 
 import {
   removeAndLoadSources,
@@ -70,6 +71,7 @@ class ManageSources extends Component {
             </div>
             <div className="page-header__right">
               <SourceIndicator />
+              <ThemeColorDropdown />
             </div>
           </div>
         </div>
