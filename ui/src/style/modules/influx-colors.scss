@@ -48,7 +48,7 @@ $g18-cloud:  var(--zsse-g18-cloud);
 $g19-ghost:  var(--zsse-g19-ghost);
 $g20-white:  var(--zsse-g20-white);
 
-// thoose for a tag cant be remapped, usually fades and gradients
+//// thoose for a tag cant be remapped, usually fades and gradients
 $g0-obsidian-a: #0f0e15;
 $g1-raven-a: #1c1c21;
 $g2-kevlar-a: #202028;
@@ -57,60 +57,119 @@ $g4-onyx-a: #31313d;
 $g8-storm-a: #676978;
 $g20-white-a: #ffffff;
 
+
+//// Telegraf (Dark to Light)
+//$c-basalt: #2F1F29;
+//$c-ruby: #BF3D5E;
+//$c-fire: #DC4E58;
+//$c-fire-disabled: #6F3943;
+//$c-curacao: #F95F53;
+//$c-curacao-disabled: #EADAD8;
+//$c-dreamsicle: #FF8564;
+//$c-tungsten: #FFB6A0;
+//$c-marmelade: #FFDCCF;
+//$c-flan: #FFF7F4;
+//
+//// InfluxDB (Dark to Light)
+//$c-abyss: #182838;
+//$c-sapphire: #326BBA;
+//$c-ocean: #4591ED;
+//$c-ocean-disabled: #32547F;
+//$c-pool: #22ADF6;
+//$c-pool-disabled: #C9E0ED;
+//$c-laser: #00C9FF;
+//$c-hydrogen: #6BDFFF;
+//$c-neutrino: #BEF0FF;
+//$c-yeti: #F0FCFF;
+//
+//// Chronograf (Dark to Light)
+//$c-shadow: #1F2039;
+//$c-void: #311F94;
+//$c-amethyst: #513CC6;
+//$c-amethyst-disabled: #484281;
+//$c-star: #7A65F2;
+//$c-star-disabled: #D6D5ED;
+//$c-comet: #9394FF;
+//$c-potassium: #B1B6FF;
+//$c-moonstone: #C9D0FF;
+//$c-twilight: #F2F4FF;
+//
+//// Kapacitor (Dark to Light)
+//$c-gypsy: #152B2D;
+//$c-emerald: #108174;
+//$c-viridian: #32B08C;
+//$c-viridian-disabled: #2B6058;
+//$c-rainforest: #4ED8A0;
+//$c-rainforest-disabled: #CFE6E1;
+//$c-honeydew: #7CE490;
+//$c-krypton: #A5F3B4;
+//$c-wasabi: #C6FFD0;
+//$c-mint: #F2FFF4;
+//
+//// Warnings (Dark to Light)
+//$c-oak: #3F241F;
+//$c-topaz: #E85B1C;
+//$c-tiger: #F48D38;
+//$c-pineapple: #FFB94A;
+//$c-thunder: #FFD255;
+//$c-sulfur: #FFE480;
+//$c-daisy: #FFF6B8;
+//$c-banana: #FFFDDE;
+
 // Telegraf (Dark to Light)
-$c-basalt: #2F1F29;
-$c-ruby: #BF3D5E;
-$c-fire: #DC4E58;
-$c-fire-disabled: #6F3943;
-$c-curacao: #F95F53;
-$c-curacao-disabled: #EADAD8;
-$c-dreamsicle: #FF8564;
-$c-tungsten: #FFB6A0;
-$c-marmelade: #FFDCCF;
-$c-flan: #FFF7F4;
+$c-basalt: var(--zsse-c-basalt);
+$c-ruby: var(--zsse-c-ruby);
+$c-fire: var(--zsse-c-fire);
+$c-fire-disabled: var(--zsse-c-fire-disabled);
+$c-curacao: var(--zsse-c-curacao);
+$c-curacao-disabled: var(--zsse-c-curacao-disabled);
+$c-dreamsicle: var(--zsse-c-dreamsicle);
+$c-tungsten: var(--zsse-c-tungsten);
+$c-marmelade: var(--zsse-c-marmelade);
+$c-flan: var(--zsse-c-flan);
 
 // InfluxDB (Dark to Light)
-$c-abyss: #182838;
-$c-sapphire: #326BBA;
-$c-ocean: #4591ED;
-$c-ocean-disabled: #32547F;
-$c-pool: #22ADF6;
-$c-pool-disabled: #C9E0ED;
-$c-laser: #00C9FF;
-$c-hydrogen: #6BDFFF;
-$c-neutrino: #BEF0FF;
-$c-yeti: #F0FCFF;
+$c-abyss: var(--zsse-c-abyss);
+$c-sapphire: var(--zsse-c-sapphire);
+$c-ocean: var(--zsse-c-ocean);
+$c-ocean-disabled: var(--zsse-c-ocean-disabled);
+$c-pool: var(--zsse-c-pool);
+$c-pool-disabled: var(--zsse-c-pool-disabled);
+$c-laser: var(--zsse-c-laser);
+$c-hydrogen: var(--zsse-c-hydrogen);
+$c-neutrino: var(--zsse-c-neutrino);
+$c-yeti: var(--zsse-c-yeti);
 
 // Chronograf (Dark to Light)
-$c-shadow: #1F2039;
-$c-void: #311F94;
-$c-amethyst: #513CC6;
-$c-amethyst-disabled: #484281;
-$c-star: #7A65F2;
-$c-star-disabled: #D6D5ED;
-$c-comet: #9394FF;
-$c-potassium: #B1B6FF;
-$c-moonstone: #C9D0FF;
-$c-twilight: #F2F4FF;
+$c-shadow: var(--zsse-c-shadow);
+$c-void: var(--zsse-c-void);
+$c-amethyst: var(--zsse-c-amethyst);
+$c-amethyst-disabled: var(--zsse-c-amethyst-disabled);
+$c-star: var(--zsse-c-star);
+$c-star-disabled: var(--zsse-c-star-disabled);
+$c-comet: var(--zsse-c-comet);
+$c-potassium: var(--zsse-c-potassium);
+$c-moonstone: var(--zsse-c-moonstone);
+$c-twilight: var(--zsse-c-twilight);
 
 // Kapacitor (Dark to Light)
-$c-gypsy: #152B2D;
-$c-emerald: #108174;
-$c-viridian: #32B08C;
-$c-viridian-disabled: #2B6058;
-$c-rainforest: #4ED8A0;
-$c-rainforest-disabled: #CFE6E1;
-$c-honeydew: #7CE490;
-$c-krypton: #A5F3B4;
-$c-wasabi: #C6FFD0;
-$c-mint: #F2FFF4;
+$c-gypsy: var(--zsse-c-gypsy);
+$c-emerald: var(--zsse-c-emerald);
+$c-viridian: var(--zsse-c-viridian);
+$c-viridian-disabled: var(--zsse-c-viridian-disabled);
+$c-rainforest: var(--zsse-c-rainforest);
+$c-rainforest-disabled: var(--zsse-c-rainforest-disabled);
+$c-honeydew: var(--zsse-c-honeydew);
+$c-krypton: var(--zsse-c-krypton);
+$c-wasabi: var(--zsse-c-wasabi);
+$c-mint: var(--zsse-c-mint);
 
 // Warnings (Dark to Light)
-$c-oak: #3F241F;
-$c-topaz: #E85B1C;
-$c-tiger: #F48D38;
-$c-pineapple: #FFB94A;
-$c-thunder: #FFD255;
-$c-sulfur: #FFE480;
-$c-daisy: #FFF6B8;
-$c-banana: #FFFDDE;
+$c-oak: var(--zsse-c-oak);
+$c-topaz: var(--zsse-c-topaz);
+$c-tiger: var(--zsse-c-tiger);
+$c-pineapple: var(--zsse-c-pineapple);
+$c-thunder: var(--zsse-c-thunder);
+$c-sulfur: var(--zsse-c-sulfur);
+$c-daisy: var(--zsse-c-daisy);
+$c-banana: var(--zsse-c-banana);

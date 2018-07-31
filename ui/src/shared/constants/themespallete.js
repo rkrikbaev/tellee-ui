@@ -24,7 +24,67 @@ export const ThemesPallete = [
     g18cloud: '#f6f6f8',
     g19ghost: '#fafafc',
     g20white: '#ffffff',
+
+    // Telegraf (Dark to Light)
+    cbasalt: '#2F1F29',
+    cruby: '#BF3D5E',
+    cfire: '#DC4E58',
+    cfiredisabled: '#6F3943',
+    ccuracao: '#F95F53',
+    ccuracaodisabled: '#EADAD8',
+    cdreamsicle: '#FF8564',
+    ctungsten: '#FFB6A0',
+    cmarmelade: '#FFDCCF',
+    cflan: '#FFF7F4',
+
+    // InfluxDB (Dark to Light)
+    cabyss: '#182838',
+    csapphire: '#326BBA',
+    cocean: '#4591ED',
+    coceandisabled: '#32547F',
+    cpool: '#22ADF6',
+    cpooldisabled: '#C9E0ED',
+    claser: '#00C9FF',
+    chydrogen: '#6BDFFF',
+    cneutrino: '#BEF0FF',
+    cyeti: '#F0FCFF',
+
+    // Chronograf (Dark to Light)
+    cshadow: '#1F2039',
+    cvoid: '#311F94',
+    camethyst: '#513CC6',
+    camethystdisabled: '#484281',
+    cstar: '#7A65F2',
+    cstardisabled: '#D6D5ED',
+    ccomet: '#9394FF',
+    cpotassium: '#B1B6FF',
+    cmoonstone: '#C9D0FF',
+    ctwilight: '#F2F4FF',
+
+    // Kapacitor (Dark to Light)
+    cgypsy: '#152B2D',
+    cemerald: '#108174',
+    cviridian: '#32B08C',
+    cviridiandisabled: '#2B6058',
+    crainforest: '#4ED8A0',
+    crainforestdisabled: '#CFE6E1',
+    choneydew: '#7CE490',
+    ckrypton: '#A5F3B4',
+    cwasabi: '#C6FFD0',
+    cmint: '#F2FFF4',
+
+    // Warnings (Dark to Light)
+    coak: '#3F241F',
+    ctopaz: '#E85B1C',
+    ctiger: '#F48D38',
+    cpineapple: '#FFB94A',
+    cthunder: '#FFD255',
+    csulfur: '#FFE480',
+    cdaisy: '#FFF6B8',
+    cbanana: '#FFFDDE',
   },
+  // --------------------------------------------------------------------//
+  // --------------------------------------------------------------------//
   {
     themeName: 'light',
     themeDescr: 'Светлая тема (Predix original)',
@@ -50,5 +110,63 @@ export const ThemesPallete = [
     g18cloud: '#121f26',
     g19ghost: '#0c1419',
     g20white: '#05090c',
+
+    // Telegraf (Dark to Light)
+    cbasalt: '#612325',
+    cruby: '#782C2E',
+    cfire: '#903537',
+    cfiredisabled: '#BE4748',
+    ccuracao: '#E05455',
+    ccuracaodisabled: '#E36E74',
+    cdreamsicle: '#E58189',
+    ctungsten: '#E99BA3',
+    cmarmelade: '#EBA9B0',
+    cflan: '#EDB6BD',
+
+    // InfluxDB (Dark to Light)
+    cabyss: '#245069',
+    csapphire: '#2F6787',
+    cocean: '#3B7EA4',
+    coceandisabled: '#4DA4D5',
+    cpool: '#5ABFF8',
+    cpooldisabled: '#6FC9FA',
+    claser: '#82D2FB',
+    chydrogen: '#99DAFB',
+    cneutrino: '#A6DFFC',
+    cyeti: '#B5E5FD',
+
+    // Chronograf (Dark to Light)
+    cshadow: '#1E3747',
+    cvoid: '#26455A',
+    camethyst: '#2E546D',
+    camethystdisabled: '#3E7091',
+    cstar: '#4882A8',
+    cstardisabled: '#6797B8',
+    ccomet: '#6797B8',
+    cpotassium: '#7DA7C3',
+    cmoonstone: '#A8C4D6',
+    ctwilight: '#B6CEDD',
+
+    // Kapacitor (Dark to Light)
+    cgypsy: '#2A401B',
+    cemerald: '#355023',
+    cviridian: '#42622A',
+    cviridiandisabled: '#557E36',
+    crainforest: '#659540',
+    crainforestdisabled: '#7BA662',
+    choneydew: '#8EB47C',
+    ckrypton: '#A4C497',
+    cwasabi: '#B0CCA6',
+    cmint: '#BDD4B5',
+
+    // Warnings (Dark to Light)
+    coak: '#613C0D',
+    ctopaz: '#7C4D10',
+    ctiger: '#955C11',
+    cpineapple: '#C47A14',
+    cthunder: '#E28D17',
+    csulfur: '#ECAF68',
+    cdaisy: '#F2C89A',
+    cbanana: '#F4D2AD',
   },
 ]
