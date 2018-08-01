@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import OnClickOutside from 'shared/components/OnClickOutside'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -27,8 +28,8 @@ class ThemeColorDropdown extends Component {
   }
 
   toggleMenu = () => this.setState({isOpen: !this.state.isOpen})
-
   render() {
+    const {hideDropdown} = this.props
     const {selectedTheme} = this.state
     const {isOpen} = this.state
     const currentTheme = ThemesPallete.find(
@@ -114,11 +115,11 @@ class ThemeColorDropdown extends Component {
             // custom styles
             '--zsse-page-header': currentTheme.pageHeaderBg,
             // px components
-            '--px-percent-circle-fill-color': currentTheme.cocean,
+            '--px-percent-circle-fill-color': currentTheme.cpool,
             '--px-base-text-color': currentTheme.g17whisper,
             '--px-percent-circle-text-color': currentTheme.g17whisper,
-            '--px-percent-circle-background-color': currentTheme.g6smoke,
-            '--px-gauge-empty-color': currentTheme.g6smoke,
+            '--px-percent-circle-background-color': currentTheme.g5pepper,
+            '--px-gauge-empty-color': currentTheme.g5pepper,
 
             '--px-vis-gridlines-color': currentTheme.g8storm,
             '--px-vis-cursor-line-color': currentTheme.g17whisper,
@@ -145,36 +146,44 @@ class ThemeColorDropdown extends Component {
             '--px-vis-nav-brush-outline-color': currentTheme.g14chromium,
 
             '--px-inbox-li-background-color': currentTheme.g4onyx,
-            '--px-inbox-li-background-color--hover': currentTheme.g6smoke,
+            '--px-inbox-li-background-color--hover': currentTheme.g5pepper,
             '--px-inbox-li-background-color--selected': currentTheme.g8storm,
             '--px-inbox-border-color': currentTheme.g10wolf,
           }}
         />
 
         {/* eof styling */}
-        <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
-          <div
-            className="btn btn-sm btn-info dropdown-toggle"
-            onClick={this.toggleMenu}
-          >
-            <span className={classnames('icon', 'eye-open')} />
-            <span className="dropdown-selected">{selectedTheme}</span>
-            <span className="caret" />
+        {hideDropdown ? null : (
+          <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
+            <div
+              className="btn btn-sm btn-info dropdown-toggle"
+              onClick={this.toggleMenu}
+            >
+              <span className={classnames('icon', 'eye-open')} />
+              <span className="dropdown-selected">{selectedTheme}</span>
+              <span className="caret" />
+            </div>
+            <ul className="dropdown-menu">
+              <li className="dropdown-header">Выберите тему</li>
+              {ThemesPallete.map(item => (
+                <li className="dropdown-item" key={item.themeName}>
+                  <a href="#" onClick={this.handleSelection(item.themeName)}>
+                    {item.themeDescr}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="dropdown-menu">
-            <li className="dropdown-header">Выберите тему</li>
-            {ThemesPallete.map(item => (
-              <li className="dropdown-item" key={item.themeName}>
-                <a href="#" onClick={this.handleSelection(item.themeName)}>
-                  {item.themeDescr}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
       </div>
     )
   }
+}
+
+const {bool} = PropTypes
+
+ThemeColorDropdown.propTypes = {
+  hideDropdown: bool,
 }
 
 export default OnClickOutside(ThemeColorDropdown)

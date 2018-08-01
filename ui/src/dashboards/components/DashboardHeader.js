@@ -32,7 +32,11 @@ const DashboardHeader = ({
   handleClickPresentationButton,
   zoomedTimeRange: {zoomedLower, zoomedUpper},
 }) =>
-  isHidden ? null : (
+  isHidden ? (
+    <div>
+      <ThemeColorDropdown hideDropdown={true} />
+    </div>
+  ) : (
     <div className="page-header full-width">
       <div className="page-header__container">
         <div

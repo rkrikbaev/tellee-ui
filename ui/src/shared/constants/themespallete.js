@@ -111,7 +111,7 @@ export const ThemesPallete = [
     g17whisper: '#1b2a33',
     g18cloud: '#121f26',
     g19ghost: '#0c1419',
-    g20white: '#05090c',
+    g20white: '#2c404c',
 
     // Telegraf (Dark to Light)
     cbasalt: '#612325',
@@ -150,16 +150,16 @@ export const ThemesPallete = [
     ctwilight: '#B6CEDD',
 
     // Kapacitor (Dark to Light)
-    cgypsy: '#2A401B',
-    cemerald: '#355023',
-    cviridian: '#42622A',
-    cviridiandisabled: '#557E36',
-    crainforest: '#659540',
-    crainforestdisabled: '#7BA662',
-    choneydew: '#8EB47C',
-    ckrypton: '#A4C497',
-    cwasabi: '#B0CCA6',
-    cmint: '#BDD4B5',
+    cgypsy: '#BBE297',
+    cemerald: '#AEDC80',
+    cviridian: '#A4D76B',
+    cviridiandisabled: '#92CE40',
+    crainforest: '#86C600',
+    crainforestdisabled: '#7BBC00',
+    choneydew: '#679F00',
+    ckrypton: '#4F7B00',
+    cwasabi: '#406600',
+    cmint: '#325000',
 
     // Warnings (Dark to Light)
     coak: '#613C0D',
