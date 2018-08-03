@@ -1,0 +1,90 @@
+<link rel="import" href="../polymer/polymer.html"/>
+
+<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
+<script src="d3-timelines.js"></script>
+
+<style type="text/css">
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        font-family: sans-serif;
+        font-size: 10px;
+    }
+
+    .timeline-label {
+        font-family: sans-serif;
+        font-size: 12px;
+    }
+
+    #timeline2 .axis {
+        transform: translate(0px,40px);
+        -ms-transform: translate(0px,40px); /* IE 9 */
+        -webkit-transform: translate(0px,40px); /* Safari and Chrome */
+        -o-transform: translate(0px,40px); /* Opera */
+        -moz-transform: translate(0px,40px); /* Firefox */
+    }
+
+    .coloredDiv {
+        height:20px; width:20px; float:left;
+    }
+</style>
+
+
+
+<dom-module id="polymer-d3-timeline">
+    <template>
+        <div>
+            <div width="100%" id="timeline"></div>
+        </div>
+    </template>
+</dom-module>
+
+
+
+<script>
+  Polymer({
+
+    is: 'polymer-d3-timeline',
+
+    /**
+     * Properties block, expose attribute values to the DOM via 'reflect'
+     *
+     * @property properties
+     * @type Object
+     */
+    properties: {
+      /**
+       * Current value of the gauge.
+       * @property value
+       * @type {Number}
+       * @default `0`
+       */
+      value: {
+        type: Number,
+        value: 0
+      },
+    },
+
+    attached: function() {
+      var testData = [
+        {times: [
+            {"starting_time": 1355752800000, "ending_time": 1355759900000,"color": "#edda22"},
+            {"starting_time": 1355767900000, "ending_time": 1355774400000,"color": "#ed913c"},
+            {"starting_time": 1355774500000, "ending_time": 1355776600000,"color": "#747aed"},
+            {"starting_time": 1355777700000, "ending_time": 1355778800000,"color": "#3cab38"},]
+        },
+      ];
+      var chart = d3.timelines();
+
+      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", 500)
+        .datum(testData).call(chart);
+    }
+
+  });
+</script>
+

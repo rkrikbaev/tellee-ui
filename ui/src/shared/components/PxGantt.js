@@ -123,7 +123,7 @@ class PxGantt extends Component {
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         {/*  --------------------------------------------- */}
-
+        <polymer-d3-timeline> </polymer-d3-timeline>
         {/*  --------------------------------------------- */}
 
         <ReactResizeDetector
