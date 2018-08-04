@@ -32,6 +32,11 @@ ul.quick-list li {
   margin: 20px;
 }
 
+.tile_count_min {
+  margin-top: -25px;
+}
+
+
 .tile_count .tile_stats_count {
   border-bottom: 1px solid #d9dee4;
   padding: 0 10px 0 20px;
@@ -42,7 +47,7 @@ ul.quick-list li {
   content: "";
   position: absolute;
   left: 0;
-  height: 65px;
+  height: 50px;
   border-right: 2px solid var(--zsse-g5-pepper);
   margin-top: 10px;
 }
@@ -190,17 +195,6 @@ ul.quick-list li {
 .tile-stats > .dash-box-footer:hover {
   color: #fff;
   background: rgba(0, 0, 0, 0.15);
-}
-
-table.tile_info {
-  padding: 10px 15px;
-}
-
-table.tile_info span.right {
-  margin-right: 0;
-  float: right;
-  position: absolute;
-  right: 4%;
 }
 
 .tile_header {

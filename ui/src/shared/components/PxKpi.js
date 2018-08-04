@@ -183,7 +183,7 @@ class PxKpi extends Component {
             spark-height={sparkHeight}
             title={title}
             value={`${kpiMainValue.y.toFixed(2)} ${prefix}`}
-            uom={title}
+            uom={axes.y.title}
             status-icon={
               kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
             }

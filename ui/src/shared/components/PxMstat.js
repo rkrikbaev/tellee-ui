@@ -7,6 +7,7 @@ import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
+import classnames from 'classnames'
 
 // const validateTimeSeries = timeseries => {
 //   return _.every(timeseries, r =>
@@ -82,7 +83,7 @@ class PxMstat extends Component {
       // isGraphFilled,
       // showSingleStat,
       // displayOptions,
-      // staticLegend,
+      staticLegend,
       // underlayCallback,
       // overrideLineColors,
       isFetchingInitially,
@@ -113,6 +114,12 @@ class PxMstat extends Component {
     // }
 
     const prefix = axes ? axes.y.prefix : ''
+    const suffix = axes ? axes.y.suffix : ''
+    const minimal = axes ? axes.y.scale : ''
+    let minifyCss = ''
+    if (minimal === 'log') {
+      minifyCss = 'tile_count_min'
+    }
     // prefix is icon list with comma separated delim.
     const prefixArray = prefix.split(',')
     const iconsArray = []
@@ -122,7 +129,8 @@ class PxMstat extends Component {
     // const suffix = axes ? axes.y.suffix : ''
     const _labels = labels.filter(e => e !== 'time')
 
-    const cols = `col-md-${12 / _labels.length} tile_stats_count`
+    const cols = `col-md-${12 / _labels.length} col-xs-${12 /
+      _labels.length} tile_stats_count`
     return (
       <div
         style={{height: '100%'}}
@@ -130,7 +138,7 @@ class PxMstat extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
 
-        <div className="row tile_count">
+        <div className={classnames('row tile_count', minifyCss)}>
           {_labels.map((value, key) => (
             <div className={cols} key={key}>
               <span className="count_top">
@@ -142,21 +150,25 @@ class PxMstat extends Component {
                       : iconsArray[key]
                   }
                 />{' '}
-                {value}
+                {typeof value === 'undefined'
+                  ? ''
+                  : value.substr(value.indexOf('.') + 1)}
               </span>
               <div className="count">
                 {tableData[0][key + 1] === null
                   ? '0'
                   : tableData[0][key + 1].toFixed(2)}
               </div>
-              <span className="count_bottom">
-                <i className="green">
-                  {tableData[1][key + 1] === null
-                    ? '0'
-                    : tableData[1][key + 1].toFixed(2)}
-                </i>{' '}
-                prev. value
-              </span>
+              {staticLegend ? (
+                <span className="count_bottom">
+                  <i className="green">
+                    {tableData[1][key + 1] === null
+                      ? '0'
+                      : tableData[1][key + 1].toFixed(2)}
+                  </i>{' '}
+                  {suffix}
+                </span>
+              ) : null}
             </div>
           ))}
         </div>

@@ -624,7 +624,7 @@ export const GRAPH_TYPES = [
   },
   {
     type: CELL_TYPE_PX_GANTT,
-    menuOption: 'D3 Gantt',
+    menuOption: 'D3 Timeline',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
   },
   {

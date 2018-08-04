@@ -65,6 +65,8 @@ class LayoutCellMenu extends Component {
         action: onCSVDownload(cell),
         disabled: !dataExists,
       },
+      {text: 'Clone Cell', action: onClone(cell)},
+      {text: 'Delete', action: onDelete(cell)},
     ]
 
     return (
@@ -85,26 +87,15 @@ class LayoutCellMenu extends Component {
         {isEditable &&
           mode !== EDITING && (
             <div className="dash-graph-context--buttons">
-              {queries.length ? (
-                <MenuTooltipButton
-                  icon="pencil"
-                  menuOptions={menuOptions}
-                  informParent={this.handleToggleSubMenu}
-                />
-              ) : null}
               <Authorized requiredRole={EDITOR_ROLE}>
-                <MenuTooltipButton
-                  icon="duplicate"
-                  menuOptions={[{text: 'Clone Cell', action: onClone(cell)}]}
-                  informParent={this.handleToggleSubMenu}
-                />
+                {queries.length ? (
+                  <MenuTooltipButton
+                    icon="pencil"
+                    menuOptions={menuOptions}
+                    informParent={this.handleToggleSubMenu}
+                  />
+                ) : null}
               </Authorized>
-              <MenuTooltipButton
-                icon="trash"
-                theme="danger"
-                menuOptions={[{text: 'Confirm', action: onDelete(cell)}]}
-                informParent={this.handleToggleSubMenu}
-              />
             </div>
           )}
         {mode === 'editing' &&

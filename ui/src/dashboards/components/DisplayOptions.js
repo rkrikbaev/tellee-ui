@@ -10,6 +10,7 @@ import TableOptions from 'src/dashboards/components/TableOptions'
 import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOptions'
 import PxKpiOptions from 'src/dashboards/components/PxKpiOptions'
 import PxGaugeOptions from 'src/dashboards/components/PxGaugeOptions'
+import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -61,6 +62,13 @@ class DisplayOptions extends Component {
       case 'px-kpi':
         return (
           <PxKpiOptions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
+      case 'px-mstat':
+        return (
+          <PxMstatOtions
             onToggleStaticLegend={onToggleStaticLegend}
             staticLegend={staticLegend}
           />
