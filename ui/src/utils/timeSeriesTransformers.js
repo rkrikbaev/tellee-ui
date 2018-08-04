@@ -198,3 +198,53 @@ export const timeSeriesToPxInbox = (raw = []) => {
     timeSeries,
   }
 }
+
+export const timeSeriesToPxRadar = (raw = []) => {
+  const isTable = true
+  const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
+    raw,
+    isTable
+  )
+
+  const timeCorrectionGlitch = 21600000
+
+  let labels = ['time', ...map(sortedLabels, ({label}) => label)]
+
+  const _labels = labels // copy labels
+
+  const tableData = map(sortedTimeSeries, ({time, values}) => [time, ...values])
+
+  const timeSeries = {jsonflatten: []}
+
+  const sliceArr = 0
+
+  const eventsData = []
+  const eventsConfig = {}
+
+  tableData.slice(sliceArr).forEach(function(_value) {
+    const map1 = {}
+    _value.forEach(function(_row, _idx) {
+      const currentLabel = labels[_idx].substr(labels[_idx].indexOf('.') + 1)
+      if (currentLabel === 'time') {
+        map1.timeStamp = _row + timeCorrectionGlitch // tempopary fix
+      } else {
+        if (_row === null) {
+          _row = 0
+        }
+        map1[currentLabel] = _row
+      }
+    })
+    timeSeries.jsonflatten.push(map1)
+  })
+
+  labels = _labels
+
+  return {
+    timeSeries,
+    sortedLabels,
+    tableData,
+    labels,
+    eventsData,
+    eventsConfig,
+  }
+}

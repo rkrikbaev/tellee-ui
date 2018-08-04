@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxRadar} from 'utils/timeSeriesTransformers'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
@@ -32,7 +32,7 @@ class PxRadar extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data)
+    this._timeSeries = timeSeriesToPxRadar(data)
     // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
@@ -102,8 +102,8 @@ class PxRadar extends Component {
     labels.forEach(function(_label, key, arr) {
       if (_label !== 'time') {
         const map2 = {}
-        map2.title = _label
-        pxSeriesConfig += `"${_label}"`
+        map2.title = _label.substr(_label.indexOf('.') + 1)
+        pxSeriesConfig += `"${_label.substr(_label.indexOf('.') + 1)}"`
         if (Object.is(arr.length - 1, key)) {
           pxSeriesConfig += ']'
         } else {
@@ -125,7 +125,7 @@ class PxRadar extends Component {
           width={width}
           height={height}
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
-          series-key="TimeStamp"
+          series-key="timeStamp"
           axes={pxSeriesConfig}
         />
 
