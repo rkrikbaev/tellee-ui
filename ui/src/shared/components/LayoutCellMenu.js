@@ -86,8 +86,8 @@ class LayoutCellMenu extends Component {
         </div>
         {isEditable &&
           mode !== EDITING && (
-            <div className="dash-graph-context--buttons">
-              <Authorized requiredRole={EDITOR_ROLE}>
+            <Authorized requiredRole={EDITOR_ROLE}>
+              <div className="dash-graph-context--buttons">
                 {queries.length ? (
                   <MenuTooltipButton
                     icon="pencil"
@@ -95,8 +95,8 @@ class LayoutCellMenu extends Component {
                     informParent={this.handleToggleSubMenu}
                   />
                 ) : null}
-              </Authorized>
-            </div>
+              </div>
+            </Authorized>
           )}
         {mode === 'editing' &&
           cellSupportsAnnotations(cell.type) && (
