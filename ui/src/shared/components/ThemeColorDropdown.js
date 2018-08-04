@@ -116,7 +116,7 @@ class ThemeColorDropdown extends Component {
             '--zsse-page-header': currentTheme.pageHeaderBg,
             // px components
             '--px-percent-circle-fill-color': currentTheme.cpool,
-            '--px-base-text-color': currentTheme.g17whisper,
+            '--px-base-text-color': currentTheme.g14chromium,
             '--px-percent-circle-text-color': currentTheme.g17whisper,
             '--px-percent-circle-background-color': currentTheme.g5pepper,
             '--px-gauge-empty-color': currentTheme.g5pepper,
@@ -126,7 +126,7 @@ class ThemeColorDropdown extends Component {
 
             '--px-vis-register-data-value': currentTheme.g14chromium,
             '--px-vis-register-series-name': currentTheme.g17whisper,
-            '--px-vis-register-border-color': '#ffffff00',
+            '--px-vis-register-border-color': '#ffffff00', // ugly border in series
             '--px-vis-register-font-size': '12px',
 
             '--px-vis-series-color-0': currentTheme.cocean,
@@ -137,10 +137,11 @@ class ThemeColorDropdown extends Component {
             '--px-vis-axis-inline-type-color': currentTheme.g7graphite,
             '--px-vis-axis-inline-box-color': currentTheme.g8storm,
 
-            '--px-tooltip-background-color': '#ffffffdc',
-            '--px-tooltip-text-color': currentTheme.g17whisper,
+            '--px-tooltip-background-color': currentTheme.g2kevlar,
+            '--px-tooltip-text-color': currentTheme.g14chromium,
             '--px-tooltip-light-text-color': currentTheme.g17whisper,
-            '--px-vis-font-family': 'Arial',
+            '--px-tooltip-border-color': currentTheme.g9mountain,
+            '--px-vis-font-family': 'Roboto',
             '--px-vis-event-line-color': '#3c475f50',
             '--px-vis-nav-brush-opacity': 0.1,
             '--px-vis-nav-brush-outline-color': currentTheme.g14chromium,

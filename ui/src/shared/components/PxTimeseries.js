@@ -98,8 +98,8 @@ class PxTimeseries extends Component {
     const suffix = axes ? axes.y.suffix : ''
     // This is A very SICK implementation of series config, since JSON formatting problems for PX,
     // we fall-down in the end to text-to-json manual composing
-    let pxSeriesConfig = '{'
-    labels.forEach(function(_label, key, arr) {
+    const pxSeriesConfig = {}
+    labels.forEach(function(_label, key) {
       if (_label !== 'time') {
         const map2 = {}
         map2.name = _label
@@ -107,13 +107,11 @@ class PxTimeseries extends Component {
         map2.y = _label
         map2.yAxisUnit = suffix
         map2.mutedOpacity = '0'
-        map2.color = colors[key - 1] ? colors[key - 1].hex : '#EFEFEF'
-        pxSeriesConfig += `"${_label}":${JSON.stringify(map2)}`
-        if (Object.is(arr.length - 1, key)) {
-          pxSeriesConfig += '}'
-        } else {
-          pxSeriesConfig += ','
-        }
+        map2.color =
+          typeof colors[key - 1] === 'undefined'
+            ? '#ef3e50'
+            : colors[key - 1].hex
+        pxSeriesConfig[_label] = map2
       }
     })
 
@@ -146,7 +144,7 @@ class PxTimeseries extends Component {
           selection-type="xy"
           show-tooltip="true"
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
-          series-config={pxSeriesConfig}
+          series-config={JSON.stringify(pxSeriesConfig)}
           event-config={JSON.stringify(eventsConfig)}
           event-data={JSON.stringify(eventsData)}
           {...(disableNavigator ? {'disable-navigator': true} : {})}
