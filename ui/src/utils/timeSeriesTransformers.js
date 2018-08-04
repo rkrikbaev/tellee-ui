@@ -108,7 +108,7 @@ export const timeSeriesToPxSeries = (raw = []) => {
         if (_row === null) {
           _row = 0
         }
-        map1[labels[_idx]] = _row
+        map1[currentLabel] = _row
       }
     })
     timeSeries.jsonflatten.push(map1)
@@ -160,5 +160,41 @@ export const timeSeriesToPxKpi = (raw = []) => {
     sortedLabels,
     tableData,
     labels,
+  }
+}
+
+export const timeSeriesToPxInbox = (raw = []) => {
+  const isTable = true
+  const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
+    raw,
+    isTable
+  )
+
+  const labels = ['time', ...map(sortedLabels, ({label}) => label)]
+
+  const tableData = map(sortedTimeSeries, ({time, values}) => [time, ...values])
+
+  const timeSeries = {jsonflatten: []}
+
+  const sliceArr = 0
+
+  tableData.slice(sliceArr).forEach(function(_value) {
+    const map1 = {}
+    _value.forEach(function(_row, _idx) {
+      const currentLabel = labels[_idx].substr(labels[_idx].indexOf('.') + 1)
+      if (currentLabel === 'time') {
+        // map1.timeStamp = _row + timeCorrectionGlitch
+      } else {
+        if (_row === null) {
+          _row = 0
+        }
+        map1[currentLabel] = _row
+      }
+    })
+    timeSeries.jsonflatten.push(map1)
+  })
+
+  return {
+    timeSeries,
   }
 }

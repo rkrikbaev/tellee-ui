@@ -26,32 +26,38 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       }
       .heading--page,
       .details {
-        padding: 2rem;
-        border-bottom: 1px solid rgb(216, 224, 229);
+        padding: 15px;
+        border-bottom: 1px dashed var(--px-inbox-border-color);
         flex: 0 0 auto;
+      }
+      h2{
+          line-height: 1.25em;
+          font-size: 30px;
+          font-weight: 300;
+          letter-spacing: -1px;
       }
       px-key-value-pair {
         min-width: 10rem;
       }
     </style>
 
-    <div class="heading--page flex flex--left">{{title}}</div>
+      <div class="heading--page flex flex--left"><h2>{{title}}</h2></div>
     <div class="details">
-      <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon>Alert Information</span>
+        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon><strong>Alert Information</strong></span>
       <div class="flex flex--row flex--wrap flex--justify">
-        <px-key-value-pair class="u-mv" key="Alert ID" value="{{alertId}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertSource}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Alert ID" value="{{alerttext}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertvalue}}"></px-key-value-pair>
+        <!--<px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>-->
+        <!--<px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>-->
       </div>
     </div>
     <div class="details">
-      <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon>Asset Information</span>
+        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon><strong>Asset Information</strong></span>
       <div class="flex flex--row flex--wrap flex--justify">
-        <px-key-value-pair class="u-mv" key="Customer" value="{{customer}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Serial Number" value="{{serialNumber}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Customer" value="{{assettext}}"></px-key-value-pair>
+        <px-key-value-pair class="u-mv" key="Serial Number" value="{{assetvalue}}"></px-key-value-pair>
+        <!--<px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>-->
+        <!--<px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>-->
       </div>
     </div>
 
@@ -96,7 +102,11 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       },
       model: {
         type: String
-      }
+      },
+      alerttext:{ type: String},
+      alertvalue:{ type: String},
+      assettext:{ type: String},
+      assetvalue:{ type: String},
     }
   });
 
