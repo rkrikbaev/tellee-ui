@@ -29,6 +29,13 @@ const unauthorizedEmptyState = (
   </div>
 )
 
+const dashboardIcon = _name =>
+  _name.substr(0, _name.indexOf('#')).length > 0
+    ? _name.substr(0, _name.indexOf('#'))
+    : 'px-fea:orchestration'
+
+const dashboardCleanName = _name => _name.substr(_name.indexOf('#') + 1)
+
 const DashboardsTable = ({
   dashboards,
   onDeleteDashboard,
@@ -42,11 +49,11 @@ const DashboardsTable = ({
         {_.sortBy(dashboards, d => d.name.toLowerCase()).map(dashboard => (
           <tr key={dashboard.id} className="dashboardsListTd">
             <td width="16">
-              <px-icon class="blue" icon="px-fea:analysis" />
+              <px-icon class="blue" icon={dashboardIcon(dashboard.name)} />
             </td>
             <td>
               <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
-                <h2>{dashboard.name}</h2>
+                <h2>{dashboardCleanName(dashboard.name)}</h2>
               </Link>
             </td>
             <td>

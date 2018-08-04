@@ -379,9 +379,15 @@ class DashboardPage extends Component {
     const {isEditMode} = this.state
 
     const names = dashboards.map(d => ({
-      name: d.name,
+      name: d.name.substr(d.name.indexOf('#') + 1), // d.name,
       link: `/sources/${sourceID}/dashboards/${d.id}`,
     }))
+
+    let _dashboard = ''
+    if (typeof dashboard !== 'undefined') {
+      _dashboard = dashboard.name.substr(dashboard.name.indexOf('#') + 1)
+    }
+
     return (
       <div className="page dashboard-page">
         {selectedCell ? (
@@ -418,7 +424,7 @@ class DashboardPage extends Component {
           onSave={this.handleRenameDashboard}
           onCancel={this.handleCancelEditDashboard}
           onEditDashboard={this.handleEditDashboard}
-          activeDashboard={dashboard ? dashboard.name : ''}
+          activeDashboard={dashboard ? _dashboard : ''}
           showTemplateControlBar={showTemplateControlBar}
           handleChooseAutoRefresh={handleChooseAutoRefresh}
           handleChooseTimeRange={this.handleChooseTimeRange}
