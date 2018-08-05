@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
+import _ from 'lodash'
+import CustomProperties from 'react-custom-properties'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
@@ -156,15 +158,43 @@ class PxGauge extends Component {
       colors.find(color => color.type === COLOR_TYPE_MAX).value
     )
 
-    const arrayOfStates = prefix.split(':')
-    const error =
-      typeof arrayOfStates[0] === 'undefined' ? '[[0,0]]' : arrayOfStates[0]
-    const abnormal =
-      typeof arrayOfStates[1] === 'undefined' ? '[[0,0]]' : arrayOfStates[1]
-    const anomaly =
-      typeof arrayOfStates[2] === 'undefined' ? '[[0,0]]' : arrayOfStates[2]
-    const normal =
-      typeof arrayOfStates[3] === 'undefined' ? '[[0,0]]' : arrayOfStates[3]
+    const sortedColors = _.sortBy(colors, color => Number(color.value))
+
+    const pxErrorTreshold = []
+    const pxAbnormalTreshold = []
+    const pxAnomalyreshold = []
+    const pxNormalTreshold = []
+    let pxErrorColor = []
+    let pxAbnormalColor = []
+    let pxAnomalyColor = []
+    let pxNormalColor = []
+    if (colors.length > 2) {
+      for (let c = 1; c < sortedColors.length - 1; c++) {
+        // Use this color and the next to determine arc length
+        const color = sortedColors[c]
+        if (c === 1) {
+          pxErrorTreshold.push(minValue.toString(), color.value)
+          pxErrorColor = color.hex
+        }
+        if (c === 2) {
+          pxAbnormalTreshold.push(pxErrorTreshold[1], color.value)
+          pxAbnormalColor = color.hex
+        }
+        if (c === 3) {
+          pxAnomalyreshold.push(pxAbnormalTreshold[1], color.value)
+          pxAnomalyColor = color.hex
+        }
+        if (c === 4) {
+          pxNormalTreshold.push(pxAnomalyreshold[1], color.value)
+          pxNormalColor = color.hex
+        }
+      }
+    } else {
+      const defaultColor = colors.find(color => color.type === COLOR_TYPE_MIN)
+        .hex
+      pxNormalTreshold.push(minValue.toString(), maxValue.toString())
+      pxNormalColor = defaultColor
+    }
 
     return (
       <div
@@ -172,21 +202,28 @@ class PxGauge extends Component {
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
-
-        <px-gauge
-          value={`${kpiMainValue.y.toFixed(2)}`}
-          max={maxValue}
-          min={minValue}
-          width={_width}
-          height={_height}
-          bar-width="0"
-          unit={suffix}
-          error={error}
-          abnormal={abnormal}
-          anomaly={anomaly}
-          normal={normal}
-        />
-
+        <CustomProperties
+          properties={{
+            '--px-gauge-fill-error-color': pxErrorColor,
+            '--px-gauge-fill-anomaly-color': pxAnomalyColor,
+            '--px-gauge-fill-abnormal-color': pxAbnormalColor,
+            '--px-gauge-fill-normal-color': pxNormalColor,
+          }}
+        >
+          <px-gauge
+            value={`${kpiMainValue.y.toFixed(2)}`}
+            max={maxValue}
+            min={minValue}
+            width={_width}
+            height={_height}
+            bar-width={prefix}
+            unit={suffix}
+            error={`[${JSON.stringify(pxErrorTreshold)}]`}
+            abnormal={`[${JSON.stringify(pxAbnormalTreshold)}]`}
+            anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
+            normal={`[${JSON.stringify(pxNormalTreshold)}]`}
+          />
+        </CustomProperties>
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}

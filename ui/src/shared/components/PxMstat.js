@@ -60,6 +60,18 @@ class PxMstat extends Component {
     this.render()
   }
 
+  isJsonString = json => {
+    {
+      const str = json.toString()
+      try {
+        JSON.parse(str)
+      } catch (e) {
+        return false
+      }
+      return true
+    }
+  }
+
   render() {
     if (!this.isValidData) {
       return <InvalidData />
@@ -121,11 +133,12 @@ class PxMstat extends Component {
       minifyCss = 'tile_count_min'
     }
     // prefix is icon list with comma separated delim.
-    const prefixArray = prefix.split(',')
-    const iconsArray = []
-    prefixArray.forEach(key => {
-      iconsArray.push(key)
-    })
+    // need to be rewrited!
+    // const prefixArray = prefix.split(',')
+    const iconsArray = this.isJsonString(prefix) ? JSON.parse(prefix) : ''
+    // prefixArray.forEach(key => {
+    //   iconsArray.push(key)
+    // })
     // const suffix = axes ? axes.y.suffix : ''
     const _labels = labels.filter(e => e !== 'time')
 

@@ -8,6 +8,7 @@ import Input from 'src/dashboards/components/DisplayOptionsInput'
 import {Tabber, Tab} from 'src/dashboards/components/Tabber'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 // import LineGraphColorSelector from 'src/shared/components/LineGraphColorSelector'
+import Form from 'react-jsonschema-form'
 
 import {
   AXES_SCALE_OPTIONS,
@@ -84,7 +85,53 @@ class PxMstatOptions extends Component {
   //   handleUpdateAxes(newAxes)
   // }
 
+  isJsonString = json => {
+    {
+      const str = json.toString()
+      try {
+        JSON.parse(str)
+      } catch (e) {
+        return false
+      }
+      return true
+    }
+  }
+
   render() {
+    const schema = {
+      title: 'Predix icons for each Stat Value',
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    }
+    const uiSchema = {
+      title: {
+        classNames: 'mozilla-dynamic-forms',
+      },
+      items: {
+        classNames: 'mozilla-dynamic-forms',
+      },
+    }
+
+    // const log = type => {
+    //   console.log(console, type)
+    // }
+
+    const onSubmit = ({formData}) => {
+      const {handleUpdateAxes, axes} = this.props
+      const _prefix = JSON.stringify(formData)
+
+      const newAxes = {
+        ...axes,
+        y: {
+          ...axes.y,
+          prefix: _prefix,
+        },
+      }
+      handleUpdateAxes(newAxes)
+    }
+
     const {
       axes: {
         y: {prefix, suffix, scale}, // base, bounds,  defaultYLabel,label,
@@ -97,7 +144,7 @@ class PxMstatOptions extends Component {
     // const [min, max] = bounds
 
     const {menuOption} = GRAPH_TYPES.find(graph => graph.type === type)
-
+    const formData = this.isJsonString(prefix) ? JSON.parse(prefix) : ''
     return (
       <FancyScrollbar
         className="display-options--cell y-axis-controls"
@@ -136,25 +183,24 @@ class PxMstatOptions extends Component {
             {/* min={getInputMin(scale)}*/}
             {/* />*/}
             {/* </div>*/}
-            <p className="display-options--footnote">
-              Predix icons, list separated by comma
-            </p>
-            <textarea
-              className="form-control monotype"
-              name="prefix"
-              id="prefix"
-              value={prefix}
-              spellCheck={false}
-              onChange={this.handleSetPrefixSuffix}
-            />
-            <Input
-              name="suffix"
-              id="suffix"
-              value={suffix}
-              labelText="Bottom title value"
-              onChange={this.handleSetPrefixSuffix}
-              maxLength="5"
-            />
+            {/* <textarea*/}
+            {/* className="form-control monotype"*/}
+            {/* name="prefix"*/}
+            {/* id="prefix"*/}
+            {/* value={prefix}*/}
+            {/* spellCheck={false}*/}
+            {/* onChange={this.handleSetPrefixSuffix}*/}
+            {/* />*/}
+            <div className="form-group col-sm-12">
+              <Input
+                name="suffix"
+                id="suffix"
+                value={suffix}
+                labelText="Bottom title value"
+                onChange={this.handleSetPrefixSuffix}
+                maxLength="5"
+              />
+            </div>
             {/* <Tabber*/}
             {/* labelText="Y-Value's Format"*/}
             {/* tipID="Y-Values's Format"*/}
@@ -183,31 +229,50 @@ class PxMstatOptions extends Component {
             {/* onClickTab={this.handleSetScale(LOG)}*/}
             {/* />*/}
             {/* </Tabber>*/}
-            <Tabber labelText="Include prev. values">
-              <Tab
-                text="Yes"
-                isActive={staticLegend}
-                onClickTab={onToggleStaticLegend(true)}
-              />
-              <Tab
-                text="No"
-                isActive={!staticLegend}
-                onClickTab={onToggleStaticLegend(false)}
-              />
-            </Tabber>
-            <Tabber labelText="Minimal (do not name the cell in this mode)">
-              <Tab
-                text="No"
-                isActive={scale === LINEAR}
-                onClickTab={this.handleSetScale(LINEAR)}
-              />
-              <Tab
-                text="Yes"
-                isActive={scale === LOG}
-                onClickTab={this.handleSetScale(LOG)}
-              />
-            </Tabber>
+            <div className="form-group col-sm-12">
+              <Tabber labelText="Include prev. values">
+                <Tab
+                  text="Yes"
+                  isActive={staticLegend}
+                  onClickTab={onToggleStaticLegend(true)}
+                />
+                <Tab
+                  text="No"
+                  isActive={!staticLegend}
+                  onClickTab={onToggleStaticLegend(false)}
+                />
+              </Tabber>
+            </div>
+            <div className="form-group col-sm-12">
+              <Tabber labelText="Minimal Size(do not name the cell in this mode)">
+                <Tab
+                  text="No"
+                  isActive={scale === LINEAR}
+                  onClickTab={this.handleSetScale(LINEAR)}
+                />
+                <Tab
+                  text="Yes"
+                  isActive={scale === LOG}
+                  onClickTab={this.handleSetScale(LOG)}
+                />
+              </Tabber>
+            </div>
           </form>
+          <Form
+            schema={schema}
+            uiSchema={uiSchema}
+            formData={formData}
+            className="form-group-wrapper mozilla-dynamic-forms"
+            // onChange={log('changed')}
+            onSubmit={onSubmit}
+            // onError={log('errors')}
+          >
+            <div className="form-group col-sm-6">
+              <button type="submit" className="btn btn-sm btn-success">
+                Apply Icons
+              </button>
+            </div>
+          </Form>
         </div>
       </FancyScrollbar>
     )

@@ -215,3 +215,59 @@ ul.quick-list li {
   background: rgba(194, 194, 194, 0.3);
   text-align: left;
 }
+
+
+.mozilla-dynamic-forms {
+  fieldset {
+    display: block;
+    border: 0px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--zsse-g11-sidewalk, #999dab);
+    margin: 0 0 4px 0;
+    padding: 0 13px;
+  }
+  form{
+    margin-bottom: 3px;
+  }
+
+  input {
+    height: 30px;
+    padding: 0 11px;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  button{
+    height: 30px;
+    top: 0;
+    font-size: 13px;
+    margin-right: 6px;
+  }
+
+  i.glyphicon { display: none;}
+  .btn-add::before {
+    font-family: 'icomoon' !important;
+    content: '\e90a'; }
+  .array-item-move-up::before {
+    font-family: 'icomoon' !important;
+    content: '\e90b'; }
+  .array-item-move-down::before {
+    font-family: 'icomoon' !important;
+    content: '\e910'; }
+  .array-item-remove::before {
+    font-family: 'icomoon' !important;
+    content: '\E909';
+  }
+
+
+  .array-item-move-up { width: 30px; }
+  .array-item-move-down{ width: 30px; }
+  .array-item-remove { width: 30px; }
+
+  input[type="button"]:disabled {
+    width: 30px;
+    border-width: 0;
+  }
+}

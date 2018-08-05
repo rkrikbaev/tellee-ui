@@ -119,6 +119,7 @@ class ThemeColorDropdown extends Component {
             '--px-base-text-color': currentTheme.g14chromium,
             '--px-percent-circle-text-color': currentTheme.g17whisper,
             '--px-percent-circle-background-color': currentTheme.g5pepper,
+
             '--px-gauge-empty-color': currentTheme.g5pepper,
 
             '--px-vis-gridlines-color': currentTheme.g8storm,
