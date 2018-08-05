@@ -526,42 +526,42 @@ const GRAPH_SVGS = {
   ),
   'px-percent-circle': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-circle.svg" />
+      <img src="/static_assets/icons/_circle.svg" />
     </div>
   ),
   'px-timeseries': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-series.svg" />
+      <img src="/static_assets/icons/_timeseries.svg" />
     </div>
   ),
   'px-kpi': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-bar-kpi.svg" />
+      <img src="/static_assets/icons/_kpi.svg" />
     </div>
   ),
   'px-gantt': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-gantt.svg" />
+      <img src="/static_assets/icons/_timeline.svg" />
     </div>
   ),
   'px-radar': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-spider.svg" />
+      <img src="/static_assets/icons/_radar.svg" />
     </div>
   ),
   'px-mstat': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-bar-series.svg" />
+      <img src="/static_assets/icons/_mstat.svg" />
     </div>
   ),
   'px-inbox': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-bars2.svg" />
+      <img src="/static_assets/icons/_inbox.svg" />
     </div>
   ),
   'px-gauge': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/graph-ico-pie3.svg" />
+      <img src="/static_assets/icons/_gauge.svg" />
     </div>
   ),
 }
