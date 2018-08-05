@@ -613,6 +613,16 @@ export const GRAPH_TYPES = [
     graphic: GRAPH_SVGS[CELL_TYPE_PX_CIRCLE],
   },
   {
+    type: CELL_TYPE_PX_GAUGE,
+    menuOption: 'PX Gauge',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_GAUGE],
+  },
+  {
+    type: CELL_TYPE_PX_MSTAT,
+    menuOption: 'Multi Stats',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_MSTAT],
+  },
+  {
     type: CELL_TYPE_PX_TIMESERIES,
     menuOption: 'PX TimeSeries',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_TIMESERIES],
@@ -633,18 +643,8 @@ export const GRAPH_TYPES = [
     graphic: GRAPH_SVGS[CELL_TYPE_PX_RADAR],
   },
   {
-    type: CELL_TYPE_PX_MSTAT,
-    menuOption: 'Multi Stats',
-    graphic: GRAPH_SVGS[CELL_TYPE_PX_MSTAT],
-  },
-  {
     type: CELL_TYPE_PX_INBOX,
     menuOption: 'PX Inbox',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_INBOX],
-  },
-  {
-    type: CELL_TYPE_PX_GAUGE,
-    menuOption: 'PX Gauge',
-    graphic: GRAPH_SVGS[CELL_TYPE_PX_GAUGE],
   },
 ]
