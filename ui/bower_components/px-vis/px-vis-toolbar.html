@@ -143,7 +143,7 @@ Custom property | Description
     <style include="px-vis-toolbar-styles"></style>
 
       <!--main row-->
-      <span id="mainRow" class$="flex [[_getRowDirection(horizontalAlignment)]]">
+      <span id="mainRow" class$="flex [[_getRowDirection(horizontalAlignment)]]" style="margin-top: -40px;">
         <template id="mainRepeat" is="dom-repeat" items="{{_internalConfig}}" strip-whitespace>
           <span
             class$="u-p- flex__item main-item [[_getSelectedClass(item.selected)]] [[_getDisabledClass(item.disabled)]] [[_hide(item.hidden)]]"

@@ -121,14 +121,14 @@ class PxTimeseries extends Component {
     const {width, height} = this.state
 
     let disableNavigator = false
-    let _height = height - 250
+    let _height = height - 210
     if (height < 400) {
       disableNavigator = true
-      _height = height - 110
+      _height = height - 70
     }
     return (
       <div
-        style={{height: '100%'}}
+        style={{height: '100%', marginTop: '-20px'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
@@ -152,7 +152,7 @@ class PxTimeseries extends Component {
           {...(disableNavigator ? {'disable-navigator': true} : {})}
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
-          x-axis-config="{&quot;title&quot;:&quot;TimeStamp&quot;}"
+          x-axis-config="{&quot;title&quot;:&quot;&quot;}"
           // y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
           // toolbar-config="{&quot;config&quot;:{&quot;advancedZoom&quot;:true,&quot;pan&quot;:true,&quot;tooltip&quot;:true,&quot;logHover&quot;:{&quot;buttonGroup&quot;:2,&quot;tooltipLabel&quot;:&quot;The submenu item of this menu will define custom mouse interaction&quot;,&quot;icon&quot;:&quot;px-nav:notification&quot;,&quot;subConfig&quot;:{&quot;customClick&quot;:{&quot;icon&quot;:&quot;px-nav:expand&quot;,&quot;buttonGroup&quot;:3,&quot;tooltipLabel&quot;:&quot;define some custom mouse interactions on chart&quot;,&quot;eventName&quot;:&quot;my-custom-click&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:&quot;function(mousePos) { console.log(\&quot;custom click on chart. Context is the chart. Mouse pos is available: \&quot; + JSON.stringify(mousePos))}&quot;,&quot;mouseup&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse up the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mouseout&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse out the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mousemove&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on hovering the chart \&quot;);}&quot;}},&quot;customClick2&quot;:{&quot;buttonGroup&quot;:3,&quot;icon&quot;:&quot;px-nav:collapse&quot;,&quot;tooltipLabel&quot;:&quot;Remove all custom interactions&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:null,&quot;mouseup&quot;:null,&quot;mouseout&quot;:null,&quot;mousemove&quot;:null}}}}}}"
         />

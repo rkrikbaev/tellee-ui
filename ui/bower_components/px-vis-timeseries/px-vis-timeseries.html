@@ -147,6 +147,7 @@ Custom property | Description
     <div id="wrapper" class$="{{_chartWrapperClass}}" >
         <!--[chart + navigator] + register-->
         <div class$="{{_registerWrapperClass}} safari-flex-fix">
+          <div id="drawingWrapper" class="flex--col flex__item--no-grow inline--flex">
           <px-vis-register
             id="register"
             dynamic-menu-config="[[dynamicMenuConfig]]"
@@ -169,7 +170,7 @@ Custom property | Description
           </px-vis-register>
 
           <!-- chart + navigator -->
-          <div id="drawingWrapper" class="flex--col flex__item--no-grow inline--flex">
+
             <px-vis-toolbar
               id="toolbar"
               current-sub-config='[[toolbarSubConfig]]'
