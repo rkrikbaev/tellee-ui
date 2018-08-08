@@ -1,0 +1,77 @@
+<!--
+Copyright (c) 2018, General Electric
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../css/px-vis-summary-demo-styles.html" />
+<dom-module id="px-vis-demo-loop">
+  <template>
+    <style include="px-vis-summary-demo-styles" is="custom-style"></style>
+      <p id="[[item.name]]-anchor" class="epsilon demo__title">[[item.name]]</p>
+      <div class="demo u-p+ flex flex--col">
+        <div class="demo__description u-mt+">
+          <p class="u-mt0">[[item.description]]</p>
+          <template is="dom-if" if="[[_listExists(item)]]">
+            <ul class="list-bare u-ml">
+              <template is="dom-repeat" items=[[item.list.items]] as="list_item">
+                <li>[[list_item]]</li>
+              </template>
+            </ul>
+          </template>
+          <template is="dom-if" if="[[_secondaryDescriptionExists(item)]]">
+            <p>[[item.secondaryDescription]]</p>
+          </template>
+          <template is="dom-if" if="[[_tertiaryDescriptionExists(item)]]">
+            <p class="u-mb0">[[item.tertiaryDescription]]</p>
+          </template>
+          <p><span class="actionable" data-demo-name="[[item.name]]" on-tap="_changeApiView">API Documentation</span></p>
+        </div>
+      </div>
+      <br/>
+    </template>
+  </template>
+</dom-module>
+<script>
+Polymer({
+  is: "px-vis-demo-loop",
+  properties: {
+    item: {
+      type: Object,
+      value: function() {
+        return {};
+      },
+      observer: '_addDemo'
+    }
+  },
+  _addDemo: function() {
+    var demoContainer = Polymer.dom(this.root).querySelector('.demo');
+    var newDemoElement = document.createElement(this.item.name + '-demo-component');
+    Polymer.dom(this.root).querySelector('.demo').insertBefore(newDemoElement, demoContainer.firstChild);
+  },
+  _tertiaryDescriptionExists: function(item) {
+    return item.tertiaryDescription && item.tertiaryDescription.length;
+  },
+  _secondaryDescriptionExists: function(item) {
+    return item.secondaryDescription && item.secondaryDescription.length;
+  },
+  _listExists: function(item) {
+    return item.list && item.list.items && item.list.items.length;
+  },
+  _changeApiView: function(evt) {
+    var name = evt.target.dataDemoName;
+    this.fire('px-demo-active-should-change', {name: name});
+  }
+});
+
+  </script>
