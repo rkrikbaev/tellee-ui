@@ -16,3 +16,4 @@ bower_components/*
 !bower_components/px-inbox/
 !bower_components/px-gauge/
 !bower_components/polymer-d3-timeline/
+!bower_components/px-vis/

@@ -102,7 +102,10 @@ class PxTimeseries extends Component {
     labels.forEach(function(_label, key) {
       if (_label !== 'time') {
         const map2 = {}
-        map2.name = _label
+        map2.name =
+          typeof _label === 'undefined'
+            ? ''
+            : _label.substr(_label.indexOf('.') + 1)
         map2.x = 'timeStamp'
         map2.y = _label
         map2.yAxisUnit = suffix
@@ -123,7 +126,6 @@ class PxTimeseries extends Component {
       disableNavigator = true
       _height = height - 110
     }
-
     return (
       <div
         style={{height: '100%'}}
