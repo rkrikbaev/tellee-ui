@@ -1,6 +1,6 @@
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../polymer/polymer.html" />
 
-<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
+<link rel="import" href="../px-d3-imports/px-d3-imports.html" />
 <script src="d3-timelines.js"></script>
 
 <style type="text/css">
@@ -22,22 +22,41 @@
     }
 
     #timeline2 .axis {
-        transform: translate(0px,40px);
-        -ms-transform: translate(0px,40px); /* IE 9 */
-        -webkit-transform: translate(0px,40px); /* Safari and Chrome */
-        -o-transform: translate(0px,40px); /* Opera */
-        -moz-transform: translate(0px,40px); /* Firefox */
+		transform: translate(0px, 40px);
+		-ms-transform: translate(0px, 40px);
+		/* IE 9 */
+		-webkit-transform: translate(0px, 40px);
+		/* Safari and Chrome */
+		-o-transform: translate(0px, 40px);
+		/* Opera */
+		-moz-transform: translate(0px, 40px);
+		/* Firefox */
     }
 
     .coloredDiv {
-        height:20px; width:20px; float:left;
+		height: 40px;
+		width: 20px;
+		float: left;
     }
+
+	div.tooltip {
+		position: absolute;
+		text-align: center;
+		width: 60px;
+		height: 28px;
+		padding: 2px;
+		font: 12px sans-serif;
+		background: lightsteelblue;
+		border: 0px;
+		border-radius: 8px;
+		pointer-events: none;
+	}
 </style>
 
 
 
 <dom-module id="polymer-d3-timeline">
-    <template>
+    <template id="template">
             <div width="100%" id="timeline"></div>
     </template>
 </dom-module>
@@ -59,30 +78,44 @@
       /**
        * Current value of the gauge.
        * @property value
-       * @type {Number}
+       * @type {Array}
        * @default `0`
        */
-      value: {
-        type: Number,
-        value: 0
+			data: {
+				type: Array,
+				value: []
+			},
+			label: {
+				type: String,
+				value: []
+			},
+			width: {
+				type: Number,
+				value: 300,
+				observer: '_changeWidth'
       },
-    },
+			height: {
+				type: String,
+				value: 300
+			}
+		},
+		
+		_changeWidth: function () {
+			if (this.width) {
+				this.properties.width = this.width;
+			}
+		},
 
-    attached: function() {
+		attached: function () {
+			this.properties.data = this.data;
       var testData = [
-        {times: [
-            {"starting_time": 1355752800000, "ending_time": 1355759900000,"color": "#edda22"},
-            {"starting_time": 1355767900000, "ending_time": 1355774400000,"color": "#ed913c"},
-            {"starting_time": 1355774500000, "ending_time": 1355776600000,"color": "#747aed"},
-            {"starting_time": 1355777700000, "ending_time": 1355778800000,"color": "#3cab38"},]
-        },
+				{ label: this.label, times: this.properties.data },
       ];
       var chart = d3.timelines();
 
-      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", 500)
+      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", this.properties.width)
         .datum(testData).call(chart);
     }
 
   });
 </script>
-

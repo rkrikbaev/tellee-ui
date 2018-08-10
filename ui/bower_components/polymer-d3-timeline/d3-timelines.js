@@ -6,6 +6,11 @@
 
 	var timelines = function() {
 			var DISPLAY_TYPES = ["circle", "rect"];
+			var formatTime = d3TimeFormat.timeFormat("%e %B");
+
+			var tooltipDiv = d3Selection.select("body").append("div")	
+				.attr("class", "tooltip")				
+				.style("opacity", 0);
 
 			var hover = function () {},
 					mouseover = function () {},
@@ -22,8 +27,8 @@
 					rowSeparatorsColor = null,
 					backgroundColor = null,
 					tickFormat = {
-						format: d3TimeFormat.timeFormat("%I %p"),
-						tickTime: d3Time.timeHour,
+						format: d3TimeFormat.timeFormat("%B"),
+						tickTime: d3Time.timeMonth,
 						tickInterval: 1,
 						tickSize: 6,
 						tickValues: null
@@ -44,7 +49,7 @@
 					timeIsRelative = false,
 					timeIsLinear = false,
 					fullLengthBackgrounds = false,
-					itemHeight = 20,
+					itemHeight = 60,
 					itemMargin = 5,
 					navMargin = 60,
 					showTimeAxis = true,
@@ -382,6 +387,27 @@
 								return d.id ? d.id : "timelineItem_"+index+"_"+i;
 							})
 						;
+
+						view.selectAll("rect")
+							.on("mousemove", function(d) {
+								tooltipDiv.transition()
+									.duration(200)
+									.style("opacity", .9)
+									.style("z-index", 99)
+									.style("width", 210 + "px")
+									.style("height", 30 + "px");
+								tooltipDiv.html( 
+									"Дата начала: " + (new Date(d.starting_time)).toLocaleString()
+									+ "<br />" +
+									"Дата конца: " + (new Date(d.ending_time)).toLocaleString())
+									.style("left", (d3.event.pageX) + "px")
+									.style("top", (d3.event.pageY - 28) + "px");
+							})
+							.on("mouseout", function(d) {
+								tooltipDiv.transition()
+									.duration(500)
+									.style("opacity", 0);
+							});
 
 						// appends the labels to the boxes - DAY/HOUR LABEL
 						view.selectAll("svg")

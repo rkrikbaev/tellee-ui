@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
+// import _ from 'lodash'
 
 // import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
+// import {start} from 'repl'
 
 // const validateTimeSeries = timeseries => {
 //   return _.every(timeseries, r =>
@@ -28,9 +30,12 @@ class PxGantt extends Component {
     }
   }
 
+  /* let html = getPolymer(result)  */
+
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
+    this.parseDataFromProps()
   }
 
   parseTimeSeries(data) {
@@ -51,6 +56,49 @@ class PxGantt extends Component {
     }
   }
 
+  parseDataFromProps = () => {
+    const values = this._timeSeries.tableData
+    let temp = {}
+    const result = []
+    for (let i = 0; i < values.length; i++) {
+      if (typeof temp.state === 'undefined') {
+        temp = this.makeObj(values[i][0], values[i][0], values[i][1])
+      } else if (temp.state === values[i][1]) {
+        temp.ending_time = values[i][0]
+      } else {
+        result.push(temp)
+        temp = this.makeObj(values[i][0], values[i][0], values[i][1])
+      }
+
+      if (values.length - 1 === i) {
+        result.push(temp)
+      }
+    }
+    return result
+  }
+
+  makeObj = (timeStart, timeEnd, state) => {
+    return {
+      starting_time: timeStart,
+      ending_time: timeEnd,
+      color: this.getColor(state),
+      state,
+    }
+  }
+
+  getColor = color => {
+    switch (color) {
+      case 4:
+        return '#629e51'
+      case 3:
+        return '#dedaf7'
+      case 2:
+        return '#eab839'
+      case 1:
+        return '#bf1b00'
+    }
+  }
+
   resize = () => {
     const height = this.divElement.clientHeight
     const width = this.divElement.clientWidth
@@ -67,6 +115,8 @@ class PxGantt extends Component {
     const {
       // data,
       // axes,
+      // preffix,
+      // suffix,
       // title,
       // colors,
       // cellID,
@@ -89,9 +139,8 @@ class PxGantt extends Component {
       // handleSetHoverTime,
     } = this.props
 
-    // const {timeSeries} = this._timeSeries
-
-    // If data for this graph is being fetched for the first time, show a graph-wide spinner.
+    const {timeSeries} = this._timeSeries
+    // If data for this grapconsole.log(this.props)h is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
     }
@@ -112,20 +161,43 @@ class PxGantt extends Component {
     //   connectSeparatedPoints: true,
     // }
 
+    const ganttMainValue =
+      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
+    if (ganttMainValue === undefined) {
+      return <InvalidData />
+    }
+
+    const {width, height} = this.state
+    // this is not good....
+    let _width = width
+    let _height = height
+    if (_width > _height) {
+      _width = _height
+    }
+    if (_height > _width) {
+      _height = _width
+    }
+
     // const prefix = axes ? axes.y.prefix : ''
     // const suffix = axes ? axes.y.suffix : ''
 
+    const pxGanttData = JSON.stringify(this.parseDataFromProps())
     return (
       <div
         style={{height: '100%'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
-
-        {/*  --------------------------------------------- */}
-        <polymer-d3-timeline> </polymer-d3-timeline>
         {/*  --------------------------------------------- */}
 
+        <polymer-d3-timeline
+          data={pxGanttData}
+          label={'Turbine:)'}
+          width={_width}
+          height={_height}
+        />
+        {/*  --------------------------------------------- */}
+        {console.log(_width)}
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}
