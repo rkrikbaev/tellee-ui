@@ -110,7 +110,8 @@ class PxMstat extends Component {
     } = this.props
 
     const {labels, tableData} = this._timeSeries
-
+    const _tableDataNow = tableData[tableData.length - 1]
+    const _tableDataPre = tableData[tableData.length - 2]
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
@@ -178,16 +179,16 @@ class PxMstat extends Component {
                   : value.substr(value.indexOf('.') + 1)}
               </span>
               <div className="count">
-                {tableData[0][key + 1] === null
+                {_tableDataNow[key + 1] === null
                   ? '0'
-                  : tableData[0][key + 1].toFixed(2)}
+                  : _tableDataNow[key + 1].toFixed(2)}
               </div>
               {staticLegend ? (
                 <span className="count_bottom">
                   <i className="green">
-                    {tableData[1][key + 1] === null
+                    {_tableDataPre[key + 1] === null
                       ? '0'
-                      : tableData[1][key + 1].toFixed(2)}
+                      : _tableDataPre[key + 1].toFixed(2)}
                   </i>{' '}
                   {suffix}
                 </span>
