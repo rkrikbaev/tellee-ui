@@ -427,8 +427,8 @@ $dash-editable-header-padding: 7px;
   h1 {
     @include no-user-select();
     position: relative;
-    border: 2px solid $g0-obsidian;
-    color: $g17-whisper;
+    //border: 2px solid $g0-obsidian;
+    color: var(--zsse-page-header-text);
     height: 30px;
     line-height: 28px;
     border-radius: 4px;

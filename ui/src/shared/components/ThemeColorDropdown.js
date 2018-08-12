@@ -114,6 +114,13 @@ class ThemeColorDropdown extends Component {
             '--zsse-c-banana': currentTheme.cbanana,
             // custom styles
             '--zsse-page-header': currentTheme.pageHeaderBg,
+            '--zsse-page-header2': currentTheme.pageHeaderBg2,
+            '--zsse-page-header-text': currentTheme.pageHeaderText,
+            '--zsse-sidebar-icon1': currentTheme.sidebarIcon1,
+            '--zsse-sidebar-icon2': currentTheme.sidebarIcon2,
+            '--zsse-sidebar-icon3': currentTheme.sidebarIcon3,
+            '--zsse-sidebar-bg1': currentTheme.sidebarBg1,
+            '--zsse-sidebar-bg2': currentTheme.sidebarBg2,
             // px components
             '--px-percent-circle-fill-color': currentTheme.cpool,
             '--px-base-text-color': currentTheme.g14chromium,

@@ -53,7 +53,7 @@ const DashboardsTable = ({
             </td>
             <td>
               <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
-                <h2>{dashboardCleanName(dashboard.name)}</h2>
+                {dashboardCleanName(dashboard.name)}
               </Link>
             </td>
             <td>

@@ -1,3 +1,4 @@
+/* global VERSION */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
@@ -84,7 +85,7 @@ class DashboardsPageContents extends Component {
               <div className="panel-body">
                 <div className="box">
                   <h2 className="panel-title">
-                    Chronograf-PredixUi: <strong>beta 4</strong>
+                    version: <strong>{VERSION}</strong>
                   </h2>
                 </div>
               </div>

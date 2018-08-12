@@ -77,6 +77,10 @@ ul.quick-list li {
   color: $g10-wolf;
 }
 
+.count_top_center{
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .tile_count .tile_stats_count .count {
     font-size: 40px;
@@ -216,6 +220,39 @@ ul.quick-list li {
   text-align: left;
 }
 
+.divzsselogo{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
+  width: 195px;
+  height: 60px;
+  margin: 0px;
+  background-color: var(--zsse-page-header);
+  background-image: url(/static_assets/ZeinetSSElogo_full.svg);
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  padding: 0px;
+}
+
+@media screen and (max-width: 1300px) {
+  .divzsselogo{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+    background-color: var(--zsse-page-header);
+    background-image: url(/static_assets/ZeinetSSElogo_short.svg);
+    background-size: 100% 100%;
+    background-position: -2px 4px;
+    background-repeat: no-repeat;
+  }
+}
 
 .mozilla-dynamic-forms {
   fieldset {
