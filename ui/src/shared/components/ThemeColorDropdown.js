@@ -162,8 +162,24 @@ class ThemeColorDropdown extends Component {
         />
 
         {/* eof styling */}
-        {hideDropdown ? null : (
+        {hideDropdown ? (
+          <div>
+            <CustomProperties
+              global={true}
+              properties={{
+                '--zsse-logo-visibility': 'none',
+              }}
+            />
+            ZeinetSSE beautiful logo here!
+          </div>
+        ) : (
           <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
+            <CustomProperties
+              global={true}
+              properties={{
+                '--zsse-logo-visibility': 'block',
+              }}
+            />
             <div
               className="btn btn-sm btn-info dropdown-toggle"
               onClick={this.toggleMenu}

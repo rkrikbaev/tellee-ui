@@ -17,8 +17,41 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  src: url("fontawesome/fa-regular-400.eot");
+  src: url("fontawesome/fa-regular-400.eot?#iefix") format("embedded-opentype"),
+  url("fontawesome/fa-regular-400.woff2") format("woff2"),
+  url("fontawesome/fa-regular-400.woff") format("woff"),
+  url("fontawesome/fa-regular-400.ttf") format("truetype"),
+  url("fontawesome/fa-regular-400.svg#fontawesome") format("svg"); }
+
+.far {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Free Solid';
+  font-style: normal;
+  font-weight: 900;
+  src: url("fontawesome/fa-solid-900.eot");
+  src: url("fontawesome/fa-solid-900.eot?#iefix") format("embedded-opentype"),
+  url("fontawesome/fa-solid-900.woff2") format("woff2"),
+  url("fontawesome/fa-solid-900.woff") format("woff"),
+  url("fontawesome/fa-solid-900.ttf") format("truetype"),
+  url("fontawesome/fa-solid-900.svg#fontawesome") format("svg"); }
+
+.fa,
+.fas {
+  font-family: 'Font Awesome 5 Free Solid';
+  font-weight: 900; }
+
+
 .icon {
-  font-family: 'icomoon' !important;
+  font-family: 'icomoon', 'Font Awesome 5 Free', 'Font Awesome 5 Free Solid' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -35,9 +68,9 @@
   &.user-remove:before {content: "\e904";}
   &.user-add:before {content: "\e907";}
   &.group:before {content: "\e908";}
-  &.user:before {content: "\e90d";}
+  &.user:before {content: "\f508";}
   &.eye-closed:before {content: "\e956";}
-  &.eye-open:before {content: "\e957";}
+  &.eye-open:before {content: "\f06e";}
   &.arrow-down:before {content: "\e910";}
   &.arrow-left:before {content: "\e90c";}
   &.arrow-right:before {content: "\e911";}
@@ -52,19 +85,19 @@
   &.circle:before {content: "\e940";}
   &.clock:before {content: "\e91b";}
   &.cog-thick:before {content: "\e906";}
-  &.crown2:before {content: "\e94b";}
+  &.crown2:before {content: "\f0e8";}
   &.cube:before {content: "\e92e";}
-  &.cubo-node:before {content: "\e919";}
+  &.cubo-node:before {content: "\f197";}
   &.cubo-uniform:before {content: "\e91a";}
   &.dash-f:before {content: "\e927";}
-  &.dash-h:before {content: "\e929";}
+  &.dash-h:before {content: "\f3fd";}
   &.disks:before {content: "\e950";}
   &.download:before {content: "\e91d";}
   &.duplicate:before {content: "\e917";}
   &.expand-a:before {content: "\e944";}
   &.expand-b:before {content: "\e942";}
   &.export:before {content: "\e941";}
-  &.graphline:before {content: "\e90e";}
+  &.graphline:before {content: "\f1c0";}
   &.heroku:before {content: "\e947";}
   &.heroku-simple:before {content: "\e948";}
   &.oauth:before {content: "\e94f";}
@@ -80,7 +113,7 @@
   &.square:before {content: "\e93e";}
   &.trash:before {content: "\e905";}
   &.triangle:before {content: "\e92c";}
-  &.alert-triangle:before {content: "\f02d";}
+  &.alert-triangle:before {content: "\f071";}
   &.link:before {content: "\f05c";}
   &.pencil:before {content: "\f058";}
   &.star:before {content: "\f02a";}

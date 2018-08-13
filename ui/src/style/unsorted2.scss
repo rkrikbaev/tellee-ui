@@ -221,6 +221,7 @@ ul.quick-list li {
 }
 
 .divzsselogo{
+  display: var(--zsse-logo-visibility,block);
   position: absolute;
   left: 0px;
   top: 0px;
@@ -238,6 +239,7 @@ ul.quick-list li {
 
 @media screen and (max-width: 1300px) {
   .divzsselogo{
+    display: var(--zsse-logo-visibility,block);
     position: absolute;
     left: 0px;
     top: 0px;
