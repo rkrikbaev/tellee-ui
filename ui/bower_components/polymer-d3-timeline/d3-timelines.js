@@ -6,12 +6,10 @@
 
 	var timelines = function() {
 			var DISPLAY_TYPES = ["circle", "rect"];
-			var formatTime = d3TimeFormat.timeFormat("%e %B");
 
 			var tooltipDiv = d3Selection.select("body").append("div")	
 				.attr("class", "tooltip")				
 				.style("opacity", 0);
-
 			var hover = function () {},
 					mouseover = function () {},
 					mouseout = function () {},
@@ -27,8 +25,8 @@
 					rowSeparatorsColor = null,
 					backgroundColor = null,
 					tickFormat = {
-						format: d3TimeFormat.timeFormat("%B"),
-						tickTime: d3Time.timeMonth,
+						format: d3TimeFormat.timeFormat("%e %B"),
+						tickTime: d3Time.timeWeek,
 						tickInterval: 1,
 						tickSize: 6,
 						tickValues: null
@@ -394,12 +392,14 @@
 									.duration(200)
 									.style("opacity", .9)
 									.style("z-index", 99)
-									.style("width", 210 + "px")
-									.style("height", 30 + "px");
+									.style("width", 220 + "px")
+									.style("height", 50 + "px");
 								tooltipDiv.html( 
-									"Дата начала: " + (new Date(d.starting_time)).toLocaleString()
+									"Start date: " + (new Date(d.starting_time)).toLocaleString()
 									+ "<br />" +
-									"Дата конца: " + (new Date(d.ending_time)).toLocaleString())
+									"End date: " + (new Date(d.ending_time)).toLocaleString()
+									+ "<br />" +
+									(Math.round((d.ending_time - d.starting_time)/(1000*60*60*24))) + " days")
 									.style("left", (d3.event.pageX) + "px")
 									.style("top", (d3.event.pageY - 28) + "px");
 							})

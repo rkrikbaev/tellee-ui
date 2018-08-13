@@ -22,27 +22,27 @@
     }
 
     #timeline2 .axis {
-		transform: translate(0px, 40px);
-		-ms-transform: translate(0px, 40px);
-		/* IE 9 */
-		-webkit-transform: translate(0px, 40px);
-		/* Safari and Chrome */
-		-o-transform: translate(0px, 40px);
-		/* Opera */
-		-moz-transform: translate(0px, 40px);
-		/* Firefox */
+			transform: translate(0px, 40px);
+			-ms-transform: translate(0px, 40px);
+			/* IE 9 */
+			-webkit-transform: translate(0px, 40px);
+			/* Safari and Chrome */
+			-o-transform: translate(0px, 40px);
+			/* Opera */
+			-moz-transform: translate(0px, 40px);
+			/* Firefox */
     }
 
     .coloredDiv {
-		height: 40px;
-		width: 20px;
-		float: left;
+			height: 40px;
+			width: 20px;
+			float: left;
     }
 
 	div.tooltip {
 		position: absolute;
 		text-align: center;
-		width: 60px;
+		width: 300px;
 		height: 28px;
 		padding: 2px;
 		font: 12px sans-serif;
@@ -56,9 +56,10 @@
 
 
 <dom-module id="polymer-d3-timeline">
-    <template id="template">
-            <div width="100%" id="timeline"></div>
-    </template>
+  <template id="template">
+		<div width="100%" id="timeline"></div>
+		<div width="100%" id="info"></div>	
+  </template>
 </dom-module>
 
 
@@ -85,36 +86,46 @@
 				type: Array,
 				value: []
 			},
-			label: {
-				type: String,
-				value: []
-			},
 			width: {
 				type: Number,
 				value: 300,
 				observer: '_changeWidth'
       },
 			height: {
-				type: String,
-				value: 300
+				type: Number,
+				value: 100,
+				observer: '_changeHeight'
 			}
 		},
 		
 		_changeWidth: function () {
 			if (this.width) {
 				this.properties.width = this.width;
+				d3.select(this.$$("#timeline svg")).remove();
+				d3.select(this.$$("#info p")).remove();
+				this.attached();
 			}
 		},
-
+		_changeHeight: function () {
+			if (this.height) {
+				this.properties.height = this.height;
+				d3.select(this.$$("#timeline svg")).remove();
+				d3.select(this.$$("#info p")).remove();
+				this.attached();
+			}
+		},
 		attached: function () {
+			console.log(this.data);
 			this.properties.data = this.data;
       var testData = [
-				{ label: this.label, times: this.properties.data },
+				{ times: this.properties.data },
       ];
-      var chart = d3.timelines();
-
-      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", this.properties.width)
-        .datum(testData).call(chart);
+			var chart = d3.timelines();
+			chart.itemHeight(this.properties.height - 100);
+      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", this.properties.width).attr("height", this.properties.height - 40)
+				.datum(testData).call(chart);
+			
+			var par = d3.select(this.$$("#info")).append("p").html("here");
     }
 
   });

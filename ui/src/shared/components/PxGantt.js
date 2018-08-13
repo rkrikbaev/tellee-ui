@@ -89,13 +89,13 @@ class PxGantt extends Component {
   getColor = color => {
     switch (color) {
       case 4:
-        return '#629e51'
+        return '#629e51' // green
       case 3:
-        return '#dedaf7'
+        return '#dedaf7' // light pirple
       case 2:
-        return '#eab839'
+        return '#eab839' // brown
       case 1:
-        return '#bf1b00'
+        return '#bf1b00' // red
     }
   }
 
@@ -169,14 +169,14 @@ class PxGantt extends Component {
 
     const {width, height} = this.state
     // this is not good....
-    let _width = width
+    /* let _width = width
     let _height = height
     if (_width > _height) {
       _width = _height
     }
     if (_height > _width) {
       _height = _width
-    }
+    } */
 
     // const prefix = axes ? axes.y.prefix : ''
     // const suffix = axes ? axes.y.suffix : ''
@@ -189,15 +189,13 @@ class PxGantt extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-
         <polymer-d3-timeline
           data={pxGanttData}
           label={'Turbine:)'}
-          width={_width}
-          height={_height}
+          width={width}
+          height={height}
         />
         {/*  --------------------------------------------- */}
-        {console.log(_width)}
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}
