@@ -5,6 +5,7 @@ import OnClickOutside from 'shared/components/OnClickOutside'
 
 import autoRefreshItems from 'shared/data/autoRefreshes'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import {I18n} from 'react-i18next'
 
 @ErrorHandling
 class AutoRefreshDropdown extends Component {
@@ -42,29 +43,39 @@ class AutoRefreshDropdown extends Component {
         })}
       >
         <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
-          <div
-            className="btn btn-sm btn-default dropdown-toggle"
-            onClick={this.toggleMenu}
-          >
-            <span
-              className={classnames(
-                'icon',
-                +milliseconds > 0 ? 'refresh' : 'pause'
-              )}
-            />
-            <span className="dropdown-selected">{inputValue}</span>
-            <span className="caret" />
-          </div>
-          <ul className="dropdown-menu">
-            <li className="dropdown-header">AutoRefresh</li>
-            {autoRefreshItems.map(item => (
-              <li className="dropdown-item" key={item.menuOption}>
-                <a href="#" onClick={this.handleSelection(item.milliseconds)}>
-                  {item.menuOption}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <I18n>
+            {t => (
+              <div>
+                <div
+                  className="btn btn-sm btn-default dropdown-toggle"
+                  onClick={this.toggleMenu}
+                >
+                  <span
+                    className={classnames(
+                      'icon',
+                      +milliseconds > 0 ? 'refresh' : 'pause'
+                    )}
+                  />
+                  <span className="dropdown-selected">{t(inputValue)}</span>
+                  <span className="caret" />
+                </div>
+
+                <ul className="dropdown-menu">
+                  <li className="dropdown-header">{t('AutoRefresh')}</li>
+                  {autoRefreshItems.map(item => (
+                    <li className="dropdown-item" key={item.menuOption}>
+                      <a
+                        href="#"
+                        onClick={this.handleSelection(item.milliseconds)}
+                      >
+                        {t(item.menuOption)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </I18n>
         </div>
         {+milliseconds === 0 ? (
           <div

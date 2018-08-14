@@ -118,7 +118,7 @@ export const ThemesPallete = [
     g17whisper: '#1b2a33',
     g18cloud: '#121f26',
     g19ghost: '#0c1419',
-    g20white: '#2c404c',
+    g20white: '#eefbff',
 
     // Telegraf (Dark to Light)
     cbasalt: '#612325',
