@@ -35,7 +35,7 @@ class DashboardSwitcher extends Component {
     try {
       return JSON.parse(str)
     } catch (e) {
-      return {name: 'error, please edit name'}
+      return {name: str}
     }
   }
 
