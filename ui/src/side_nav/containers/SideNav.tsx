@@ -16,6 +16,7 @@ import {
 import {DEFAULT_HOME_PAGE} from 'src/shared/constants'
 import {Params, Location, Links, Me} from 'src/types/sideNav'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import DashboardsSidenav from 'src/dashboards/containers/DashboardsSidenav'
 
 interface Props {
   params: Params
@@ -48,7 +49,6 @@ class SideNav extends PureComponent<Props> {
     const dataExplorerLink = `${sourcePrefix}/chronograf/data-explorer`
 
     const isDefaultPage = location.split('/').includes(DEFAULT_HOME_PAGE)
-
     return isHidden ? null : (
       <nav className="sidebar">
         <div
@@ -69,20 +69,7 @@ class SideNav extends PureComponent<Props> {
         >
           <NavHeader link={`${sourcePrefix}/dashboards`} title="Dashboards" />
         </NavBlock>
-        <NavBlock
-          highlightWhen={['alerts', 'alert-rules', 'tickscript']}
-          icon="alert-triangle"
-          link={`${sourcePrefix}/alert-rules`}
-          location={location}
-        >
-          <NavHeader link={`${sourcePrefix}/alert-rules`} title="Alerting" />
-          <NavListItem link={`${sourcePrefix}/alert-rules`}>
-            Manage Tasks
-          </NavListItem>
-          <NavListItem link={`${sourcePrefix}/alerts`}>
-            Alert History
-          </NavListItem>
-        </NavBlock>
+        <DashboardsSidenav sourcePrefix={sourcePrefix} location={location} />
         <NavBlock
           highlightWhen={['data-explorer', 'delorean']}
           icon="graphline"
@@ -119,7 +106,13 @@ class SideNav extends PureComponent<Props> {
           }
         >
           <NavBlock
-            highlightWhen={['admin-chronograf', 'admin-influxdb']}
+            highlightWhen={[
+              'admin-chronograf',
+              'admin-influxdb',
+              'alerts',
+              'alert-rules',
+              'tickscript',
+            ]}
             icon="crown2"
             link={`${sourcePrefix}/admin-chronograf/current-organization`}
             location={location}
@@ -135,6 +128,12 @@ class SideNav extends PureComponent<Props> {
             </NavListItem>
             <NavListItem link={`${sourcePrefix}/admin-influxdb/databases`}>
               InfluxDB
+            </NavListItem>
+            <NavListItem link={`${sourcePrefix}/alert-rules`}>
+              Manage Tasks
+            </NavListItem>
+            <NavListItem link={`${sourcePrefix}/alerts`}>
+              Alert History
             </NavListItem>
           </NavBlock>
         </Authorized>

@@ -256,7 +256,12 @@ ul.quick-list li {
   }
 }
 
+.width800{
+  width: 600px;
+}
+
 .mozilla-dynamic-forms {
+
   fieldset {
     display: block;
     border: 0px;
@@ -272,7 +277,14 @@ ul.quick-list li {
   }
 
   input {
-    height: 30px;
+    height: 36px;
+    padding: 0 11px;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  select {
+    height: 36px;
     padding: 0 11px;
     font-size: 13px;
     margin-bottom: 3px;
@@ -309,4 +321,9 @@ ul.quick-list li {
     width: 30px;
     border-width: 0;
   }
+}
+
+.dashboardIcon{
+  padding-top: 5px;
+  font-size: 2em;
 }
