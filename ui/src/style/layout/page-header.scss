@@ -20,7 +20,7 @@ $page-header-weight: 400 !important;
   margin: 0;
 }
 .page-header.full-width .page-header__container {
-  max-width: 85%;
+  max-width: 100%;
 }
 .page-header__container {
   position: relative;
@@ -32,6 +32,8 @@ $page-header-weight: 400 !important;
   width: 100%;
   max-width: 85%;
   margin-top: 5px;
+  margin-left: 75px;
+  max-width: 100%;
 }
 .page-header__container.page-header__source-page {
   justify-content: center;

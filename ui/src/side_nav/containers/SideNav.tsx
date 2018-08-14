@@ -124,7 +124,7 @@ class SideNav extends PureComponent<Props> {
             <NavListItem
               link={`${sourcePrefix}/admin-chronograf/current-organization`}
             >
-              Chronograf
+              Orgs and Users
             </NavListItem>
             <NavListItem link={`${sourcePrefix}/admin-influxdb/databases`}>
               InfluxDB

@@ -29,7 +29,7 @@ export const notifyNewVersion = version => ({
   type: 'info',
   icon: 'cubo-uniform',
   duration: INFINITE,
-  message: `Welcome to the latest Chronograf${version}. Local settings cleared.`,
+  message: `Welcome to the latest Flash${version}. Local settings cleared.`,
 })
 
 export const notifyLoadLocalSettingsFailed = error => ({

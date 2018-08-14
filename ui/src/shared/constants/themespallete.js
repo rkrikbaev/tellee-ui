@@ -1,7 +1,7 @@
 export const ThemesPallete = [
   {
     themeName: 'dark',
-    themeDescr: 'Темная сторона (Influx original)',
+    themeDescr: 'Темная тема',
     // original influx
     g0obsidian: '#0f0e15',
     g1raven: '#1c1c21',
@@ -96,12 +96,12 @@ export const ThemesPallete = [
   // --------------------------------------------------------------------//
   {
     themeName: 'light',
-    themeDescr: 'Светлая тема (Predix original)',
+    themeDescr: 'Светлая тема',
     // got from predix pallette
     g0obsidian: '#fff',
     g1raven: '#e2e8ed',
     g2kevlar: '#eefbff',
-    g3castle: '#e8f5f9',
+    g3castle: '#EBEFF2',
     g4onyx: '#c5d1d8',
     g5pepper: '#b6c3cc',
     g6smoke: '#a3b5bf',
@@ -134,7 +134,7 @@ export const ThemesPallete = [
 
     // InfluxDB (Dark to Light)
     cabyss: '#003D66',
-    csapphire: '#2F6787',
+    csapphire: '#0053EF',
     cocean: '#3B7EA4',
     coceandisabled: '#5ABFF8',
     cpool: '#007ACC',
@@ -179,7 +179,7 @@ export const ThemesPallete = [
     cbanana: '#F4D2AD',
     // ZSSE Custom!
     pageHeaderBg: '#007ACC',
-    pageHeaderBg2: '#005C99',
+    pageHeaderBg2: '#006fb9',
     pageHeaderText: '#EBEFF2',
     sidebarIcon1: '#EBEFF2',
     sidebarIcon2: '#daf5ff',

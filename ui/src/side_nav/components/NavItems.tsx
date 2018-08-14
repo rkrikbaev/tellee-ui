@@ -73,7 +73,7 @@ class NavBlock extends PureComponent<NavBlockProps> {
     let isActive = !!length
     //
     const lastLocation = _.last(_.split(location, '/'))
-    if (Number.parseInt(lastLocation) > 0){
+    if (Number.parseInt(lastLocation) > 0) {
       isActive = false
       if (lastLocation.toString() === highlightWhen.toString()) {
         isActive = true

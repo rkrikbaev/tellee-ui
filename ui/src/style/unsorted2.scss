@@ -230,14 +230,14 @@ ul.quick-list li {
   height: 60px;
   margin: 0px;
   background-color: var(--zsse-page-header);
-  background-image: url(/static_assets/ZeinetSSElogo_full.svg);
+  background-image: url(/static_assets/ZeinetSSElogo_full.png);
   background-size: 100% 100%;
   background-position: 0px 0px;
   background-repeat: no-repeat;
   padding: 0px;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1250px) {
   .divzsselogo{
     display: var(--zsse-logo-visibility,block);
     position: absolute;
@@ -249,10 +249,13 @@ ul.quick-list li {
     margin: 0px;
     padding: 0px;
     background-color: var(--zsse-page-header);
-    background-image: url(/static_assets/ZeinetSSElogo_short.svg);
+    background-image: url(/static_assets/ZeinetSSElogo_short.png);
     background-size: 100% 100%;
-    background-position: -2px 4px;
+    background-position: 0px 0px;
     background-repeat: no-repeat;
+  }
+  .page-header__container {
+    margin-left: 0px;
   }
 }
 
@@ -326,4 +329,10 @@ ul.quick-list li {
 .dashboardIcon{
   padding-top: 5px;
   font-size: 2em;
+}
+
+.colorLogoPresentMode{
+  width: 100%;
+  background-color: $g1-raven;
+  border-bottom: 1px solid $c-sapphire;
 }

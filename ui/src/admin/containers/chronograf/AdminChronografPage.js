@@ -53,7 +53,7 @@ const AdminChronografPage = ({me, source, params: {tab}}) => (
     <div className="page-header">
       <div className="page-header__container">
         <div className="page-header__left">
-          <h1 className="page-header__title">Chronograf Admin</h1>
+          <h1 className="page-header__title">Orgs and Users</h1>
         </div>
         <div className="page-header__right">
           <ThemeColorDropdown />

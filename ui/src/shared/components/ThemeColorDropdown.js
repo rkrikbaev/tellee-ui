@@ -163,14 +163,14 @@ class ThemeColorDropdown extends Component {
 
         {/* eof styling */}
         {hideDropdown ? (
-          <div>
+          <div className="colorLogoPresentMode">
             <CustomProperties
               global={true}
               properties={{
                 '--zsse-logo-visibility': 'none',
               }}
             />
-            ZeinetSSE beautiful logo here!
+            <img src="/static_assets/ZeinetSSElogo_color.png" height="30" />
           </div>
         ) : (
           <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
