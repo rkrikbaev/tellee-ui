@@ -135,7 +135,7 @@ class PxTimeseries extends Component {
 
     return (
       <div
-        style={{height: '100%', marginTop: '-20px'}}
+        style={{height: '100%', marginTop: '-7px'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
