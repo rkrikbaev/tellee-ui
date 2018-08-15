@@ -1,0 +1,15 @@
+export TOKEN_SECRET=W89K0BdHpWIqDm8ocRLUTsdsg
+export GENERIC_NAME=generic
+export GENERIC_CLIENT_ID=local_chronograf_one
+export GENERIC_CLIENT_SECRET=17dd5bbf-3814-41f4-b42c-00a27d68bdc5
+export GENERIC_AUTH_URL=http://localhost:8082/auth/realms/master/protocol/openid-connect/auth
+export GENERIC_TOKEN_URL=http://localhost:8082/auth/realms/master/protocol/openid-connect/token
+export GENERIC_API_URL=http://localhost:8082/auth/realms/master/protocol/openid-connect/userinfo
+export PUBLIC_URL=http://localhost:808
+export GENERIC_SCOPES=openid,profile,email
+
+# some problems with this...
+#export USE_ID_TOKEN=true
+#export JWKS_URL=http://localhost:8080/auth/realms/master/protocol/openid-connect/certs
+
+./chronograf

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxInbox} from 'utils/timeSeriesTransformers'
+import _ from 'lodash'
 
 import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
@@ -26,6 +27,12 @@ class PxInbox extends Component {
       height: 0,
       width: 0,
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const arePropsEqual = _.isEqual(this.props, nextProps)
+    const areStatesEqual = _.isEqual(this.state, nextState)
+    return !arePropsEqual || !areStatesEqual
   }
 
   componentWillMount() {

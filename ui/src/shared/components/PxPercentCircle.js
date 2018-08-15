@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
+import _ from 'lodash'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
@@ -31,6 +32,12 @@ class PxPercentCircle extends Component {
       height: 0,
       width: 0,
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const arePropsEqual = _.isEqual(this.props, nextProps)
+    const areStatesEqual = _.isEqual(this.state, nextState)
+    return !arePropsEqual || !areStatesEqual
   }
 
   componentWillMount() {

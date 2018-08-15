@@ -15,7 +15,7 @@ const Login = ({authData: {auth}}) => {
     <div>
       <Notifications />
       <SplashPage>
-        <h1 className="auth-text-logo">Chronograf</h1>
+        {/* <h1 className="auth-text-logo">Chronograf</h1>*/}
         <p>
           <strong>{VERSION}</strong> / Time-Series Data Visualization
         </p>

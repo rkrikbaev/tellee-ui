@@ -35,6 +35,12 @@ class PxGauge extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const arePropsEqual = _.isEqual(this.props, nextProps)
+    const areStatesEqual = _.isEqual(this.state, nextState)
+    return !arePropsEqual || !areStatesEqual
+  }
+
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
@@ -98,7 +104,7 @@ class PxGauge extends Component {
       // handleSetHoverTime,
     } = this.props
 
-    const {timeSeries} = this._timeSeries
+    const {tableData, labels} = this._timeSeries
 
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
@@ -129,10 +135,10 @@ class PxGauge extends Component {
     //   colors.find(color => color.type === COLOR_TYPE_MAX).value
     // )
 
-    const kpiMainValue =
-      timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
+    const kpiArrayValue = tableData[tableData.length - 1]
+    const _labels = labels.filter(e => e !== 'time')
 
-    if (kpiMainValue === undefined) {
+    if (kpiArrayValue === undefined) {
       return <InvalidData />
     }
 
@@ -196,9 +202,17 @@ class PxGauge extends Component {
       pxNormalColor = defaultColor
     }
 
+    let _cols = Math.round(12 / _labels.length)
+    if (_labels.length === 1) {
+      _cols = 12
+    } else if (_cols === 5 || _cols > 6) {
+      _cols = 1
+    }
+    const cols = `col-md-${_cols} col-xs-${_cols}`
     return (
       <div
         style={{height: '100%'}}
+        className="row"
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
@@ -210,19 +224,36 @@ class PxGauge extends Component {
             '--px-gauge-fill-normal-color': pxNormalColor,
           }}
         >
-          <px-gauge
-            value={`${kpiMainValue.y.toFixed(2)}`}
-            max={maxValue}
-            min={minValue}
-            width={_width}
-            height={_height}
-            bar-width={prefix}
-            unit={suffix}
-            error={`[${JSON.stringify(pxErrorTreshold)}]`}
-            abnormal={`[${JSON.stringify(pxAbnormalTreshold)}]`}
-            anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
-            normal={`[${JSON.stringify(pxNormalTreshold)}]`}
-          />
+          {_labels.map((value, key) => (
+            <div className={cols} key={key}>
+              {_labels.length > 1 ? (
+                <div className="count_top_center tile_count_min">
+                  <span className="count_top">
+                    {typeof value === 'undefined'
+                      ? ''
+                      : value.substr(value.indexOf('.') + 1)}
+                  </span>
+                </div>
+              ) : null}
+              <px-gauge
+                value={
+                  kpiArrayValue[key + 1] === null
+                    ? '0'
+                    : kpiArrayValue[key + 1].toFixed(2)
+                }
+                max={maxValue}
+                min={minValue}
+                width={_width + 40}
+                height={_height + 40}
+                bar-width={prefix}
+                unit={suffix}
+                error={`[${JSON.stringify(pxErrorTreshold)}]`}
+                abnormal={`[${JSON.stringify(pxAbnormalTreshold)}]`}
+                anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
+                normal={`[${JSON.stringify(pxNormalTreshold)}]`}
+              />
+            </div>
+          ))}
         </CustomProperties>
         <ReactResizeDetector
           handleWidth={true}

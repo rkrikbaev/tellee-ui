@@ -15,27 +15,28 @@ $sidebar--logo-color-hover: $c-laser;
 
 $sidebar--item-bg: transparent;
 $sidebar--item-bg-hover: $c-pool;
-$sidebar--item-bg-active: $g4-onyx;
-$sidebar--icon: $g11-sidewalk;
-$sidebar--icon-hover: $g20-white;
-$sidebar--icon-active: $g20-white;
+$sidebar--item-bg-active: var(--zsse-sidebar-bg2);
+$sidebar--icon: var(--zsse-sidebar-icon1);
+$sidebar--icon-hover: var(--zsse-sidebar-icon2);
+$sidebar--icon-active: var(--zsse-sidebar-icon3);
 
-$sidebar-menu--bg: $c-pool;
-$sidebar-menu--bg-accent: $c-comet;
+$sidebar-menu--bg: $c-pool-disabled;
+$sidebar-menu--bg-accent: $c-pool-disabled;
 $sidebar-menu--item-bg: $c-ocean;
 $sidebar-menu--item-bg-accent: $c-star;
 $sidebar-menu--item-bg-hover: $c-laser;
 $sidebar-menu--item-bg-hover-accent: $c-potassium;
-$sidebar-menu--item-text: $c-neutrino;
-$sidebar-menu--item-text-hover: $g20-white;
-$sidebar-menu--item-text-active: $g20-white;
+$sidebar-menu--item-text: $g2-kevlar;
+$sidebar-menu--item-text-hover: $g2-kevlar;
+$sidebar-menu--item-text-active: $g2-kevlar;
 $sidebar-menu--gutter: 18px;
 
 .sidebar {
   display: flex;
   flex-direction: column;
   width: $sidebar--width;
-  @include gradient-v($sidebar--gradient-start,$sidebar--gradient-end);
+  background: var(--zsse-sidebar-bg1);
+  //@include gradient-v($sidebar--gradient-start,$sidebar--gradient-end);
 }
 .sidebar--bottom {
   position: absolute;
@@ -181,15 +182,15 @@ $sidebar-menu--gutter: 18px;
 }
 .sidebar-menu--item:hover,
 .sidebar-menu--item.active:hover {
-  @include gradient-h($sidebar-menu--item-bg-hover,$sidebar-menu--item-bg-hover-accent);
+  @include gradient-h($sidebar-menu--item-bg-hover,$sidebar-menu--item-bg-hover);
   color: $sidebar-menu--item-text-hover;
 }
 .sidebar-menu--heading,
 .sidebar-menu--heading:link,
 .sidebar-menu--heading:visited,
 .sidebar-menu--heading:active,
-.sidebar-menu--heading:hover, {
-  color: $g20-white;
+.sidebar-menu--heading:hover {
+  color: $g0-obsidian;
   height: $sidebar--width;
   line-height: $sidebar--width;
   font-size: 19px;
@@ -267,7 +268,7 @@ span.icon.sidebar--icon.sidebar--icon__superadmin {
   @include no-user-select();
 
   > div {
-    @include gradient-h($c-rainforest,$c-pool);
+    @include gradient-h($c-pool,$c-pool);
     color: $g20-white;
   }
   span.icon {

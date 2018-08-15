@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
+import _ from 'lodash'
 
 // import CustomProperties from 'react-custom-properties'
 import {colorsStringSchema} from 'shared/schemas'
@@ -27,6 +28,12 @@ class PxMstat extends Component {
       height: 0,
       width: 0,
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const arePropsEqual = _.isEqual(this.props, nextProps)
+    const areStatesEqual = _.isEqual(this.state, nextState)
+    return !arePropsEqual || !areStatesEqual
   }
 
   componentWillMount() {
@@ -103,7 +110,8 @@ class PxMstat extends Component {
     } = this.props
 
     const {labels, tableData} = this._timeSeries
-
+    const _tableDataNow = tableData[tableData.length - 1]
+    const _tableDataPre = tableData[tableData.length - 2]
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
@@ -142,8 +150,11 @@ class PxMstat extends Component {
     // const suffix = axes ? axes.y.suffix : ''
     const _labels = labels.filter(e => e !== 'time')
 
-    const cols = `col-md-${12 / _labels.length} col-xs-${12 /
-      _labels.length} tile_stats_count`
+    let _cols = Math.round(12 / _labels.length)
+    if (_cols === 5 || _cols > 6) {
+      _cols = 1
+    }
+    const cols = `col-md-${_cols} col-xs-${_cols} tile_stats_count`
     return (
       <div
         style={{height: '100%'}}
@@ -168,16 +179,16 @@ class PxMstat extends Component {
                   : value.substr(value.indexOf('.') + 1)}
               </span>
               <div className="count">
-                {tableData[0][key + 1] === null
+                {_tableDataNow[key + 1] === null
                   ? '0'
-                  : tableData[0][key + 1].toFixed(2)}
+                  : _tableDataNow[key + 1].toFixed(2)}
               </div>
               {staticLegend ? (
                 <span className="count_bottom">
                   <i className="green">
-                    {tableData[1][key + 1] === null
+                    {_tableDataPre[key + 1] === null
                       ? '0'
-                      : tableData[1][key + 1].toFixed(2)}
+                      : _tableDataPre[key + 1].toFixed(2)}
                   </i>{' '}
                   {suffix}
                 </span>

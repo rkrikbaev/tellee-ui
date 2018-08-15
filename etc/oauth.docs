@@ -38,3 +38,17 @@ export GENERIC_API_URL=http://localhost:4593/api/profile
 export PUBLIC_URL="http://localhost:8888"
 export GENERIC_SCOPES=openid,profile,email
 
+or
+
+export TOKEN_SECRET="test_secret"
+export GENERIC_NAME=generic
+export GENERIC_CLIENT_ID="@!2CBC.C22B.B2D2.1236!0001!910A.EBEB!0008!C64C.FD9E.CAAE.4219"
+export GENERIC_CLIENT_SECRET="secretvvHf9eMDxkiCS1"
+export GENERIC_AUTH_URL=http://192.168.118.131/oxauth/restv1/authorize
+export GENERIC_TOKEN_URL=http://192.168.118.131/oxauth/restv1/token
+export GENERIC_API_URL=http://192.168.118.131/oxauth/restv1/userinfo
+export JWKS_URL="http://192.168.118.131/oxauth/restv1/jwks"
+export PUBLIC_URL="http://localhost:8888"
+export USE_ID_TOKEN="true"
+export GENERIC_SCOPES="openid"
+

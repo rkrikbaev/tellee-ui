@@ -24,3 +24,5 @@ canned/apps_gen.go
 npm-debug.log
 yarn-error.log
 ui/.idea/*
+.idea/*
+go_build_main_go

@@ -7,6 +7,7 @@ import Overlay from 'shared/components/OverlayTechnology'
 
 const App = ({children}) => (
   <div className="chronograf-root">
+    <div className="divzsselogo" />
     <Overlay />
     <Notifications />
     <SideNav />

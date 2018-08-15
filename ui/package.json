@@ -1,12 +1,12 @@
 {
   "name": "chronograf-ui",
-  "version": "1.5.0-1",
-  "private": false,
-  "license": "AGPL-3.0",
+  "version": "0.6.1beta",
+  "private": true,
+  "license": "Do What the Fuck You Want To Public License",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "github:influxdata/chronograf"
+    "url": "this.poynt.kz:10443/adm/chronograf"
   },
   "scripts": {
     "build": "yarn run clean && webpack --config ./webpack/prod.config.js",
