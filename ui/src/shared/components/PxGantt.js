@@ -189,12 +189,7 @@ class PxGantt extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-        <polymer-d3-timeline
-          data={pxGanttData}
-          label={'Turbine:)'}
-          width={width}
-          height={height}
-        />
+        <polymer-d3-timeline data={pxGanttData} width={width} height={height} />
         {/*  --------------------------------------------- */}
         <ReactResizeDetector
           handleWidth={true}

@@ -394,14 +394,42 @@
 									.style("z-index", 99)
 									.style("width", 220 + "px")
 									.style("height", 50 + "px");
-								tooltipDiv.html( 
-									"Start date: " + (new Date(d.starting_time)).toLocaleString()
-									+ "<br />" +
-									"End date: " + (new Date(d.ending_time)).toLocaleString()
-									+ "<br />" +
-									(Math.round((d.ending_time - d.starting_time)/(1000*60*60*24))) + " days")
-									.style("left", (d3.event.pageX) + "px")
-									.style("top", (d3.event.pageY - 28) + "px");
+								// (d.ending_time - d.starting_time)
+								var interval = (d.ending_time - d.starting_time) / 1000;
+								var days = Math.floor(interval / 86400);
+								interval -= days * 86400;
+								var hours = Math.floor(interval / 3600) % 24;
+								interval -= hours * 3600;
+								var minutes = Math.floor(interval / 60) % 60;
+								if( days > 1 ) {
+									tooltipDiv.html( 
+										"Start date: " + (new Date(d.starting_time)).toLocaleString()
+										+ "<br />" +
+										"End date: " + (new Date(d.ending_time)).toLocaleString()
+										+ "<br />" +
+										(days) + " days")
+										.style("left", (d3.event.pageX) + "px")
+										.style("top", (d3.event.pageY - 28) + "px");
+								} else if (days == 1) {
+									tooltipDiv.html( 
+										"Start date: " + (new Date(d.starting_time)).toLocaleString()
+										+ "<br />" +
+										"End date: " + (new Date(d.ending_time)).toLocaleString()
+										+ "<br />" +
+										(days) + " day")
+										.style("left", (d3.event.pageX) + "px")
+										.style("top", (d3.event.pageY - 28) + "px");
+								} else if (days == 0){
+									tooltipDiv.html( 
+										"Start date: " + (new Date(d.starting_time)).toLocaleString()
+										+ "<br />" +
+										"End date: " + (new Date(d.ending_time)).toLocaleString()
+										+ "<br />" +
+										(hours) + " hours " +
+										(minutes) + " minutes")
+										.style("left", (d3.event.pageX) + "px")
+										.style("top", (d3.event.pageY - 28) + "px");
+								}
 							})
 							.on("mouseout", function(d) {
 								tooltipDiv.transition()
