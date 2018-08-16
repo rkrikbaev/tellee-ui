@@ -79,6 +79,7 @@ class PxGantt extends Component {
 
   makeObj = (timeStart, timeEnd, state) => {
     return {
+      data: timeEnd - timeStart,
       starting_time: timeStart,
       ending_time: timeEnd,
       color: this.getColor(state),

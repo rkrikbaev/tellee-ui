@@ -5,78 +5,77 @@
 <script src="../d3/d3.js"></script>
 
 <style type="text/css">
-	.axis path,
-	.axis line {
-		fill: none;
-		stroke: black;
-		shape-rendering: crispEdges;
-	}
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+  }
 
-	.axis text {
-		font-family: sans-serif;
-		font-size: 10px;
-	}
+  .axis text {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
 
-	.timeline-label {
-		font-family: sans-serif;
-		font-size: 12px;
-	}
+  .timeline-label {
+    font-family: sans-serif;
+    font-size: 12px;
+  }
 
-	#timeline2 .axis {
-		transform: translate(0px, 40px);
-		-ms-transform: translate(0px, 40px);
-		/* IE 9 */
-		-webkit-transform: translate(0px, 40px);
-		/* Safari and Chrome */
-		-o-transform: translate(0px, 40px);
-		/* Opera */
-		-moz-transform: translate(0px, 40px);
-		/* Firefox */
-	}
+  #timeline2 .axis {
+    transform: translate(0px, 40px);
+    -ms-transform: translate(0px, 40px);
+    /* IE 9 */
+    -webkit-transform: translate(0px, 40px);
+    /* Safari and Chrome */
+    -o-transform: translate(0px, 40px);
+    /* Opera */
+    -moz-transform: translate(0px, 40px);
+    /* Firefox */
+  }
 
-	.coloredDiv {
-		height: 40px;
-		width: 20px;
-		float: left;
-	}
+  .coloredDiv {
+    height: 40px;
+    width: 20px;
+    float: left;
+  }
 
-	div.tooltip {
-		position: absolute;
-		text-align: center;
-		width: 300px;
-		height: 28px;
-		padding: 2px;
-		font: 12px sans-serif;
-		background: lightsteelblue;
-		border: 0px;
-		border-radius: 8px;
-		pointer-events: none;
-	}
+  div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 300px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+  }
 
-	.legend {
-		font-size: 8px;
-		z-index: 99;
-	}
+  .legend {
+    z-index: 99;
+  }
 
-	rect {
-		stroke-width: 2;
-	}
+  rect {
+    stroke-width: 2;
+  }
 </style>
 
 
 
 <dom-module id="polymer-d3-timeline">
-	<template id="template">
-		<div width="100%" id="timeline"></div>
-	</template>
+  <template id="template">
+    <div width="100%" id="timeline"></div>
+  </template>
 </dom-module>
 
 
 
 <script>
-	Polymer({
+  Polymer({
 
-		is: 'polymer-d3-timeline',
+    is: 'polymer-d3-timeline',
 
     /**
      * Properties block, expose attribute values to the DOM via 'reflect'
@@ -84,165 +83,175 @@
      * @property properties
      * @type Object
      */
-		properties: {
+    properties: {
       /**
        * Current value of the gauge.
        * @property value
        * @type {Array}
        * @default `0`
        */
-			data: {
-				type: Array,
-				value: []
-			},
-			width: {
-				type: Number,
-				value: 300,
-				observer: '_changeWidth'
-			},
-			height: {
-				type: Number,
-				value: 100,
-				observer: '_changeHeight'
-			}
-		},
+      data: {
+        type: Array,
+        value: []
+      },
+      width: {
+        type: Number,
+        value: 300,
+        observer: '_changeWidth'
+      },
+      height: {
+        type: Number,
+        value: 100,
+        observer: '_changeHeight'
+      }
+    },
 
-		_changeWidth: function () {
-			if (this.width) {
-				this.properties.width = this.width;
-				d3.select(this.$$("#timeline svg")).remove();
-				// d3.select(this.$$("#info p")).remove();
-				this.attached();
-			}
-		},
-		_changeHeight: function () {
-			if (this.height) {
-				this.properties.height = this.height;
-				d3.select(this.$$("#timeline svg")).remove();
-				// d3.select(this.$$("#info p")).remove();
-				this.attached();
-			}
-		},
-		attached: function () {
-			this.properties.data = this.data;
-			var testData = [
-				{ times: this.properties.data },
-			];
-			var chart = d3.timelines();
-			chart.itemHeight(this.properties.height - 100);
-			var svg = d3.select(this.$$('#timeline'))
-				.append("svg")
-				.attr("width", this.properties.width)
-				.attr("height", this.properties.height)
-				.datum(testData)
-				.call(chart);
+    _changeWidth: function () {
+      this.properties.width = this.width;
+      d3.select(this.$$("#timeline svg")).remove();
+      this.attached();
+      // this.set('this.properties.width', this.width);
+    },
+    _changeHeight: function () {
+      this.properties.height = this.height;
+      d3.select(this.$$("#timeline svg")).remove();
+      this.attached();
+      this.set('this.properties.height', this.height);
+    },
+    attached: function () {
+      if (!this.width || !this.height) return;
+      this.properties.data = this.data;
+      var testData = [
+        { times: this.properties.data },
+      ];
+      var chart = d3.timelines();
+      chart.itemHeight(this.properties.height - 100);
+      var svg = d3.select(this.$$('#timeline'))
+        .append("svg")
+        .attr("width", this.properties.width)
+        .attr("height", this.properties.height)
+        .datum(testData)
+        .call(chart);
 
-			// =====================================
+      // =====================================
 
-			// Declaring variables
-			var states = [],
-				// time = [],
-				values = {
-					1: `АВАРИЯ`,
-					2: `КОЛЬЦО`,
-					3: `РЕЗЕРВ`,
-					4: `МАГИСТ`
-				},
-				colors = {
-					1: "#bf1b00",
-					2: "#eab839",
-					3: "#dedaf7",
-					4: "#629e51"
-				},
-				newColors = [],
-				newValues = [];
+      // Declaring variables
+      var states = [],
+        values = {
+          1: `АВАРИЯ`,
+          2: `КОЛЬЦО`,
+          3: `РЕЗЕРВ`,
+          4: `МАГИСТ`
+        },
+        colors = {
+          1: "#bf1b00",
+          2: "#eab839",
+          3: "#dedaf7",
+          4: "#629e51"
+        },
+        newColors = [],
+        newValues = [];
 
-			// give size to legend
-			var _height = this.height;
-			var _width = this.width;
-			var legendSize = 18;
+      // give size to legend
+      var _height = this.height;
+      var _width = this.width;
+      var legendSize = 18;
 
-			// if diagram height greater than width
-			if (this.height > this.width) {
-				_height = this.width;
-				_width = this.height;
-			}
+      // if diagram height greater than width
+      if (this.height > this.width) {
+        _height = this.width;
+        _width = this.height;
+      }
 
-			// filtering 'states' array to be unique
-			let count_data = {};
-			for (let i = 0; i < this.data.length; i++) {
-				if (count_data[this.data[i].state])
-					count_data[this.data[i].state][0] += this.data[i].ending_time - this.data[i].starting_time;
-				else
-					count_data[this.data[i].state] = [this.data[i].ending_time - this.data[i].starting_time, this.data[i].state]
-			}
-			var arr1;
-			arr1 = this.data;
-			var arr = [];
-			for (let key in count_data) {
-				arr.push(key);
-			}
+      // filtering 'states' array to be unique
+      let count_data = {};
+      let repeat = 1;
+      for (let i = 0; i < this.data.length; i++) {
+        if (count_data[this.data[i].state]) {
+          count_data[this.data[i].state][0] += this.data[i].ending_time - this.data[i].starting_time;
+          count_data[this.data[i].state][2] += 1;
+        } else
+          count_data[this.data[i].state] = [this.data[i].ending_time - this.data[i].starting_time, this.data[i].state, repeat]
+      }
 
-			// creating data to 'domain()' and 'range()' 
-			for (let i = 0; i < arr.length; i++) {
-				newColors.push(colors[arr[i]]);
-				newValues.push(values[arr[i]]);
-			}
+      // for getting access to count_data's keys( which actually states )
+      var arr = [];
+      for (let key in count_data) {
+        arr.push(key);
+      }
 
-			var color = d3.scaleOrdinal()
-				.domain(newValues)
-				.range(newColors);
-			var legend = svg.selectAll(".legend")
-				.data(color.domain())
-				.enter()
-				.append("g")
-				.attr("class", "legend")
-				.attr("transform", function (d, i) {
-					var height = _height + _width;
-					var horz = i * color.domain()[i].length * 43 + 30;
-					var vert = _height - 35;
-					console.log(color.domain()[i]);
-					return "translate(" + horz + "," + vert + ")";
-				});
+      // creating data to 'domain()' and 'range()' 
+      for (let i = 0; i < arr.length; i++) {
+        newColors.push(colors[arr[i]]);
+        newValues.push(values[arr[i]]);
+      }
 
-			legend.append("rect")
-				.attr("width", legendSize)
-				.attr("height", legendSize)
-				.style("fill", color)
-				.style("stroke", color);
-				
-			var newCount_data = Object.keys(count_data).map((item, i) => (
-				count_data[item]
-			));
-			var period = arr1[arr1.length - 1].ending_time - arr1[0].starting_time;
+      // pasting colors of legend
+      var color = d3.scaleOrdinal()
+        .domain(newValues)
+        .range(newColors);
 
-			legend.append("text")
-				.attr("x", function (d, i) {
-					return i + 30;
-				})
-				.attr("y", 15)
-				.text(function (d, i) {
-					var percents = 0, days = 0, hours = 0, minutes = 0;
-					percents = (newCount_data[i][0] * 100) / period;
-					percents = percents.toFixed(2);
-					if (!newCount_data[i][0]) return `${d} (few seconds, ${percents}%)`;
-					days = Math.floor((newCount_data[i][0] / 1000) / 86400);
-					period -= days * 86400;
-					hours = Math.floor(period / 3600) % 24;
-					period -= hours * 3600;
-					minutes = Math.floor(period / 60) % 60;
-					if (days > 1) {
-						return `${d} (${days} days, ${percents}%)`;
-					} else if (days == 1) {
-						return `${d} (${days} day, ${percents}%)`;
-					} else if (hours >= 1) {
-						return `${d} (${hours} hours, ${percents}%)`;
-					} else if (hours == 0) {
-						return `${d} (${minutes} minutes, ${percents}%)`;
-					}
-				});
+      // positioning colors of legend
+      var legend = svg.selectAll(".legend")
+        .data(color.domain())
+        .enter()
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", function (d, i) {
+          var height = _height + _width;
+          var horz = i * color.domain()[i].length * 40 + 30;
+          var vert = _height - 35;
+          return "translate(" + horz + "," + vert + ")";
+        });
 
-		}
+      // giving size of color's retangle
+      legend.append("rect")
+        .attr("width", legendSize)
+        .attr("height", legendSize)
+        .style("fill", color)
+        .style("stroke", color);
 
-	});
+      // creating new array to get key of object
+      var newCount_data = Object.keys(count_data).map((item, i) => (
+        count_data[item]
+      ));
+      // common period equals: last state's ending_date - first state's starting_date
+      var period = this.data[this.data.length - 1].ending_time - this.data[0].starting_time;
+
+      // appending text to legend
+      legend.append("text")
+        .attr("x", function (d, i) {
+          return i + 30;
+        })
+        .attr("y", 13)
+        .style("font-size", 12)
+        .text(function (d, i) {
+          let percents = 0, days = 0, hours = 0, minutes = 0;
+          percents = ((newCount_data[i][0] * 100) / period).toFixed(2);
+          if (!newCount_data[i][0]) return `${d} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
+          days = Math.floor((newCount_data[i][0] / 1000) / 86400);
+          newCount_data[i][0] -= days * 86400;
+          hours = Math.floor(newCount_data[i][0] / 3600) % 24;
+          newCount_data[i][0] -= hours * 3600;
+          minutes = Math.floor(newCount_data[i][0] / 60) % 60;
+          if (days > 1) {
+            return `${d} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (days == 1) {
+            return `${d} (${days} day, ${percents}%, , ${newCount_data[i][2]}x)`;
+          } else if (hours >= 1) {
+            return `${d} (${hours} hours, ${percents}%, , ${newCount_data[i][2]}x)`;
+          } else if (hours == 0) {
+            return `${d} (${hours} ${minutes} minutes, ${percents}%, , ${newCount_data[i][2]}x)`;
+          }
+        });
+
+      // var wrapper = svg.selectAll(".legend");
+      // if(wrapper._parents[0].attributes.width.value <= 1000) {
+      //   // this.properties.height = 300;
+      // }
+      // console.log(this.properties.height);
+      // console.log(wrapper._groups[0][3].getBoundingClientRect());
+    }
+
+  });
 </script>
