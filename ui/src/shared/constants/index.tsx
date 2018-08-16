@@ -15,8 +15,8 @@ export const PERMISSIONS = {
     displayName: 'View Admin',
   },
   ViewChronograf: {
-    description: 'Can use Chronograf tools',
-    displayName: 'View Chronograf',
+    description: 'Can use Flash tools',
+    displayName: 'View Flash',
   },
   CreateDatabase: {
     description: 'Can create databases',

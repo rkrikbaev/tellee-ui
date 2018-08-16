@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import QuestionMarkTooltip from 'src/shared/components/QuestionMarkTooltip'
 
 export const Tabber = ({labelText, children, tipID, tipContent}) => (
-  <div className="form-group col-md-6">
+  <div className="form-group col-md-12">
     <label>
       {labelText}
       {tipID ? (

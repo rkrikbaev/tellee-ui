@@ -27,9 +27,9 @@ export const notifyGenericFail = () => 'Could not communicate with server.'
 
 export const notifyNewVersion = version => ({
   type: 'info',
-  icon: 'cubo-uniform',
+  icon: 'fa-bolt',
   duration: INFINITE,
-  message: `Welcome to the latest Chronograf${version}. Local settings cleared.`,
+  message: `Welcome to the latest Flash${version}. Local settings cleared.`,
 })
 
 export const notifyLoadLocalSettingsFailed = error => ({

@@ -84,7 +84,7 @@ class ManageSources extends Component {
               handleDeleteSource={this.handleDeleteSource}
               setActiveKapacitor={this.handleSetActiveKapacitor}
             />
-            <p className="version-number">Chronograf Version: {V_NUMBER}</p>
+            <p className="version-number">Flash Version: {V_NUMBER}</p>
           </div>
         </FancyScrollbar>
       </div>

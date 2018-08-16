@@ -70,7 +70,15 @@ class NavBlock extends PureComponent<NavBlockProps> {
   public render() {
     const {location, className, highlightWhen} = this.props
     const {length} = _.intersection(_.split(location, '/'), highlightWhen)
-    const isActive = !!length
+    let isActive = !!length
+    //
+    const lastLocation = _.last(_.split(location, '/'))
+    if (Number.parseInt(lastLocation) > 0) {
+      isActive = false
+      if (lastLocation.toString() === highlightWhen.toString()) {
+        isActive = true
+      }
+    }
 
     const children = React.Children.map(
       this.props.children,

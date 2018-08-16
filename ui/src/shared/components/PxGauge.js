@@ -146,11 +146,15 @@ class PxGauge extends Component {
     // this is not good....
     let _width = width
     let _height = height
-    if (_width > _height) {
-      _width = _height
-    }
-    if (_height > _width) {
-      _height = _width
+
+    _width += width * 0.25
+    _height += height * 0.25
+
+    if (width > height) {
+      _width = height
+    } else if (height > width) {
+      _height = width
+      _width = width - width * 0.1
     }
 
     if (!colors || colors.length === 0) {
@@ -243,8 +247,8 @@ class PxGauge extends Component {
                 }
                 max={maxValue}
                 min={minValue}
-                width={_width + 40}
-                height={_height + 40}
+                width={_width}
+                height={_height}
                 bar-width={prefix}
                 unit={suffix}
                 error={`[${JSON.stringify(pxErrorTreshold)}]`}

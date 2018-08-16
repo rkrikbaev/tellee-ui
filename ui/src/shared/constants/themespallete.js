@@ -1,7 +1,7 @@
 export const ThemesPallete = [
   {
     themeName: 'dark',
-    themeDescr: 'Темная сторона (Influx original)',
+    themeDescr: 'Темная тема',
     // original influx
     g0obsidian: '#0f0e15',
     g1raven: '#1c1c21',
@@ -83,6 +83,7 @@ export const ThemesPallete = [
     cdaisy: '#FFF6B8',
     cbanana: '#FFFDDE',
     // ZSSE Custom!
+    pageGradient: 'linear-gradient(#202028, #0f0e15)',
     pageHeaderBg: '#0f0e15',
     pageHeaderBg2: '#545667',
     pageHeaderText: '#EBEFF2',
@@ -91,17 +92,20 @@ export const ThemesPallete = [
     sidebarIcon3: '#ffffff',
     sidebarBg1: '#545667',
     sidebarBg2: '#31313d',
+    sidebarBg3: '#007ACCB4',
+    sidebarText: '#ffffff',
+    buttonText: '#ffffff',
   },
   // --------------------------------------------------------------------//
   // --------------------------------------------------------------------//
   {
     themeName: 'light',
-    themeDescr: 'Светлая тема (Predix original)',
+    themeDescr: 'Светлая тема',
     // got from predix pallette
     g0obsidian: '#fff',
     g1raven: '#e2e8ed',
     g2kevlar: '#eefbff',
-    g3castle: '#e8f5f9',
+    g3castle: '#EBEFF2',
     g4onyx: '#c5d1d8',
     g5pepper: '#b6c3cc',
     g6smoke: '#a3b5bf',
@@ -134,7 +138,7 @@ export const ThemesPallete = [
 
     // InfluxDB (Dark to Light)
     cabyss: '#003D66',
-    csapphire: '#2F6787',
+    csapphire: '#0053EF',
     cocean: '#3B7EA4',
     coceandisabled: '#5ABFF8',
     cpool: '#007ACC',
@@ -178,13 +182,17 @@ export const ThemesPallete = [
     cdaisy: '#F2C89A',
     cbanana: '#F4D2AD',
     // ZSSE Custom!
+    pageGradient: 'linear-gradient(#ebedee90, #fdfbfb90)',
     pageHeaderBg: '#007ACC',
-    pageHeaderBg2: '#005C99',
+    pageHeaderBg2: '#006fb9',
     pageHeaderText: '#EBEFF2',
     sidebarIcon1: '#EBEFF2',
     sidebarIcon2: '#daf5ff',
     sidebarIcon3: '#EBEFF2',
     sidebarBg1: '#003D66',
     sidebarBg2: '#005C99',
+    sidebarBg3: '#748B99D2',
+    sidebarText: '#ffffff',
+    buttonText: '#EBEFF2',
   },
 ]

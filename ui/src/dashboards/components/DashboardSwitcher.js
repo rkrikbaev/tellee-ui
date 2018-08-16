@@ -30,6 +30,15 @@ class DashboardSwitcher extends Component {
     this.setState({isOpen: false})
   }
 
+  getDashboardParams = json => {
+    const str = json.toString()
+    try {
+      return JSON.parse(str)
+    } catch (e) {
+      return {name: str}
+    }
+  }
+
   render() {
     const {activeDashboard} = this.props
     const {isOpen} = this.state
@@ -52,7 +61,7 @@ class DashboardSwitcher extends Component {
             {this.sortedList.map(({name, link}) => (
               <NameLink
                 key={link}
-                name={name}
+                name={this.getDashboardParams(name).name}
                 link={link}
                 activeName={activeDashboard}
                 onClose={this.handleCloseMenu}

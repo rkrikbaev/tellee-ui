@@ -12,6 +12,7 @@ import {meChangeOrganizationAsync} from 'shared/actions/auth'
 
 import {SUPERADMIN_ROLE} from 'src/auth/Authorized'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import {Trans} from 'react-i18next'
 
 @ErrorHandling
 class UserNavBlock extends Component {
@@ -39,7 +40,7 @@ class UserNavBlock extends Component {
         <div className="sidebar--square">
           <div className="sidebar--icon icon user" />
           {isSuperAdmin ? (
-            <span className="sidebar--icon sidebar--icon__superadmin icon crown2" />
+            <span className="sidebar--icon sidebar--icon__superadmin icon" />
           ) : null}
         </div>
         <div className="sidebar-menu sidebar-menu--user-nav">
@@ -61,7 +62,7 @@ class UserNavBlock extends Component {
               ))
             : null}
           <div className="sidebar-menu--section sidebar-menu--section__switch-orgs">
-            Switch Organizations
+            <Trans>Switch Organizations</Trans>
           </div>
           <FancyScrollbar
             className="sidebar-menu--scrollbar"
@@ -87,7 +88,7 @@ class UserNavBlock extends Component {
             })}
           </FancyScrollbar>
           <div className="sidebar-menu--section sidebar-menu--section__account">
-            Account
+            <Trans>Account</Trans>
           </div>
           <div className="sidebar-menu--provider">
             <div>
@@ -98,7 +99,7 @@ class UserNavBlock extends Component {
             className="sidebar-menu--item sidebar-menu--item__logout"
             href={logoutLink}
           >
-            Log out
+            <Trans>Log out</Trans>
           </a>
           <div className="sidebar-menu--heading sidebar--no-hover">
             {me.name}

@@ -8,6 +8,7 @@ import DashboardsTable from 'src/dashboards/components/DashboardsTable'
 import SearchBar from 'src/hosts/components/SearchBar'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import {Trans, I18n} from 'react-i18next'
 
 @ErrorHandling
 class DashboardsPageContents extends Component {
@@ -44,7 +45,6 @@ class DashboardsPageContents extends Component {
     const filteredDashboards = dashboards.filter(d =>
       d.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
-
     return (
       <FancyScrollbar className="page-contents">
         <div className="container-fluid">
@@ -54,16 +54,21 @@ class DashboardsPageContents extends Component {
                 <div className="panel-heading">
                   <h2 className="panel-title">{tableHeader}</h2>
                   <div className="dashboards-page--actions">
-                    <SearchBar
-                      placeholder="Filter by Name..."
-                      onSearch={this.filterDashboards}
-                    />
+                    <I18n>
+                      {t => (
+                        <SearchBar
+                          placeholder={t('Filter by Name...')}
+                          onSearch={this.filterDashboards}
+                        />
+                      )}
+                    </I18n>
                     <Authorized requiredRole={EDITOR_ROLE}>
                       <button
                         className="btn btn-sm btn-primary"
                         onClick={onCreateDashboard}
                       >
-                        <span className="icon plus" /> Create Dashboard
+                        <span className="icon plus" />
+                        <Trans>Create Dashboard</Trans>
                       </button>
                     </Authorized>
                   </div>
@@ -85,7 +90,7 @@ class DashboardsPageContents extends Component {
               <div className="panel-body">
                 <div className="box">
                   <h2 className="panel-title">
-                    version: <strong>{VERSION}</strong>
+                    <Trans>version</Trans>: <strong>{VERSION}</strong>
                   </h2>
                 </div>
               </div>

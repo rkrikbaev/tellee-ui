@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router'
 import _ from 'lodash'
-
+import classnames from 'classnames'
 import Authorized, {EDITOR_ROLE} from 'src/auth/Authorized'
 
 import ConfirmButton from 'shared/components/ConfirmButton'
@@ -29,12 +29,14 @@ const unauthorizedEmptyState = (
   </div>
 )
 
-const dashboardIcon = _name =>
-  _name.substr(0, _name.indexOf('#')).length > 0
-    ? _name.substr(0, _name.indexOf('#'))
-    : 'px-fea:orchestration'
-
-const dashboardCleanName = _name => _name.substr(_name.indexOf('#') + 1)
+const getDashboardParams = json => {
+  const str = json.toString()
+  try {
+    return JSON.parse(str)
+  } catch (e) {
+    return {name: str}
+  }
+}
 
 const DashboardsTable = ({
   dashboards,
@@ -46,50 +48,61 @@ const DashboardsTable = ({
   return dashboards && dashboards.length ? (
     <table className="table v-center admin-table table-highlight">
       <tbody>
-        {_.sortBy(dashboards, d => d.name.toLowerCase()).map(dashboard => (
-          <tr key={dashboard.id} className="dashboardsListTd">
-            <td width="16">
-              <px-icon class="blue" icon={dashboardIcon(dashboard.name)} />
-            </td>
-            <td>
-              <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
-                {dashboardCleanName(dashboard.name)}
-              </Link>
-            </td>
-            <td>
-              {dashboard.templates.length ? (
-                dashboard.templates.map(tv => (
-                  <code className="table--temp-var" key={tv.id}>
-                    {tv.tempVar}
-                  </code>
-                ))
-              ) : (
-                <span className="empty-string">None</span>
-              )}
-            </td>
-            <Authorized
-              requiredRole={EDITOR_ROLE}
-              replaceWithIfNotAuthorized={<td />}
-            >
-              <td className="text-right">
-                <button
-                  className="btn btn-xs btn-default table--show-on-row-hover"
-                  onClick={onCloneDashboard(dashboard)}
+        {_.sortBy(dashboards, d => d.id).map(
+          dashboard =>
+            getDashboardParams(dashboard.name).dashboardType ===
+            'favourite' ? null : (
+              <tr key={dashboard.id} className="dashboardsListTd">
+                <td width="16">
+                  {/* <px-icon class="blue" icon={getDashboardParams(dashboard.name).icon} />*/}
+                  <div
+                    className={classnames(
+                      'icon',
+                      'dashboardIcon',
+                      getDashboardParams(dashboard.name).icon
+                    )}
+                  />
+                </td>
+                <td>
+                  <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
+                    {getDashboardParams(dashboard.name).name}
+                  </Link>
+                </td>
+                <td>
+                  {dashboard.templates.length ? (
+                    dashboard.templates.map(tv => (
+                      <code className="table--temp-var" key={tv.id}>
+                        {tv.tempVar}
+                      </code>
+                    ))
+                  ) : (
+                    <span className="empty-string">None</span>
+                  )}
+                </td>
+                <Authorized
+                  requiredRole={EDITOR_ROLE}
+                  replaceWithIfNotAuthorized={<td />}
                 >
-                  <span className="icon duplicate" />
-                  Clone
-                </button>
-                <ConfirmButton
-                  confirmAction={onDeleteDashboard(dashboard)}
-                  size="btn-xs"
-                  type="btn-danger"
-                  text="Delete"
-                  customClass="table--show-on-row-hover"
-                />
-              </td>
-            </Authorized>
-          </tr>
-        ))}
+                  <td className="text-right">
+                    <button
+                      className="btn btn-xs btn-default table--show-on-row-hover"
+                      onClick={onCloneDashboard(dashboard)}
+                    >
+                      <span className="icon duplicate" />
+                      Clone
+                    </button>
+                    <ConfirmButton
+                      confirmAction={onDeleteDashboard(dashboard)}
+                      size="btn-xs"
+                      type="btn-danger"
+                      text="Delete"
+                      customClass="table--show-on-row-hover"
+                    />
+                  </td>
+                </Authorized>
+              </tr>
+            )
+        )}
       </tbody>
     </table>
   ) : (

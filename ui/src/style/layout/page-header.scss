@@ -20,7 +20,7 @@ $page-header-weight: 400 !important;
   margin: 0;
 }
 .page-header.full-width .page-header__container {
-  max-width: 85%;
+  max-width: 100%;
 }
 .page-header__container {
   position: relative;
@@ -31,7 +31,73 @@ $page-header-weight: 400 !important;
   flex-wrap: nowrap;
   width: 100%;
   max-width: 85%;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-left: 75px;
+  max-width: 100%;
+
+  .dropdown .dropdown-menu {
+    min-width: 100%;
+    box-shadow: 0 0px 0px 0px fade-out($g0-obsidian-a, 0);
+    border-radius: 2px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    // @include gradient-h($dropdown-default-dark,$dropdown-default-bg);
+    background: var(--zsse-sidebar-bg3);
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    top: 100%;
+  }
+  .dropdown.open {
+    z-index: 9999;
+  }
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+  // Dropdown Menu Item
+  .dropdown-menu li.dropdown-item {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    @extend %no-user-select;
+
+    &:hover,
+    &.highlight,
+    &.highlight:hover {
+      //@include gradient-h($dropdown-default-hover,$dropdown-default-hover);
+      background: var(--zsse-sidebar-bg2)
+    }
+    > a {
+      font-size: 13px;
+      line-height: 13px;
+      transition: color 0.25s ease;
+      color: var(--zsse-page-header-text);
+      font-weight: 500;
+      padding: 7px 9px;
+      outline: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &, &:hover, &:focus {
+        background: none;
+        background-color: transparent;
+      }
+      &.active,
+      &.active:hover,
+      &:active,
+      &:active:hover,
+      &:focus:active,
+      &:focus:active:hover {
+        background: var(--zsse-sidebar-bg3)
+      }
+    }
+    &.active {
+      //@include gradient-h($dropdown-default-press,$dropdown-default-bg);
+      background: var(--zsse-sidebar-bg1)
+    }
+  }
 }
 .page-header__container.page-header__source-page {
   justify-content: center;
@@ -86,13 +152,13 @@ $page-header-weight: 400 !important;
 
   a.btn-primary, div.btn-primary, button.btn-primary, input.btn-primary{
     color: var(--zsse-page-header-text);
-    background-color: var(--zsse-page-header2);
+    background-color: var(--zsse-page-header);
     border-bottom: 1px solid var(--zsse-page-header-text);
     border-radius: initial;
   }
   a.btn-default, div.btn-default, button.btn-default, input.btn-default, div.btn-info{
     color: var(--zsse-page-header-text);
-    background-color: var(--zsse-page-header2);
+    background-color: var(--zsse-page-header);
     border-bottom: 1px solid var(--zsse-page-header-text);
     border-radius: initial;
   }
@@ -102,7 +168,7 @@ $page-header-weight: 400 !important;
   }
 
   .btn-sm.btn-square, button.btn-sm.btn-square, input.btn-sm.btn-square{
-    background-color: var(--zsse-page-header2);
+    background-color: var(--zsse-page-header);
     color: var(--zsse-page-header-text);
   }
 }

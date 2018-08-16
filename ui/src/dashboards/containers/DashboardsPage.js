@@ -35,7 +35,7 @@ class DashboardsPage extends Component {
     } = this.props
     const {data} = await createDashboard({
       ...dashboard,
-      name: `${dashboard.name} (clone)`,
+      name: `${dashboard.name}`,
     })
     push(`/sources/${id}/dashboards/${data.id}`)
   }

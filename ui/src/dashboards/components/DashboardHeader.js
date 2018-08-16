@@ -11,6 +11,7 @@ import GraphTips from 'shared/components/GraphTips'
 import DashboardHeaderEdit from 'src/dashboards/components/DashboardHeaderEdit'
 import DashboardSwitcher from 'src/dashboards/components/DashboardSwitcher'
 import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
+import {Trans} from 'react-i18next'
 
 const DashboardHeader = ({
   names,
@@ -79,7 +80,7 @@ const DashboardHeader = ({
             <Authorized requiredRole={EDITOR_ROLE}>
               <button className="btn btn-primary btn-sm" onClick={onAddCell}>
                 <span className="icon plus" />
-                Add Cell
+                <Trans>Add Cell</Trans>
               </button>
             </Authorized>
           ) : null}
@@ -90,7 +91,8 @@ const DashboardHeader = ({
               })}
               onClick={onToggleTempVarControls}
             >
-              <span className="icon cube" />Template Variables
+              <span className="icon cube" />
+              <Trans>Template Variables</Trans>
             </div>
           ) : null}
           <AutoRefreshDropdown

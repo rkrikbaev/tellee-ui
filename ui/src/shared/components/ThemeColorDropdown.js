@@ -113,6 +113,7 @@ class ThemeColorDropdown extends Component {
             '--zsse-c-daisy': currentTheme.cdaisy,
             '--zsse-c-banana': currentTheme.cbanana,
             // custom styles
+            '--zsse-page-gradient': currentTheme.pageGradient,
             '--zsse-page-header': currentTheme.pageHeaderBg,
             '--zsse-page-header2': currentTheme.pageHeaderBg2,
             '--zsse-page-header-text': currentTheme.pageHeaderText,
@@ -121,6 +122,9 @@ class ThemeColorDropdown extends Component {
             '--zsse-sidebar-icon3': currentTheme.sidebarIcon3,
             '--zsse-sidebar-bg1': currentTheme.sidebarBg1,
             '--zsse-sidebar-bg2': currentTheme.sidebarBg2,
+            '--zsse-sidebar-bg3': currentTheme.sidebarBg3,
+            '--zsse-sidebar-text': currentTheme.sidebarText,
+            '--zsse-button-text': currentTheme.buttonText,
             // px components
             '--px-percent-circle-fill-color': currentTheme.cpool,
             '--px-base-text-color': currentTheme.g14chromium,
@@ -162,8 +166,24 @@ class ThemeColorDropdown extends Component {
         />
 
         {/* eof styling */}
-        {hideDropdown ? null : (
+        {hideDropdown ? (
+          <div className="colorLogoPresentMode">
+            <CustomProperties
+              global={true}
+              properties={{
+                '--zsse-logo-visibility': 'none',
+              }}
+            />
+            <img src="/static_assets/ZeinetSSElogo_color.png" height="30" />
+          </div>
+        ) : (
           <div className={classnames('dropdown dropdown-120', {open: isOpen})}>
+            <CustomProperties
+              global={true}
+              properties={{
+                '--zsse-logo-visibility': 'block',
+              }}
+            />
             <div
               className="btn btn-sm btn-info dropdown-toggle"
               onClick={this.toggleMenu}

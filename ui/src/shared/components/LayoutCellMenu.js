@@ -94,7 +94,14 @@ class LayoutCellMenu extends Component {
                     menuOptions={menuOptions}
                     informParent={this.handleToggleSubMenu}
                   />
-                ) : null}
+                ) : (
+                  <MenuTooltipButton
+                    icon="trash"
+                    theme="danger"
+                    menuOptions={[{text: 'Confirm', action: onDelete(cell)}]}
+                    informParent={this.handleToggleSubMenu}
+                  />
+                )}
               </div>
             </Authorized>
           )}
