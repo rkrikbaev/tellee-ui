@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 import {withRouter} from 'react-router'
+import cookie from 'react-cookies'
 import i18n from 'src/localizations/i18n'
 
 @ErrorHandling
@@ -11,7 +12,7 @@ class LocalizationSwitcher extends Component {
     super(props)
     this.state = {
       isOpen: false,
-      selectedLang: 'en',
+      selectedLang: cookie.load('selectedLang') || 'en',
     }
   }
 
@@ -19,10 +20,16 @@ class LocalizationSwitcher extends Component {
     this.setState({isOpen: false})
   }
 
+  componentDidMount() {
+    const {selectedLang} = this.state
+    i18n.changeLanguage(selectedLang)
+  }
+
   handleSelection = lang => () => {
     i18n.changeLanguage(lang)
     this.setState({isOpen: false})
     this.setState({selectedLang: lang})
+    cookie.save('selectedLang', lang, {path: '/'})
     const {router, location} = this.props
     router.push({pathname: location.pathname})
   }

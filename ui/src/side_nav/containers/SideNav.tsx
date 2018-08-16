@@ -6,6 +6,7 @@ import Authorized, {ADMIN_ROLE} from 'src/auth/Authorized'
 
 import UserNavBlock from 'src/side_nav/components/UserNavBlock'
 import FeatureFlag from 'src/shared/components/FeatureFlag'
+import {I18n} from 'react-i18next'
 
 import {
   NavBlock,
@@ -50,113 +51,131 @@ class SideNav extends PureComponent<Props> {
 
     const isDefaultPage = location.split('/').includes(DEFAULT_HOME_PAGE)
     return isHidden ? null : (
-      <nav className="sidebar">
-        <div
-          className={isDefaultPage ? 'sidebar--item active' : 'sidebar--item'}
-        >
-          <Link
-            to={`${sourcePrefix}/${DEFAULT_HOME_PAGE}`}
-            className="sidebar--square sidebar--logo"
-          >
-            <span className="sidebar--icon icon cubo-uniform" />
-          </Link>
-        </div>
-        <NavBlock
-          highlightWhen={['dashboards']}
-          icon="dash-h"
-          link={`${sourcePrefix}/dashboards`}
-          location={location}
-        >
-          <NavHeader link={`${sourcePrefix}/dashboards`} title="Dashboards" />
-        </NavBlock>
-        <DashboardsSidenav sourcePrefix={sourcePrefix} location={location} />
-        <NavBlock
-          highlightWhen={['data-explorer', 'delorean']}
-          icon="graphline"
-          link={dataExplorerLink}
-          location={location}
-        >
-          <NavHeader link={dataExplorerLink} title="Data Explorer" />
-          <FeatureFlag name="time-machine">
-            <NavHeader link={`${sourcePrefix}/delorean`} title="Time Machine" />
-          </FeatureFlag>
-        </NavBlock>
-        <NavBlock
-          highlightWhen={['hosts']}
-          icon="cubo-node"
-          link={`${sourcePrefix}/hosts`}
-          location={location}
-        >
-          <NavHeader link={`${sourcePrefix}/hosts`} title="Host List" />
-        </NavBlock>
-        <Authorized
-          requiredRole={ADMIN_ROLE}
-          replaceWithIfNotUsingAuth={
+      <I18n>
+        {t => (
+          <nav className="sidebar">
+            <div
+              className={
+                isDefaultPage ? 'sidebar--item active' : 'sidebar--item'
+              }
+            >
+              <Link
+                to={`${sourcePrefix}/${DEFAULT_HOME_PAGE}`}
+                className="sidebar--square sidebar--logo"
+              >
+                <span className="sidebar--icon icon cubo-uniform" />
+              </Link>
+            </div>
             <NavBlock
-              highlightWhen={['admin-influxdb']}
-              icon="crown2"
-              link={`${sourcePrefix}/admin-influxdb/databases`}
+              highlightWhen={['dashboards']}
+              icon="dash-h"
+              link={`${sourcePrefix}/dashboards`}
               location={location}
             >
               <NavHeader
-                link={`${sourcePrefix}/admin-influxdb/databases`}
-                title="InfluxDB Admin"
+                link={`${sourcePrefix}/dashboards`}
+                title={t('Dashboards')}
               />
             </NavBlock>
-          }
-        >
-          <NavBlock
-            highlightWhen={[
-              'admin-chronograf',
-              'admin-influxdb',
-              'alerts',
-              'alert-rules',
-              'tickscript',
-            ]}
-            icon="crown2"
-            link={`${sourcePrefix}/admin-chronograf/current-organization`}
-            location={location}
-          >
-            <NavHeader
-              link={`${sourcePrefix}/admin-chronograf/current-organization`}
-              title="Admin"
+            <DashboardsSidenav
+              sourcePrefix={sourcePrefix}
+              location={location}
             />
-            <NavListItem
-              link={`${sourcePrefix}/admin-chronograf/current-organization`}
+            <NavBlock
+              highlightWhen={['data-explorer', 'delorean']}
+              icon="graphline"
+              link={dataExplorerLink}
+              location={location}
             >
-              Orgs and Users
-            </NavListItem>
-            <NavListItem link={`${sourcePrefix}/admin-influxdb/databases`}>
-              InfluxDB
-            </NavListItem>
-            <NavListItem link={`${sourcePrefix}/alert-rules`}>
-              Manage Tasks
-            </NavListItem>
-            <NavListItem link={`${sourcePrefix}/alerts`}>
-              Alert History
-            </NavListItem>
-          </NavBlock>
-        </Authorized>
-        <NavBlock
-          highlightWhen={['manage-sources', 'kapacitors']}
-          icon="cog-thick"
-          link={`${sourcePrefix}/manage-sources`}
-          location={location}
-        >
-          <NavHeader
-            link={`${sourcePrefix}/manage-sources`}
-            title="Configuration"
-          />
-        </NavBlock>
-        {isUsingAuth ? (
-          <UserNavBlock
-            logoutLink={logoutLink}
-            links={links}
-            me={me}
-            sourcePrefix={sourcePrefix}
-          />
-        ) : null}
-      </nav>
+              <NavHeader link={dataExplorerLink} title={t('Data Explorer')} />
+              <FeatureFlag name="time-machine">
+                <NavHeader
+                  link={`${sourcePrefix}/delorean`}
+                  title={t('Time Machine')}
+                />
+              </FeatureFlag>
+            </NavBlock>
+            <NavBlock
+              highlightWhen={['hosts']}
+              icon="cubo-node"
+              link={`${sourcePrefix}/hosts`}
+              location={location}
+            >
+              <NavHeader
+                link={`${sourcePrefix}/hosts`}
+                title={t('Host List')}
+              />
+            </NavBlock>
+            <Authorized
+              requiredRole={ADMIN_ROLE}
+              replaceWithIfNotUsingAuth={
+                <NavBlock
+                  highlightWhen={['admin-influxdb']}
+                  icon="crown2"
+                  link={`${sourcePrefix}/admin-influxdb/databases`}
+                  location={location}
+                >
+                  <NavHeader
+                    link={`${sourcePrefix}/admin-influxdb/databases`}
+                    title={t('InfluxDB Admin')}
+                  />
+                </NavBlock>
+              }
+            >
+              <NavBlock
+                highlightWhen={[
+                  'admin-chronograf',
+                  'admin-influxdb',
+                  'alerts',
+                  'alert-rules',
+                  'tickscript',
+                ]}
+                icon="crown2"
+                link={`${sourcePrefix}/admin-chronograf/current-organization`}
+                location={location}
+              >
+                <NavHeader
+                  link={`${sourcePrefix}/admin-chronograf/current-organization`}
+                  title={t('Admin')}
+                />
+                <NavListItem
+                  link={`${sourcePrefix}/admin-chronograf/current-organization`}
+                >
+                  {t('Orgs and Users')}
+                </NavListItem>
+                <NavListItem link={`${sourcePrefix}/admin-influxdb/databases`}>
+                  InfluxDB
+                </NavListItem>
+                <NavListItem link={`${sourcePrefix}/alert-rules`}>
+                  {t('Manage Tasks')}
+                </NavListItem>
+                <NavListItem link={`${sourcePrefix}/alerts`}>
+                  {t('Alert History')}
+                </NavListItem>
+              </NavBlock>
+            </Authorized>
+            <NavBlock
+              highlightWhen={['manage-sources', 'kapacitors']}
+              icon="cog-thick"
+              link={`${sourcePrefix}/manage-sources`}
+              location={location}
+            >
+              <NavHeader
+                link={`${sourcePrefix}/manage-sources`}
+                title={t('Configuration')}
+              />
+            </NavBlock>
+            {isUsingAuth ? (
+              <UserNavBlock
+                logoutLink={logoutLink}
+                links={links}
+                me={me}
+                sourcePrefix={sourcePrefix}
+              />
+            ) : null}
+          </nav>
+        )}
+      </I18n>
     )
   }
 }
