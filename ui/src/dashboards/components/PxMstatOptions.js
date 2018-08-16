@@ -103,6 +103,8 @@ class PxMstatOptions extends Component {
       type: 'array',
       items: {
         type: 'string',
+        maxLength: 30,
+        minLength: 3,
       },
     }
     const uiSchema = {
@@ -153,44 +155,6 @@ class PxMstatOptions extends Component {
         <div className="display-options--cell-wrapper">
           <h5 className="display-options--header">{menuOption} Controls</h5>
           <form autoComplete="off" className="form-group-wrapper">
-            {/* <div className="form-group col-sm-12">*/}
-            {/* <label htmlFor="prefix">Title</label>*/}
-            {/* <OptIn*/}
-            {/* customPlaceholder={defaultYLabel || 'y-axis title'}*/}
-            {/* customValue={label}*/}
-            {/* onSetValue={this.handleSetLabel}*/}
-            {/* type="text"*/}
-            {/* />*/}
-            {/* </div>*/}
-            {/* <LineGraphColorSelector />*/}
-            {/* <div className="form-group col-sm-6">*/}
-            {/* <label htmlFor="min">Min</label>*/}
-            {/* <OptIn*/}
-            {/* customPlaceholder={'min'}*/}
-            {/* customValue={min}*/}
-            {/* onSetValue={this.handleSetYAxisBoundMin}*/}
-            {/* type="number"*/}
-            {/* min={getInputMin(scale)}*/}
-            {/* />*/}
-            {/* </div>*/}
-            {/* <div className="form-group col-sm-6">*/}
-            {/* <label htmlFor="max">Max</label>*/}
-            {/* <OptIn*/}
-            {/* customPlaceholder={'max'}*/}
-            {/* customValue={max}*/}
-            {/* onSetValue={this.handleSetYAxisBoundMax}*/}
-            {/* type="number"*/}
-            {/* min={getInputMin(scale)}*/}
-            {/* />*/}
-            {/* </div>*/}
-            {/* <textarea*/}
-            {/* className="form-control monotype"*/}
-            {/* name="prefix"*/}
-            {/* id="prefix"*/}
-            {/* value={prefix}*/}
-            {/* spellCheck={false}*/}
-            {/* onChange={this.handleSetPrefixSuffix}*/}
-            {/* />*/}
             <div className="form-group col-sm-12">
               <Input
                 name="suffix"
@@ -199,37 +163,10 @@ class PxMstatOptions extends Component {
                 labelText="Bottom title value"
                 onChange={this.handleSetPrefixSuffix}
                 maxLength="5"
+                colWidth="12"
               />
             </div>
-            {/* <Tabber*/}
-            {/* labelText="Y-Value's Format"*/}
-            {/* tipID="Y-Values's Format"*/}
-            {/* tipContent={TOOLTIP_Y_VALUE_FORMAT}*/}
-            {/* >*/}
-            {/* <Tab*/}
-            {/* text="K/M/B"*/}
-            {/* isActive={base === BASE_10}*/}
-            {/* onClickTab={this.handleSetBase(BASE_10)}*/}
-            {/* />*/}
-            {/* <Tab*/}
-            {/* text="K/M/G"*/}
-            {/* isActive={base === BASE_2}*/}
-            {/* onClickTab={this.handleSetBase(BASE_2)}*/}
-            {/* />*/}
-            {/* </Tabber>*/}
-            {/* <Tabber labelText="Scale">*/}
-            {/* <Tab*/}
-            {/* text="Linear"*/}
-            {/* isActive={scale === LINEAR}*/}
-            {/* onClickTab={this.handleSetScale(LINEAR)}*/}
-            {/* />*/}
-            {/* <Tab*/}
-            {/* text="Logarithmic"*/}
-            {/* isActive={scale === LOG}*/}
-            {/* onClickTab={this.handleSetScale(LOG)}*/}
-            {/* />*/}
-            {/* </Tabber>*/}
-            <div className="form-group col-sm-12">
+            <div className="form-group col-md-12">
               <Tabber labelText="Include prev. values">
                 <Tab
                   text="Yes"
@@ -243,7 +180,7 @@ class PxMstatOptions extends Component {
                 />
               </Tabber>
             </div>
-            <div className="form-group col-sm-12">
+            <div className="form-group col-md-12">
               <Tabber labelText="Minimal Size(do not name the cell in this mode)">
                 <Tab
                   text="No"
@@ -267,7 +204,7 @@ class PxMstatOptions extends Component {
             onSubmit={onSubmit}
             // onError={log('errors')}
           >
-            <div className="form-group col-sm-6">
+            <div className="form-group col-sm-12 text-right">
               <button type="submit" className="btn btn-sm btn-success">
                 Apply Icons
               </button>

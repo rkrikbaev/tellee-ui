@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {
-  DASHBOARD_NAME_MAX_LENGTH,
-  NEW_DASHBOARD,
-} from 'src/dashboards/constants/index'
+import {NEW_DASHBOARD} from 'src/dashboards/constants/index'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 import Modal from 'react-responsive-modal'
 import Form from 'react-jsonschema-form'
@@ -55,6 +52,7 @@ class DashboardEditHeader extends Component {
       return true
     }
   }
+  domNode = document.getElementById('react-root')
 
   render() {
     const {activeDashboard} = this.props
@@ -62,13 +60,18 @@ class DashboardEditHeader extends Component {
 
     const schema = {
       type: 'object',
+      required: ['name', 'icon', 'dashboardType'],
       properties: {
         name: {
+          title: 'Dashboard name',
           type: 'string',
-          maxLength: DASHBOARD_NAME_MAX_LENGTH,
+          maxLength: 30,
+          minLength: 3,
         },
         icon: {
+          title: 'Icon name from FontAwesome (Example: fa-box)',
           type: 'string',
+          minLength: 3,
         },
         dashboardType: {
           title: 'Dashboard type',
@@ -86,9 +89,12 @@ class DashboardEditHeader extends Component {
       properties: {
         classNames: 'mozilla-dynamic-forms',
       },
-      dashboardType: {
+      name: {
         'ui:autofocus': true,
         'ui:emptyValue': NEW_DASHBOARD,
+      },
+      icon: {
+        'ui:placeholder': 'fa-',
       },
     }
 
@@ -104,11 +110,17 @@ class DashboardEditHeader extends Component {
     const formData = this.isJsonString(activeDashboard)
       ? JSON.parse(activeDashboard)
       : ''
-
     return (
       <div className="dashboard-title">
-        <Modal open={open} onClose={this.onCloseModal} top={true}>
-          <h4>Edit dashboard params</h4>
+        <Modal
+          open={open}
+          onClose={this.onCloseModal}
+          top={true}
+          classNames={{modal: 'styles_modal'}}
+          container={this.domNode}
+          showCloseIcon={false}
+        >
+          <h4>Edit Dashboard</h4>
           <div className="panel">
             <div className="panel-body">
               <Form
@@ -118,12 +130,11 @@ class DashboardEditHeader extends Component {
                 className="form-group-wrapper mozilla-dynamic-forms"
                 // onChange={log('changed')}
                 onSubmit={this.onSubmit}
-                // onError={log('errors')}
+                // onError={this.onError}
               >
-                <div className="form-group col-sm-12 width800">
-                  <button type="submit" className="btn btn-sm btn-success">
-                    <i className="icon checkmark" />
-                    Apply Icons
+                <div className="form-group col-sm-12 width800 text-center">
+                  <button type="submit" className="btn btn-lg btn-success">
+                    Apply
                   </button>
                 </div>
               </Form>

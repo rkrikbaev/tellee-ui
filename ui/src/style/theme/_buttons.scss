@@ -219,8 +219,8 @@ input.btn-primary {
     $c-pool,
     $c-laser,
     $c-hydrogen,
-    $g20-white,
-    $g20-white
+    var(--zsse-button-text),
+    var(--zsse-button-text)
   );
 }
 a.btn-success,
@@ -231,8 +231,8 @@ input.btn-success {
     $c-rainforest,
     $c-honeydew,
     $c-krypton,
-    $g20-white,
-    $g20-white
+    var(--zsse-button-text),
+    var(--zsse-button-text)
   );
 }
 a.btn-info,
@@ -244,7 +244,7 @@ input.btn-info {
     $g8-storm,
     $g9-mountain,
     $g16-pearl,
-    $g20-white
+    var(--zsse-button-text)
   );
 }
 a.btn-warning,
@@ -255,8 +255,8 @@ input.btn-warning {
     $c-star,
     $c-comet,
     $c-potassium,
-    $g20-white,
-    $g20-white
+    var(--zsse-button-text),
+    var(--zsse-button-text)
   );
 }
 a.btn-danger,
@@ -267,8 +267,8 @@ input.btn-danger {
     $c-curacao,
     $c-dreamsicle,
     $c-tungsten,
-    $g20-white,
-    $g20-white
+    var(--zsse-button-text),
+    ar(--zsse-button-text)
   );
 }
 a.btn-alert,
@@ -279,8 +279,8 @@ input.btn-alert {
     $c-pineapple,
     $c-thunder,
     $c-sulfur,
-    $g20-white,
-    $g20-white
+    var(--zsse-button-text),
+    var(--zsse-button-text)
   );
 }
 

@@ -83,6 +83,7 @@ export const ThemesPallete = [
     cdaisy: '#FFF6B8',
     cbanana: '#FFFDDE',
     // ZSSE Custom!
+    pageGradient: 'linear-gradient(#202028, #0f0e15)',
     pageHeaderBg: '#0f0e15',
     pageHeaderBg2: '#545667',
     pageHeaderText: '#EBEFF2',
@@ -91,6 +92,9 @@ export const ThemesPallete = [
     sidebarIcon3: '#ffffff',
     sidebarBg1: '#545667',
     sidebarBg2: '#31313d',
+    sidebarBg3: '#007ACCB4',
+    sidebarText: '#ffffff',
+    buttonText: '#ffffff',
   },
   // --------------------------------------------------------------------//
   // --------------------------------------------------------------------//
@@ -118,7 +122,7 @@ export const ThemesPallete = [
     g17whisper: '#1b2a33',
     g18cloud: '#121f26',
     g19ghost: '#0c1419',
-    g20white: '#eefbff',
+    g20white: '#2c404c',
 
     // Telegraf (Dark to Light)
     cbasalt: '#612325',
@@ -178,6 +182,7 @@ export const ThemesPallete = [
     cdaisy: '#F2C89A',
     cbanana: '#F4D2AD',
     // ZSSE Custom!
+    pageGradient: 'linear-gradient(#ebedee90, #fdfbfb90)',
     pageHeaderBg: '#007ACC',
     pageHeaderBg2: '#006fb9',
     pageHeaderText: '#EBEFF2',
@@ -186,5 +191,8 @@ export const ThemesPallete = [
     sidebarIcon3: '#EBEFF2',
     sidebarBg1: '#003D66',
     sidebarBg2: '#005C99',
+    sidebarBg3: '#748B99D2',
+    sidebarText: '#ffffff',
+    buttonText: '#EBEFF2',
   },
 ]

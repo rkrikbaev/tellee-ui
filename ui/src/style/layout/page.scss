@@ -23,7 +23,8 @@
   width: 100%;
   height: calc(100% - #{$chronograf-page-header-height}) !important;
 //branding gradient here
-  @include gradient-v($g2-kevlar,$g0-obsidian);
+ // @include gradient-v($g2-kevlar,$g0-obsidian);
+  background: var(--zsse-page-gradient);
 
   &:only-child {
     top: 0;

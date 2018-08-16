@@ -269,11 +269,12 @@ ul.quick-list li {
     display: block;
     border: 0px;
     display: inline-block;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--zsse-g11-sidewalk, #999dab);
     margin: 0 0 4px 0;
     padding: 0 13px;
+    width: 100%;
   }
   form{
     margin-bottom: 3px;
@@ -301,24 +302,24 @@ ul.quick-list li {
   }
 
   i.glyphicon { display: none;}
-  .btn-add::before {
+  .btn-add,
+  .array-item-move-up,
+  .array-item-move-down,
+  .array-item-remove{
     font-family: 'icomoon' !important;
-    content: '\e90a'; }
-  .array-item-move-up::before {
-    font-family: 'icomoon' !important;
-    content: '\e90b'; }
-  .array-item-move-down::before {
-    font-family: 'icomoon' !important;
-    content: '\e910'; }
-  .array-item-remove::before {
-    font-family: 'icomoon' !important;
-    content: '\E909';
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    width: 50px;
+    margin-top: 3px;
   }
-
-
-  .array-item-move-up { width: 30px; }
-  .array-item-move-down{ width: 30px; }
-  .array-item-remove { width: 30px; }
+  .btn-add::before {content: '\e90a';}
+  .array-item-move-up::before {content: '\e90b';}
+  .array-item-move-down::before {content: '\e910';}
+  .array-item-remove::before {content: '\E909';}
 
   input[type="button"]:disabled {
     width: 30px;
@@ -335,4 +336,18 @@ ul.quick-list li {
   width: 100%;
   background-color: $g1-raven;
   border-bottom: 1px solid $c-sapphire;
+}
+
+.styles_modal {
+  max-width: 800px;
+  position: relative;
+  padding: 1.2rem;
+  background: transparent;
+  background-clip: padding-box;
+  color: #efefef;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0);
+}
+
+.text-danger {
+  color: $c-fire-disabled;
 }

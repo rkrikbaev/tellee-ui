@@ -14,21 +14,21 @@ $sidebar--logo-bg-hover: $g20-white;
 $sidebar--logo-color-hover: $c-laser;
 
 $sidebar--item-bg: transparent;
-$sidebar--item-bg-hover: $c-pool;
+$sidebar--item-bg-hover: var(--zsse-sidebar-bg3);
 $sidebar--item-bg-active: var(--zsse-sidebar-bg2);
 $sidebar--icon: var(--zsse-sidebar-icon1);
 $sidebar--icon-hover: var(--zsse-sidebar-icon2);
 $sidebar--icon-active: var(--zsse-sidebar-icon3);
 
-$sidebar-menu--bg: $c-pool-disabled;
-$sidebar-menu--bg-accent: $c-pool-disabled;
+$sidebar-menu--bg: var(--zsse-sidebar-bg3);
+$sidebar-menu--bg-accent: var(--zsse-sidebar-bg3);
 $sidebar-menu--item-bg: $c-ocean;
 $sidebar-menu--item-bg-accent: $c-star;
-$sidebar-menu--item-bg-hover: $c-laser;
-$sidebar-menu--item-bg-hover-accent: $c-potassium;
-$sidebar-menu--item-text: $g2-kevlar;
-$sidebar-menu--item-text-hover: $g2-kevlar;
-$sidebar-menu--item-text-active: $g2-kevlar;
+$sidebar-menu--item-bg-hover: var(--zsse-sidebar-bg2);
+$sidebar-menu--item-bg-hover-accent: var(--zsse-sidebar-bg1);
+$sidebar-menu--item-text: var(--zsse-sidebar-text);
+$sidebar-menu--item-text-hover: var(--zsse-sidebar-text);
+$sidebar-menu--item-text-active: var(--zsse-sidebar-text);
 $sidebar-menu--gutter: 18px;
 
 .sidebar {
@@ -190,7 +190,7 @@ $sidebar-menu--gutter: 18px;
 .sidebar-menu--heading:visited,
 .sidebar-menu--heading:active,
 .sidebar-menu--heading:hover {
-  color: $g0-obsidian;
+  color: $sidebar-menu--item-text;
   height: $sidebar--width;
   line-height: $sidebar--width;
   font-size: 19px;
@@ -231,7 +231,8 @@ $sidebar-menu--gutter: 18px;
     left: 0;
     width: 100%;
     height: 2px;
-    @include gradient-h($c-laser,$c-potassium);
+    // @include gradient-h($c-laser,$c-potassium);
+    background: $g4-onyx
   }
 }
 

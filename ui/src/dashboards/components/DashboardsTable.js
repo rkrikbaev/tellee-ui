@@ -48,7 +48,7 @@ const DashboardsTable = ({
   return dashboards && dashboards.length ? (
     <table className="table v-center admin-table table-highlight">
       <tbody>
-        {_.sortBy(dashboards, d => d.name.toLowerCase()).map(
+        {_.sortBy(dashboards, d => d.id).map(
           dashboard =>
             getDashboardParams(dashboard.name).dashboardType ===
             'favourite' ? null : (
