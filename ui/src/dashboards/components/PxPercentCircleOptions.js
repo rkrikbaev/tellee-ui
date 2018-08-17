@@ -75,12 +75,12 @@ class PxPercentCircleOptions extends Component {
     onResetFocus()
   }
 
-  handleChooseColor = threshold => chosenColor => {
+  handleChooseColor = threshold => {
     const {handleUpdateGaugeColors} = this.props
     const gaugeColors = this.props.gaugeColors.map(
       color =>
         color.id === threshold.id
-          ? {...color, hex: chosenColor.hex, name: chosenColor.name}
+          ? {...color, hex: threshold.hex, name: threshold.name}
           : color
     )
 
@@ -137,19 +137,19 @@ class PxPercentCircleOptions extends Component {
     return allowedToUpdate
   }
 
-  handleUpdatePrefix = e => {
-    const {handleUpdateAxes, axes} = this.props
-    const newAxes = {...axes, y: {...axes.y, prefix: e.target.value}}
-
-    handleUpdateAxes(newAxes)
-  }
-
-  handleUpdateSuffix = e => {
-    const {handleUpdateAxes, axes} = this.props
-    const newAxes = {...axes, y: {...axes.y, suffix: e.target.value}}
-
-    handleUpdateAxes(newAxes)
-  }
+  // handleUpdatePrefix = e => {
+  //   const {handleUpdateAxes, axes} = this.props
+  //   const newAxes = {...axes, y: {...axes.y, prefix: e.target.value}}
+  //
+  //   handleUpdateAxes(newAxes)
+  // }
+  //
+  // handleUpdateSuffix = e => {
+  //   const {handleUpdateAxes, axes} = this.props
+  //   const newAxes = {...axes, y: {...axes.y, suffix: e.target.value}}
+  //
+  //   handleUpdateAxes(newAxes)
+  // }
 
   get sortedGaugeColors() {
     const {gaugeColors} = this.props
@@ -161,13 +161,13 @@ class PxPercentCircleOptions extends Component {
   render() {
     const {
       gaugeColors,
-      axes: {
-        y: {prefix, suffix},
-      },
+      // axes: {
+      //   y: {prefix, suffix},
+      // },
     } = this.props
 
     const disableMaxColor = gaugeColors.length > MIN_THRESHOLDS
-    const disableAddThreshold = gaugeColors.length > MAX_THRESHOLDS
+    // const disableAddThreshold = gaugeColors.length > MAX_THRESHOLDS
 
     return (
       <FancyScrollbar
@@ -179,13 +179,13 @@ class PxPercentCircleOptions extends Component {
             PX Percent Circle Controls
           </h5>
           <div className="thresholds-list">
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={this.handleAddThreshold}
-              disabled={disableAddThreshold}
-            >
-              <span className="icon plus" /> Add Threshold
-            </button>
+            {/* <button*/}
+            {/* className="btn btn-sm btn-primary"*/}
+            {/* onClick={this.handleAddThreshold}*/}
+            {/* disabled={disableAddThreshold}*/}
+            {/* >*/}
+            {/* <span className="icon plus" /> Add Threshold*/}
+            {/* </button>*/}
             {this.sortedGaugeColors.map((color, index) => (
               <Threshold
                 isMin={index === 0}
@@ -201,28 +201,28 @@ class PxPercentCircleOptions extends Component {
               />
             ))}
           </div>
-          <div className="graph-options-group form-group-wrapper">
-            <div className="form-group col-xs-6">
-              <label>Thickness</label>
-              <input
-                className="form-control input-sm"
-                placeholder="circle thickness in pixels (1-30)"
-                defaultValue={prefix}
-                onChange={this.handleUpdatePrefix}
-                maxLength="5"
-              />
-            </div>
-            <div className="form-group col-xs-6">
-              <label>Suffix</label>
-              <input
-                className="form-control input-sm"
-                placeholder="%, MPH, etc."
-                defaultValue={suffix}
-                onChange={this.handleUpdateSuffix}
-                maxLength="5"
-              />
-            </div>
-          </div>
+          {/* <div className="graph-options-group form-group-wrapper">*/}
+          {/* <div className="form-group col-xs-6">*/}
+          {/* <label>Thickness</label>*/}
+          {/* <input*/}
+          {/* className="form-control input-sm"*/}
+          {/* placeholder="circle thickness in pixels (1-30)"*/}
+          {/* defaultValue={prefix}*/}
+          {/* onChange={this.handleUpdatePrefix}*/}
+          {/* maxLength="5"*/}
+          {/* />*/}
+          {/* </div>*/}
+          {/* <div className="form-group col-xs-6">*/}
+          {/* <label>Suffix</label>*/}
+          {/* <input*/}
+          {/* className="form-control input-sm"*/}
+          {/* placeholder="%, MPH, etc."*/}
+          {/* defaultValue={suffix}*/}
+          {/* onChange={this.handleUpdateSuffix}*/}
+          {/* maxLength="5"*/}
+          {/* />*/}
+          {/* </div>*/}
+          {/* </div>*/}
         </div>
       </FancyScrollbar>
     )

@@ -126,7 +126,7 @@ class ThemeColorDropdown extends Component {
             '--zsse-sidebar-text': currentTheme.sidebarText,
             '--zsse-button-text': currentTheme.buttonText,
             // px components
-            '--px-percent-circle-fill-color': currentTheme.cpool,
+            // '--px-percent-circle-fill-color': currentTheme.cpool,
             '--px-base-text-color': currentTheme.g14chromium,
             '--px-percent-circle-text-color': currentTheme.g17whisper,
             '--px-percent-circle-background-color': currentTheme.g5pepper,
