@@ -11,6 +11,7 @@ import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOpt
 import PxKpiOptions from 'src/dashboards/components/PxKpiOptions'
 import PxGaugeOptions from 'src/dashboards/components/PxGaugeOptions'
 import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
+import PxGanttOptions from 'src/dashboards/components/PxGanttOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -76,6 +77,13 @@ class DisplayOptions extends Component {
       case 'table':
         return (
           <TableOptions
+            onResetFocus={onResetFocus}
+            queryConfigs={queryConfigs}
+          />
+        )
+      case 'px-gantt':
+        return (
+          <PxGanttOptions
             onResetFocus={onResetFocus}
             queryConfigs={queryConfigs}
           />
