@@ -11,6 +11,7 @@ import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOpt
 import PxKpiOptions from 'src/dashboards/components/PxKpiOptions'
 import PxGaugeOptions from 'src/dashboards/components/PxGaugeOptions'
 import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
+import PxRadarOptions from 'src/dashboards/components/PxRadarOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -69,6 +70,20 @@ class DisplayOptions extends Component {
       case 'px-mstat':
         return (
           <PxMstatOtions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
+      case 'px-radar':
+        return (
+          <PxRadarOptions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
+      case 'px-timeseries':
+        return (
+          <PxRadarOptions
             onToggleStaticLegend={onToggleStaticLegend}
             staticLegend={staticLegend}
           />

@@ -351,3 +351,22 @@ ul.quick-list li {
 .text-danger {
   color: $c-fire-disabled;
 }
+
+.auth-box {
+  a.btn-primary, div.btn-primary, button.btn-primary, input.btn-primary{
+    color: $g20-white;
+    &:focus {
+      color: $g20-white
+    }
+    &:hover {
+      color: $g20-white
+    }
+    &.active,
+    &.active:hover,
+    &:active,
+    &:active:hover,
+    .open &.dropdown-toggle {
+      color: $g20-white
+    }
+  }
+}

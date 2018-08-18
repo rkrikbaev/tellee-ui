@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 // import OptIn from 'shared/components/OptIn'
-import Input from 'src/dashboards/components/DisplayOptionsInput'
+// import Input from 'src/dashboards/components/DisplayOptionsInput'
 import {Tabber, Tab} from 'src/dashboards/components/Tabber'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import LineGraphColorSelector from 'src/shared/components/LineGraphColorSelector'
@@ -18,11 +18,11 @@ import {GRAPH_TYPES} from 'src/dashboards/graphics/graph'
 import {updateAxes} from 'src/dashboards/actions/cellEditorOverlay'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 
-const {LINEAR, BASE_10} = AXES_SCALE_OPTIONS // BASE_2, LOG,
+const {LINEAR, BASE_10} = AXES_SCALE_OPTIONS //  BASE_2,LOG,
 // const getInputMin = scale => (scale === LOG ? '0' : null)
 
 @ErrorHandling
-class PxKpiOptions extends Component {
+class PxRadarOptions extends Component {
   handleSetPrefixSuffix = e => {
     const {handleUpdateAxes, axes} = this.props
     const {prefix, suffix} = e.target.form
@@ -39,29 +39,29 @@ class PxKpiOptions extends Component {
     handleUpdateAxes(newAxes)
   }
 
-  // handleSetYAxisBoundMin = min => {
-  //   const {handleUpdateAxes, axes} = this.props
-  //   const {
-  //     y: {
-  //       bounds: [, max],
-  //     },
-  //   } = this.props.axes
-  //   const newAxes = {...axes, y: {...axes.y, bounds: [min, max]}}
-  //
-  //   handleUpdateAxes(newAxes)
-  // }
-  //
-  // handleSetYAxisBoundMax = max => {
-  //   const {handleUpdateAxes, axes} = this.props
-  //   const {
-  //     y: {
-  //       bounds: [min],
-  //     },
-  //   } = axes
-  //   const newAxes = {...axes, y: {...axes.y, bounds: [min, max]}}
-  //
-  //   handleUpdateAxes(newAxes)
-  // }
+  handleSetYAxisBoundMin = min => {
+    const {handleUpdateAxes, axes} = this.props
+    const {
+      y: {
+        bounds: [, max],
+      },
+    } = this.props.axes
+    const newAxes = {...axes, y: {...axes.y, bounds: [min, max]}}
+
+    handleUpdateAxes(newAxes)
+  }
+
+  handleSetYAxisBoundMax = max => {
+    const {handleUpdateAxes, axes} = this.props
+    const {
+      y: {
+        bounds: [min],
+      },
+    } = axes
+    const newAxes = {...axes, y: {...axes.y, bounds: [min, max]}}
+
+    handleUpdateAxes(newAxes)
+  }
 
   handleSetLabel = label => {
     const {handleUpdateAxes, axes} = this.props
@@ -70,25 +70,25 @@ class PxKpiOptions extends Component {
     handleUpdateAxes(newAxes)
   }
 
-  // handleSetScale = scale => () => {
-  //   const {handleUpdateAxes, axes} = this.props
-  //   const newAxes = {...axes, y: {...axes.y, scale}}
-  //
-  //   handleUpdateAxes(newAxes)
-  // }
-  //
-  // handleSetBase = base => () => {
-  //   const {handleUpdateAxes, axes} = this.props
-  //   const newAxes = {...axes, y: {...axes.y, base}}
-  //
-  //   handleUpdateAxes(newAxes)
-  // }
+  handleSetScale = scale => () => {
+    const {handleUpdateAxes, axes} = this.props
+    const newAxes = {...axes, y: {...axes.y, scale}}
+
+    handleUpdateAxes(newAxes)
+  }
+
+  handleSetBase = base => () => {
+    const {handleUpdateAxes, axes} = this.props
+    const newAxes = {...axes, y: {...axes.y, base}}
+
+    handleUpdateAxes(newAxes)
+  }
 
   render() {
     const {
-      axes: {
-        y: {prefix, suffix}, // base, scale, bounds,label, defaultYLabel
-      },
+      // axes: {
+      //   y: {bounds, label, prefix, suffix, base, scale, defaultYLabel},
+      // },
       type,
       staticLegend,
       onToggleStaticLegend,
@@ -136,22 +136,22 @@ class PxKpiOptions extends Component {
             {/* min={getInputMin(scale)}*/}
             {/* />*/}
             {/* </div>*/}
-            <Input
-              name="prefix"
-              id="prefix"
-              value={prefix}
-              labelText="Value's Suffix"
-              onChange={this.handleSetPrefixSuffix}
-              maxLength="5"
-            />
-            <Input
-              name="suffix"
-              id="suffix"
-              value={suffix}
-              labelText="Change Value's Suffix"
-              onChange={this.handleSetPrefixSuffix}
-              maxLength="5"
-            />
+            {/* <Input*/}
+            {/* name="prefix"*/}
+            {/* id="prefix"*/}
+            {/* value={prefix}*/}
+            {/* labelText="Y-Value's Prefix"*/}
+            {/* onChange={this.handleSetPrefixSuffix}*/}
+            {/* maxLength="5"*/}
+            {/* />*/}
+            {/* <Input*/}
+            {/* name="suffix"*/}
+            {/* id="suffix"*/}
+            {/* value={suffix}*/}
+            {/* labelText="Y-Value's Suffix"*/}
+            {/* onChange={this.handleSetPrefixSuffix}*/}
+            {/* maxLength="5"*/}
+            {/* />*/}
             {/* <Tabber*/}
             {/* labelText="Y-Value's Format"*/}
             {/* tipID="Y-Values's Format"*/}
@@ -180,14 +180,14 @@ class PxKpiOptions extends Component {
             {/* onClickTab={this.handleSetScale(LOG)}*/}
             {/* />*/}
             {/* </Tabber>*/}
-            <Tabber labelText="Spark Theme">
+            <Tabber labelText="Static Legend">
               <Tab
-                text="Default"
+                text="Show"
                 isActive={staticLegend}
                 onClickTab={onToggleStaticLegend(true)}
               />
               <Tab
-                text="Transparent"
+                text="Hide"
                 isActive={!staticLegend}
                 onClickTab={onToggleStaticLegend(false)}
               />
@@ -201,7 +201,7 @@ class PxKpiOptions extends Component {
 
 const {arrayOf, bool, func, shape, string} = PropTypes
 
-PxKpiOptions.defaultProps = {
+PxRadarOptions.defaultProps = {
   axes: {
     y: {
       bounds: ['', ''],
@@ -214,7 +214,7 @@ PxKpiOptions.defaultProps = {
   },
 }
 
-PxKpiOptions.propTypes = {
+PxRadarOptions.propTypes = {
   type: string.isRequired,
   axes: shape({
     y: shape({
@@ -241,4 +241,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PxKpiOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(PxRadarOptions)

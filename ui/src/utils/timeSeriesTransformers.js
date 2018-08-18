@@ -98,7 +98,7 @@ export const timeSeriesToPxSeries = (raw = []) => {
             type: 'fa',
             icon: `${parsedEvent[2]}`,
             offset: [0, 0],
-            lineWeight: 6,
+            // lineWeight: 1,
             size: 24,
           }
         }
