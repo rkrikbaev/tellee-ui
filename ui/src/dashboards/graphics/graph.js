@@ -599,7 +599,7 @@ export const GRAPH_TYPES = [
   },
   {
     type: CELL_TYPE_GAUGE,
-    menuOption: 'Gauge',
+    menuOption: 'Gauge 1',
     graphic: GRAPH_SVGS[CELL_TYPE_GAUGE],
   },
   {
@@ -609,12 +609,12 @@ export const GRAPH_TYPES = [
   },
   {
     type: CELL_TYPE_PX_CIRCLE,
-    menuOption: 'PX Percent Circle',
+    menuOption: 'Percent Circle',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_CIRCLE],
   },
   {
     type: CELL_TYPE_PX_GAUGE,
-    menuOption: 'PX Gauge',
+    menuOption: 'Gauge 2',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_GAUGE],
   },
   {
@@ -624,27 +624,27 @@ export const GRAPH_TYPES = [
   },
   {
     type: CELL_TYPE_PX_TIMESERIES,
-    menuOption: 'PX TimeSeries',
+    menuOption: 'Timeseries',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_TIMESERIES],
   },
   {
     type: CELL_TYPE_PX_KPI,
-    menuOption: 'PX KPI',
+    menuOption: 'KPI',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_KPI],
   },
   {
     type: CELL_TYPE_PX_GANTT,
-    menuOption: 'D3 Timeline',
+    menuOption: 'Timeline',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
   },
   {
     type: CELL_TYPE_PX_RADAR,
-    menuOption: 'PX Radar',
+    menuOption: 'Radar',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_RADAR],
   },
   {
     type: CELL_TYPE_PX_INBOX,
-    menuOption: 'PX Inbox',
+    menuOption: 'Inbox',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_INBOX],
   },
 ]
