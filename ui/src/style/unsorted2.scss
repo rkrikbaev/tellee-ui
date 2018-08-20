@@ -74,7 +74,8 @@ ul.quick-list li {
 }
 
 .count_top, .count_bottom{
-  color: $g10-wolf;
+  color: $g14-chromium;
+  font-size: 13px;
 }
 
 .count_top_center{
@@ -327,14 +328,9 @@ ul.quick-list li {
   }
 }
 
-.dashboardIcon{
-  padding-top: 5px;
-  font-size: 2em;
-}
-
 .colorLogoPresentMode{
   width: 100%;
-  background-color: $g1-raven;
+  background-color: $g2-kevlar;
   border-bottom: 1px solid $c-sapphire;
 }
 
@@ -369,4 +365,15 @@ ul.quick-list li {
       color: $g20-white
     }
   }
+}
+
+.dashboardNames{
+   font-weight: 400;
+   font-size: 16px;
+}
+
+.dashboardIcon{
+  padding-top: 5px;
+  font-size: 1.5em;
+  color: $c-pool-disabled;
 }

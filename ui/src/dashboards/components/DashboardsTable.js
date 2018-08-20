@@ -59,13 +59,15 @@ const DashboardsTable = ({
                     className={classnames(
                       'icon',
                       'dashboardIcon',
-                      getDashboardParams(dashboard.name).icon
+                      getDashboardParams(dashboard.name).icon || 'fa-chart-bar'
                     )}
                   />
                 </td>
                 <td>
                   <Link to={`${dashboardLink}/dashboards/${dashboard.id}`}>
-                    {getDashboardParams(dashboard.name).name}
+                    <span className="dashboardNames">
+                      {getDashboardParams(dashboard.name).name}
+                    </span>
                   </Link>
                 </td>
                 <td>

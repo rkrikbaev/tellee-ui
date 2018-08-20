@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import OnClickOutside from 'shared/components/OnClickOutside'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 import cookie from 'react-cookies'
+import _ from 'lodash'
 import CustomProperties from 'react-custom-properties'
 import {ThemesPallete} from 'shared/constants/themespallete.js'
 
@@ -133,7 +134,7 @@ class ThemeColorDropdown extends Component {
 
             '--px-gauge-empty-color': currentTheme.g5pepper,
 
-            '--px-vis-gridlines-color': currentTheme.g4onyx,
+            '--px-vis-gridlines-color': currentTheme.g5pepper,
             '--px-vis-cursor-line-color': currentTheme.g8storm,
 
             '--px-vis-register-data-value': currentTheme.g14chromium,
@@ -195,7 +196,9 @@ class ThemeColorDropdown extends Component {
               onClick={this.toggleMenu}
             >
               <span className={classnames('icon', 'eye-open')} />
-              <span className="dropdown-selected">{selectedTheme}</span>
+              <span className="dropdown-selected">
+                {_.find(ThemesPallete, {themeName: selectedTheme}).themeDescr}
+              </span>
               <span className="caret" />
             </div>
             <ul className="dropdown-menu">

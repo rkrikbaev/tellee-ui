@@ -85,7 +85,7 @@ $sidebar-menu--gutter: 18px;
     text-shadow:
       0 0 9px $c-laser,
       0 0 15px $c-ocean,
-      0 0 20px $c-amethyst;
+      0 0 20px #fff;
   }
 }
 
@@ -176,8 +176,8 @@ $sidebar-menu--gutter: 18px;
 .sidebar-menu--item.active:link,
 .sidebar-menu--item.active:active,
 .sidebar-menu--item.active:visited {
-  @include gradient-h($sidebar-menu--item-bg,$sidebar-menu--item-bg-accent);
-  color: $sidebar-menu--item-text-active;
+  //@include gradient-h($sidebar-menu--item-bg,$sidebar-menu--item-bg-accent);
+  //color: $sidebar-menu--item-text-active;
   font-weight: 700;
 }
 .sidebar-menu--item:hover,
