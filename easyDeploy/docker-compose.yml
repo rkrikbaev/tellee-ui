@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  chronografapi:
+     image: chronograf:1.5.0.1
+     environment:
+        TOKEN_SECRET: W89K0BdHpWIqDm8ocRLUTsdsg
+        GENERIC_NAME: generic
+        GENERIC_CLIENT_ID: local_chronograf_one
+        GENERIC_CLIENT_SECRET: 17dd5bbf-3814-41f4-b42c-00a27d68bdc5
+        GENERIC_AUTH_URL: http://192.168.118.129:8082/auth/realms/master/protocol/openid-connect/auth
+        GENERIC_TOKEN_URL: http://192.168.118.129:8082/auth/realms/master/protocol/openid-connect/token
+        GENERIC_API_URL: http://192.168.118.129:8082/auth/realms/master/protocol/openid-connect/userinfo
+        PUBLIC_URL: http://localhost:808
+        GENERIC_SCOPES: openid,profile,email
+     volumes:
+        - ./data:/var/lib/chronograf
+     ports:
+        - 8888:8888
+
