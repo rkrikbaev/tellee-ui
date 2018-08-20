@@ -136,21 +136,8 @@
       // =====================================
 
       // Declaring variables
-      var states = [],
-        values = {
-          1: `АВАРИЯ`,
-          2: `КОЛЬЦО`,
-          3: `РЕЗЕРВ`,
-          4: `МАГИСТ`
-        },
-        colors = {
-          1: "#bf1b00",
-          2: "#eab839",
-          3: "#dedaf7",
-          4: "#629e51"
-        },
-        newColors = [],
-        newValues = [];
+      var values = [],
+        colors = [];
 
       // give size to legend
       var _height = this.height;
@@ -171,7 +158,13 @@
           count_data[this.data[i].state][0] += this.data[i].ending_time - this.data[i].starting_time;
           count_data[this.data[i].state][2] += 1;
         } else
-          count_data[this.data[i].state] = [this.data[i].ending_time - this.data[i].starting_time, this.data[i].state, repeat]
+          count_data[this.data[i].state] = [
+            this.data[i].ending_time - this.data[i].starting_time,
+            this.data[i].state,
+            repeat,
+            this.data[i].color,
+            this.data[i].stateName
+          ]
       }
 
       // for getting access to count_data's keys( which actually states )
@@ -181,15 +174,15 @@
       }
 
       // creating data to 'domain()' and 'range()' 
-      for (let i = 0; i < arr.length; i++) {
-        newColors.push(colors[arr[i]]);
-        newValues.push(values[arr[i]]);
+      for (let i = 1; i <= arr.length; i++) {
+        colors.push(count_data[i][3]);
+        values.push(count_data[i][4]);
       }
 
       // pasting colors of legend
       var color = d3.scaleOrdinal()
-        .domain(newValues)
-        .range(newColors);
+        .domain(values)
+        .range(colors);
 
       // positioning colors of legend
       var legend = svg.selectAll(".legend")
@@ -237,11 +230,11 @@
           if (days > 1) {
             return `${d} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (days == 1) {
-            return `${d} (${days} day, ${percents}%, , ${newCount_data[i][2]}x)`;
+            return `${d} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours >= 1) {
-            return `${d} (${hours} hours, ${percents}%, , ${newCount_data[i][2]}x)`;
+            return `${d} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours == 0) {
-            return `${d} (${hours} ${minutes} minutes, ${percents}%, , ${newCount_data[i][2]}x)`;
+            return `${d} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
           }
         });
 

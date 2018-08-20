@@ -30,8 +30,6 @@ class PxGantt extends Component {
     }
   }
 
-  /* let html = getPolymer(result)  */
-
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
@@ -79,24 +77,41 @@ class PxGantt extends Component {
 
   makeObj = (timeStart, timeEnd, state) => {
     return {
-      data: timeEnd - timeStart,
       starting_time: timeStart,
       ending_time: timeEnd,
       color: this.getColor(state),
+      stateName: this.getName(state),
       state,
     }
   }
 
-  getColor = color => {
-    switch (color) {
+  getColor = state => {
+    let {prefix} = this.props.axes.y
+    prefix = JSON.parse(prefix)
+    switch (state) {
       case 4:
-        return '#629e51' // green
+        return prefix.stateFourColor // green
       case 3:
-        return '#dedaf7' // light pirple
+        return prefix.stateThreeColor // light pirple
       case 2:
-        return '#eab839' // brown
+        return prefix.stateTwoColor // brown
       case 1:
-        return '#bf1b00' // red
+        return prefix.stateOneColor // red
+    }
+  }
+
+  getName = state => {
+    let {prefix} = this.props.axes.y
+    prefix = JSON.parse(prefix)
+    switch (state) {
+      case 4:
+        return prefix.stateFour
+      case 3:
+        return prefix.stateThree
+      case 2:
+        return prefix.stateTwo
+      case 1:
+        return prefix.stateOne
     }
   }
 
