@@ -85,8 +85,23 @@ class PxGantt extends Component {
     }
   }
 
+  isJsonString = json => {
+    {
+      const str = json.toString()
+      try {
+        JSON.parse(str)
+      } catch (e) {
+        return false
+      }
+      return true
+    }
+  }
+
   getColor = state => {
     let {prefix} = this.props.axes.y
+    if (!this.isJsonString(prefix)) {
+      return 'white'
+    }
     prefix = JSON.parse(prefix)
     switch (state) {
       case 4:
@@ -102,6 +117,9 @@ class PxGantt extends Component {
 
   getName = state => {
     let {prefix} = this.props.axes.y
+    if (!this.isJsonString(prefix)) {
+      return 'NoName'
+    }
     prefix = JSON.parse(prefix)
     switch (state) {
       case 4:

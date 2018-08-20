@@ -14,7 +14,6 @@ import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
 import PxRadarOptions from 'src/dashboards/components/PxRadarOptions'
 import PxGanttOptions from 'src/dashboards/components/PxGanttOptions'
 
-
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 
