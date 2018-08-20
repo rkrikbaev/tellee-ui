@@ -87,7 +87,7 @@ class PxRadar extends Component {
       // isGraphFilled,
       // showSingleStat,
       // displayOptions,
-      // staticLegend,
+      staticLegend,
       // underlayCallback,
       // overrideLineColors,
       isFetchingInitially,
@@ -120,10 +120,9 @@ class PxRadar extends Component {
     })
 
     const {width, height} = this.state
-
     return (
       <div
-        style={{height: '100%'}}
+        style={{height: '100%', marginTop: '30px'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
@@ -133,7 +132,11 @@ class PxRadar extends Component {
           height={height}
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
           series-key="timeStamp"
+          skip-keys="{&quot;TimeStamp&quot;:true}"
           axes={pxSeriesConfig}
+          show-tooltip={true}
+          {...(staticLegend ? {} : {'hide-axis-register': true})}
+          tooltip-config="{&quot;forceDateTimeDisplay&quot;:true}"
         />
 
         <ReactResizeDetector

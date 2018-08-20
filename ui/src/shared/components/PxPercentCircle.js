@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
+import CustomProperties from 'react-custom-properties'
 import _ from 'lodash'
 
 import {colorsStringSchema} from 'shared/schemas'
@@ -133,7 +134,6 @@ class PxPercentCircle extends Component {
     // const maxValue = Number(
     //   colors.find(color => color.type === COLOR_TYPE_MAX).value
     // )
-
     const kpiMainValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
 
@@ -162,21 +162,27 @@ class PxPercentCircle extends Component {
     const maxValue = Number(
       colors.find(color => color.type === COLOR_TYPE_MAX).value
     )
+    const defaultColor = colors.find(color => color.type === COLOR_TYPE_MIN)
     return (
       <div
         style={{height: '100%'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
-
-        <px-percent-circle
-          val={`${kpiMainValue.y.toFixed(2)}`}
-          max={maxValue}
-          min={minValue}
-          thickness={prefix}
-          width={_width}
-          height={_height}
-        />
+        <CustomProperties
+          properties={{
+            '--px-percent-circle-fill-color': defaultColor.hex,
+          }}
+        >
+          <px-percent-circle
+            val={`${kpiMainValue.y.toFixed(2)}`}
+            max={maxValue}
+            min={minValue}
+            thickness={prefix}
+            width={_width}
+            height={_height}
+          />
+        </CustomProperties>
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}

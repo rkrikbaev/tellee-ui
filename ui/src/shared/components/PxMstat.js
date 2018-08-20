@@ -154,6 +154,9 @@ class PxMstat extends Component {
     if (_cols === 5 || _cols > 6) {
       _cols = 1
     }
+    if (_cols === 1) {
+      _cols = 12
+    }
     const cols = `col-md-${_cols} col-xs-${_cols} tile_stats_count`
     return (
       <div

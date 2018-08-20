@@ -26,13 +26,13 @@ const {LINEAR, LOG, BASE_10} = AXES_SCALE_OPTIONS // BASE_2,
 class PxMstatOptions extends Component {
   handleSetPrefixSuffix = e => {
     const {handleUpdateAxes, axes} = this.props
-    const {prefix, suffix} = e.target.form
+    const {suffix} = e.target.form
 
     const newAxes = {
       ...axes,
       y: {
         ...axes.y,
-        prefix: prefix.value,
+        // prefix: prefix.value,
         suffix: suffix.value,
       },
     }

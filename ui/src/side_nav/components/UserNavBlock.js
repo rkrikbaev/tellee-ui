@@ -97,6 +97,12 @@ class UserNavBlock extends Component {
           </div>
           <a
             className="sidebar-menu--item sidebar-menu--item__logout"
+            href="/switch/to/user/profile"
+          >
+            <Trans>User Profile</Trans>
+          </a>
+          <a
+            className="sidebar-menu--item sidebar-menu--item__logout"
             href={logoutLink}
           >
             <Trans>Log out</Trans>

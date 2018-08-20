@@ -126,22 +126,28 @@ class ThemeColorDropdown extends Component {
             '--zsse-sidebar-text': currentTheme.sidebarText,
             '--zsse-button-text': currentTheme.buttonText,
             // px components
-            '--px-percent-circle-fill-color': currentTheme.cpool,
+            // '--px-percent-circle-fill-color': currentTheme.cpool,
             '--px-base-text-color': currentTheme.g14chromium,
             '--px-percent-circle-text-color': currentTheme.g17whisper,
             '--px-percent-circle-background-color': currentTheme.g5pepper,
 
             '--px-gauge-empty-color': currentTheme.g5pepper,
 
-            '--px-vis-gridlines-color': currentTheme.g8storm,
-            '--px-vis-cursor-line-color': currentTheme.g17whisper,
+            '--px-vis-gridlines-color': currentTheme.g4onyx,
+            '--px-vis-cursor-line-color': currentTheme.g8storm,
 
             '--px-vis-register-data-value': currentTheme.g14chromium,
             '--px-vis-register-series-name': currentTheme.g17whisper,
             '--px-vis-register-border-color': '#ffffff00', // ugly border in series
             '--px-vis-register-font-size': '12px',
 
-            '--px-vis-series-color-0': currentTheme.cocean,
+            '--px-vis-series-color-0': currentTheme.cpooldisabled,
+            '--px-vis-series-color-1': currentTheme.crainforestdisabled,
+            '--px-vis-series-color-2': currentTheme.cstardisabled,
+            '--px-vis-series-color-3': currentTheme.cpineapple,
+            '--px-vis-series-color-4': currentTheme.cdreamsicle,
+            '--px-vis-series-color-5': currentTheme.cwasabi,
+            '--px-vis-series-color-6': currentTheme.ctopaz,
 
             '--px-vis-axis-color': currentTheme.g8storm,
             '--px-vis-axis-title-color': currentTheme.g17whisper,
@@ -154,9 +160,9 @@ class ThemeColorDropdown extends Component {
             '--px-tooltip-light-text-color': currentTheme.g17whisper,
             '--px-tooltip-border-color': currentTheme.g9mountain,
             '--px-vis-font-family': 'Roboto',
-            '--px-vis-event-line-color': '#3c475f50',
+            '--px-vis-event-line-color': currentTheme.g12forge,
             '--px-vis-nav-brush-opacity': 0.1,
-            '--px-vis-nav-brush-outline-color': currentTheme.g14chromium,
+            '--px-vis-nav-brush-outline-color': currentTheme.g10wolf,
 
             '--px-inbox-li-background-color': currentTheme.g4onyx,
             '--px-inbox-li-background-color--hover': currentTheme.g5pepper,

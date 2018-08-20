@@ -75,7 +75,7 @@ class PxKpi extends Component {
       // data,
       axes,
       title,
-      // colors,
+      colors,
       // cellID,
       // onZoom,
       // queries,
@@ -160,11 +160,10 @@ class PxKpi extends Component {
       sparkHeight = 40
     }
 
-    let sparkAreaBg = '#ffffff50'
-    let pkTextColor = 'var(--zsse-g3-castle)'
+    let sparkAreaBg = '#364c5950'
+    const pkTextColor = 'var(--zsse-g14-chromium)'
     if (staticLegend) {
-      sparkAreaBg = 'var(--zsse-c-ocean)'
-      pkTextColor = 'var(--zsse-g14-chromium)'
+      sparkAreaBg = colors[0].hex
     }
 
     return (

@@ -7,6 +7,7 @@ import _ from 'lodash'
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
+import {getLineColorsHexes} from 'src/shared/constants/graphColorPalettes'
 
 // const validateTimeSeries = timeseries => {
 //   return _.every(timeseries, r =>
@@ -86,7 +87,7 @@ class PxTimeseries extends Component {
       // isGraphFilled,
       // showSingleStat,
       // displayOptions,
-      // staticLegend,
+      staticLegend,
       // underlayCallback,
       // overrideLineColors,
       isFetchingInitially,
@@ -94,7 +95,6 @@ class PxTimeseries extends Component {
     } = this.props
 
     const {labels, timeSeries, eventsData, eventsConfig} = this._timeSeries
-
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
@@ -104,6 +104,7 @@ class PxTimeseries extends Component {
     const suffix = axes ? axes.y.suffix : ''
     // This is A very SICK implementation of series config, since JSON formatting problems for PX,
     // we fall-down in the end to text-to-json manual composing
+    const lineColors = getLineColorsHexes(colors, labels.length)
     const pxSeriesConfig = {}
     labels.forEach(function(_label, key) {
       if (_label !== 'time') {
@@ -117,9 +118,7 @@ class PxTimeseries extends Component {
         map2.yAxisUnit = suffix
         map2.mutedOpacity = '0'
         map2.color =
-          typeof colors[key - 1] === 'undefined'
-            ? '#ef3e50'
-            : colors[key - 1].hex
+          typeof lineColors[key] === 'undefined' ? '#ef3e50' : lineColors[key]
         pxSeriesConfig[_label] = map2
       }
     })
@@ -157,6 +156,7 @@ class PxTimeseries extends Component {
           event-config={JSON.stringify(eventsConfig)}
           event-data={JSON.stringify(eventsData)}
           {...(disableNavigator ? {'disable-navigator': true} : {})}
+          {...(staticLegend ? {} : {'hide-register': true})}
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
           x-axis-config="{&quot;title&quot;:&quot;&quot;}"
