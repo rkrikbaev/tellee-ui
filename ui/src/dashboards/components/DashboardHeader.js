@@ -13,6 +13,25 @@ import DashboardSwitcher from 'src/dashboards/components/DashboardSwitcher'
 import ThemeColorDropdown from 'src/shared/components/ThemeColorDropdown'
 import {Trans} from 'react-i18next'
 
+const isJsonString = json => {
+  {
+    const str = json.toString()
+    try {
+      JSON.parse(str)
+    } catch (e) {
+      return false
+    }
+    return true
+  }
+}
+
+const getDashboardName = activeDashboard => {
+  if (isJsonString(activeDashboard)) {
+    return JSON.parse(activeDashboard).name
+  }
+  return activeDashboard
+}
+
 const DashboardHeader = ({
   names,
   onSave,
@@ -57,7 +76,9 @@ const DashboardHeader = ({
             <Authorized
               requiredRole={EDITOR_ROLE}
               replaceWithIfNotAuthorized={
-                <h1 className="page-header__title">{activeDashboard}</h1>
+                <h1 className="page-header__title">
+                  {getDashboardName(activeDashboard)}
+                </h1>
               }
             >
               <DashboardHeaderEdit
