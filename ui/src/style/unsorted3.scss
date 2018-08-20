@@ -1,0 +1,13 @@
+fieldset {
+   width: 800px;
+   .field {
+     display: inline-block;
+     &:nth-child(even) {
+        width: 30%;
+        padding-left: 5px;
+     }
+     &:nth-child(odd) {
+        width: 65%;
+     }
+   }
+}

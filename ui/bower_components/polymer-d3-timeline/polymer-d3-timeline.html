@@ -1,45 +1,73 @@
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../polymer/polymer.html" />
 
-<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
+<link rel="import" href="../px-d3-imports/px-d3-imports.html" />
 <script src="d3-timelines.js"></script>
+<script src="../d3/d3.js"></script>
 
 <style type="text/css">
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: black;
-        shape-rendering: crispEdges;
-    }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+  }
 
-    .axis text {
-        font-family: sans-serif;
-        font-size: 10px;
-    }
+  .axis text {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
 
-    .timeline-label {
-        font-family: sans-serif;
-        font-size: 12px;
-    }
+  .timeline-label {
+    font-family: sans-serif;
+    font-size: 12px;
+  }
 
-    #timeline2 .axis {
-        transform: translate(0px,40px);
-        -ms-transform: translate(0px,40px); /* IE 9 */
-        -webkit-transform: translate(0px,40px); /* Safari and Chrome */
-        -o-transform: translate(0px,40px); /* Opera */
-        -moz-transform: translate(0px,40px); /* Firefox */
-    }
+  #timeline2 .axis {
+    transform: translate(0px, 40px);
+    -ms-transform: translate(0px, 40px);
+    /* IE 9 */
+    -webkit-transform: translate(0px, 40px);
+    /* Safari and Chrome */
+    -o-transform: translate(0px, 40px);
+    /* Opera */
+    -moz-transform: translate(0px, 40px);
+    /* Firefox */
+  }
 
-    .coloredDiv {
-        height:20px; width:20px; float:left;
-    }
+  .coloredDiv {
+    height: 40px;
+    width: 20px;
+    float: left;
+  }
+
+  div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 300px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+
+  .legend {
+    z-index: 99;
+  }
+
+  rect {
+    stroke-width: 2;
+  }
 </style>
 
 
 
 <dom-module id="polymer-d3-timeline">
-    <template>
-            <div width="100%" id="timeline"></div>
-    </template>
+  <template id="template">
+    <div width="100%" id="timeline"></div>
+  </template>
 </dom-module>
 
 
@@ -59,30 +87,158 @@
       /**
        * Current value of the gauge.
        * @property value
-       * @type {Number}
+       * @type {Array}
        * @default `0`
        */
-      value: {
-        type: Number,
-        value: 0
+      data: {
+        type: Array,
+        value: []
       },
+      width: {
+        type: Number,
+        value: 300,
+        observer: '_changeWidth'
+      },
+      height: {
+        type: Number,
+        value: 100,
+        observer: '_changeHeight'
+      }
     },
 
-    attached: function() {
+    _changeWidth: function () {
+      this.properties.width = this.width;
+      d3.select(this.$$("#timeline svg")).remove();
+      this.attached();
+      // this.set('this.properties.width', this.width);
+    },
+    _changeHeight: function () {
+      this.properties.height = this.height;
+      d3.select(this.$$("#timeline svg")).remove();
+      this.attached();
+      this.set('this.properties.height', this.height);
+    },
+    attached: function () {
+      if (!this.width || !this.height) return;
+      this.properties.data = this.data;
       var testData = [
-        {times: [
-            {"starting_time": 1355752800000, "ending_time": 1355759900000,"color": "#edda22"},
-            {"starting_time": 1355767900000, "ending_time": 1355774400000,"color": "#ed913c"},
-            {"starting_time": 1355774500000, "ending_time": 1355776600000,"color": "#747aed"},
-            {"starting_time": 1355777700000, "ending_time": 1355778800000,"color": "#3cab38"},]
-        },
+        { times: this.properties.data },
       ];
       var chart = d3.timelines();
+      chart.itemHeight(this.properties.height - 100);
+      var svg = d3.select(this.$$('#timeline'))
+        .append("svg")
+        .attr("width", this.properties.width)
+        .attr("height", this.properties.height)
+        .datum(testData)
+        .call(chart);
 
-      var svg = d3.select(this.$$('#timeline')).append("svg").attr("width", 500)
-        .datum(testData).call(chart);
+      // =====================================
+
+      // Declaring variables
+      var values = [],
+        colors = [];
+
+      // give size to legend
+      var _height = this.height;
+      var _width = this.width;
+      var legendSize = 18;
+
+      // if diagram height greater than width
+      if (this.height > this.width) {
+        _height = this.width;
+        _width = this.height;
+      }
+
+      // filtering 'states' array to be unique
+      let count_data = {};
+      let repeat = 1;
+      for (let i = 0; i < this.data.length; i++) {
+        if (count_data[this.data[i].state]) {
+          count_data[this.data[i].state][0] += this.data[i].ending_time - this.data[i].starting_time;
+          count_data[this.data[i].state][2] += 1;
+        } else
+          count_data[this.data[i].state] = [
+            this.data[i].ending_time - this.data[i].starting_time,
+            this.data[i].state,
+            repeat,
+            this.data[i].color,
+            this.data[i].stateName
+          ]
+      }
+
+      // for getting access to count_data's keys( which actually states )
+      var arr = [];
+      for (let key in count_data) {
+        arr.push(key);
+      }
+
+      // creating data to 'domain()' and 'range()' 
+      for (let i = 1; i <= arr.length; i++) {
+        colors.push(count_data[i][3]);
+        values.push(count_data[i][4]);
+      }
+
+      // pasting colors of legend
+      var color = d3.scaleOrdinal()
+        .domain(values)
+        .range(colors);
+
+      // positioning colors of legend
+      var legend = svg.selectAll(".legend")
+        .data(color.domain())
+        .enter()
+        .append("g")
+        .attr("class", "legend")
+        .attr("transform", function (d, i) {
+          var height = _height + _width;
+          var horz = i * color.domain()[i].length * 40 + 30;
+          var vert = _height - 35;
+          return "translate(" + horz + "," + vert + ")";
+        });
+
+      // giving size of color's retangle
+      legend.append("rect")
+        .attr("width", legendSize)
+        .attr("height", legendSize)
+        .style("fill", color)
+        .style("stroke", color);
+
+      // creating new array to get key of object
+      var newCount_data = Object.keys(count_data).map((item, i) => (
+        count_data[item]
+      ));
+      // common period equals: last state's ending_date - first state's starting_date
+      var period = this.data[this.data.length - 1].ending_time - this.data[0].starting_time;
+
+      // appending text to legend
+      legend.append("text")
+        .attr("x", function (d, i) {
+          return i + 30;
+        })
+        .attr("y", 13)
+        .style("font-size", 12)
+        .text(function (d, i) {
+          let percents = 0, days = 0, hours = 0, minutes = 0;
+          percents = ((newCount_data[i][0] * 100) / period).toFixed(2);
+          if (!newCount_data[i][0]) return `${d} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
+          days = Math.floor((newCount_data[i][0] / 1000) / 86400);
+          newCount_data[i][0] -= days * 86400;
+          hours = Math.floor(newCount_data[i][0] / 3600) % 24;
+          newCount_data[i][0] -= hours * 3600;
+          minutes = Math.floor(newCount_data[i][0] / 60) % 60;
+          if (days > 1) {
+            return `${d} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (days == 1) {
+            return `${d} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (hours >= 1) {
+            return `${d} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (hours == 0) {
+            return `${d} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+          }
+        });
+
     }
 
   });
 </script>
-
