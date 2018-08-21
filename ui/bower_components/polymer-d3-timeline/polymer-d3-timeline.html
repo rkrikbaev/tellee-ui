@@ -172,11 +172,12 @@
       for (let key in count_data) {
         arr.push(key);
       }
+      console.log(arr, count_data)
 
       // creating data to 'domain()' and 'range()' 
-      for (let i = 1; i <= arr.length; i++) {
-        colors.push(count_data[i][3]);
-        values.push(count_data[i][4]);
+      for (let i = 0; i < arr.length; i++) {
+        colors.push(count_data[arr[i]][3]);
+        values.push(count_data[arr[i]][4]);
       }
 
       // pasting colors of legend
