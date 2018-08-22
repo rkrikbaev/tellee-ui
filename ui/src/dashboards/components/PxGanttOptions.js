@@ -11,7 +11,7 @@ import {GRAPH_TYPES} from 'src/dashboards/graphics/graph'
 import {updateAxes} from 'src/dashboards/actions/cellEditorOverlay'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 
-import ThresholdsList from 'src/shared/components/ThresholdsList'
+// import ThresholdsList from 'src/shared/components/ThresholdsList'
 
 @ErrorHandling
 class PxGanttOptions extends Component {
@@ -130,10 +130,10 @@ class PxGanttOptions extends Component {
         y: {prefix}, // base, bounds,  defaultYLabel,label,
       },
       type,
-      onResetFocus,
+      // onResetFocus,
     } = this.props
 
-    console.log(this.props)
+    // console.log(this.props)
     const {menuOption} = GRAPH_TYPES.find(graph => graph.type === type)
     const formData = this.isJsonString(prefix) ? JSON.parse(prefix) : ''
     return (
