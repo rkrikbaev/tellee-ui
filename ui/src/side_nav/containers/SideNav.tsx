@@ -95,17 +95,17 @@ class SideNav extends PureComponent<Props> {
                 />
               </FeatureFlag>
             </NavBlock>
-            <NavBlock
-              highlightWhen={['hosts']}
-              icon="cubo-node"
-              link={`${sourcePrefix}/hosts`}
-              location={location}
-            >
-              <NavHeader
-                link={`${sourcePrefix}/hosts`}
-                title={t('Host List')}
-              />
-            </NavBlock>
+            {/*<NavBlock*/}
+            {/*highlightWhen={['hosts']}*/}
+            {/*icon="cubo-node"*/}
+            {/*link={`${sourcePrefix}/hosts`}*/}
+            {/*location={location}*/}
+            {/*>*/}
+            {/*<NavHeader*/}
+            {/*link={`${sourcePrefix}/hosts`}*/}
+            {/*title={t('Host List')}*/}
+            {/*/>*/}
+            {/*</NavBlock>*/}
             <Authorized
               requiredRole={ADMIN_ROLE}
               replaceWithIfNotUsingAuth={

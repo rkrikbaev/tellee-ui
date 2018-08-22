@@ -133,6 +133,7 @@ class ThemeColorDropdown extends Component {
             '--px-percent-circle-background-color': currentTheme.g5pepper,
 
             '--px-gauge-empty-color': currentTheme.g5pepper,
+            '--px-gauge-needle-color': currentTheme.g19ghost,
 
             '--px-vis-gridlines-color': currentTheme.g5pepper,
             '--px-vis-cursor-line-color': currentTheme.g8storm,

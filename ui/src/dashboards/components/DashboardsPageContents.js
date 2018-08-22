@@ -1,4 +1,4 @@
-/* global VERSION */
+// /* global VERSION */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
@@ -85,17 +85,17 @@ class DashboardsPageContents extends Component {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="panel-body">
-                <div className="box">
-                  <h2 className="panel-title">
-                    <Trans>version</Trans>: <strong>{VERSION}</strong>
-                  </h2>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* <div className="row">*/}
+          {/* <div className="col-md-12">*/}
+          {/* <div className="panel-body">*/}
+          {/* <div className="box">*/}
+          {/* <h2 className="panel-title">*/}
+          {/* <Trans>version</Trans>: <strong>{VERSION}</strong>*/}
+          {/* </h2>*/}
+          {/* </div>*/}
+          {/* </div>*/}
+          {/* </div>*/}
+          {/* </div>*/}
         </div>
       </FancyScrollbar>
     )

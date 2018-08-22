@@ -1,7 +1,7 @@
 export const ThemesPallete = [
   {
     themeName: 'dark',
-    themeDescr: 'Темная тема',
+    themeDescr: 'Dark',
     // original influx
     g0obsidian: '#0f0e15',
     g1raven: '#1c1c21',
@@ -100,7 +100,7 @@ export const ThemesPallete = [
   // --------------------------------------------------------------------//
   {
     themeName: 'light',
-    themeDescr: 'Светлая тема',
+    themeDescr: 'Light',
     // got from predix pallette
     g0obsidian: '#fff',
     g1raven: '#e2e8ed',
