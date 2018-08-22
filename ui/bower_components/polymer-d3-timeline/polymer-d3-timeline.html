@@ -92,25 +92,28 @@
        */
       data: {
         type: Array,
-        value: []
+        observer: '_changeGraph'
       },
       width: {
         type: Number,
-        value: 300,
         observer: '_changeWidth'
       },
       height: {
         type: Number,
-        value: 100,
         observer: '_changeHeight'
       }
+    },
+
+    _changeGraph: function() {
+      this._changeHeight();
+      this._changeWidth();
     },
 
     _changeWidth: function () {
       this.properties.width = this.width;
       d3.select(this.$$("#timeline svg")).remove();
       this.attached();
-      // this.set('this.properties.width', this.width);
+      this.set('this.properties.width', this.width);
     },
     _changeHeight: function () {
       this.properties.height = this.height;
@@ -169,10 +172,10 @@
 
       // for getting access to count_data's keys( which actually states )
       var arr = [];
+      console.log(this.data)
       for (let key in count_data) {
         arr.push(key);
       }
-      console.log(arr, count_data)
 
       // creating data to 'domain()' and 'range()' 
       for (let i = 0; i < arr.length; i++) {
