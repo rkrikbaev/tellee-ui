@@ -1,4 +1,4 @@
-rsync -aPz static_assets root@this.poynt.kz:/opt/go/src/github.com/influxdata/chronograf/ui
-rsync -aPz build root@this.poynt.kz:/opt/go/src/github.com/influxdata/chronograf/ui
-rsync -aPz bower_components root@this.poynt.kz:/opt/go/src/github.com/influxdata/chronograf/ui
+rsync -aPz static_assets user_zsse@flash.zsse.io:/opt/user/frontend
+rsync -aPz build user_zsse@flash.zsse.io:/opt/user/frontend
+rsync -aPz bower_components user_zsse@flash.zsse.io:/opt/user/frontend
 
