@@ -108,7 +108,6 @@ class PxGantt extends Component {
     if (!this.isJsonString(prefix)) {
       return 'white'
     }
-    console.log(state)
     prefix = JSON.parse(prefix)
     switch (state) {
       case 4:

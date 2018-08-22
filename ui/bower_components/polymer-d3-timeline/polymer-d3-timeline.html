@@ -145,7 +145,7 @@
       // give size to legend
       var _height = this.height;
       var _width = this.width;
-      var legendSize = 18;
+      var legendSize = 13;
 
       // if diagram height greater than width
       if (this.height > this.width) {
@@ -172,7 +172,6 @@
 
       // for getting access to count_data's keys( which actually states )
       var arr = [];
-      console.log(this.data)
       for (let key in count_data) {
         arr.push(key);
       }
@@ -196,7 +195,7 @@
         .attr("class", "legend")
         .attr("transform", function (d, i) {
           var height = _height + _width;
-          var horz = i * color.domain()[i].length * 40 + 30;
+          var horz = i * color.domain()[i].length * 33 + 30;
           var vert = _height - 35;
           return "translate(" + horz + "," + vert + ")";
         });
@@ -218,27 +217,34 @@
       // appending text to legend
       legend.append("text")
         .attr("x", function (d, i) {
-          return i + 30;
+          return i + 20;
         })
-        .attr("y", 13)
+        .attr("y", 12)
         .style("font-size", 12)
         .text(function (d, i) {
+
+          var upperLegend = d.toUpperCase();
+
           let percents = 0, days = 0, hours = 0, minutes = 0;
           percents = ((newCount_data[i][0] * 100) / period).toFixed(2);
+
           if (!newCount_data[i][0]) return `${d} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
           days = Math.floor((newCount_data[i][0] / 1000) / 86400);
           newCount_data[i][0] -= days * 86400;
+
           hours = Math.floor(newCount_data[i][0] / 3600) % 24;
           newCount_data[i][0] -= hours * 3600;
+
           minutes = Math.floor(newCount_data[i][0] / 60) % 60;
+
           if (days > 1) {
-            return `${d} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (days == 1) {
-            return `${d} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours >= 1) {
-            return `${d} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours == 0) {
-            return `${d} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
           }
         });
 

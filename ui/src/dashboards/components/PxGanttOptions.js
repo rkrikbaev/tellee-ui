@@ -11,6 +11,8 @@ import {GRAPH_TYPES} from 'src/dashboards/graphics/graph'
 import {updateAxes} from 'src/dashboards/actions/cellEditorOverlay'
 import {ErrorHandling} from 'src/shared/decorators/errors'
 
+import ThresholdsList from 'src/shared/components/ThresholdsList'
+
 @ErrorHandling
 class PxGanttOptions extends Component {
   isJsonString = json => {
@@ -128,8 +130,10 @@ class PxGanttOptions extends Component {
         y: {prefix}, // base, bounds,  defaultYLabel,label,
       },
       type,
+      onResetFocus,
     } = this.props
 
+    console.log(this.props)
     const {menuOption} = GRAPH_TYPES.find(graph => graph.type === type)
     const formData = this.isJsonString(prefix) ? JSON.parse(prefix) : ''
     return (
@@ -139,12 +143,18 @@ class PxGanttOptions extends Component {
       >
         <div className="display-options--cell-wrapper">
           <h5 className="display-options--header">{menuOption} Controls</h5>
-          <div className="form-group col-sm-12">
+          {/* <div className="form-group col-sm-12">
+            <ThresholdsList
+              showListHeading={true}
+              onResetFocus={onResetFocus}
+            />
+          </div> */}
+          <div className="form-group col-sm-12 pxGanttOptions-form">
             <Form
               schema={schema}
               uiSchema={uiSchema}
               formData={formData}
-              className="form-group-wrapper mozilla-dynamic-forms pxGanttOptions-form"
+              className="form-group-wrapper mozilla-dynamic-forms"
               // onChange={log('changed')}
               onSubmit={onSubmit}
               // onError={log('errors')}
