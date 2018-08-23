@@ -24,7 +24,7 @@ class UserNavBlock extends Component {
 
   render() {
     const {
-      logoutLink,
+      // logoutLink,
       links: {
         external: {custom: customLinks},
       },
@@ -103,8 +103,9 @@ class UserNavBlock extends Component {
           </a>
           <a
             className="sidebar-menu--item sidebar-menu--item__logout"
-            href={logoutLink}
+            href="https://auth.zsse.io/auth/realms/master/protocol/openid-connect/logout?redirect_uri=https://flash.zsse.io/oauth/logout"
           >
+            {/* temporary solution http://localhost:8082/auth/realms/master/protocol/openid-connect/logout?redirect_uri=http://localhost:808/oauth/logout*/}
             <Trans>Log out</Trans>
           </a>
           <div className="sidebar-menu--heading sidebar--no-hover">
