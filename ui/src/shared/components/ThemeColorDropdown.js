@@ -166,10 +166,11 @@ class ThemeColorDropdown extends Component {
             '--px-vis-nav-brush-opacity': 0.1,
             '--px-vis-nav-brush-outline-color': currentTheme.g10wolf,
 
-            '--px-inbox-li-background-color': currentTheme.g4onyx,
+            '--px-inbox-li-background-color': currentTheme.g6smoke,
             '--px-inbox-li-background-color--hover': currentTheme.g5pepper,
             '--px-inbox-li-background-color--selected': currentTheme.g8storm,
-            '--px-inbox-border-color': currentTheme.g10wolf,
+            '--px-inbox-border-color': currentTheme.g8storm,
+            '--px-inbox-secondary-text-color': currentTheme.g13mist,
           }}
         />
 

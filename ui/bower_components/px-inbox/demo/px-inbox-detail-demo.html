@@ -24,7 +24,22 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         flex-direction: column;
         height: auto;
       }
-      .heading--page,
+      .heading--page{
+          padding: 15px;
+          flex: 0 0 auto;
+      }
+      .date-part{
+          flex: 0 0 auto;
+          padding-top: 10px;
+          padding-bottom: 10px;
+      }
+      .message-part{
+          flex: 0 0 auto;
+          padding-left: 25px;
+          padding-bottom: 20px;
+          margin-top: -20px;
+          border-bottom: 1px dashed var(--px-inbox-border-color);
+      }
       .details {
         padding: 15px;
         border-bottom: 1px dashed var(--px-inbox-border-color);
@@ -32,30 +47,37 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
       }
       h2{
           line-height: 1.25em;
-          font-size: 30px;
+          font-size: 28px;
           font-weight: 300;
           letter-spacing: -1px;
       }
+
       px-key-value-pair {
         min-width: 10rem;
       }
     </style>
 
-      <div class="heading--page flex flex--left"><h2>{{title}}</h2></div>
+    <div class="heading--page flex flex--left"><h2>{{title}}</h2></div>
+    <!--<div class="date-part"><px-icon class="u-mr-" icon="px-fea:time"></px-icon><strong>{{receivedDateTime}}</strong></div>-->
+    <div class="message-part flex flex--left"><span>{{messagetext}}</span></div>
     <div class="details">
-        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon><strong>Alert Information</strong></span>
-      <div class="flex flex--row flex--wrap flex--justify">
-        <px-key-value-pair class="u-mv" key="Alert ID" value="{{alerttext}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertvalue}}"></px-key-value-pair>
+
+        <div class="flex flex--row flex--wrap flex--justify">
+            <div class="date-part"><px-icon class="u-mr-" icon="px-fea:time"></px-icon><strong>{{receivedDateTime}}</strong></div>
+        </div>
+
+      <div class="flex flex--row flex--left flex--justify">
+        <span class="heading--section u-mv"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon><strong>{{alerttext}}</strong></span>
+        <!--<px-key-value-pair class="u-mv" key="Alert ID" value=""></px-key-value-pair>-->
+        <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertvalue}}" size="delta"></px-key-value-pair>
         <!--<px-key-value-pair class="u-mv" key="Received Date/Time" value="{{receivedDateTime}}"></px-key-value-pair>-->
         <!--<px-key-value-pair class="u-mv" key="Case Number" value="{{caseNumber}}"></px-key-value-pair>-->
       </div>
-    </div>
-    <div class="details">
-        <span class="heading--section"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon><strong>Asset Information</strong></span>
+
       <div class="flex flex--row flex--wrap flex--justify">
-        <px-key-value-pair class="u-mv" key="Customer" value="{{assettext}}"></px-key-value-pair>
-        <px-key-value-pair class="u-mv" key="Serial Number" value="{{assetvalue}}"></px-key-value-pair>
+        <span class="heading--section u-mv"><px-icon class="u-mr-" icon="px-fea:asset"></px-icon><strong>{{assettext}}</strong></span>
+        <!--<px-key-value-pair class="u-mv" key="Customer" value="{{assettext}}" size="zeta"></px-key-value-pair>-->
+        <px-key-value-pair class="u-mv" key="Serial Number" value="{{assetvalue}}" size="delta"></px-key-value-pair>
         <!--<px-key-value-pair class="u-mv" key="DLN Type" value="{{dlnType}}"></px-key-value-pair>-->
         <!--<px-key-value-pair class="u-mv" key="Model" value="{{model}}"></px-key-value-pair>-->
       </div>

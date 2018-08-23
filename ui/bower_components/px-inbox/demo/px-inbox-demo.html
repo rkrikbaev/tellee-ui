@@ -55,7 +55,7 @@
                 is-selected="{{selectedItemRef.isSelected}}"
                 alert-id="{{selectedItemRef.alertId}}"
                 alert-source="{{selectedItemRef.alertSource}}"
-                received-date-time="{{selectedItemRef.receivedDateTime}}"
+                received-date-time="{{selectedItemRef.date}}"
                 case-number="{{selectedItemRef.caseNumber}}"
                 customer="{{selectedItemRef.customer}}"
                 serial-number="{{selectedItemRef.serialNumber}}"
@@ -64,7 +64,8 @@
                 alerttext="{{selectedItemRef.alerttext}}"
                 alertvalue="{{selectedItemRef.alertvalue}}"
                 assettext="{{selectedItemRef.assettext}}"
-                assetvalue="{{selectedItemRef.assetvalue}}">
+                assetvalue="{{selectedItemRef.assetvalue}}"
+                messagetext="{{selectedItemRef.messagetext}}">
             </px-inbox-detail-demo>
         </px-inbox>
       </px-demo-component>
