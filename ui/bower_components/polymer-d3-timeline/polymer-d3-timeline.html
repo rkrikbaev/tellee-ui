@@ -3,32 +3,24 @@
 <link rel="import" href="../px-d3-imports/px-d3-imports.html" />
 <script src="d3-timelines.js"></script>
 <script src="../d3/d3.js"></script>
-
-<style type="text/css">
-
-  div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 300px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-  }
-
-  .legend {
-    z-index: 99;
-  }
-
-</style>
-
-
+<link rel="import" href="../px-theme/px-theme-styles.html">
+<custom-style>
+  <style include="px-theme-styles" is="custom-style"></style>
+</custom-style>
 
 <dom-module id="polymer-d3-timeline">
   <template id="template">
+    <style type="text/css">
+      #timeline path,
+      .legend text,
+      .timeline-xAxis line {
+        stroke: var(--px-base-text-color, #383846) !important;
+      }
+
+      .timeline-xAxis text {
+        fill: var(--px-base-text-color, #383846) !important;
+      }
+    </style>
     <div width="100%" id="timeline"></div>
   </template>
 </dom-module>
@@ -76,37 +68,39 @@
       this.properties.width = this.width;
       d3.select(this.$$("#timeline svg")).remove();
       this.attached();
-      this.set('this.properties.width', this.width);
     },
     _changeHeight: function () {
       this.properties.height = this.height;
       d3.select(this.$$("#timeline svg")).remove();
       this.attached();
-      this.set('this.properties.height', this.height);
     },
     attached: function () {
       // If state equals null or have decimal part then:
+      var errorDiv = d3.select(this.$$('#timeline'));
       for(let i = 0; i < this.data.length; i++) {
         if (!this.data[i].state || this.data[i].state - Math.floor(this.data[i].state) != 0) {
-          d3.select(this.$$('#timeline')).selectAll('.error_msg').remove();
-          var errorDiv = d3.select(this.$$('#timeline'))
+          errorDiv.selectAll('.error_msg').remove();
+          errorDiv
             .append("p")
             .attr("class", "error_msg")
             .style("padding-left", "40px")
-            .text("Error! You recieved invalid data...");
+            .text("Error occured! You recieved invalid data...");
           return;
+        } else {
+          errorDiv.selectAll('.error_msg').remove();
         }
       }
+
       if (!this.width || !this.height) return;
       this.properties.data = this.data;
       var testData = [
         { times: this.properties.data },
       ];
       var chart = d3.timelines();
-      chart.showTimeAxisTick({
-        stroke: "stroke-dasharray",
-        color: "#7A65F2"
-      })
+      // chart.showTimeAxisTick({
+      //   stroke: "stroke-dasharray",
+      //   color: "#7A65F2"
+      // })
       chart.itemHeight(this.properties.height - 100);
       var svg = d3.select(this.$$('#timeline'))
         .append("svg")
