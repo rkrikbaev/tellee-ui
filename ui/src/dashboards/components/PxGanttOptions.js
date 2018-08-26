@@ -36,23 +36,28 @@ class PxGanttOptions extends Component {
           anyOf: [
             {
               type: 'string',
-              enum: ['#ff0000'],
-              title: 'Red',
+              enum: ['#DC4E58'],
+              title: 'Soft red',
             },
             {
               type: 'string',
-              enum: ['#00ff00'],
-              title: 'Green',
+              enum: ['#7CE490'],
+              title: 'Soft lime green',
             },
             {
               type: 'string',
-              enum: ['#0000ff'],
-              title: 'Blue',
+              enum: ['#22ADF6'],
+              title: 'Vivid blue',
             },
             {
               type: 'string',
-              enum: ['#e7e778'],
-              title: 'Yellow',
+              enum: ['#ffb94a'],
+              title: 'Light orange',
+            },
+            {
+              type: 'string',
+              enum: ['#7a65f2'],
+              title: 'Soft blue',
             },
           ],
         },

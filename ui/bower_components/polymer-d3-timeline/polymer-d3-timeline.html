@@ -3,69 +3,24 @@
 <link rel="import" href="../px-d3-imports/px-d3-imports.html" />
 <script src="d3-timelines.js"></script>
 <script src="../d3/d3.js"></script>
-
-<style type="text/css">
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-  }
-
-  .axis text {
-    font-family: sans-serif;
-    font-size: 10px;
-  }
-
-  .timeline-label {
-    font-family: sans-serif;
-    font-size: 12px;
-  }
-
-  #timeline2 .axis {
-    transform: translate(0px, 40px);
-    -ms-transform: translate(0px, 40px);
-    /* IE 9 */
-    -webkit-transform: translate(0px, 40px);
-    /* Safari and Chrome */
-    -o-transform: translate(0px, 40px);
-    /* Opera */
-    -moz-transform: translate(0px, 40px);
-    /* Firefox */
-  }
-
-  .coloredDiv {
-    height: 40px;
-    width: 20px;
-    float: left;
-  }
-
-  div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 300px;
-    height: 28px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-  }
-
-  .legend {
-    z-index: 99;
-  }
-
-  rect {
-    stroke-width: 2;
-  }
-</style>
-
-
+<link rel="import" href="../px-theme/px-theme-styles.html">
+<custom-style>
+  <style include="px-theme-styles" is="custom-style"></style>
+</custom-style>
 
 <dom-module id="polymer-d3-timeline">
   <template id="template">
+    <style type="text/css">
+      #timeline path,
+      .legend text,
+      .timeline-xAxis line {
+        stroke: var(--px-base-text-color, #383846) !important;
+      }
+
+      .timeline-xAxis text {
+        fill: var(--px-base-text-color, #383846) !important;
+      }
+    </style>
     <div width="100%" id="timeline"></div>
   </template>
 </dom-module>
@@ -113,21 +68,39 @@
       this.properties.width = this.width;
       d3.select(this.$$("#timeline svg")).remove();
       this.attached();
-      this.set('this.properties.width', this.width);
     },
     _changeHeight: function () {
       this.properties.height = this.height;
       d3.select(this.$$("#timeline svg")).remove();
       this.attached();
-      this.set('this.properties.height', this.height);
     },
     attached: function () {
+      // If state equals null or have decimal part then:
+      var errorDiv = d3.select(this.$$('#timeline'));
+      for(let i = 0; i < this.data.length; i++) {
+        if (!this.data[i].state || this.data[i].state - Math.floor(this.data[i].state) != 0) {
+          errorDiv.selectAll('.error_msg').remove();
+          errorDiv
+            .append("p")
+            .attr("class", "error_msg")
+            .style("padding-left", "40px")
+            .text("Error occured! You recieved invalid data...");
+          return;
+        } else {
+          errorDiv.selectAll('.error_msg').remove();
+        }
+      }
+
       if (!this.width || !this.height) return;
       this.properties.data = this.data;
       var testData = [
         { times: this.properties.data },
       ];
       var chart = d3.timelines();
+      // chart.showTimeAxisTick({
+      //   stroke: "stroke-dasharray",
+      //   color: "#7A65F2"
+      // })
       chart.itemHeight(this.properties.height - 100);
       var svg = d3.select(this.$$('#timeline'))
         .append("svg")
@@ -195,7 +168,7 @@
         .attr("class", "legend")
         .attr("transform", function (d, i) {
           var height = _height + _width;
-          var horz = i * color.domain()[i].length * 33 + 30;
+          var horz = i * 250 + 30;
           var vert = _height - 35;
           return "translate(" + horz + "," + vert + ")";
         });
@@ -219,8 +192,10 @@
         .attr("x", function (d, i) {
           return i + 20;
         })
-        .attr("y", 12)
-        .style("font-size", 12)
+        .attr("y", 11)
+        .style("font-size", 13)
+        .style("font-weight", 200)
+        .style("stroke", "#383846")
         .text(function (d, i) {
 
           var upperLegend = d.toUpperCase();
@@ -228,7 +203,7 @@
           let percents = 0, days = 0, hours = 0, minutes = 0;
           percents = ((newCount_data[i][0] * 100) / period).toFixed(2);
 
-          if (!newCount_data[i][0]) return `${d} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
+          if (!newCount_data[i][0]) return `${upperLegend} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
           days = Math.floor((newCount_data[i][0] / 1000) / 86400);
           newCount_data[i][0] -= days * 86400;
 
@@ -247,6 +222,14 @@
             return `${upperLegend} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
           }
         });
+
+      svg.selectAll(".timeline-xAxis")
+        .style("stroke", "#383846")
+        .style("stroke-opacity", ".5");
+
+      svg.selectAll(".domain")
+        .style("stroke", "#383846")
+        .style("stroke-opacity", ".5");
 
     }
 
