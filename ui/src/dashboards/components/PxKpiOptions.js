@@ -140,17 +140,19 @@ class PxKpiOptions extends Component {
               name="prefix"
               id="prefix"
               value={prefix}
-              labelText="Value's Suffix"
+              labelText="Value's Prefix"
               onChange={this.handleSetPrefixSuffix}
               maxLength="5"
+              colWidth="12"
             />
             <Input
               name="suffix"
               id="suffix"
               value={suffix}
-              labelText="Change Value's Suffix"
+              labelText="Spark Max records (0 - unlimited, 30 - default)"
               onChange={this.handleSetPrefixSuffix}
               maxLength="5"
+              colWidth="12"
             />
             {/* <Tabber*/}
             {/* labelText="Y-Value's Format"*/}

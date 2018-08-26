@@ -126,7 +126,7 @@ export const timeSeriesToPxSeries = (raw = []) => {
   }
 }
 
-export const timeSeriesToPxKpi = (raw = []) => {
+export const timeSeriesToPxKpi = (raw = [], maxlimit) => {
   const isTable = true
   const {sortedLabels, sortedTimeSeries} = groupByTimeSeriesTransform(
     raw,
@@ -140,8 +140,13 @@ export const timeSeriesToPxKpi = (raw = []) => {
   const timeSeries = {jsonflatten: []}
 
   let sliceArr = 0
-  if (tableData.length > 30) {
-    sliceArr = tableData.length - 30
+  const _maxLimit =
+    Number.parseInt(maxlimit, 10) > -1 ? Number.parseInt(maxlimit, 10) : 30
+
+  if (_maxLimit === 0) {
+    sliceArr = 0
+  } else if (tableData.length > _maxLimit) {
+    sliceArr = tableData.length - _maxLimit
   }
 
   tableData.slice(sliceArr).forEach(function(_value) {

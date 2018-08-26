@@ -47,7 +47,7 @@ class PxGauge extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxKpi(data)
+    this._timeSeries = timeSeriesToPxKpi(data, 2)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])

@@ -44,7 +44,9 @@ class PxKpi extends Component {
   }
 
   parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxKpi(data)
+    const {axes} = this.props
+    const maxVal = axes.y.suffix
+    this._timeSeries = timeSeriesToPxKpi(data, maxVal > -1 ? maxVal : 30)
     this.isValidData = validateTimeSeries(_.get(this._timeSeries, 'x', []))
   }
 
@@ -120,7 +122,7 @@ class PxKpi extends Component {
     // }
 
     const prefix = axes ? axes.y.prefix : ''
-    const suffix = axes ? axes.y.suffix : '%'
+    // const suffix = axes ? axes.y.suffix : '%'
 
     const kpiMainValue =
       timeSeries.jsonflatten[timeSeries.jsonflatten.length - 1]
@@ -193,7 +195,7 @@ class PxKpi extends Component {
               kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
             }
             status-color={kpiMainValue.y >= kpiMainPreValue.y ? 'green' : 'red'}
-            status-label={`${kpiChangePerc}${suffix}`}
+            status-label={kpiChangePerc}
             spark-data={JSON.stringify(timeSeries.jsonflatten)}
           />
         </CustomProperties>
