@@ -211,13 +211,15 @@
           minutes = Math.round((time - (days * 86400) - (hours * 3600)) / 60);
 
           if (days > 1) {
-            return `${upperLegend} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${Math.abs(days)} days, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (days == 1) {
             return `${upperLegend} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours >= 1) {
-            return `${upperLegend} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
-          } else if (hours == 0) {
-            return `${upperLegend} (${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${Math.abs(hours)} hours, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (minutes >= 1) {
+            return `${upperLegend} (${Math.abs(minutes)} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else {
+            return `${upperLegend} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
           }
         });
     }

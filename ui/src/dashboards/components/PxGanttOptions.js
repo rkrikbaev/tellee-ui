@@ -36,11 +36,6 @@ class PxGanttOptions extends Component {
           anyOf: [
             {
               type: 'string',
-              enum: ['#DC4E58'],
-              title: 'Soft red',
-            },
-            {
-              type: 'string',
               enum: ['#7CE490'],
               title: 'Soft lime green',
             },
@@ -51,13 +46,18 @@ class PxGanttOptions extends Component {
             },
             {
               type: 'string',
+              enum: ['#7a65f2'],
+              title: 'Soft blue',
+            },
+            {
+              type: 'string',
               enum: ['#ffb94a'],
               title: 'Light orange',
             },
             {
               type: 'string',
-              enum: ['#7a65f2'],
-              title: 'Soft blue',
+              enum: ['#DC4E58'],
+              title: 'Soft red',
             },
           ],
         },
@@ -160,7 +160,7 @@ class PxGanttOptions extends Component {
               uiSchema={uiSchema}
               formData={formData}
               className="form-group-wrapper mozilla-dynamic-forms"
-              // onChange={log('changed')}
+              onChange={onSubmit}
               onSubmit={onSubmit}
               // onError={log('errors')}
             >
