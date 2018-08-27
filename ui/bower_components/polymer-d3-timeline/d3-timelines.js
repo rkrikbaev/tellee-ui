@@ -9,7 +9,7 @@
     var DISPLAY_TYPES = ["circle", "rect"];
 
     var tooltipDiv = d3Selection.select("body").append("div")
-      .attr("class", "tooltip")
+      .attr("class", "pxGantt-tooltip")
       .style("opacity", 0);
     var hover = function () { },
       mouseover = function () { },
@@ -258,10 +258,10 @@
       var scaleFactor = (1 / (ending - beginning)) * (width - margin.left - margin.right);
 
       function formatDays(d) {
-        var days = Math.floor(d / 86400),
-          hours = Math.floor((d - (days * 86400)) / 3600),
-          minutes = Math.floor((d - (days * 86400) - (hours * 3600)) / 60),
-          seconds = d - (days * 86400) - (hours * 3600) - (minutes * 60);
+        var days = Math.round(d / 86400),
+          hours = Math.round((d - (days * 86400)) / 3600),
+          minutes = Math.round((d - (days * 86400) - (hours * 3600)) / 60),
+          seconds = Math.round(d - (days * 86400) - (hours * 3600) - (minutes * 60));
         var output = '';
         if (seconds) {
           output = seconds + 's';
@@ -394,8 +394,7 @@
                 .style("opacity", .9)
                 .style("z-index", 99)
                 .style("width", 220 + "px")
-                .style("height", 50 + "px")
-                .style("color", "#383846");
+                .style("height", 50 + "px");
 
               var interval = (d.ending_time - d.starting_time) / 1000;
               tooltipDiv.html(

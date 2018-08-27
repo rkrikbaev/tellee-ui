@@ -69,7 +69,7 @@ class PxGanttOptions extends Component {
           title: 'State 1',
           type: 'string',
           minLength: 3,
-          maxLength: 6,
+          maxLength: 15,
         },
         stateOneColor: {
           $ref: '#/definitions/Color',
@@ -79,7 +79,7 @@ class PxGanttOptions extends Component {
           title: 'State 2',
           type: 'string',
           minLength: 3,
-          maxLength: 6,
+          maxLength: 15,
         },
         stateTwoColor: {
           $ref: '#/definitions/Color',
@@ -89,7 +89,7 @@ class PxGanttOptions extends Component {
           title: 'State 3',
           type: 'string',
           minLength: 3,
-          maxLength: 6,
+          maxLength: 15,
         },
         stateThreeColor: {
           $ref: '#/definitions/Color',
@@ -99,7 +99,7 @@ class PxGanttOptions extends Component {
           title: 'State 4',
           type: 'string',
           minLength: 3,
-          maxLength: 6,
+          maxLength: 15,
         },
         stateFourColor: {
           $ref: '#/definitions/Color',
