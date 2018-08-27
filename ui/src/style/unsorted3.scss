@@ -13,13 +13,14 @@
   }
 }
 
-.tooltip {
+.pxGantt-tooltip {
   position: absolute;
   text-align: center;
   padding: 2px;
   font: 12px sans-serif;
-  background: lightsteelblue;
+  background: $g11-sidewalk !important;
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
+  color: $g5-pepper !important;
 }

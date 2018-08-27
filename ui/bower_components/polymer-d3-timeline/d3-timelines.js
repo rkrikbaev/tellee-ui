@@ -8,9 +8,6 @@
   var timelines = function () {
     var DISPLAY_TYPES = ["circle", "rect"];
 
-    var tooltipDiv = d3Selection.select("body").append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
     var hover = function () { },
       mouseover = function () { },
       mouseout = function () { },
@@ -258,22 +255,22 @@
       var scaleFactor = (1 / (ending - beginning)) * (width - margin.left - margin.right);
 
       function formatDays(d) {
-        var days = Math.floor(d / 86400),
-          hours = Math.floor((d - (days * 86400)) / 3600),
-          minutes = Math.floor((d - (days * 86400) - (hours * 3600)) / 60),
-          seconds = d - (days * 86400) - (hours * 3600) - (minutes * 60);
+        var days = Math.round(d / 86400),
+          hours = Math.round((d - (days * 86400)) / 3600),
+          minutes = Math.round((d - (days * 86400) - (hours * 3600)) / 60),
+          seconds = Math.round(d - (days * 86400) - (hours * 3600) - (minutes * 60));
         var output = '';
         if (seconds) {
-          output = seconds + 's';
+          output = Math.abs(seconds) + 's';
         }
         if (minutes) {
-          output = minutes + 'm ' + output;
+          output = Math.abs(minutes) + 'm ' + output;
         }
         if (hours) {
-          output = hours + 'h ' + output;
+          output = Math.abs(hours) + 'h ' + output;
         }
         if (days) {
-          output = days + 'd ' + output;
+          output = Math.abs(days) + 'd ' + output;
         }
         return output;
       };
@@ -387,6 +384,13 @@
             })
             ;
 
+          var tooltipCount = d3Selection.selectAll(".pxGantt-tooltip");
+          if(tooltipCount) tooltipCount.remove();
+          var tooltipDiv = d3Selection
+          .select("body")
+          .append("div")
+          .attr("class", "pxGantt-tooltip")
+          .style("opacity", 0);
           view.selectAll("rect")
             .on("mousemove", function (d) {
               tooltipDiv.transition()
@@ -394,8 +398,7 @@
                 .style("opacity", .9)
                 .style("z-index", 99)
                 .style("width", 220 + "px")
-                .style("height", 50 + "px")
-                .style("color", "#383846");
+                .style("height", 50 + "px");
 
               var interval = (d.ending_time - d.starting_time) / 1000;
               tooltipDiv.html(
@@ -409,8 +412,8 @@
             })
             .on("mouseout", function (d) {
               tooltipDiv.transition()
-                .duration(500)
-                .style("opacity", 0);
+              .duration(500)
+              .style("opacity", 0);
             });
 
           // appends the labels to the boxes - DAY/HOUR LABEL

@@ -199,38 +199,29 @@
         .text(function (d, i) {
 
           var upperLegend = d.toUpperCase();
-
+          var time = newCount_data[i][0] / 1000;
           let percents = 0, days = 0, hours = 0, minutes = 0;
           percents = ((newCount_data[i][0] * 100) / period).toFixed(2);
 
           if (!newCount_data[i][0]) return `${upperLegend} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
-          days = Math.floor((newCount_data[i][0] / 1000) / 86400);
-          newCount_data[i][0] -= days * 86400;
+          days = Math.round(time / 86400);
 
-          hours = Math.floor(newCount_data[i][0] / 3600) % 24;
-          newCount_data[i][0] -= hours * 3600;
+          hours = Math.round((time - (days * 86400)) / 3600);
 
-          minutes = Math.floor(newCount_data[i][0] / 60) % 60;
+          minutes = Math.round((time - (days * 86400) - (hours * 3600)) / 60);
 
           if (days > 1) {
-            return `${upperLegend} (${days} days, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${Math.abs(days)} days, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (days == 1) {
             return `${upperLegend} (${days} day, ${percents}%, ${newCount_data[i][2]}x)`;
           } else if (hours >= 1) {
-            return `${upperLegend} (${hours} hours, ${percents}%, ${newCount_data[i][2]}x)`;
-          } else if (hours == 0) {
-            return `${upperLegend} (${hours} ${minutes} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+            return `${upperLegend} (${Math.abs(hours)} hours, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else if (minutes >= 1) {
+            return `${upperLegend} (${Math.abs(minutes)} minutes, ${percents}%, ${newCount_data[i][2]}x)`;
+          } else {
+            return `${upperLegend} (few seconds, ${percents}%, ${newCount_data[i][2]}x)`;
           }
         });
-
-      svg.selectAll(".timeline-xAxis")
-        .style("stroke", "#383846")
-        .style("stroke-opacity", ".5");
-
-      svg.selectAll(".domain")
-        .style("stroke", "#383846")
-        .style("stroke-opacity", ".5");
-
     }
 
   });
