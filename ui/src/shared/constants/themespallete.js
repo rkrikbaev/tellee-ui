@@ -173,14 +173,14 @@ export const ThemesPallete = [
     cmint: '#325000',
 
     // Warnings (Dark to Light)
-    coak: '#613C0D',
-    ctopaz: '#7C4D10',
-    ctiger: '#955C11',
-    cpineapple: '#C47A14',
-    cthunder: '#E28D17',
-    csulfur: '#ECAF68',
-    cdaisy: '#F2C89A',
-    cbanana: '#F4D2AD',
+    coak: '#3F241F',
+    ctopaz: '#E85B1C',
+    ctiger: '#F48D38',
+    cpineapple: '#FFB94A',
+    cthunder: '#FFD255',
+    csulfur: '#FFE480',
+    cdaisy: '#FFF6B8',
+    cbanana: '#FFFDDE',
     // ZSSE Custom!
     pageGradient: 'linear-gradient(#ebedee90, #fdfbfb90)',
     pageHeaderBg: '#007ACC',

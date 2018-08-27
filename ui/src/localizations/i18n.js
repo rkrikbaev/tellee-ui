@@ -31,6 +31,8 @@ i18n.use(reactI18nextModule).init({
         'Switch Organizations': 'Switch Organizations',
         Account: 'Account',
         'Log out': 'Log out',
+        'User Profile': 'User Profile',
+        'Too many events': 'Too many events! Please read Inbox messages',
       },
     },
     ru: {
@@ -60,6 +62,8 @@ i18n.use(reactI18nextModule).init({
         'Switch Organizations': 'Сменить пользователя',
         Account: 'Учетная запись',
         'Log out': 'Выход',
+        'User Profile': 'Настройка профайла',
+        'Too many events': 'Много событий! Посмотрите журнал',
       },
     },
   },

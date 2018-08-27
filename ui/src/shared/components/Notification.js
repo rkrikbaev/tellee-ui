@@ -9,6 +9,7 @@ import {dismissNotification as dismissNotificationAction} from 'shared/actions/n
 
 import {NOTIFICATION_TRANSITION} from 'shared/constants/index'
 import {ErrorHandling} from 'src/shared/decorators/errors'
+import {Trans} from 'react-i18next'
 
 @ErrorHandling
 class Notification extends Component {
@@ -83,7 +84,9 @@ class Notification extends Component {
       <div className={notificationContainerClass} style={style}>
         <div className={notificationClass} ref={this.onNotificationRef}>
           <span className={`icon ${icon}`} />
-          <div className="notification-message">{message}</div>
+          <div className="notification-message">
+            <Trans>{message}</Trans>
+          </div>
           <button className="notification-close" onClick={this.handleDismiss} />
         </div>
       </div>

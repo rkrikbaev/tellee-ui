@@ -157,6 +157,14 @@ export const notifyUnableToConnectSource = sourceName =>
 export const notifyErrorConnectingToSource = errorMessage =>
   `Unable to connect to InfluxDB source: ${errorMessage}`
 
+// ZSSE Notifications
+export const generalZsseAlertNotification = txtMessage => ({
+  icon: 'alert-triangle',
+  duration: 240000, // 240 secs
+  type: 'error',
+  message: `${txtMessage}`,
+})
+
 //  Multitenancy User Notifications
 //  ----------------------------------------------------------------------------
 export const notifyUserRemovedFromAllOrgs = () => ({

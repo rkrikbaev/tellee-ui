@@ -135,16 +135,16 @@ $notification-margin: 12px;
 //  Alert Themes
 //  ----------------------------------------------------------------------------
 .notification-success {
-  @include notification-styles($c-rainforest,$c-pool,$g20-white,$c-wasabi,$g20-white);
+  @include notification-styles($c-rainforest,$c-pool,#fff,$c-wasabi,#fff);
 }
 .notification-primary {
-  @include notification-styles($c-pool,$c-ocean,$g20-white,$c-neutrino,$g20-white);
+  @include notification-styles($c-pool,$c-ocean,#fff,$c-neutrino,#fff);
 }
 .notification-warning {
-  @include notification-styles($c-star,$c-pool,$g20-white,$c-neutrino,$g20-white);
+  @include notification-styles($c-star,$c-pool,$c-twilight,$c-neutrino,$c-twilight);
 }
 .notification-error {
-  @include notification-styles($c-curacao,$c-star,$g20-white,$c-marmelade,$g20-white);
+  @include notification-styles($c-topaz,$c-tiger,#fff,$c-marmelade,#fff);
 }
 .notification-info {
   @include notification-styles($g20-white,$g16-pearl,$g8-storm,$ix-link-default,$ix-link-default-hover);

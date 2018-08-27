@@ -9,6 +9,10 @@ import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 import {getLineColorsHexes} from 'src/shared/constants/graphColorPalettes'
 
+import {notify as notifyAction} from 'shared/actions/notifications'
+import {generalZsseAlertNotification} from 'shared/copy/notifications'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 // const validateTimeSeries = timeseries => {
 //   return _.every(timeseries, r =>
 //     _.every(
@@ -25,6 +29,7 @@ class PxTimeseries extends Component {
     this.state = {
       height: 0,
       width: 0,
+      visEventStamp: 0,
     }
   }
 
@@ -41,6 +46,31 @@ class PxTimeseries extends Component {
 
   parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data)
+    // Events notification
+    const {eventsData} = this._timeSeries
+    const {visEventStamp} = this.state
+    const _eventsData = _.filter(eventsData, el => el.time > visEventStamp)
+    if (_eventsData.length > 0) {
+      if (_eventsData.length > 5) {
+        this.props.notify(generalZsseAlertNotification('Too many events'))
+        this.setState({visEventStamp: _.last(_eventsData).time})
+      } else {
+        _eventsData.forEach(v => {
+          if (Number.isInteger(v.time)) {
+            if (visEventStamp < v.time) {
+              this.props.notify(
+                generalZsseAlertNotification(
+                  `${v.label} ${new Date(v.time).toISOString()}`
+                )
+              )
+              this.setState({visEventStamp: v.time})
+            }
+          }
+        })
+      }
+    }
+    // EOF NOTIFIER, later, is good idea move this to separate component - Pulse.
+    //
     // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
@@ -235,6 +265,11 @@ PxTimeseries.propTypes = {
   queries: arrayOf(shape({}).isRequired).isRequired,
   data: arrayOf(shape({}).isRequired).isRequired,
   colors: colorsStringSchema,
+  notify: func.isRequired,
 }
 
-export default PxTimeseries
+const mapDispatchToProps = dispatch => ({
+  notify: bindActionCreators(notifyAction, dispatch),
+})
+
+export default connect(null, mapDispatchToProps)(PxTimeseries)
