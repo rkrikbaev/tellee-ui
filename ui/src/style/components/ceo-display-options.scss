@@ -117,6 +117,9 @@ $graph-type--gutter: 4px;
 .viz-type-selector--option.active > div:hover {
   background-color: $g5-pepper;
   color: $g18-cloud;
+  img {
+    filter: inherit !important;
+  }
 }
 
 .viz-type-selector--graphic {
@@ -138,7 +141,8 @@ $graph-type--gutter: 4px;
   > img,
   > img {
     width: 65%;
-    margin-left: 12.5%
+    margin-left: 12.5%;
+    filter: grayscale(100%);
   }
 }
 .viz-type-selector--graphic-line {
