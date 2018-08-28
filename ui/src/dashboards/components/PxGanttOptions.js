@@ -122,8 +122,8 @@ class PxGanttOptions extends Component {
 
       const newAxes = {
         ...axes,
-        y: {
-          ...axes.y,
+        y2: {
+          ...axes.y2,
           prefix: _prefix,
         },
       }
@@ -132,7 +132,7 @@ class PxGanttOptions extends Component {
 
     const {
       axes: {
-        y: {prefix}, // base, bounds,  defaultYLabel,label,
+        y2: {prefix}, // base, bounds,  defaultYLabel,label,
       },
       type,
       // onResetFocus,
@@ -181,7 +181,7 @@ const {arrayOf, bool, func, shape, string} = PropTypes
 
 PxGanttOptions.defaultProps = {
   axes: {
-    y: {
+    y2: {
       prefix: '',
     },
   },
@@ -190,7 +190,7 @@ PxGanttOptions.defaultProps = {
 PxGanttOptions.propTypes = {
   type: string.isRequired,
   axes: shape({
-    y: shape({
+    y2: shape({
       bounds: arrayOf(string),
       label: string,
       defaultYLabel: string,
