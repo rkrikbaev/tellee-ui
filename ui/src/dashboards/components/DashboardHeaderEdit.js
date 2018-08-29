@@ -91,7 +91,8 @@ class DashboardEditHeader extends Component {
       },
       name: {
         'ui:autofocus': true,
-        'ui:emptyValue': NEW_DASHBOARD,
+        'ui:placeholder': NEW_DASHBOARD.name,
+        // 'ui:emptyValue': NEW_DASHBOARD,
       },
       icon: {
         'ui:placeholder': 'fa-',
