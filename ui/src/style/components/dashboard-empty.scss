@@ -75,6 +75,9 @@ $empty-menu--gutter: 4px;
 // Hover state "card"
 .dashboard-empty--menu-option:hover {
   cursor: pointer;
+  img {
+    filter: inherit !important;
+  }
 }
 .dashboard-empty--menu-option:hover > div {
   background-color: $g5-pepper;
