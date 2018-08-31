@@ -104,7 +104,7 @@ class PxGantt extends Component {
   }
 
   getColor = state => {
-    let {prefix} = this.props.axes.y
+    let {prefix} = this.props.axes.y2
     if (!this.isJsonString(prefix)) {
       return 'white'
     }
@@ -122,7 +122,7 @@ class PxGantt extends Component {
   }
 
   getName = state => {
-    let {prefix} = this.props.axes.y
+    let {prefix} = this.props.axes.y2
     if (!this.isJsonString(prefix)) {
       return 'NoName'
     }
@@ -209,14 +209,10 @@ class PxGantt extends Component {
 
     const {width, height} = this.state
     // this is not good....
-    /* let _width = width
     let _height = height
-    if (_width > _height) {
-      _width = _height
+    if (_height < 100) {
+      _height = 100
     }
-    if (_height > _width) {
-      _height = _width
-    } */
 
     // const prefix = axes ? axes.y.prefix : ''
     // const suffix = axes ? axes.y.suffix : ''
@@ -229,7 +225,11 @@ class PxGantt extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-        <polymer-d3-timeline data={pxGanttData} width={width} height={height} />
+        <polymer-d3-timeline
+          data={pxGanttData}
+          width={width}
+          height={_height}
+        />
         {/*  --------------------------------------------- */}
         <ReactResizeDetector
           handleWidth={true}
