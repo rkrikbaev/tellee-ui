@@ -25,7 +25,7 @@ const {LINEAR, BASE_10} = AXES_SCALE_OPTIONS // BASE_2, LOG,
 class PxKpiOptions extends Component {
   handleSetPrefixSuffix = e => {
     const {handleUpdateAxes, axes} = this.props
-    const {prefix, suffix} = e.target.form
+    const {prefix, suffix, label} = e.target.form
 
     const newAxes = {
       ...axes,
@@ -33,6 +33,7 @@ class PxKpiOptions extends Component {
         ...axes.y,
         prefix: prefix.value,
         suffix: suffix.value,
+        label: label.value,
       },
     }
 
@@ -62,14 +63,6 @@ class PxKpiOptions extends Component {
   //
   //   handleUpdateAxes(newAxes)
   // }
-
-  handleSetLabel = label => {
-    const {handleUpdateAxes, axes} = this.props
-    const newAxes = {...axes, y: {...axes.y, label}}
-
-    handleUpdateAxes(newAxes)
-  }
-
   // handleSetScale = scale => () => {
   //   const {handleUpdateAxes, axes} = this.props
   //   const newAxes = {...axes, y: {...axes.y, scale}}
@@ -87,7 +80,7 @@ class PxKpiOptions extends Component {
   render() {
     const {
       axes: {
-        y: {prefix, suffix}, // base, scale, bounds,label, defaultYLabel
+        y: {prefix, suffix, label}, // base, scale, bounds,label, defaultYLabel
       },
       type,
       staticLegend,
@@ -154,6 +147,17 @@ class PxKpiOptions extends Component {
               maxLength="5"
               colWidth="12"
             />
+
+            <Input
+              name="label"
+              id="label"
+              value={label}
+              labelText="Target Value and Text"
+              onChange={this.handleSetPrefixSuffix}
+              maxLength="15"
+              colWidth="12"
+            />
+
             {/* <Tabber*/}
             {/* labelText="Y-Value's Format"*/}
             {/* tipID="Y-Values's Format"*/}

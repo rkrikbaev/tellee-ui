@@ -157,7 +157,7 @@ class PxKpi extends Component {
     if (width < 200 && width > 20) {
       sparkWidth = width - 20
     }
-    let sparkHeight = height - 95
+    let sparkHeight = height - 79
     if (sparkHeight < 40) {
       sparkHeight = 40
     }
@@ -190,7 +190,7 @@ class PxKpi extends Component {
             spark-height={sparkHeight}
             title={title}
             value={`${kpiMainValue.y.toFixed(2)} ${prefix}`}
-            uom={axes.y.title}
+            uom={axes.y.label}
             status-icon={
               kpiMainValue.y >= kpiMainPreValue.y ? 'px-nav:up' : 'px-nav:down'
             }

@@ -61,7 +61,11 @@ Custom property | Description
           <px-icon id="statusIcon" icon$="{{statusIcon}}" class="u-mb-- flex__item" style$="color:{{statusColor}};"></px-icon>
           <span class="epsilon">{{statusLabel}}</span>
         </div>
-        <span class="flex--bottom secondary epsilon">{{uom}}</span>
+      </div>
+      <div class="flex flex--col flex--grow u-pt u-pb-">
+        <div class="flex__item--middle">
+          <span class="flex--left secondary epsilon">{{uom}}</span>
+        </div>
       </div>
     </div>
     <template is="dom-if" if="{{sparkData}}">
