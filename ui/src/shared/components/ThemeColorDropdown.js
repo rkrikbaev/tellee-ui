@@ -169,8 +169,10 @@ class ThemeColorDropdown extends Component {
             '--px-inbox-li-background-color': currentTheme.g6smoke,
             '--px-inbox-li-background-color--hover': currentTheme.g5pepper,
             '--px-inbox-li-background-color--selected': currentTheme.g8storm,
-            '--px-inbox-border-color': currentTheme.g8storm,
+            '--px-inbox-border-color': currentTheme.g6smoke,
+            '--px-inbox-detail-bg': currentTheme.g4onyx,
             '--px-inbox-secondary-text-color': currentTheme.g13mist,
+            '--px-actionable-alt-text-color': currentTheme.g13mist,
           }}
         />
 

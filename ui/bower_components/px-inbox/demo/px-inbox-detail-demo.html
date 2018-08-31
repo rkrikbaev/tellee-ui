@@ -44,6 +44,7 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
         padding: 15px;
         border-bottom: 1px dashed var(--px-inbox-border-color);
         flex: 0 0 auto;
+
       }
       h2{
           line-height: 1.25em;
@@ -63,10 +64,10 @@ we've done in this file, or you could define your view in plain HTML/JS/CSS or a
     <div class="details">
 
         <div class="flex flex--row flex--wrap flex--justify">
-            <div class="date-part"><px-icon class="u-mr-" icon="px-fea:time"></px-icon><strong>{{receivedDateTime}}</strong></div>
+            <div class="date-part u-mv--"><px-icon class="u-mr-" icon="px-fea:time"></px-icon><strong>{{receivedDateTime}}</strong></div>
         </div>
 
-      <div class="flex flex--row flex--left flex--justify">
+      <div class="flex flex--row flex--wrap flex--left flex--justify">
         <span class="heading--section u-mv"><px-icon class="u-mr-" icon="px-fea:alerts"></px-icon><strong>{{alerttext}}</strong></span>
         <!--<px-key-value-pair class="u-mv" key="Alert ID" value=""></px-key-value-pair>-->
         <px-key-value-pair class="u-mv" key="Alert Source" value="{{alertvalue}}" size="delta"></px-key-value-pair>
