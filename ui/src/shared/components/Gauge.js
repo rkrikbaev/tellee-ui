@@ -297,14 +297,14 @@ class Gauge extends Component {
 
   drawNeedle = (ctx, radius, minValue, maxValue) => {
     const {gaugePosition} = this.props
-    const {degree} = GAUGE_SPECS // const {degree, needleColor0, needleColor1} = GAUGE_SPECS
+    const {degree, valueColor} = GAUGE_SPECS // const {degree, needleColor0, needleColor1} = GAUGE_SPECS
     const arcDistance = Math.PI * 1.5
 
     const needleRotation = (gaugePosition - minValue) / (maxValue - minValue)
 
     const needleGradient = ctx.createLinearGradient(0, -10, 0, radius)
-    needleGradient.addColorStop(0, '#000000')
-    needleGradient.addColorStop(1, '#000000')
+    needleGradient.addColorStop(0, valueColor)
+    needleGradient.addColorStop(1, valueColor)
 
     // Starting position of needle is at minimum
     ctx.rotate(degree * 45)
