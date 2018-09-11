@@ -397,6 +397,7 @@
                 .duration(200)
                 .style("opacity", .9)
                 .style("z-index", 99)
+                .style("padding-top", 5 + "px")
                 .style("width", 220 + "px")
                 .style("height", 50 + "px");
 
