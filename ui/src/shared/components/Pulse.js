@@ -12,6 +12,9 @@ class Pulse extends Component {
   constructor() {
     super()
     this.isValidData = true
+    this.oldData = false
+    this.queryDate = 0
+    this.delay = 0
     this.state = {
       height: 0,
       width: 0,
@@ -19,61 +22,111 @@ class Pulse extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    this.queryDate = new Date().getTime()
     const arePropsEqual = _.isEqual(this.props, nextProps)
     const areStatesEqual = _.isEqual(this.state, nextState)
     return !arePropsEqual || !areStatesEqual
   }
 
+  componentWillUpdate() {
+    this.oldData = true
+  }
+
   componentDidUpdate() {
     const {width, height} = this.state
     const {autoRefresh} = this.props
-    const {values} = this.props.data[0].response.results[0].series[0]
-    const colors = ['inherit', 'grey', 'red', 'green']
+    const colors = [
+      'orange',
+      'green',
+      'yellow',
+      'red',
+      'black',
+      'grey',
+      'inherit',
+    ]
 
+    const rectangle = document.querySelector('#pulseContainer')
     const circles = document.querySelectorAll('.pulseCircle')
     const hiddenCircle = document.querySelector('.pulseHiddenCircle')
-    const rectangle = document.querySelector('#pulseContainer')
-
-    const setDefaultSize = colorId => {
-      hiddenCircle.style.visibility = 'visible'
-      hiddenCircle.style.width = `${height / 4}px`
-      hiddenCircle.style.height = `${height / 4}px`
-      hiddenCircle.style.backgroundColor = colors[colorId]
-    }
-
-    const setAnimationProps = (status, colorId) => {
-      for (let i = 0; i < circles.length; i++) {
-        circles[i].style.webkitAnimationPlayState = status
-        circles[i].style.backgroundColor = colors[colorId]
-      }
-    }
+    const text = document.querySelector('.delay')
 
     rectangle.style.width = `${width}px`
     rectangle.style.height = `${height}px`
-
-    for (let i = 0; i < circles.length; i++) {
-      circles[i].style.width = `${height / 4}px`
-      circles[i].style.height = `${height / 4}px`
+    for (let j = 0; j < circles.length; j++) {
+      circles[j].style.width = `${height / 4}px`
+      circles[j].style.height = `${height / 4}px`
     }
+    hiddenCircle.style.width = `${height / 5}px`
+    hiddenCircle.style.height = `${height / 5}px`
 
-    if (!autoRefresh) {
-      setDefaultSize(1)
-      setAnimationProps('paused', 0)
-    } else if (autoRefresh && !values) {
-      hiddenCircle.style.visibility = 'hidden'
-      setAnimationProps('running', 2)
-      setTimeout(() => {
-        setDefaultSize(2)
-        setAnimationProps('paused', 0)
-      }, 3000)
-    } else if (autoRefresh && values) {
-      hiddenCircle.style.visibility = 'hidden'
-      setAnimationProps('running', 3)
-      setTimeout(() => {
-        setDefaultSize(3)
-        setAnimationProps('paused', 0)
-      }, 3000)
+    const setHiddenCircle = (colorId, status, animation) => {
+      hiddenCircle.style.backgroundColor = colors[colorId]
+      hiddenCircle.style.visibility = status
+      hiddenCircle.style.animation = animation
+      text.style.animation = animation
     }
+    setHiddenCircle(0, 'hidden', 'none')
+
+    const setAnimationProps = (colorId, status) => {
+      for (let j = 0; j < circles.length; j++) {
+        circles[j].style.backgroundColor = colors[colorId]
+        circles[j].style.webkitAnimationPlayState = status
+      }
+    }
+    setAnimationProps(0, 'running')
+
+    const checkData = () => {
+      for (let i = 0; i <= 120; i++) {
+        if (!autoRefresh) {
+          this.oldData = false
+          setTimeout(() => {
+            setAnimationProps(6, 'paused')
+            setHiddenCircle(5, 'visible', 'crescendo 1.5s ease-in')
+          }, 3000)
+          return
+        } else if (this.oldData) {
+          this.oldData = false
+          setTimeout(() => {
+            setAnimationProps(6, 'paused')
+            setHiddenCircle(1, 'visible', 'crescendo 1.5s ease-in')
+          }, 3000)
+          return
+        } else if (i > 30 && !this.oldData) {
+          setAnimationProps(2, 'running')
+        } else if (i > 30 && i < 120 && !this.oldData) {
+          setAnimationProps(3, 'running')
+        } else if (i > 120 && !this.oldData) {
+          setAnimationProps(6, 'paused')
+          setHiddenCircle(1, 'visible', 'crescendo 1.5s ease-in')
+          return
+        }
+      }
+    }
+    checkData()
+
+    const convertMS = ms => {
+      let h, m, s
+      s = Math.round(ms / 1000)
+      m = Math.round(s / 60)
+      s %= 60
+      h = Math.round(m / 60)
+      m %= 60
+      // d = Math.floor(h / 24)
+      h %= 24
+      if (h) {
+        return (this.delay = `${h}h`)
+      }
+      if (m) {
+        return (this.delay = `${m}m`)
+      }
+      if (s) {
+        return (this.delay = `${s}s`)
+      }
+      if (!s) {
+        return (this.delay = `${ms}ms`)
+      }
+    }
+    convertMS(new Date().getTime() - this.queryDate)
   }
 
   resize = () => {
@@ -88,60 +141,44 @@ class Pulse extends Component {
     if (!this.isValidData) {
       return <InvalidData />
     }
-
-    // const {
-    //   // data,
-    //   // axes,
-    //   // preffix,
-    //   // suffix,
-    //   // title,
-    //   // colors,
-    //   // cellID,
-    //   // onZoom,
-    //   // queries,
-    //   // hoverTime,
-    //   // timeRange,
-    //   // cellHeight,
-    //   // ruleValues,
-    //   // isBarGraph,
-    //   // isRefreshing,
-    //   // setResolution,
-    //   // isGraphFilled,
-    //   // showSingleStat,
-    //   // displayOptions,
-    //   // staticLegend,
-    //   // underlayCallback,
-    //   // overrideLineColors,
-    //   // isFetchingInitially,
-    //   // handleSetHoverTime,
-    // } = this.props
-
-    // const options = {
-    //   ...displayOptions,
-    //   title,
-    //   labels,
-    //   rightGap: 0,
-    //   yRangePad: 10,
-    //   labelsKMB: true,
-    //   fillGraph: true,
-    //   underlayCallback,
-    //   axisLabelWidth: 60,
-    //   drawAxesAtZero: true,
-    //   axisLineColor: '#383846',
-    //   gridLineColor: '#383846',
-    //   connectSeparatedPoints: true,
-    // }
+    const {
+      // data,
+      // axes,
+      // preffix,
+      // suffix,
+      // title,
+      // colors,
+      // cellID,
+      // onZoom,
+      // queries,
+      // hoverTime,
+      // timeRange,
+      // cellHeight,
+      // ruleValues,
+      // isBarGraph,
+      isRefreshing,
+      // setResolution,
+      // isGraphFilled,
+      // showSingleStat,
+      // displayOptions,
+      // staticLegend,
+      // underlayCallback,
+      // overrideLineColors,
+      // isFetchingInitially,
+      // handleSetHoverTime,
+    } = this.props
 
     return (
       <div
         style={{height: '100%'}}
         ref={divElement => (this.divElement = divElement)}
       >
+        {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
         <div id="pulseContainer">
-          {/* <div class="item">
-            <img src="./refresh-button.png" />
-          </div> */}
+          <div className="item">
+            <p className="delay">{this.delay}</p>
+          </div>
           <div className="pulseHiddenCircle" />
           <div className="pulseCircle" style={{animationDelay: '0s'}} />
           <div className="pulseCircle" style={{animationDelay: '.3s'}} />
@@ -159,13 +196,13 @@ class Pulse extends Component {
   }
 }
 
-// const GraphLoadingDots = () => (
-//   <div className="graph-panel__refreshing">
-//     <div />
-//     <div />
-//     <div />
-//   </div>
-// )
+const GraphLoadingDots = () => (
+  <div className="graph-panel__refreshing">
+    <div />
+    <div />
+    <div />
+  </div>
+)
 
 // const GraphSpinner = () => (
 //   <div className="graph-fetching">
@@ -173,11 +210,12 @@ class Pulse extends Component {
 //   </div>
 // )
 
-const {number, arrayOf, shape} = PropTypes
+const {number, arrayOf, shape, bool} = PropTypes
 
 Pulse.propTypes = {
   autoRefresh: number,
   data: arrayOf(shape({}).isRequired).isRequired,
+  isRefreshing: bool,
 }
 
 export default Pulse
