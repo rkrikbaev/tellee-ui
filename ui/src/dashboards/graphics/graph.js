@@ -547,7 +547,7 @@ const GRAPH_SVGS = {
   ),
   pulse: (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/_timeline.svg" />
+      <img src="/static_assets/icons/_pulse.svg" />
     </div>
   ),
   'px-radar': (
@@ -646,7 +646,7 @@ export const GRAPH_TYPES = [
   {
     type: CELL_TYPE_PULSE,
     menuOption: 'Pulse',
-    graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
+    graphic: GRAPH_SVGS[CELL_TYPE_PULSE],
   },
   {
     type: CELL_TYPE_PX_RADAR,
