@@ -18,6 +18,7 @@ import PxRadar from 'shared/components/PxRadar'
 import PxMstat from 'shared/components/PxMstat'
 import PxInbox from 'shared/components/PxInbox'
 import PxGauge from 'shared/components/PxGauge'
+import Pulse from 'shared/components/Pulse'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -38,6 +39,7 @@ const RefreshingPxRadar = AutoRefresh(PxRadar)
 const RefreshingPxMstat = AutoRefresh(PxMstat)
 const RefreshingPxInbox = AutoRefresh(PxInbox)
 const RefreshingPxGauge = AutoRefresh(PxGauge)
+const RefreshingPulse = AutoRefresh(Pulse)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -234,6 +236,31 @@ const RefreshingGraph = ({
   if (type === 'px-gantt') {
     return (
       <RefreshingPxGantt
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
+  if (type === 'pulse') {
+    return (
+      <RefreshingPulse
         type={type}
         axes={axes}
         cellID={cellID}

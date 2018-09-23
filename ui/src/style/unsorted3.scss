@@ -24,3 +24,44 @@
   pointer-events: none;
   color: $g5-pepper !important;
 }
+
+#pulseContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  .pulseHiddenCircle {
+    visibility: hidden;
+    border-radius: 50%;
+    position: absolute;
+  }
+  .pulseCircle {
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
+    animation-fill-mode: none;
+  }
+  .item {
+    z-index: 1;
+    padding: 5px;
+    p {
+      font-size: 11.5px !important;
+    }
+  }
+  @keyframes scaleIn {
+    from {
+      transform: scale(.5, .5);
+      opacity: .5;
+    }
+    to {
+      transform: scale(2.5, 2.5);
+      opacity: 0;
+    }
+  }
+  @keyframes crescendo {
+    0%   {transform: scale(.5);}
+    100% {transform: scale(1);}
+  }
+}
