@@ -12,6 +12,7 @@ export const CELL_TYPE_PX_CIRCLE = 'px-percent-circle'
 export const CELL_TYPE_PX_TIMESERIES = 'px-timeseries'
 export const CELL_TYPE_PX_KPI = 'px-kpi'
 export const CELL_TYPE_PX_GANTT = 'px-gantt'
+export const CELL_TYPE_PULSE = 'pulse'
 export const CELL_TYPE_PX_RADAR = 'px-radar'
 export const CELL_TYPE_PX_MSTAT = 'px-mstat'
 export const CELL_TYPE_PX_INBOX = 'px-inbox'
@@ -544,6 +545,11 @@ const GRAPH_SVGS = {
       <img src="/static_assets/icons/_timeline.svg" />
     </div>
   ),
+  pulse: (
+    <div className="viz-type-selector--graphic">
+      <img src="/static_assets/icons/_timeline.svg" />
+    </div>
+  ),
   'px-radar': (
     <div className="viz-type-selector--graphic">
       <img src="/static_assets/icons/_radar.svg" />
@@ -635,6 +641,11 @@ export const GRAPH_TYPES = [
   {
     type: CELL_TYPE_PX_GANTT,
     menuOption: 'Timeline',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
+  },
+  {
+    type: CELL_TYPE_PULSE,
+    menuOption: 'Pulse',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
   },
   {

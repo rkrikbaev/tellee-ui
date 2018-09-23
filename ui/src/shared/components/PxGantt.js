@@ -68,7 +68,7 @@ class PxGantt extends Component {
       if (typeof temp.state === 'undefined') {
         temp = this.makeObj(values[i][0], values[i][0], values[i][1])
       } else if (temp.state === values[i][1]) {
-        temp.ending_time = values[i][0]
+        temp.ending_time = values[i][0] + 30000 // added 30sec for filling interval btwn states
       } else {
         result.push(temp)
         temp = this.makeObj(values[i][0], values[i][0], values[i][1])
