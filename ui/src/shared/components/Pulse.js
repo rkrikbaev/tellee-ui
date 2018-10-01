@@ -15,6 +15,7 @@ class Pulse extends Component {
     this.oldData = false
     this.queryDate = 0
     this.delay = 0
+    this.unit = 's'
     this.state = {
       height: 0,
       width: 0,
@@ -22,50 +23,41 @@ class Pulse extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    this.queryDate = new Date().getTime()
     const arePropsEqual = _.isEqual(this.props, nextProps)
     const areStatesEqual = _.isEqual(this.state, nextState)
     return !arePropsEqual || !areStatesEqual
   }
 
   componentWillUpdate() {
+    this.queryDate = new Date().getTime()
     this.oldData = true
   }
 
   componentDidUpdate() {
-    const {width, height} = this.state
+    const {height} = this.state
     const {autoRefresh} = this.props
     const colors = [
-      'orange',
-      'green',
-      'yellow',
-      'red',
-      'black',
-      'grey',
-      'inherit',
+      '#FFB94A', // default color
+      '#32B08C', // data successfully came
+      '#FFF6B8', // waiting data more than 10 sec less than 30 sec
+      '#DC4E58', // waiting data more than 30 sec less than 120 sec
+      '#2F1F29', // data didn't come
+      '#748B99D2', // dashboard on pause
+      'inherit', // color for hide animation
     ]
 
-    const rectangle = document.querySelector('#pulseContainer')
     const circles = document.querySelectorAll('.pulseCircle')
     const hiddenCircle = document.querySelector('.pulseHiddenCircle')
-    const text = document.querySelector('.delay')
 
-    rectangle.style.width = `${width}px`
-    rectangle.style.height = `${height}px`
     for (let j = 0; j < circles.length; j++) {
-      circles[j].style.width = `${height / 4}px`
-      circles[j].style.height = `${height / 4}px`
+      circles[j].style.width = `${height / 2}px`
+      circles[j].style.height = `${height / 2}px`
     }
-    hiddenCircle.style.width = `${height / 5}px`
-    hiddenCircle.style.height = `${height / 5}px`
 
-    const setHiddenCircle = (colorId, status, animation) => {
+    const setHiddenCircle = colorId => {
       hiddenCircle.style.backgroundColor = colors[colorId]
-      hiddenCircle.style.visibility = status
-      hiddenCircle.style.animation = animation
-      text.style.animation = animation
     }
-    setHiddenCircle(0, 'hidden', 'none')
+    setHiddenCircle(0)
 
     const setAnimationProps = (colorId, status) => {
       for (let j = 0; j < circles.length; j++) {
@@ -75,55 +67,67 @@ class Pulse extends Component {
     }
     setAnimationProps(0, 'running')
 
-    const checkData = () => {
-      for (let i = 0; i <= 120; i++) {
-        if (!autoRefresh) {
-          this.oldData = false
-          setTimeout(() => {
-            setAnimationProps(6, 'paused')
-            setHiddenCircle(5, 'visible', 'crescendo 1.5s ease-in')
-          }, 3000)
-          return
-        } else if (this.oldData) {
-          this.oldData = false
-          setTimeout(() => {
-            setAnimationProps(6, 'paused')
-            setHiddenCircle(1, 'visible', 'crescendo 1.5s ease-in')
-          }, 3000)
-          return
-        } else if (i > 30 && !this.oldData) {
-          setAnimationProps(2, 'running')
-        } else if (i > 30 && i < 120 && !this.oldData) {
-          setAnimationProps(3, 'running')
-        } else if (i > 120 && !this.oldData) {
+    let i = 0,
+      timer = {}
+
+    const isDataCame = () => {
+      if (!autoRefresh) {
+        this.oldData = false
+        clearInterval(timer)
+        setTimeout(() => {
+          setHiddenCircle(5)
           setAnimationProps(6, 'paused')
-          setHiddenCircle(1, 'visible', 'crescendo 1.5s ease-in')
-          return
-        }
+        }, 2000)
+      } else if (this.oldData) {
+        this.oldData = false
+        clearInterval(timer)
+        setTimeout(() => {
+          setHiddenCircle(1)
+          setAnimationProps(6, 'paused')
+        }, 2000)
+      } else if (i > 10 && i < 30) {
+        setHiddenCircle(2)
+        setAnimationProps(6, 'paused')
+      } else if (i > 30 && i < 120) {
+        setHiddenCircle(0)
+        setAnimationProps(0, 'running')
+        setTimeout(() => {
+          setHiddenCircle(3)
+          setAnimationProps(6, 'paused')
+        }, 2000)
+      } else if (i > 120) {
+        setHiddenCircle(0)
+        setAnimationProps(0, 'running')
+        clearInterval(timer)
+        setTimeout(() => {
+          setHiddenCircle(4)
+          setAnimationProps(6, 'paused')
+        }, 2000)
       }
     }
-    checkData()
+
+    timer = setTimeout(() => {
+      i += 1
+      isDataCame(i)
+    }, 1000)
 
     const convertMS = ms => {
-      let h, m, s
+      let m, s
       s = Math.round(ms / 1000)
       m = Math.round(s / 60)
       s %= 60
-      h = Math.round(m / 60)
       m %= 60
-      // d = Math.floor(h / 24)
-      h %= 24
-      if (h) {
-        return (this.delay = `${h}h`)
-      }
       if (m) {
-        return (this.delay = `${m}m`)
+        this.delay = m
+        this.unit = 'min'
       }
       if (s) {
-        return (this.delay = `${s}s`)
+        this.delay = s
+        this.unit = 'sec'
       }
       if (!s) {
-        return (this.delay = `${ms}ms`)
+        this.delay = 0.1
+        this.unit = 'sec'
       }
     }
     convertMS(new Date().getTime() - this.queryDate)
@@ -175,15 +179,28 @@ class Pulse extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-        <div id="pulseContainer">
+        <div
+          id="pulseContainer"
+          style={{
+            width: this.state.width,
+            height: this.state.height,
+          }}
+        >
           <div className="item">
-            <p className="delay">{this.delay}</p>
+            <p className="number">{this.delay}</p>
+            <p className="unit">{this.unit}</p>
           </div>
-          <div className="pulseHiddenCircle" />
+          <div
+            className="pulseHiddenCircle"
+            style={{
+              width: this.state.height / 2,
+              height: this.state.height / 2,
+            }}
+          />
           <div className="pulseCircle" style={{animationDelay: '0s'}} />
-          <div className="pulseCircle" style={{animationDelay: '.3s'}} />
-          <div className="pulseCircle" style={{animationDelay: '.6s'}} />
-          <div className="pulseCircle" style={{animationDelay: '.9s'}} />
+          <div className="pulseCircle" style={{animationDelay: '.2s'}} />
+          <div className="pulseCircle" style={{animationDelay: '.4s'}} />
+          {/* <div className="pulseCircle" style={{animationDelay: '.6s'}} /> */}
         </div>
         {/*  --------------------------------------------- */}
         <ReactResizeDetector
