@@ -77,14 +77,14 @@ class Pulse extends Component {
         setTimeout(() => {
           setHiddenCircle(5)
           setAnimationProps(6, 'paused')
-        }, 2000)
+        }, 400)
       } else if (this.oldData) {
         this.oldData = false
         clearInterval(timer)
         setTimeout(() => {
           setHiddenCircle(1)
           setAnimationProps(6, 'paused')
-        }, 2000)
+        }, 400)
       } else if (i > 10 && i < 30) {
         setHiddenCircle(2)
         setAnimationProps(6, 'paused')
@@ -94,7 +94,7 @@ class Pulse extends Component {
         setTimeout(() => {
           setHiddenCircle(3)
           setAnimationProps(6, 'paused')
-        }, 2000)
+        }, 400)
       } else if (i > 120) {
         setHiddenCircle(0)
         setAnimationProps(0, 'running')
@@ -102,14 +102,14 @@ class Pulse extends Component {
         setTimeout(() => {
           setHiddenCircle(4)
           setAnimationProps(6, 'paused')
-        }, 2000)
+        }, 400)
       }
     }
 
     timer = setTimeout(() => {
       i += 1
       isDataCame(i)
-    }, 1000)
+    }, 600)
 
     const convertMS = ms => {
       let m, s
