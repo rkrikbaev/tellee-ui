@@ -46,6 +46,7 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateLineColors: bindActionCreators(updateLineColors, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  LineGraphColorSelector
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LineGraphColorSelector)

@@ -1,3 +1,4 @@
+// ============== pxGantt element ==============
 .pxGanttOptions-form {
   fieldset {
     .field {
@@ -25,6 +26,7 @@
   color: $g5-pepper !important;
 }
 
+// ============== pulse element ==============
 #pulseContainer {
   display: flex;
   align-items: center;
@@ -72,6 +74,30 @@
     to {
       transform: scale(3, 3);
       opacity: 0;
+    }
+  }
+}
+
+// ============== xyGraph element ==============
+#xygraphContainer {
+  .js-plotly-plot {
+    .modebar {
+      background: transparent;
+      z-index: 2;
+      .modebar-group .modebar-btn .icon path{
+        fill: var(--zsse-g9-mountain);
+      }
+    }
+    .xgrid.crisp,
+    .ygrid.crisp {
+      stroke: var(--zsse-g9-mountain) !important;
+    }
+    .xaxislayer-above .xtick text,
+    .yaxislayer-above .ytick text {
+      fill: var(--zsse-g9-mountain) !important;
+    }
+    .zerolinelayer path{
+      stroke: var(--zsse-g15-platinum);
     }
   }
 }

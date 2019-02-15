@@ -237,4 +237,7 @@ const mapDispatchToProps = {
   updateAnnotation: actions.updateAnnotation,
 }
 
-export default connect(null, mapDispatchToProps)(AnnotationSpan)
+export default connect(
+  null,
+  mapDispatchToProps
+)(AnnotationSpan)

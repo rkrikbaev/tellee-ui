@@ -14,6 +14,7 @@ import {
   CELL_TYPE_PX_KPI,
   CELL_TYPE_PX_GANTT,
   CELL_TYPE_PX_RADAR,
+  CELL_TYPE_PX_XYGRAPH,
   CELL_TYPE_PX_MSTAT,
   CELL_TYPE_PX_INBOX,
   CELL_TYPE_PX_GAUGE,
@@ -72,6 +73,7 @@ export const getCellTypeColors = ({
     case CELL_TYPE_PX_KPI:
     case CELL_TYPE_PX_GANTT:
     case CELL_TYPE_PX_RADAR:
+    case CELL_TYPE_PX_XYGRAPH:
     case CELL_TYPE_PX_MSTAT:
     case CELL_TYPE_PX_INBOX:
     case CELL_TYPE_STEPPLOT: {

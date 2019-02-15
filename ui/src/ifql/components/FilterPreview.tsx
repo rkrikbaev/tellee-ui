@@ -11,7 +11,9 @@ class FilterPreview extends PureComponent<Props> {
   public render() {
     return (
       <>
-        {this.props.nodes.map((n, i) => <FilterPreviewNode node={n} key={i} />)}
+        {this.props.nodes.map((n, i) => (
+          <FilterPreviewNode node={n} key={i} />
+        ))}
       </>
     )
   }

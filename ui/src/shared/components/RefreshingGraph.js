@@ -19,6 +19,7 @@ import PxMstat from 'shared/components/PxMstat'
 import PxInbox from 'shared/components/PxInbox'
 import PxGauge from 'shared/components/PxGauge'
 import Pulse from 'shared/components/Pulse'
+import XyGraph from 'shared/components/XyGraph'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -40,6 +41,7 @@ const RefreshingPxMstat = AutoRefresh(PxMstat)
 const RefreshingPxInbox = AutoRefresh(PxInbox)
 const RefreshingPxGauge = AutoRefresh(PxGauge)
 const RefreshingPulse = AutoRefresh(Pulse)
+const RefreshingXyGraph = AutoRefresh(XyGraph)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -283,6 +285,30 @@ const RefreshingGraph = ({
       />
     )
   }
+  if (type === 'xy-graph') {
+    return (
+      <RefreshingXyGraph
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
   if (type === 'px-inbox') {
     return (
       <RefreshingPxInbox
@@ -447,4 +473,7 @@ const mapDispatchToProps = dispatch => ({
   handleSetHoverTime: bindActionCreators(setHoverTime, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RefreshingGraph)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RefreshingGraph)

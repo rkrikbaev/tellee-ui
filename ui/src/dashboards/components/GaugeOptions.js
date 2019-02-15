@@ -74,11 +74,10 @@ class GaugeOptions extends Component {
 
   handleChooseColor = threshold => {
     const {handleUpdateGaugeColors} = this.props
-    const gaugeColors = this.props.gaugeColors.map(
-      color =>
-        color.id === threshold.id
-          ? {...color, hex: threshold.hex, name: threshold.name}
-          : color
+    const gaugeColors = this.props.gaugeColors.map(color =>
+      color.id === threshold.id
+        ? {...color, hex: threshold.hex, name: threshold.name}
+        : color
     )
 
     handleUpdateGaugeColors(gaugeColors)
@@ -86,8 +85,8 @@ class GaugeOptions extends Component {
 
   handleUpdateColorValue = (threshold, value) => {
     const {handleUpdateGaugeColors} = this.props
-    const gaugeColors = this.props.gaugeColors.map(
-      color => (color.id === threshold.id ? {...color, value} : color)
+    const gaugeColors = this.props.gaugeColors.map(color =>
+      color.id === threshold.id ? {...color, value} : color
     )
 
     handleUpdateGaugeColors(gaugeColors)
@@ -248,4 +247,7 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateGaugeColors: bindActionCreators(updateGaugeColors, dispatch),
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(GaugeOptions)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GaugeOptions)

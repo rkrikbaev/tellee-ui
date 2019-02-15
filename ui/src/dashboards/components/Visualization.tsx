@@ -116,4 +116,7 @@ const mapStateToProps = ({
   decimalPlaces,
 })
 
-export default connect(mapStateToProps, null)(DashVisualization)
+export default connect(
+  mapStateToProps,
+  null
+)(DashVisualization)

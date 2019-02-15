@@ -37,20 +37,19 @@ class Annotations extends Component {
 
     return (
       <div className="annotations-container">
-        {mode === ADDING &&
-          this.tempAnnotation && (
-            <NewAnnotation
-              dygraph={dygraph}
-              isTempHovering={isTempHovering}
-              tempAnnotation={this.tempAnnotation}
-              staticLegendHeight={staticLegendHeight}
-              onUpdateAnnotation={handleUpdateAnnotation}
-              onDismissAddingAnnotation={handleDismissAddingAnnotation}
-              onAddingAnnotationSuccess={handleAddingAnnotationSuccess}
-              onMouseEnterTempAnnotation={handleMouseEnterTempAnnotation}
-              onMouseLeaveTempAnnotation={handleMouseLeaveTempAnnotation}
-            />
-          )}
+        {mode === ADDING && this.tempAnnotation && (
+          <NewAnnotation
+            dygraph={dygraph}
+            isTempHovering={isTempHovering}
+            tempAnnotation={this.tempAnnotation}
+            staticLegendHeight={staticLegendHeight}
+            onUpdateAnnotation={handleUpdateAnnotation}
+            onDismissAddingAnnotation={handleDismissAddingAnnotation}
+            onAddingAnnotationSuccess={handleAddingAnnotationSuccess}
+            onMouseEnterTempAnnotation={handleMouseEnterTempAnnotation}
+            onMouseLeaveTempAnnotation={handleMouseLeaveTempAnnotation}
+          />
+        )}
         {this.annotations.map(a => (
           <Annotation
             key={a.id}
@@ -121,4 +120,7 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAnnotation: bindActionCreators(updateAnnotation, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Annotations)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Annotations)

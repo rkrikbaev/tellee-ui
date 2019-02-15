@@ -344,4 +344,7 @@ const mapStateToProps = ({links}) => {
   return {links: links.ifql}
 }
 
-export default connect(mapStateToProps, null)(IFQLPage)
+export default connect(
+  mapStateToProps,
+  null
+)(IFQLPage)

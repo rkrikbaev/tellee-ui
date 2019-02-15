@@ -82,6 +82,13 @@ class DisplayOptions extends Component {
             staticLegend={staticLegend}
           />
         )
+      case 'xy-graph':
+        return (
+          <PxRadarOptions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
       case 'px-timeseries':
         return (
           <PxRadarOptions
@@ -152,4 +159,7 @@ const mapStateToProps = ({
   axes,
 })
 
-export default connect(mapStateToProps, null)(DisplayOptions)
+export default connect(
+  mapStateToProps,
+  null
+)(DisplayOptions)

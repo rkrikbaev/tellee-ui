@@ -219,4 +219,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(null, mapDispatchToProps)(withRouter(KapacitorPage))
+export default connect(
+  null,
+  mapDispatchToProps
+)(withRouter(KapacitorPage))

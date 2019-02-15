@@ -102,4 +102,7 @@ const mapDispatchToProps = dispatch => ({
   handleDismissOverlay: bindActionCreators(dismissOverlay, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Overlay)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Overlay)
