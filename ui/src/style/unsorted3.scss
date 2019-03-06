@@ -78,9 +78,12 @@
   }
 }
 
-// ============== xyGraph element ==============
-#xygraphContainer {
+// ============== XYChart element ==============
+#xychart {
   .js-plotly-plot {
+    svg {
+      margin-top: -30px;
+    }
     .modebar {
       background: transparent;
       z-index: 2;
@@ -101,3 +104,22 @@
     }
   }
 }
+
+.plotly-notifier {
+  display: none;
+}
+
+// ============== GIS element ==============
+.map_balloon {
+  h4 {
+    color:#007ACB;
+  }
+  strong, a {
+    color: #003D66;
+    display: block;
+  }
+  a {
+    text-decoration: underline;
+  }
+}
+

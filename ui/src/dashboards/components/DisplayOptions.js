@@ -68,6 +68,13 @@ class DisplayOptions extends Component {
             staticLegend={staticLegend}
           />
         )
+      case 'px-kpi-list':
+        return (
+          <PxKpiOptions
+            onToggleStaticLegend={onToggleStaticLegend}
+            staticLegend={staticLegend}
+          />
+        )
       case 'px-mstat':
         return (
           <PxMstatOtions
@@ -82,7 +89,7 @@ class DisplayOptions extends Component {
             staticLegend={staticLegend}
           />
         )
-      case 'xy-graph':
+      case 'xy-chart':
         return (
           <PxRadarOptions
             onToggleStaticLegend={onToggleStaticLegend}

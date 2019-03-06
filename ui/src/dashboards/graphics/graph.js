@@ -11,10 +11,12 @@ export const CELL_TYPE_TABLE = 'table'
 export const CELL_TYPE_PX_CIRCLE = 'px-percent-circle'
 export const CELL_TYPE_PX_TIMESERIES = 'px-timeseries'
 export const CELL_TYPE_PX_KPI = 'px-kpi'
+export const CELL_TYPE_PX_KPI_LIST = 'px-kpi-list'
 export const CELL_TYPE_PX_GANTT = 'px-gantt'
+export const CELL_TYPE_GIS = 'Gis'
 export const CELL_TYPE_PULSE = 'pulse'
-export const CELL_TYPE_XYGRAPH = 'xy-graph'
 export const CELL_TYPE_PX_RADAR = 'px-radar'
+export const CELL_TYPE_PX_XYCHART = 'xy-chart'
 export const CELL_TYPE_PX_MSTAT = 'px-mstat'
 export const CELL_TYPE_PX_INBOX = 'px-inbox'
 export const CELL_TYPE_PX_GAUGE = 'px-gauge'
@@ -541,9 +543,19 @@ const GRAPH_SVGS = {
       <img src="/static_assets/icons/_kpi.svg" />
     </div>
   ),
+  'px-kpi-list': (
+    <div className="viz-type-selector--graphic">
+      <img src="/static_assets/icons/_info.svg" />
+    </div>
+  ),
   'px-gantt': (
     <div className="viz-type-selector--graphic">
       <img src="/static_assets/icons/_timeline.svg" />
+    </div>
+  ),
+  Gis: (
+    <div className="viz-type-selector--graphic">
+      <img src="/static_assets/icons/_gis.svg" />
     </div>
   ),
   pulse: (
@@ -551,14 +563,14 @@ const GRAPH_SVGS = {
       <img src="/static_assets/icons/_pulse.svg" />
     </div>
   ),
-  'xy-graph': (
+  'px-radar': (
     <div className="viz-type-selector--graphic">
       <img src="/static_assets/icons/_radar.svg" />
     </div>
   ),
-  'px-radar': (
+  'xy-chart': (
     <div className="viz-type-selector--graphic">
-      <img src="/static_assets/icons/_radar.svg" />
+      <img src="/static_assets/icons/_xychart.svg" />
     </div>
   ),
   'px-mstat': (
@@ -645,9 +657,19 @@ export const GRAPH_TYPES = [
     graphic: GRAPH_SVGS[CELL_TYPE_PX_KPI],
   },
   {
+    type: CELL_TYPE_PX_KPI_LIST,
+    menuOption: 'INFO',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_KPI_LIST],
+  },
+  {
     type: CELL_TYPE_PX_GANTT,
     menuOption: 'Timeline',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_GANTT],
+  },
+  {
+    type: CELL_TYPE_GIS,
+    menuOption: 'GIS',
+    graphic: GRAPH_SVGS[CELL_TYPE_GIS],
   },
   {
     type: CELL_TYPE_PULSE,
@@ -655,14 +677,14 @@ export const GRAPH_TYPES = [
     graphic: GRAPH_SVGS[CELL_TYPE_PULSE],
   },
   {
-    type: CELL_TYPE_XYGRAPH,
-    menuOption: 'XY Graph',
-    graphic: GRAPH_SVGS[CELL_TYPE_XYGRAPH],
-  },
-  {
     type: CELL_TYPE_PX_RADAR,
     menuOption: 'Radar',
     graphic: GRAPH_SVGS[CELL_TYPE_PX_RADAR],
+  },
+  {
+    type: CELL_TYPE_PX_XYCHART,
+    menuOption: 'XY Chart',
+    graphic: GRAPH_SVGS[CELL_TYPE_PX_XYCHART],
   },
   {
     type: CELL_TYPE_PX_INBOX,

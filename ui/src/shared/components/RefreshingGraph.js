@@ -13,13 +13,15 @@ import TableGraph from 'shared/components/TableGraph'
 import PxPercentCircle from 'shared/components/PxPercentCircle'
 import PxTimeSeries from 'shared/components/PxTimeseries'
 import PxKpi from 'shared/components/PxKpi'
+import PxKpiList from 'shared/components/PxKpiList'
 import PxGantt from 'shared/components/PxGantt'
+import GIS from 'shared/components/Gis'
 import PxRadar from 'shared/components/PxRadar'
+import XYChart from 'shared/components/XYChart'
 import PxMstat from 'shared/components/PxMstat'
 import PxInbox from 'shared/components/PxInbox'
 import PxGauge from 'shared/components/PxGauge'
 import Pulse from 'shared/components/Pulse'
-import XyGraph from 'shared/components/XyGraph'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {setHoverTime} from 'src/dashboards/actions'
@@ -35,13 +37,15 @@ const RefreshingTableGraph = AutoRefresh(TableGraph)
 const RefreshingPxPercentCircle = AutoRefresh(PxPercentCircle)
 const RefreshingPxTimeseries = AutoRefresh(PxTimeSeries)
 const RefreshingPxKpi = AutoRefresh(PxKpi)
+const RefreshingPxKpiList = AutoRefresh(PxKpiList)
 const RefreshingPxGantt = AutoRefresh(PxGantt)
+const RefreshingGIS = AutoRefresh(GIS)
 const RefreshingPxRadar = AutoRefresh(PxRadar)
+const RefreshingXYChart = AutoRefresh(XYChart)
 const RefreshingPxMstat = AutoRefresh(PxMstat)
 const RefreshingPxInbox = AutoRefresh(PxInbox)
 const RefreshingPxGauge = AutoRefresh(PxGauge)
 const RefreshingPulse = AutoRefresh(Pulse)
-const RefreshingXyGraph = AutoRefresh(XyGraph)
 const RefreshingGraph = ({
   axes,
   inView,
@@ -235,9 +239,59 @@ const RefreshingGraph = ({
       />
     )
   }
+  if (type === 'px-kpi-list') {
+    return (
+      <RefreshingPxKpiList
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
   if (type === 'px-gantt') {
     return (
       <RefreshingPxGantt
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
+  if (type === 'Gis') {
+    return (
+      <RefreshingGIS
         type={type}
         axes={axes}
         cellID={cellID}
@@ -275,30 +329,6 @@ const RefreshingGraph = ({
         timeRange={timeRange}
         autoRefresh={autoRefresh}
         cellHeight={cellHeight}
-        isBarGraph={type === 'bar'}
-        staticLegend={staticLegend}
-        displayOptions={displayOptions}
-        editQueryStatus={editQueryStatus}
-        grabDataForDownload={grabDataForDownload}
-        handleSetHoverTime={handleSetHoverTime}
-        showSingleStat={type === 'line-plus-single-stat'}
-      />
-    )
-  }
-  if (type === 'xy-graph') {
-    return (
-      <RefreshingXyGraph
-        type={type}
-        axes={axes}
-        cellID={cellID}
-        colors={colors}
-        onZoom={onZoom}
-        queries={queries}
-        inView={inView}
-        key={manualRefresh}
-        templates={templates}
-        timeRange={timeRange}
-        autoRefresh={autoRefresh}
         isBarGraph={type === 'bar'}
         staticLegend={staticLegend}
         displayOptions={displayOptions}
@@ -362,6 +392,31 @@ const RefreshingGraph = ({
   if (type === 'px-radar') {
     return (
       <RefreshingPxRadar
+        type={type}
+        axes={axes}
+        cellID={cellID}
+        colors={colors}
+        onZoom={onZoom}
+        queries={queries}
+        inView={inView}
+        key={manualRefresh}
+        templates={templates}
+        timeRange={timeRange}
+        autoRefresh={autoRefresh}
+        cellHeight={cellHeight}
+        isBarGraph={type === 'bar'}
+        staticLegend={staticLegend}
+        displayOptions={displayOptions}
+        editQueryStatus={editQueryStatus}
+        grabDataForDownload={grabDataForDownload}
+        handleSetHoverTime={handleSetHoverTime}
+        showSingleStat={type === 'line-plus-single-stat'}
+      />
+    )
+  }
+  if (type === 'xy-chart') {
+    return (
+      <RefreshingXYChart
         type={type}
         axes={axes}
         cellID={cellID}

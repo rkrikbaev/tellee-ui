@@ -3,18 +3,25 @@ import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 import _ from 'lodash'
+
 import Plot from 'react-plotly.js'
 
 import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
-import {getLineColorsHexes} from 'src/shared/constants/graphColorPalettes'
-// import { SUPERADMIN_ROLE } from '../../auth/Authorized'
 
+// const validateTimeSeries = timeseries => {
+//   return _.every(timeseries, r =>
+//     _.every(
+//       r,
+//       (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
+//     )
+//   )
+// }
 @ErrorHandlingWith(InvalidData)
-class XyGraph extends Component {
-  constructor() {
-    super()
+class XYChart extends Component {
+  constructor(props) {
+    super(props)
     this.isValidData = true
     this.state = {
       height: 0,
@@ -31,7 +38,7 @@ class XyGraph extends Component {
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
-    this.parseDataFromProps()
+    this.axisData = this.parseDataFromProps()
   }
 
   componentWillUpdate(nextProps) {
@@ -46,7 +53,7 @@ class XyGraph extends Component {
 
   parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data)
-    // NEED FIX VALIDATOR!
+    // console.log(JSON.stringify(this._timeSeries.timeSeries))
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
     // )
@@ -71,40 +78,6 @@ class XyGraph extends Component {
     return result
   }
 
-  componentDidUpdate() {
-    const axisData = this.parseDataFromProps()
-    this.newData = [
-      {
-        x: [0, 13, 100, 83, 0],
-        y: [2400, 2900, 2900, 2400, 2400],
-        // hoveron: 'points+fills',
-        line: {
-          dash: 'dash',
-          color: '#B4C2CA',
-        },
-        autorange: true,
-        name: 'old shape',
-        // text: 'Points + Fills',
-        hoverinfo: 'none',
-      },
-      {
-        x: axisData[2],
-        y: axisData[1],
-        fill: 'toself',
-        fillcolor: '#e763fa',
-        opacity: 0.5,
-        // hoveron: 'points',
-        line: {
-          color: '#e763fa',
-        },
-        autorange: true,
-        name: 'last shape',
-        // text: 'Points only',
-        hoverinfo: 'none',
-      },
-    ]
-  }
-
   resize = () => {
     const height = this.divElement.clientHeight
     const width = this.divElement.clientWidth
@@ -119,10 +92,8 @@ class XyGraph extends Component {
     }
 
     const {
-      // data,
+      data,
       // axes,
-      // preffix,
-      // suffix,
       // title,
       colors,
       // cellID,
@@ -138,42 +109,72 @@ class XyGraph extends Component {
       // isGraphFilled,
       // showSingleStat,
       // displayOptions,
-      // staticLegend,
+      staticLegend,
       // underlayCallback,
       // overrideLineColors,
       isFetchingInitially,
       // handleSetHoverTime,
     } = this.props
 
-    // const {labels, timeSeries, eventsData, eventsConfig} = this._timeSeries
-    // getLineColorsHexes(colors, labels.length)
-
+    // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
       return <GraphSpinner />
     }
 
-    const {width, height} = this.state
+    const newData = [
+      {
+        x: [0, 13, 100, 83, 0],
+        y: [2400, 2900, 2900, 2400, 2400],
+        // hoveron: 'points+fills',
+        line: {
+          dash: 'dash',
+          color: colors[1].hex,
+        },
+        autorange: true,
+        name: 'old shape',
+        // text: 'Points + Fills',
+        hoverinfo: 'none',
+      },
+      {
+        x: this.axisData[2],
+        y: this.axisData[1],
+        fill: 'toself',
+        fillcolor: colors[0].hex,
+        opacity: 0.5,
+        // hoveron: 'points',
+        line: {
+          color: colors[0].hex,
+        },
+        autorange: true,
+        name: 'last shape',
+        // text: 'Points only',
+        hoverinfo: 'none',
+      },
+    ]
 
+    const {width, height} = this.state
     return (
       <div
-        id="xygraphContainer"
+        id="xychart"
         style={{height: '100%'}}
         ref={divElement => (this.divElement = divElement)}
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
-        {/*  --------------------------------------------- */}
+
         <Plot
-          data={this.newData}
+          data={newData}
           layout={{
+            autosize: true,
             width: width - 2,
-            height,
+            height: height + 40,
             plot_bgcolor: 'transparent',
             paper_bgcolor: 'transparent',
+            tracetoggle: false,
             xaxis: {
               title: 'position',
               titlefont: {
-                family: 'Courier New, monospace',
-                size: 18,
+                family: 'Roboto, monospace',
+                size: 12,
                 color: '#7f7f7f',
               },
               color: '#B4C2CA',
@@ -181,15 +182,17 @@ class XyGraph extends Component {
             yaxis: {
               title: 'force',
               titlefont: {
-                family: 'Courier New, monospace',
-                size: 18,
+                family: 'Roboto, monospace',
+                size: 12,
                 color: '#7f7f7f',
               },
               color: '#B4C2CA',
             },
-            showlegend: true,
+            showlegend: staticLegend,
             legend: {
               orientation: 'h',
+              x: 0,
+              y: 1.2,
               traceorder: 'normal',
               font: {
                 family: 'sans-serif',
@@ -202,8 +205,9 @@ class XyGraph extends Component {
           }}
           config={{
             showLink: false,
-            scrollZoom: true,
+            scrollZoom: false,
             displaylogo: false,
+            displayModeBar: true,
             modeBarButtonsToRemove: [
               'sendDataToCloud',
               'select2d',
@@ -218,10 +222,17 @@ class XyGraph extends Component {
               'zoom2d',
               'toggleSpikelines',
             ],
-            displayModeBar: true,
+            toImageButtonOptions: {
+              format: 'png',
+              width: 800,
+              height: 600,
+              filename: `${
+                data[0].response.results[0].series[0].name
+              }_${new Date().getTime()}`,
+            },
           }}
         />
-        {/*  --------------------------------------------- */}
+
         <ReactResizeDetector
           handleWidth={true}
           handleHeight={true}
@@ -248,14 +259,14 @@ const GraphSpinner = () => (
 
 const {array, arrayOf, bool, func, number, shape, string} = PropTypes
 
-XyGraph.defaultProps = {
+XYChart.defaultProps = {
   underlayCallback: () => {},
   isGraphFilled: true,
   overrideLineColors: null,
   staticLegend: false,
 }
 
-XyGraph.propTypes = {
+XYChart.propTypes = {
   cellID: string,
   axes: shape({
     y: shape({
@@ -296,4 +307,4 @@ XyGraph.propTypes = {
   colors: colorsStringSchema,
 }
 
-export default XyGraph
+export default XYChart

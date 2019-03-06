@@ -2,7 +2,7 @@
 
 <link rel="import" href="../px-d3-imports/px-d3-imports.html" />
 <script src="d3-timelines.js"></script>
-<script src="../d3/d3.js"></script>
+<script src="../d3/d3.min.js"></script>
 <link rel="import" href="../px-theme/px-theme-styles.html">
 <custom-style>
   <style include="px-theme-styles" is="custom-style"></style>
@@ -97,6 +97,7 @@
       var testData = [
         { times: this.properties.data },
       ];
+
       var chart = d3.timelines();
       // chart.showTimeAxisTick({
       //   stroke: "stroke-dasharray",
@@ -199,7 +200,7 @@
         .style("stroke", "#383846")
         .text(function (d, i) {
 
-          var upperLegend = d.toUpperCase();
+          var upperLegend = d ? d.toUpperCase() : 'NOT SET';
           var time = newCount_data[i][0] / 1000;
           let percents = 0, days = 0, hours = 0, minutes = 0;
           percents = ((newCount_data[i][0] * 100) / period).toFixed(2);

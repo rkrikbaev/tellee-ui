@@ -63,7 +63,7 @@ class PxGanttOptions extends Component {
         },
       },
       type: 'object',
-      required: ['stateOne', 'stateTwo', 'stateThree', 'stateFour'],
+      required: ['stateOne', 'stateTwo', 'stateThree'],
       properties: {
         stateOne: {
           title: 'State 1',

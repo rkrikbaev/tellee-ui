@@ -47,12 +47,14 @@ export enum CellType {
   PxPercentCircle = 'px-percent-circle',
   PxTimeseries = 'px-timeseries',
   PxKpi = 'px-kpi',
+  PxKpiList = 'px-kpi-list',
   PxGantt = 'px-gantt',
   PxRadar = 'px-radar',
+  XYChart = 'xy-chart',
   PxInbox = 'px-inbox',
   PxMstat = 'px-mstat',
   PxGauge = 'px-gauge',
-  XyGraph = 'xy-graph',
+  GIS = 'Gis',
 }
 
 // corresponds to DashboardQuery on the backend
