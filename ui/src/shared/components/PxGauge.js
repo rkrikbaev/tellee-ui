@@ -243,7 +243,7 @@ class PxGauge extends Component {
                 value={
                   kpiArrayValue[key + 1] === null
                     ? '0'
-                    : kpiArrayValue[key + 1].toFixed(2)
+                    : (kpiArrayValue[key + 1] * 24).toFixed(2) // Added multiple to 24, remove later
                 }
                 max={maxValue}
                 min={minValue}
@@ -251,7 +251,7 @@ class PxGauge extends Component {
                 height={_height}
                 bar-width={prefix}
                 unit={suffix}
-                error={`[${JSON.stringify(pxErrorTreshold)}]`}
+                error={`[[0,40], [50, 55]]`} // ${JSON.stringify(pxErrorTreshold)}
                 abnormal={`[${JSON.stringify(pxAbnormalTreshold)}]`}
                 anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
                 normal={`[${JSON.stringify(pxNormalTreshold)}]`}

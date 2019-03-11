@@ -69,18 +69,21 @@ Custom property | Description
     </div>
     <ul id="kpiList" class="list-ui u-mb--"  style$="height:{{height}}px;">
       <template is="dom-repeat" items="{{values}}">
-        <li class="list-ui__item flex flex--row flex--middle u-ph0 u-pv-">
+        <li class="list-ui__item flex flex--row flex--middle u-ph0 u-pv-" style$="padding:{{listui}}rem 0 !important;"> <!-- listPadding -->
           <div class="flex flex--left flex__item">
             <span id="listLabel">{{item.label}}</span>
           </div>
           <div class="flex flex--right flex--bottom flex__item">
-            <span class="delta">{{item.value}}</span>
-            <span class="caps u-mb-- u-ml--">{{item.uom}}</span>
+            <span class="delta" style$="font-size:{{delta}}rem">{{item.value}}</span> <!-- delta -->
+            <span class="caps u-mb-- u-ml--" style$="margin-bottom:{{caps}}rem !important;">{{item.uom}}</span><!-- caps -->
           </div>
         </li>
       </template>
+      <div class="flex flex--left flex__item" style="justify-content: space-between; padding: 10px 0;">
+        <span id="listLabel">Статус</span>
+        <span class="delta" style$="font-size:{{delta}}rem; color:{{statecolor}}; margin-top: -3px;">{{footer}}</span>
+      </div>
     </ul>
-    <span id="listFooter" class="zeta">{{footer}}</span>
   </template>
 </dom-module>
 
@@ -147,7 +150,19 @@ Custom property | Description
       },
       height: {
         type: String
-      }
+      },
+      delta: {
+        type: String
+      },
+      listui: {
+        type: String
+      },
+      caps: {
+        type: String
+      },
+      statecolor: {
+        type: String
+      },
     }
 
   });

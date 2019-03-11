@@ -123,3 +123,24 @@
   }
 }
 
+// ============== Edit/Add PxMiltistat element ==============
+
+.tile_count .count_crushed {
+  animation: blinkingText 0.8s infinite;
+}
+
+.tile_count .count_stopped {
+  color: #fec600;
+}
+
+.tile_count .count_running {
+  color: #7fae1b;
+}
+
+@keyframes blinkingText{
+  0%{color: #F53844;}
+  49%{color: #F53844;}
+  50%{color: #42378F;}
+  99%{color: #42378F;}
+  100%{color: #42378F;}
+}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxKpi} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 
 import _ from 'lodash'
 import CustomProperties from 'react-custom-properties'
@@ -27,9 +27,11 @@ class PxKpiList extends Component {
   constructor(props) {
     super(props)
     this.isValidData = true
+    this.chartValue = []
     this.state = {
       height: 0,
       width: 0,
+      elementStyle: {},
     }
   }
 
@@ -41,14 +43,13 @@ class PxKpiList extends Component {
 
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
-    // this.parseTimeSeries(data, isInDataExplorer)
+    this.parseTimeSeries(data, isInDataExplorer)
+    this.parseDataFromProps()
   }
 
   parseTimeSeries(data) {
-    const {axes} = this.props
-    const maxVal = axes.y.suffix
-    // this._timeSeries = timeSeriesToPxKpi(data, maxVal > -1 ? maxVal : 30)
-    // this.isValidData = validateTimeSeries(_.get(this._timeSeries, 'x', []))
+    this._timeSeries = timeSeriesToPxSeries(data)
+    this.isValidData = validateTimeSeries(_.get(this._timeSeries, 'x', []))
   }
 
   componentWillUpdate(nextProps) {
@@ -59,6 +60,48 @@ class PxKpiList extends Component {
     ) {
       this.parseTimeSeries(nextProps.data)
     }
+  }
+
+  parseDataFromProps = () => {
+    const {tableData} = this._timeSeries
+    const sn = {label: 'Серийный номер', value: 'SN999999999TR', uom: ''}
+    const chartArray = []
+    chartArray.push(
+      sn,
+      {
+        label: 'Доступность',
+        value: `${tableData[tableData.length - 1][1].toFixed(1)}`,
+        uom: '%',
+      },
+      {
+        label: 'Надежность',
+        value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
+        uom: '%',
+      },
+      {
+        label: 'Время работы',
+        value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
+        uom: 'h',
+      },
+      {
+        label: 'Время простоя',
+        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
+        uom: 'h',
+      }
+    )
+    this.makeString(chartArray)
+  }
+
+  makeString = array => {
+    const arrayx = array.reduce((previous, current) => {
+      const stringArray = `${previous ? '' : '['}${previous}${
+        previous ? ', ' : ''
+      }{"label": "${current.label}", "value": "${current.value}", "uom": "${
+        current.uom
+      }"}${current.label === 'Время простоя' ? ']' : ''}`
+      return stringArray
+    }, '')
+    this.chartValue = [arrayx].toString()
   }
 
   resize = () => {
@@ -76,8 +119,8 @@ class PxKpiList extends Component {
 
     const {
       // data,
-      axes,
-      title,
+      // axes,
+      // title,
       colors,
       // cellID,
       // onZoom,
@@ -104,35 +147,84 @@ class PxKpiList extends Component {
       return <GraphSpinner />
     }
 
-    // const options = {
-    //   ...displayOptions,
-    //   title,
-    //   labels,
-    //   rightGap: 0,
-    //   yRangePad: 10,
-    //   labelsKMB: true,
-    //   fillGraph: true,
-    //   underlayCallback,
-    //   axisLabelWidth: 60,
-    //   drawAxesAtZero: true,
-    //   axisLineColor: '#383846',
-    //   gridLineColor: '#383846',
-    //   connectSeparatedPoints: true,
-    // }
-
-    const prefix = axes ? axes.y.prefix : ''
+    // const prefix = axes ? axes.y.prefix : ''
     // const suffix = axes ? axes.y.suffix : '%'
 
-    const {width, height} = this.state
+    const {height} = this.state
+    const {tableData} = this._timeSeries
+
+    let elementStyle = {}
+    switch (true) {
+      case height <= 312:
+        elementStyle = {
+          imgHeight: 60,
+          listPadding: 0.5,
+          fontSize: 1,
+          uomMargin: 0,
+        }
+        break
+      case 312 <= height && height <= 400:
+        elementStyle = {
+          imgHeight: 80,
+          listPadding: 0.7,
+          fontSize: 1.3,
+          uomMargin: 0.12,
+        }
+        break
+      default:
+        elementStyle = {
+          imgHeight: 100,
+          listPadding: 1,
+          fontSize: 1.3,
+          uomMargin: 0.2,
+        }
+    }
+
+    switch (tableData[tableData.length - 1][7]) {
+      case 'РАБОТА':
+        elementStyle.stateColor = 'green'
+        break
+      case 'НЕИСПРАВНОСТЬ':
+        elementStyle.stateColor = 'red'
+        break
+      case 'ОСТАНОВЛЕН':
+        elementStyle.stateColor = 'yellow'
+        break
+      default:
+        elementStyle.stateColor = 'black'
+    }
+
+    const kpiMainValue = tableData[tableData.length - 1]
+    const kpiMainPreValue = tableData[tableData.length - 2]
+
+    if (kpiMainValue === undefined) {
+      return <InvalidData />
+    }
+
+    if (kpiMainPreValue === undefined) {
+      return <InvalidData />
+    }
+
+    if (kpiMainValue[3] === null) {
+      kpiMainValue[3] = 0
+    }
+    if (kpiMainPreValue[3] === null) {
+      kpiMainPreValue[3] = 0
+    }
+    let kpiChangePerc = (
+      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
+      100
+    ).toFixed(2)
+    if (kpiChangePerc < 0) {
+      kpiChangePerc = ~kpiChangePerc + 1
+    }
 
     let sparkAreaBg = '#364c5950'
     const pkTextColor = 'var(--zsse-g14-chromium)'
     if (staticLegend) {
       sparkAreaBg = colors[0].hex
     }
-    const val = '[{ "label":"Availability", "value":"99", "uom":"%"}, {"label":"Reliability", "value":"92.5", "uom":"%"}, {"label":"Starts", "value":"5", "uom":"@"}, {"label":"MTBT", "value":"97", "uom":"days"}]'
-    const status = 'В РАБОТЕ'
-    const footerText = `Статус: ${status}`
+
     return (
       <div
         id="px_kpi_list"
@@ -144,7 +236,7 @@ class PxKpiList extends Component {
         <img
           src="/static_assets/pumpjack.svg"
           style={{
-            height: '100px',
+            height: elementStyle.imgHeight,
             display: 'block',
             margin: '0 auto',
           }}
@@ -158,13 +250,23 @@ class PxKpiList extends Component {
           }}
         >
           <px-kpi-list
-            height={height - 160}
-            label="Оладушка 1"
-            values={val}
-            status-icon="px-nav:up"
-            status-color="green"
-            status-label="12%"
-            footer={footerText}
+            height={height}
+            delta={elementStyle.fontSize}
+            caps={elementStyle.uomMargin}
+            listui={elementStyle.listPadding}
+            statecolor={elementStyle.stateColor}
+            label={tableData[tableData.length - 1][3]}
+            values={this.chartValue}
+            status-icon={
+              kpiMainValue[3] >= kpiMainPreValue[3]
+                ? 'px-nav:up'
+                : 'px-nav:down'
+            }
+            status-color={
+              kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
+            }
+            status-label={tableData[tableData.length - 1][2].toFixed(1)}
+            footer={tableData[tableData.length - 1][7]}
           />
         </CustomProperties>
 

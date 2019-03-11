@@ -13,7 +13,7 @@ import {YMaps, Map, Clusterer, Placemark} from 'react-yandex-maps'
 // import POINTS from './POINTS.js'
 
 const mapState = {
-  center: [43.010060, -83.690012],
+  center: [43.01006, -83.690012],
   zoom: 6,
 }
 const points = [

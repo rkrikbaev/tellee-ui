@@ -155,15 +155,15 @@ class PxMstatOptions extends Component {
         <div className="display-options--cell-wrapper">
           <h5 className="display-options--header">{menuOption} Controls</h5>
           <form autoComplete="off" className="form-group-wrapper">
-            <div className="form-group col-sm-12">
+            <div className="form-group col-sm-6">
               <Input
                 name="suffix"
                 id="suffix"
                 value={suffix}
-                labelText="Bottom title value"
+                labelText="Columns in a row"
                 onChange={this.handleSetPrefixSuffix}
                 maxLength="5"
-                colWidth="12"
+                colWidth="6"
               />
             </div>
             <div className="form-group col-md-12">

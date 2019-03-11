@@ -134,8 +134,9 @@ class PxMstat extends Component {
     // }
 
     const prefix = axes ? axes.y.prefix : ''
-    const suffix = axes ? axes.y.suffix : ''
+    let suffix = axes ? axes.y.suffix : 4
     const minimal = axes ? axes.y.scale : ''
+    suffix = isNaN(suffix) ? 4 : suffix
     let minifyCss = ''
     if (minimal === 'log') {
       minifyCss = 'tile_count_min'
@@ -150,7 +151,9 @@ class PxMstat extends Component {
     // const suffix = axes ? axes.y.suffix : ''
     const _labels = labels.filter(e => e !== 'time')
 
-    let _cols = Math.round(12 / _labels.length)
+    // let _cols = Math.round(12 / _labels.length)
+    let _cols = suffix
+
     if (_cols === 5 || _cols > 6) {
       _cols = 1
     }
@@ -158,6 +161,7 @@ class PxMstat extends Component {
       _cols = 12
     }
     const cols = `col-md-${_cols} col-xs-${_cols} tile_stats_count`
+    let countColor = 'count def_color'
     return (
       <div
         style={{height: '100%'}}
@@ -166,48 +170,61 @@ class PxMstat extends Component {
         {isRefreshing ? <GraphLoadingDots /> : null}
 
         <div className={classnames('row tile_count', minifyCss)}>
-          {_labels.map((value, key) => (
-            <div className={cols} key={key}>
-              <span className="count_top">
-                <px-icon
-                  className="icon"
-                  icon={
-                    typeof iconsArray[key] === 'undefined'
-                      ? 'px-utl:attribute'
-                      : iconsArray[key]
-                  }
-                />{' '}
-                {typeof value === 'undefined'
-                  ? ''
-                  : value.substr(value.indexOf('.') + 1)}
-              </span>
-              <div className="count">
-              {!isNaN(_tableDataNow[key + 1])
-                ? _tableDataNow[key + 1].toFixed(2)
-                : _tableDataNow[key + 1] === null
-                ? '0'
-                : _tableDataNow[key + 1] }
-                {/* {_tableDataNow[key + 1] === null
-                  ? '0'
-                  : _tableDataNow[key + 1].toFixed(2)} */}
-              </div>
-              {staticLegend ? (
-                <span className="count_bottom">
-                  <i className="green">
-                  {!isNaN(_tableDataNow[key + 1])
-                    ? _tableDataNow[key + 1].toFixed(2)
-                    : _tableDataNow[key + 1] === null
-                    ? '0'
-                    : _tableDataNow[key + 1] }
-                    {/* {_tableDataPre[key + 1] === null
-                      ? '0'
-                      : _tableDataPre[key + 1].toFixed(2)} */}
-                  </i>{' '}
-                  {suffix}
+          {_labels.map((value, key) => {
+            switch (_tableDataNow[key + 1]) {
+              case 'НЕИСПРАВНОСТЬ':
+                countColor = 'count count_crushed'
+                break
+              case 'ОСТАНОВЛЕН':
+                countColor = 'count count_stopped'
+                break
+              case 'РАБОТА':
+                countColor = 'count count_running'
+                break
+              default:
+                countColor = 'count'
+            }
+            return (
+              <div className={cols} key={key}>
+                <span className="count_top">
+                  <px-icon
+                    className="icon"
+                    icon={
+                      typeof iconsArray[key] === 'undefined'
+                        ? 'px-utl:attribute'
+                        : iconsArray[key]
+                    }
+                  />{' '}
+                  {typeof value === 'undefined'
+                    ? ''
+                    : value.substr(value.indexOf('.') + 1)}
                 </span>
-              ) : null}
-            </div>
-          ))}
+                <div className={countColor}>
+                  {isNaN(_tableDataNow[key + 1]) ||
+                  _tableDataNow[key + 1] === null
+                    ? _tableDataNow[key + 1] || '0'
+                    : _tableDataNow[key + 1].toFixed(2)}
+                  {/* {_tableDataNow[key + 1] === null
+                    ? '0'
+                    : _tableDataNow[key + 1].toFixed(2)} */}
+                </div>
+                {staticLegend ? (
+                  <span className="count_bottom">
+                    <i className="green">
+                      {isNaN(_tableDataPre[key + 1]) ||
+                      _tableDataPre[key + 1] === null
+                        ? _tableDataPre[key + 1] || '0'
+                        : _tableDataPre[key + 1].toFixed(2)}
+                      {/* {_tableDataPre[key + 1] === null
+                        ? '0'
+                        : _tableDataPre[key + 1].toFixed(2)} */}
+                    </i>{' '}
+                    {suffix}
+                  </span>
+                ) : null}
+              </div>
+            )
+          })}
         </div>
         <ReactResizeDetector
           handleWidth={true}
