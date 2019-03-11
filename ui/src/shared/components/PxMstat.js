@@ -219,7 +219,7 @@ class PxMstat extends Component {
                         ? '0'
                         : _tableDataPre[key + 1].toFixed(2)} */}
                     </i>{' '}
-                    {suffix}
+                    {/* {suffix} */}
                   </span>
                 ) : null}
               </div>

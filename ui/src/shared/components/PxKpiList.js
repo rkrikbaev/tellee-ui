@@ -22,6 +22,12 @@ const validateTimeSeries = timeseries => {
   )
 }
 
+const sn = {
+  label: 'Серийный номер',
+  value: 'SN999999999TR',
+  uom: '',
+}
+
 @ErrorHandlingWith(InvalidData)
 class PxKpiList extends Component {
   constructor(props) {
@@ -64,7 +70,6 @@ class PxKpiList extends Component {
 
   parseDataFromProps = () => {
     const {tableData} = this._timeSeries
-    const sn = {label: 'Серийный номер', value: 'SN999999999TR', uom: ''}
     const chartArray = []
     chartArray.push(
       sn,
@@ -153,6 +158,12 @@ class PxKpiList extends Component {
     const {height} = this.state
     const {tableData} = this._timeSeries
 
+    for (let i = 0; i < tableData[tableData.length - 1].length; i++) {
+      if (tableData[tableData.length - 1][i] === undefined) {
+        return <InvalidData />
+      }
+    }
+
     let elementStyle = {}
     switch (true) {
       case height <= 312:
@@ -211,10 +222,11 @@ class PxKpiList extends Component {
     if (kpiMainPreValue[3] === null) {
       kpiMainPreValue[3] = 0
     }
-    let kpiChangePerc = (
-      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
-      100
-    ).toFixed(2)
+    let kpiChangePerc = 
+      (
+        ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
+        100
+      ).toFixed(2)
     if (kpiChangePerc < 0) {
       kpiChangePerc = ~kpiChangePerc + 1
     }
