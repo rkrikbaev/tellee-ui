@@ -18,35 +18,35 @@ const mapState = {
 }
 const points = [
   {
-    title: 'Oil Pump 1',
+    title: 'ШГН №1',
     descr: 'Oil pump in Toronto',
     coords: [43.684345, -79.431292],
     status: 'run',
     link: 'http://0.0.0.0:8080/sources/3/dashboards/1',
   },
   {
-    title: 'Oil Pump 2',
+    title: 'ШГН №2',
     descr: 'Oil pump in Clevelend',
     coords: [41.499294, -81.693681],
     status: 'stop',
     link: 'http://0.0.0.0:8080/sources/3/dashboards/11',
   },
   {
-    title: 'Oil Pump 3',
+    title: 'ШГН №3',
     descr: 'Oil pump in Detroit',
     coords: [42.332973, -83.043247],
     status: 'crush',
     link: 'http://0.0.0.0:8080/sources/3/dashboards/12',
   },
   {
-    title: 'Oil Pump 4',
+    title: 'ШГН №4',
     descr: 'Oil pump in Milwaukee',
     coords: [43.041098, -87.906484],
     status: 'run',
     link: 'http://0.0.0.0:8080/sources/3/dashboards/13',
   },
   {
-    title: 'Oil Pump 4',
+    title: 'ШГН №4',
     descr: 'Oil pump in Milwaukee',
     coords: [43.01006, -83.690012],
     status: 'run',
@@ -92,6 +92,32 @@ class GIS extends Component {
       activeQueryIndex !== nextProps.activeQueryIndex
     ) {
       this.parseTimeSeries(nextProps.data)
+    }
+  }
+
+  changePointStatus = () => {
+    const {tableData} = this._timeSeries
+
+    for (let i = 0; i < points.length; i++) {
+      if (
+        isNaN(tableData[tableData.length - 1][i]) ||
+        tableData[tableData.length - 1][i] === null
+      ) {
+        return <InvalidData />
+      }
+      switch (points[i].status) {
+        case 1:
+          points[i].status = 'run'
+          break
+        case 2:
+          points[i].status = 'stop'
+          break
+        case 3:
+          points[i].status = 'crush'
+          break
+        default:
+          points[i].status = 'not found'
+      }
     }
   }
 

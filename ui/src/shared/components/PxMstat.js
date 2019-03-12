@@ -175,7 +175,7 @@ class PxMstat extends Component {
               case 'НЕИСПРАВНОСТЬ':
                 countColor = 'count count_crushed'
                 break
-              case 'ОСТАНОВЛЕН':
+              case 'ОСТАНОВ':
                 countColor = 'count count_stopped'
                 break
               case 'РАБОТА':
@@ -192,12 +192,15 @@ class PxMstat extends Component {
                     icon={
                       typeof iconsArray[key] === 'undefined'
                         ? 'px-utl:attribute'
-                        : iconsArray[key]
+                        : iconsArray[key].icon || 'px-utl:attribute'
                     }
                   />{' '}
                   {typeof value === 'undefined'
                     ? ''
                     : value.substr(value.indexOf('.') + 1)}
+                  {typeof iconsArray[key] === 'undefined'
+                    ? ''
+                    : ` (${iconsArray[key].metric})` || ''}
                 </span>
                 <div className={countColor}>
                   {isNaN(_tableDataNow[key + 1]) ||

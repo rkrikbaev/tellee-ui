@@ -251,10 +251,10 @@ class PxGauge extends Component {
                 height={_height}
                 bar-width={prefix}
                 unit={suffix}
-                error={`[[0,40], [50, 55]]`} // ${JSON.stringify(pxErrorTreshold)}
-                abnormal={`[${JSON.stringify(pxAbnormalTreshold)}]`}
-                anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
-                normal={`[${JSON.stringify(pxNormalTreshold)}]`}
+                // error={`[${JSON.stringify(pxErrorTreshold)}]`}
+                abnormal={`[[0,10]]`} // ${JSON.stringify(pxAbnormalTreshold)}
+                // anomaly={`[${JSON.stringify(pxAnomalyreshold)}]`}
+                normal={`[[10,50]]`} // ${JSON.stringify(pxNormalTreshold)}
               />
             </div>
           ))}

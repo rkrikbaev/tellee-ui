@@ -130,11 +130,11 @@
 }
 
 .tile_count .count_stopped {
-  color: #fec600;
+  color: #fec600 !important;
 }
 
 .tile_count .count_running {
-  color: #7fae1b;
+  color: #7fae1b !important;
 }
 
 @keyframes blinkingText{

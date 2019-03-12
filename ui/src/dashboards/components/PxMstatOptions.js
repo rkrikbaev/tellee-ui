@@ -99,12 +99,22 @@ class PxMstatOptions extends Component {
 
   render() {
     const schema = {
-      title: 'Predix icons for each Stat Value',
+      title: 'Predix icons and metric for each Stat Value',
       type: 'array',
       items: {
-        type: 'string',
-        maxLength: 30,
-        minLength: 3,
+        type: 'object',
+        properties: {
+          icon: {
+            title: 'Icon',
+            type: 'string',
+            default: 'px-utl:attribute',
+          },
+          metric: {
+            title: 'Metric',
+            type: 'string',
+            default: '%',
+          },
+        },
       },
     }
     const uiSchema = {
@@ -163,7 +173,7 @@ class PxMstatOptions extends Component {
                 labelText="Columns in a row"
                 onChange={this.handleSetPrefixSuffix}
                 maxLength="5"
-                colWidth="6"
+                colWidth="col-sm-8"
               />
             </div>
             <div className="form-group col-md-12">
@@ -206,7 +216,7 @@ class PxMstatOptions extends Component {
           >
             <div className="form-group col-sm-12 text-right">
               <button type="submit" className="btn btn-sm btn-success">
-                Apply Icons
+                Apply
               </button>
             </div>
           </Form>

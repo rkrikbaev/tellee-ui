@@ -198,7 +198,7 @@ class PxKpiList extends Component {
       case 'НЕИСПРАВНОСТЬ':
         elementStyle.stateColor = 'red'
         break
-      case 'ОСТАНОВЛЕН':
+      case 'ОСТАНОВ':
         elementStyle.stateColor = 'yellow'
         break
       default:
@@ -222,11 +222,10 @@ class PxKpiList extends Component {
     if (kpiMainPreValue[3] === null) {
       kpiMainPreValue[3] = 0
     }
-    let kpiChangePerc = 
-      (
-        ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
-        100
-      ).toFixed(2)
+    let kpiChangePerc = (
+      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
+      100
+    ).toFixed(2)
     if (kpiChangePerc < 0) {
       kpiChangePerc = ~kpiChangePerc + 1
     }
