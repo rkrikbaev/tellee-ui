@@ -91,7 +91,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleStatOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleStatOptions)

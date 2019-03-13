@@ -132,11 +132,11 @@ class PxRadar extends Component {
           height={height}
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
           series-key="timeStamp"
-          skip-keys='{"TimeStamp":true}'
+          skip-keys="{&quot;TimeStamp&quot;:true}"
           axes={pxSeriesConfig}
           show-tooltip={true}
           {...(staticLegend ? {} : {'hide-axis-register': true})}
-          tooltip-config='{"forceDateTimeDisplay":true}'
+          tooltip-config="{&quot;forceDateTimeDisplay&quot;:true}"
         />
 
         <ReactResizeDetector

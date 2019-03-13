@@ -214,7 +214,4 @@ const mdtp = {
   addAnnotationAsync: actions.addAnnotationAsync,
 }
 
-export default connect(
-  null,
-  mdtp
-)(OnClickOutside(NewAnnotation))
+export default connect(null, mdtp)(OnClickOutside(NewAnnotation))

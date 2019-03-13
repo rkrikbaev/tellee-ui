@@ -13,44 +13,44 @@ import {YMaps, Map, Clusterer, Placemark} from 'react-yandex-maps'
 // import POINTS from './POINTS.js'
 
 const mapState = {
-  center: [43.01006, -83.690012],
-  zoom: 6,
+  center: [28.438258, -98.361192],
+  zoom: 12,
 }
 const points = [
   {
     title: 'ШГН №1',
-    descr: 'Oil pump in Toronto',
-    coords: [43.684345, -79.431292],
+    descr: 'Oil pump 1',
+    coords: [28.445376, -98.385066],
     status: 'run',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/1',
+    link: 'http://157.230.97.228/sources/1/dashboards/1',
   },
   {
     title: 'ШГН №2',
-    descr: 'Oil pump in Clevelend',
-    coords: [41.499294, -81.693681],
+    descr: 'Oil pump 2',
+    coords: [28.44059, -98.365951],
     status: 'stop',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/11',
+    link: 'http://157.230.97.228/sources/1/dashboards/2',
   },
   {
     title: 'ШГН №3',
-    descr: 'Oil pump in Detroit',
-    coords: [42.332973, -83.043247],
+    descr: 'Oil pump 3',
+    coords: [28.438405, -98.339522],
     status: 'crush',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/12',
+    link: 'http://157.230.97.228/sources/1/dashboards/3',
   },
   {
     title: 'ШГН №4',
-    descr: 'Oil pump in Milwaukee',
-    coords: [43.041098, -87.906484],
+    descr: 'Oil pump 4',
+    coords: [28.422025, -98.338375],
     status: 'run',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/13',
+    link: 'http://157.230.97.228/sources/1/dashboards/4',
   },
   {
     title: 'ШГН №4',
-    descr: 'Oil pump in Milwaukee',
-    coords: [43.01006, -83.690012],
+    descr: 'Oil pump 5',
+    coords: [28.445921, -98.349233],
     status: 'run',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/14',
+    link: 'http://0.0.0.0:8080/sources/3/dashboards/5',
   },
 ]
 
@@ -74,6 +74,7 @@ class GIS extends Component {
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
+    this.changePointStatus()
     // this.parseDataFromProps()
   }
 
@@ -96,12 +97,13 @@ class GIS extends Component {
   }
 
   changePointStatus = () => {
-    const {tableData} = this._timeSeries
+    // const {tableData} = this._timeSeries
+    const tabelData = [1, 1, 3, 2, 3]
 
     for (let i = 0; i < points.length; i++) {
       if (
-        isNaN(tableData[tableData.length - 1][i]) ||
-        tableData[tableData.length - 1][i] === null
+        isNaN(tabelData[tabelData.length - 1][i]) ||
+        tabelData[tabelData.length - 1][i] === null
       ) {
         return <InvalidData />
       }
@@ -186,7 +188,7 @@ class GIS extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-        <YMaps query={{lang: 'en_Ru'}}>
+        <YMaps query={{lang: 'en_Ru', load: 'package.full'}}>
           <Map
             width={width}
             height={_height}

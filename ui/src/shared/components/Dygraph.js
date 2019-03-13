@@ -438,7 +438,4 @@ const mapStateToProps = ({annotations: {mode}}) => ({
   mode,
 })
 
-export default connect(
-  mapStateToProps,
-  null
-)(Dygraph)
+export default connect(mapStateToProps, null)(Dygraph)

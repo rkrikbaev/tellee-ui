@@ -15,9 +15,9 @@ const LogsTable = ({logs}) => (
       autoHide={false}
       className="logs-table--container fancy-scroll--kapacitor"
     >
-      {logs.slice(0, numLogsToRender).map(log => (
-        <LogsTableRow key={log.key} logItem={log} />
-      ))}
+      {logs
+        .slice(0, numLogsToRender)
+        .map(log => <LogsTableRow key={log.key} logItem={log} />)}
     </FancyScrollbar>
   </div>
 )

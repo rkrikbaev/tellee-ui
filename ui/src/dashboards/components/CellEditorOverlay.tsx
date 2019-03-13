@@ -157,8 +157,8 @@ class CellEditorOverlay extends Component<Props, State> {
       queryStatus.queryID &&
       (queryStatus.queryID !== queryID || queryStatus.status !== status)
     ) {
-      const nextQueries = queriesWorkingDraft.map(q =>
-        q.id === queryID ? {...q, status: queryStatus.status} : q
+      const nextQueries = queriesWorkingDraft.map(
+        q => (q.id === queryID ? {...q, status: queryStatus.status} : q)
       )
       this.setState({queriesWorkingDraft: nextQueries})
     }

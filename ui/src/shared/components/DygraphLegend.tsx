@@ -248,8 +248,9 @@ class DygraphLegend extends PureComponent<Props, State> {
   private get filtered(): SeriesLegendData[] {
     const {legend, sortType, isAscending, filterText} = this.state
     const withValues = legend.series.filter(s => !_.isNil(s.y))
-    const sorted = _.sortBy(withValues, ({y, label}) =>
-      sortType === 'numeric' ? y : label
+    const sorted = _.sortBy(
+      withValues,
+      ({y, label}) => (sortType === 'numeric' ? y : label)
     )
 
     const ordered = isAscending ? sorted : sorted.reverse()
@@ -295,7 +296,4 @@ const mapStateToProps = ({dashboardUI}) => ({
   activeCellID: dashboardUI.activeCellID,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DygraphLegend)
+export default connect(mapStateToProps, mapDispatchToProps)(DygraphLegend)

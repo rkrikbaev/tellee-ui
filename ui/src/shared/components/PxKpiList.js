@@ -75,22 +75,22 @@ class PxKpiList extends Component {
       sn,
       {
         label: 'Доступность',
-        value: `${tableData[tableData.length - 1][1].toFixed(1)}`,
-        uom: '%',
-      },
-      {
-        label: 'Надежность',
         value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
         uom: '%',
       },
       {
-        label: 'Время работы',
+        label: 'Надежность',
         value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
+        uom: '%',
+      },
+      {
+        label: 'Время работы',
+        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
         uom: 'h',
       },
       {
         label: 'Время простоя',
-        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][7].toFixed(1)}`,
         uom: 'h',
       }
     )
@@ -187,19 +187,19 @@ class PxKpiList extends Component {
           imgHeight: 100,
           listPadding: 1,
           fontSize: 1.3,
-          uomMargin: 0.2,
+          uomMargin: 0.12,
         }
     }
 
-    switch (tableData[tableData.length - 1][7]) {
+    switch (tableData[tableData.length - 1][2]) {
       case 'РАБОТА':
-        elementStyle.stateColor = 'green'
+        elementStyle.stateColor = '#7CE490'
         break
       case 'НЕИСПРАВНОСТЬ':
-        elementStyle.stateColor = 'red'
+        elementStyle.stateColor = '#ffb94a'
         break
       case 'ОСТАНОВ':
-        elementStyle.stateColor = 'yellow'
+        elementStyle.stateColor = '#DC4E58'
         break
       default:
         elementStyle.stateColor = 'black'
@@ -223,13 +223,13 @@ class PxKpiList extends Component {
       kpiMainPreValue[3] = 0
     }
     let kpiChangePerc = (
-      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
+      (kpiMainValue[3] - kpiMainPreValue[3]) /
+      kpiMainPreValue[3] *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {
       kpiChangePerc = ~kpiChangePerc + 1
     }
-
     let sparkAreaBg = '#364c5950'
     const pkTextColor = 'var(--zsse-g14-chromium)'
     if (staticLegend) {
@@ -266,7 +266,7 @@ class PxKpiList extends Component {
             caps={elementStyle.uomMargin}
             listui={elementStyle.listPadding}
             statecolor={elementStyle.stateColor}
-            label={tableData[tableData.length - 1][3]}
+            label={tableData[tableData.length - 1][1]}
             values={this.chartValue}
             status-icon={
               kpiMainValue[3] >= kpiMainPreValue[3]
@@ -276,8 +276,8 @@ class PxKpiList extends Component {
             status-color={
               kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
             }
-            status-label={tableData[tableData.length - 1][2].toFixed(1)}
-            footer={tableData[tableData.length - 1][7]}
+            status-label={tableData[tableData.length - 1][3].toFixed(1)}
+            footer={tableData[tableData.length - 1][2]}
           />
         </CustomProperties>
 

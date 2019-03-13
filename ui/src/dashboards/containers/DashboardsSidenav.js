@@ -79,7 +79,4 @@ const mapStateToProps = ({dashboardUI: {dashboards, dashboard}}) => ({
   dashboard,
 })
 
-export default connect(
-  mapStateToProps,
-  null
-)(DashboardsSidenav)
+export default connect(mapStateToProps, null)(DashboardsSidenav)

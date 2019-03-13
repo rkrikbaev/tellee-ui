@@ -84,6 +84,9 @@
     svg {
       margin-top: -30px;
     }
+    .modebar-group {
+      background: transparent;
+    }
     .modebar {
       background: transparent;
       z-index: 2;
@@ -111,14 +114,21 @@
 
 // ============== GIS element ==============
 .map_balloon {
-  h4 {
-    color:#007ACB;
+  background-color: var(--px-base-background-color,#fff) !important;
+  h4, strong {
+    color:var(--px-base-text-color,#2c404c);
   }
-  strong, a {
-    color: #003D66;
+  strong {
     display: block;
   }
-  a {
+  a:link, a:visited {
+    color:#007acc
+  }
+  a:hover {
+    color:#005c99
+  }
+  a:active, a:hover {
+    outline:0;
     text-decoration: underline;
   }
 }

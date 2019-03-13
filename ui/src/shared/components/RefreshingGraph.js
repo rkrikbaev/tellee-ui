@@ -528,7 +528,4 @@ const mapDispatchToProps = dispatch => ({
   handleSetHoverTime: bindActionCreators(setHoverTime, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RefreshingGraph)
+export default connect(mapStateToProps, mapDispatchToProps)(RefreshingGraph)

@@ -5,7 +5,7 @@
 }(this, function (exports, d3Axis, d3Array, d3TimeFormat, d3Time, d3Scale, d3Selection, d3Zoom) {
   'use strict';
 
-  var timelines = function () {
+  var timeliness = function () {
     var DISPLAY_TYPES = ["circle", "rect"];
 
     var hover = function () { },
@@ -186,7 +186,7 @@
 		/*###########################
 		####    START timelines    ###
 		#############################*/
-    function timelines(gParent) {
+    function timeliness(gParent) {
       var gParentSize = gParent.node().getBoundingClientRect(); // the svg size
       var gParentItem = d3Selection.select(gParent.node()); // the svg
 
@@ -670,267 +670,267 @@
 
     // SETTINGS
 
-    timelines.margin = function (p) {
+    timeliness.margin = function (p) {
       if (!arguments.length) return margin;
       margin = p;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.orient = function (orientation) {
+    timeliness.orient = function (orientation) {
       if (!arguments.length) return orient;
       orient = orientation;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.itemHeight = function (h) {
+    timeliness.itemHeight = function (h) {
       if (!arguments.length) return itemHeight;
       itemHeight = h;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.itemMargin = function (h) {
+    timeliness.itemMargin = function (h) {
       if (!arguments.length) return itemMargin;
       itemMargin = h;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.navMargin = function (h) {
+    timeliness.navMargin = function (h) {
       if (!arguments.length) return navMargin;
       navMargin = h;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.height = function (h) {
+    timeliness.height = function (h) {
       if (!arguments.length) return height;
       height = h;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.width = function (w) {
+    timeliness.width = function (w) {
       if (!arguments.length) return width;
       width = w;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.display = function (displayType) {
+    timeliness.display = function (displayType) {
       if (!arguments.length || (DISPLAY_TYPES.indexOf(displayType) == -1)) return display;
       display = displayType;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.labelFormat = function (f) {
+    timeliness.labelFormat = function (f) {
       if (!arguments.length) return labelFunction;
       labelFunction = f;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.tickFormat = function (format) {
+    timeliness.tickFormat = function (format) {
       if (!arguments.length) return tickFormat;
       tickFormat = format;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.allowZoom = function (zoomSetting) {
+    timeliness.allowZoom = function (zoomSetting) {
       if (!arguments.length) return allowZoom;
       allowZoom = zoomSetting;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.maxZoom = function (max) {
+    timeliness.maxZoom = function (max) {
       if (!arguments.length) return maxZoom;
       maxZoom = max;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.hover = function (hoverFunc) {
+    timeliness.hover = function (hoverFunc) {
       if (!arguments.length) return hover;
       hover = hoverFunc;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.mouseover = function (mouseoverFunc) {
+    timeliness.mouseover = function (mouseoverFunc) {
       if (!arguments.length) return mouseover;
       mouseover = mouseoverFunc;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.mouseout = function (mouseoutFunc) {
+    timeliness.mouseout = function (mouseoutFunc) {
       if (!arguments.length) return mouseout;
       mouseout = mouseoutFunc;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.click = function (clickFunc) {
+    timeliness.click = function (clickFunc) {
       if (!arguments.length) return click;
       click = clickFunc;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.scroll = function (scrollFunc) {
+    timeliness.scroll = function (scrollFunc) {
       if (!arguments.length) return scroll;
       scroll = scrollFunc;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.colors = function (colorFormat) {
+    timeliness.colors = function (colorFormat) {
       if (!arguments.length) return colorCycle;
       colorCycle = colorFormat;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.beginning = function (b) {
+    timeliness.beginning = function (b) {
       if (!arguments.length) return beginning;
       beginning = b;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.ending = function (e) {
+    timeliness.ending = function (e) {
       if (!arguments.length) return ending;
       ending = e;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.labelMargin = function (m) {
+    timeliness.labelMargin = function (m) {
       if (!arguments.length) return labelMargin;
       labelMargin = m;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.labelFloat = function (f) {
+    timeliness.labelFloat = function (f) {
       if (!arguments.length) return labelFloat;
       labelFloat = f;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.rotateTicks = function (degrees) {
+    timeliness.rotateTicks = function (degrees) {
       if (!arguments.length) return rotateTicks;
       rotateTicks = degrees;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.stack = function () {
+    timeliness.stack = function () {
       stacked = !stacked;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.relativeTime = function () {
+    timeliness.relativeTime = function () {
       timeIsRelative = !timeIsRelative;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.linearTime = function () {
+    timeliness.linearTime = function () {
       timeIsLinear = !timeIsLinear;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showBorderLine = function () {
+    timeliness.showBorderLine = function () {
       showBorderLine = !showBorderLine;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showBorderFormat = function (borderFormat) {
+    timeliness.showBorderFormat = function (borderFormat) {
       if (!arguments.length) return showBorderFormat;
       showBorderFormat = borderFormat;
-      return timelines;
+      return timeliness;
     };
 
     // CSS class for the lines added by showBorder
-    timelines.showBorderLineClass = function (borderClass) {
+    timeliness.showBorderLineClass = function (borderClass) {
       if (!arguments.length) return showBorderLineClass;
       showBorderLineClass = borderClass;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showToday = function () {
+    timeliness.showToday = function () {
       showTodayLine = !showTodayLine;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showTodayFormat = function (todayFormat) {
+    timeliness.showTodayFormat = function (todayFormat) {
       if (!arguments.length) return showTodayFormat;
       showTodayFormat = todayFormat;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.colorProperty = function (colorProp) {
+    timeliness.colorProperty = function (colorProp) {
       if (!arguments.length) return colorPropertyName;
       colorPropertyName = colorProp;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.rowSeparators = function (color) {
+    timeliness.rowSeparators = function (color) {
       if (!arguments.length) return rowSeparatorsColor;
       rowSeparatorsColor = color;
-      return timelines;
+      return timeliness;
 
     };
 
-    timelines.background = function (color) {
+    timeliness.background = function (color) {
       if (!arguments.length) return backgroundColor;
       backgroundColor = color;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showTimeAxis = function () {
+    timeliness.showTimeAxis = function () {
       showTimeAxis = !showTimeAxis;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showAxisTop = function () {
+    timeliness.showAxisTop = function () {
       showAxisTop = !showAxisTop;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showAxisCalendarYear = function () {
+    timeliness.showAxisCalendarYear = function () {
       showAxisCalendarYear = !showAxisCalendarYear;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showTimeAxisTick = function () {
+    timeliness.showTimeAxisTick = function () {
       timeAxisTick = !timeAxisTick;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.fullLengthBackgrounds = function () {
+    timeliness.fullLengthBackgrounds = function () {
       fullLengthBackgrounds = !fullLengthBackgrounds;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showTimeAxisTickFormat = function (format) {
+    timeliness.showTimeAxisTickFormat = function (format) {
       if (!arguments.length) return timeAxisTickFormat;
       timeAxisTickFormat = format;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.showAxisHeaderBackground = function (bgColor) {
+    timeliness.showAxisHeaderBackground = function (bgColor) {
       showAxisHeaderBackground = !showAxisHeaderBackground;
       if (bgColor) { (axisBgColor = bgColor); }
-      return timelines;
+      return timeliness;
     };
 
     // CSS class for the x-axis
-    timelines.xAxisClass = function (axisClass) {
+    timeliness.xAxisClass = function (axisClass) {
       if (!arguments.length) return xAxisClass;
       xAxisClass = axisClass;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.navigate = function (navigateBackwards, navigateForwards) {
+    timeliness.navigate = function (navigateBackwards, navigateForwards) {
       if (!arguments.length) return [navigateLeft, navigateRight];
       navigateLeft = navigateBackwards;
       navigateRight = navigateForwards;
       showAxisNav = !showAxisNav;
-      return timelines;
+      return timeliness;
     };
 
-    timelines.version = function () {
+    timeliness.version = function () {
       return "1.0.0";
     };
 
-    return timelines;
+    return timeliness;
   };
 
-  exports.timelines = timelines;
+  exports.timeliness = timeliness;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

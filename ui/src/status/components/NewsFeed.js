@@ -89,7 +89,4 @@ const mapDispatchToProps = dispatch => ({
   fetchJSONFeed: bindActionCreators(fetchJSONFeedAsync, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewsFeed)
+export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed)
