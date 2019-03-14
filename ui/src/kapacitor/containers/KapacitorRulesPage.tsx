@@ -127,4 +127,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(KapacitorRulesPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(KapacitorRulesPage)

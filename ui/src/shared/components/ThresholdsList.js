@@ -84,9 +84,8 @@ class ThresholdsList extends Component {
     const {handleUpdateThresholdsListColors} = this.props
     const {hex, name} = updatedColor
 
-    const thresholdsListColors = this.props.thresholdsListColors.map(
-      color =>
-        color.id === THRESHOLD_TYPE_BASE ? {...color, hex, name} : color
+    const thresholdsListColors = this.props.thresholdsListColors.map(color =>
+      color.id === THRESHOLD_TYPE_BASE ? {...color, hex, name} : color
     )
 
     handleUpdateThresholdsListColors(thresholdsListColors)
@@ -95,8 +94,8 @@ class ThresholdsList extends Component {
   handleChooseColor = updatedColor => {
     const {handleUpdateThresholdsListColors} = this.props
 
-    const thresholdsListColors = this.props.thresholdsListColors.map(
-      color => (color.id === updatedColor.id ? updatedColor : color)
+    const thresholdsListColors = this.props.thresholdsListColors.map(color =>
+      color.id === updatedColor.id ? updatedColor : color
     )
 
     handleUpdateThresholdsListColors(thresholdsListColors)
@@ -105,8 +104,8 @@ class ThresholdsList extends Component {
   handleUpdateColorValue = (threshold, value) => {
     const {handleUpdateThresholdsListColors} = this.props
 
-    const thresholdsListColors = this.props.thresholdsListColors.map(
-      color => (color.id === threshold.id ? {...color, value} : color)
+    const thresholdsListColors = this.props.thresholdsListColors.map(color =>
+      color.id === threshold.id ? {...color, value} : color
     )
 
     handleUpdateThresholdsListColors(thresholdsListColors)
@@ -144,29 +143,28 @@ class ThresholdsList extends Component {
         >
           <span className="icon plus" /> Add Threshold
         </button>
-        {this.sortedColors.map(
-          color =>
-            color.id === THRESHOLD_TYPE_BASE ? (
-              <div className="threshold-item" key={uuid.v4()}>
-                <div className="threshold-item--label">Base Color</div>
-                <ColorDropdown
-                  colors={THRESHOLD_COLORS}
-                  selected={color}
-                  onChoose={this.handleChangeBaseColor}
-                  stretchToFit={true}
-                />
-              </div>
-            ) : (
-              <Threshold
-                visualizationType="single-stat"
-                threshold={color}
-                key={uuid.v4()}
-                onChooseColor={this.handleChooseColor}
-                onValidateColorValue={this.handleValidateColorValue}
-                onUpdateColorValue={this.handleUpdateColorValue}
-                onDeleteThreshold={this.handleDeleteThreshold}
+        {this.sortedColors.map(color =>
+          color.id === THRESHOLD_TYPE_BASE ? (
+            <div className="threshold-item" key={uuid.v4()}>
+              <div className="threshold-item--label">Base Color</div>
+              <ColorDropdown
+                colors={THRESHOLD_COLORS}
+                selected={color}
+                onChoose={this.handleChangeBaseColor}
+                stretchToFit={true}
               />
-            )
+            </div>
+          ) : (
+            <Threshold
+              visualizationType="single-stat"
+              threshold={color}
+              key={uuid.v4()}
+              onChooseColor={this.handleChooseColor}
+              onValidateColorValue={this.handleValidateColorValue}
+              onUpdateColorValue={this.handleUpdateColorValue}
+              onDeleteThreshold={this.handleDeleteThreshold}
+            />
+          )
         )}
       </div>
     )
@@ -198,4 +196,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   ),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(ThresholdsList)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThresholdsList)

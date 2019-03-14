@@ -374,4 +374,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TickscriptPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TickscriptPage)

@@ -377,4 +377,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(null, mapDispatchToProps)(OnClickOutside(RowWrapper))
+export default connect(
+  null,
+  mapDispatchToProps
+)(OnClickOutside(RowWrapper))

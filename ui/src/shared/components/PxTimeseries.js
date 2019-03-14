@@ -176,9 +176,9 @@ class PxTimeseries extends Component {
           prevent-resize="true"
           chart-horizontal-alignment="center"
           chart-vertical-alignment="center"
-          margin="{&quot;top&quot;:30,&quot;bottom&quot;:40,&quot;left&quot;:50,&quot;right&quot;:35}"
+          margin='{"top":30,"bottom":40,"left":50,"right":35}'
           tooltip-config="{}"
-          register-config="{&quot;type&quot;:&quot;horizontal&quot;}"
+          register-config='{"type":"horizontal"}'
           selection-type="xy"
           show-tooltip="true"
           chart-data={JSON.stringify(timeSeries.jsonflatten)}
@@ -189,7 +189,7 @@ class PxTimeseries extends Component {
           {...(staticLegend ? {} : {'hide-register': true})}
           // display-threshold-title
           // threshold-config='{"max":{"color":"red","dashPattern":"5,0","title":"MAX","showThresholdBox":true,"displayTitle":true}}'
-          x-axis-config="{&quot;title&quot;:&quot;&quot;}"
+          x-axis-config='{"title":""}'
           // y-axis-config='{"title":"Single","titleTruncation":false,"unit":"F","axis1":{"title":"Temperature","titleTruncation":false,"unit":"C"}}'
           // toolbar-config="{&quot;config&quot;:{&quot;advancedZoom&quot;:true,&quot;pan&quot;:true,&quot;tooltip&quot;:true,&quot;logHover&quot;:{&quot;buttonGroup&quot;:2,&quot;tooltipLabel&quot;:&quot;The submenu item of this menu will define custom mouse interaction&quot;,&quot;icon&quot;:&quot;px-nav:notification&quot;,&quot;subConfig&quot;:{&quot;customClick&quot;:{&quot;icon&quot;:&quot;px-nav:expand&quot;,&quot;buttonGroup&quot;:3,&quot;tooltipLabel&quot;:&quot;define some custom mouse interactions on chart&quot;,&quot;eventName&quot;:&quot;my-custom-click&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:&quot;function(mousePos) { console.log(\&quot;custom click on chart. Context is the chart. Mouse pos is available: \&quot; + JSON.stringify(mousePos))}&quot;,&quot;mouseup&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse up the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mouseout&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on mouse out the chart \&quot; + JSON.stringify(mousePos));}&quot;,&quot;mousemove&quot;:&quot;function(mousePos) { console.log(\&quot;custom action on hovering the chart \&quot;);}&quot;}},&quot;customClick2&quot;:{&quot;buttonGroup&quot;:3,&quot;icon&quot;:&quot;px-nav:collapse&quot;,&quot;tooltipLabel&quot;:&quot;Remove all custom interactions&quot;,&quot;actionConfig&quot;:{&quot;mousedown&quot;:null,&quot;mouseup&quot;:null,&quot;mouseout&quot;:null,&quot;mousemove&quot;:null}}}}}}"
         />
@@ -272,4 +272,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(null, mapDispatchToProps)(PxTimeseries)
+export default connect(
+  null,
+  mapDispatchToProps
+)(PxTimeseries)

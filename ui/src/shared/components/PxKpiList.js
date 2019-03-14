@@ -223,8 +223,7 @@ class PxKpiList extends Component {
       kpiMainPreValue[3] = 0
     }
     let kpiChangePerc = (
-      (kpiMainValue[3] - kpiMainPreValue[3]) /
-      kpiMainPreValue[3] *
+      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {

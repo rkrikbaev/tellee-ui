@@ -226,9 +226,7 @@ class XYChart extends Component {
               format: 'png',
               width: 800,
               height: 600,
-              filename: `${
-                data[0].response.results[0].series[0].name
-              }_${new Date().getTime()}`,
+              filename: `${data[0].response.results[0].series[0].name.toLowerCase()}_${new Date().getTime()}`,
             },
           }}
         />

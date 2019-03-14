@@ -61,4 +61,7 @@ const mapDispatchToProps = dispatch => ({
   handleChangeCellType: bindActionCreators(changeCellType, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(GraphTypeSelector)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GraphTypeSelector)

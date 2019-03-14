@@ -24,7 +24,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 @ErrorHandling
-@connect(null, mapDispatchToProps)
+@connect(
+  null,
+  mapDispatchToProps
+)
 class DashboardEmpty extends Component<Props> {
   constructor(props) {
     super(props)

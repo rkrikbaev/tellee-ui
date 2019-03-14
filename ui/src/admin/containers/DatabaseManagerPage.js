@@ -182,4 +182,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DatabaseManagerPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DatabaseManagerPage)

@@ -44,4 +44,7 @@ const mapStateToProps = ({links}) => {
   return {links: links.ifql}
 }
 
-export default connect(mapStateToProps, null)(Filter)
+export default connect(
+  mapStateToProps,
+  null
+)(Filter)

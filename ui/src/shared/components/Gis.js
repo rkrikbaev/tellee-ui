@@ -46,11 +46,11 @@ const points = [
     link: 'http://157.230.97.228/sources/1/dashboards/4',
   },
   {
-    title: 'ШГН №4',
+    title: 'ШГН №5',
     descr: 'Oil pump 5',
     coords: [28.445921, -98.349233],
     status: 'run',
-    link: 'http://0.0.0.0:8080/sources/3/dashboards/5',
+    link: 'http://157.230.97.228/sources/1/dashboards/5',
   },
 ]
 
@@ -97,17 +97,15 @@ class GIS extends Component {
   }
 
   changePointStatus = () => {
-    // const {tableData} = this._timeSeries
-    const tabelData = [1, 1, 3, 2, 3]
-
-    for (let i = 0; i < points.length; i++) {
-      if (
-        isNaN(tabelData[tabelData.length - 1][i]) ||
-        tabelData[tabelData.length - 1][i] === null
-      ) {
+    const {tableData} = this._timeSeries
+    // const tabelData = [1, 1, 3, 2, 3]
+    tableData[tableData.length - 1].shift()
+    const arr = tableData[tableData.length - 1]
+    for (let i = 0; i < arr.length; i++) {
+      if (isNaN(arr[i]) || arr[i] === null) {
         return <InvalidData />
       }
-      switch (points[i].status) {
+      switch (arr[i]) {
         case 1:
           points[i].status = 'run'
           break

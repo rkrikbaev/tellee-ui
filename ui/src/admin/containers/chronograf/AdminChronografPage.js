@@ -99,4 +99,7 @@ const mapStateToProps = ({auth: {me}}) => ({
   me,
 })
 
-export default connect(mapStateToProps, null)(AdminChronografPage)
+export default connect(
+  mapStateToProps,
+  null
+)(AdminChronografPage)

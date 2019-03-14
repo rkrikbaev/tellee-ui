@@ -39,8 +39,8 @@ export default function ui(state = initialState, action) {
     case 'UPDATE_DASHBOARD': {
       const {dashboard} = action.payload
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? dashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? dashboard : d
         ),
       }
       return {...state, ...newState}
@@ -72,8 +72,8 @@ export default function ui(state = initialState, action) {
       }
 
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? newDashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? newDashboard : d
         ),
       }
 
@@ -86,8 +86,8 @@ export default function ui(state = initialState, action) {
 
       const newCells = [cell, ...dashboard.cells]
       const newDashboard = {...dashboard, cells: newCells}
-      const newDashboards = dashboards.map(
-        d => (d.id === dashboard.id ? newDashboard : d)
+      const newDashboards = dashboards.map(d =>
+        d.id === dashboard.id ? newDashboard : d
       )
       const newState = {dashboards: newDashboards}
 
@@ -110,8 +110,8 @@ export default function ui(state = initialState, action) {
       }
 
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? newDashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? newDashboard : d
         ),
       }
 
@@ -129,8 +129,8 @@ export default function ui(state = initialState, action) {
         cells: newCells,
       }
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? newDashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? newDashboard : d
         ),
       }
 
@@ -140,16 +140,15 @@ export default function ui(state = initialState, action) {
     case 'CANCEL_EDIT_CELL': {
       const {dashboardID, cellID} = action.payload
 
-      const dashboards = state.dashboards.map(
-        d =>
-          d.id === dashboardID
-            ? {
-                ...d,
-                cells: d.cells.map(
-                  c => (c.i === cellID ? {...c, isEditing: false} : c)
-                ),
-              }
-            : d
+      const dashboards = state.dashboards.map(d =>
+        d.id === dashboardID
+          ? {
+              ...d,
+              cells: d.cells.map(c =>
+                c.i === cellID ? {...c, isEditing: false} : c
+              ),
+            }
+          : d
       )
 
       return {...state, dashboards}
@@ -160,14 +159,14 @@ export default function ui(state = initialState, action) {
 
       const newDashboard = {
         ...dashboard,
-        cells: dashboard.cells.map(
-          c => (c.x === cell.x && c.y === cell.y ? cell : c)
+        cells: dashboard.cells.map(c =>
+          c.x === cell.x && c.y === cell.y ? cell : c
         ),
       }
 
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? newDashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? newDashboard : d
         ),
       }
 
@@ -190,8 +189,8 @@ export default function ui(state = initialState, action) {
       }
 
       const newState = {
-        dashboards: state.dashboards.map(
-          d => (d.id === dashboard.id ? newDashboard : d)
+        dashboards: state.dashboards.map(d =>
+          d.id === dashboard.id ? newDashboard : d
         ),
       }
 
@@ -247,20 +246,18 @@ export default function ui(state = initialState, action) {
 
       const makeNewValues = template => ({
         ...template,
-        values: template.values.map(
-          value =>
-            selecteds.find(({selectedValue}) => selectedValue === value.value)
-              ? makeNewValue(value, true)
-              : makeNewValue(value, false)
+        values: template.values.map(value =>
+          selecteds.find(({selectedValue}) => selectedValue === value.value)
+            ? makeNewValue(value, true)
+            : makeNewValue(value, false)
         ),
       })
 
       const makeNewTemplates = templates =>
-        templates.map(
-          template =>
-            selecteds.find(({tempVar}) => tempVar === template.tempVar)
-              ? makeNewValues(template)
-              : template
+        templates.map(template =>
+          selecteds.find(({tempVar}) => tempVar === template.tempVar)
+            ? makeNewValues(template)
+            : template
         )
 
       const makeNewDashboard = dashboard => ({
@@ -268,11 +265,10 @@ export default function ui(state = initialState, action) {
         templates: makeNewTemplates(dashboard.templates),
       })
 
-      const newDashboards = state.dashboards.map(
-        oldDashboard =>
-          oldDashboard.id === dashboardID
-            ? makeNewDashboard(oldDashboard)
-            : oldDashboard
+      const newDashboards = state.dashboards.map(oldDashboard =>
+        oldDashboard.id === dashboardID
+          ? makeNewDashboard(oldDashboard)
+          : oldDashboard
       )
 
       return {...state, dashboards: newDashboards}

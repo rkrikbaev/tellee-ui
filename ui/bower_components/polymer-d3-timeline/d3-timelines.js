@@ -408,8 +408,8 @@
                 "End date: " + (new Date(d.ending_time)).toLocaleString()
                 + "<br />" +
                 formatDays(interval))
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+                .style("left", (d3v4.event.pageX) + "px")
+                .style("top", (d3v4.event.pageY - 28) + "px");
             })
             .on("mouseout", function (d) {
               tooltipDiv.transition()
