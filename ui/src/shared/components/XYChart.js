@@ -10,14 +10,6 @@ import {colorsStringSchema} from 'shared/schemas'
 import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 
-// const validateTimeSeries = timeseries => {
-//   return _.every(timeseries, r =>
-//     _.every(
-//       r,
-//       (v, i) => (i === 0 && Date.parse(v)) || _.isNumber(v) || _.isNull(v)
-//     )
-//   )
-// }
 @ErrorHandlingWith(InvalidData)
 class XYChart extends Component {
   constructor(props) {
@@ -53,26 +45,18 @@ class XYChart extends Component {
 
   parseTimeSeries(data) {
     this._timeSeries = timeSeriesToPxSeries(data)
-    // console.log(JSON.stringify(this._timeSeries.timeSeries))
-    // this.isValidData = validateTimeSeries(
-    //   _.get(this._timeSeries, 'timeSeries', [])
-    // )
   }
 
   parseDataFromProps = () => {
-    const values = this._timeSeries.tableData
-    const date = [],
+    const values = this._timeSeries.tableData,
       force = [],
       position = [],
       result = []
-    date.push(values[0][0])
-    date.push(values[values.length - 1][0])
     for (let i = 0; i < values.length; i++) {
       force.push(values[i][1])
       position.push(values[i][2])
-
       if (values.length - 1 === i) {
-        result.push(date, force, position)
+        result.push(force, position)
       }
     }
     return result
@@ -125,29 +109,25 @@ class XYChart extends Component {
       {
         x: [0, 13, 100, 83, 0],
         y: [2400, 2900, 2900, 2400, 2400],
-        // hoveron: 'points+fills',
         line: {
           dash: 'dash',
           color: colors[1].hex,
         },
         autorange: true,
         name: 'old shape',
-        // text: 'Points + Fills',
         hoverinfo: 'none',
       },
       {
-        x: this.axisData[2],
-        y: this.axisData[1],
+        x: this.axisData[1],
+        y: this.axisData[0],
         fill: 'toself',
         fillcolor: colors[0].hex,
         opacity: 0.5,
-        // hoveron: 'points',
         line: {
           color: colors[0].hex,
         },
         autorange: true,
         name: 'last shape',
-        // text: 'Points only',
         hoverinfo: 'none',
       },
     ]
