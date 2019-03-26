@@ -30,7 +30,7 @@ class XYChart extends Component {
   componentWillMount() {
     const {data, isInDataExplorer} = this.props
     this.parseTimeSeries(data, isInDataExplorer)
-    this.axisData = this.parseDataFromProps()
+    this.axisData = this.parseDataFromProps(this._timeSeries.tableData)
   }
 
   componentWillUpdate(nextProps) {
@@ -47,9 +47,8 @@ class XYChart extends Component {
     this._timeSeries = timeSeriesToPxSeries(data)
   }
 
-  parseDataFromProps = () => {
-    const values = this._timeSeries.tableData,
-      force = [],
+  parseDataFromProps = values => {
+    const force = [],
       position = [],
       result = []
     for (let i = 0; i < values.length; i++) {

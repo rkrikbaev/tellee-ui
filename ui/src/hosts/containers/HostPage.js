@@ -116,7 +116,7 @@ class HostPage extends Component {
       return allCells.concat(
         layout.cells.map(cell => {
           const x = (cellCount * cellWidth) % pageWidth
-          const y = Math.floor((cellCount * cellWidth) / pageWidth) * cellHeight
+          const y = Math.floor(cellCount * cellWidth / pageWidth) * cellHeight
           cellCount += 1
           return Object.assign(cell, {
             w: cellWidth,
@@ -250,7 +250,6 @@ const mapDispatchToProps = dispatch => ({
   handleClickPresentationButton: presentationButtonDispatcher(dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManualRefresh(HostPage))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ManualRefresh(HostPage)
+)

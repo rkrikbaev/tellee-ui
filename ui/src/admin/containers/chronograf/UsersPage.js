@@ -32,8 +32,8 @@ class UsersPage extends PureComponent {
       actions: {updateUserAsync},
     } = this.props
     const updatedRole = {...currentRole, name}
-    const newRoles = user.roles.map(r =>
-      r.organization === currentRole.organization ? updatedRole : r
+    const newRoles = user.roles.map(
+      r => (r.organization === currentRole.organization ? updatedRole : r)
     )
     updateUserAsync(
       user,
@@ -128,7 +128,4 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPage)

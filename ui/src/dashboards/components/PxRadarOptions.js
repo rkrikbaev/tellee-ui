@@ -241,7 +241,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PxRadarOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(PxRadarOptions)

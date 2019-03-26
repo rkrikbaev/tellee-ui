@@ -278,7 +278,4 @@ const mapDispatchToProps = dispatch => ({
   addSource: bindActionCreators(addSourceAction, dispatch),
   updateSource: bindActionCreators(updateSourceAction, dispatch),
 })
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(SourcePage))
+export default connect(null, mapDispatchToProps)(withRouter(SourcePage))

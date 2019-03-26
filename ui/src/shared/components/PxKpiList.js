@@ -34,6 +34,7 @@ class PxKpiList extends Component {
     super(props)
     this.isValidData = true
     this.chartValue = []
+    this.status = ''
     this.state = {
       height: 0,
       width: 0,
@@ -75,22 +76,22 @@ class PxKpiList extends Component {
       sn,
       {
         label: 'Доступность',
-        value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][3].toFixed(1)}`,
         uom: '%',
       },
       {
         label: 'Надежность',
-        value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
         uom: '%',
       },
       {
         label: 'Время работы',
-        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
         uom: 'h',
       },
       {
         label: 'Время простоя',
-        value: `${tableData[tableData.length - 1][7].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
         uom: 'h',
       }
     )
@@ -191,18 +192,22 @@ class PxKpiList extends Component {
         }
     }
 
-    switch (tableData[tableData.length - 1][2]) {
-      case 'РАБОТА':
+    switch (tableData[tableData.length - 1][7]) {
+      case 1:
         elementStyle.stateColor = '#7CE490'
+        this.status = 'РАБОТА'
         break
-      case 'НЕИСПРАВНОСТЬ':
+      case 2:
         elementStyle.stateColor = '#ffb94a'
+        this.status = 'НЕИСПРАВЕН'
         break
-      case 'ОСТАНОВ':
+      case 3:
         elementStyle.stateColor = '#DC4E58'
+        this.status = 'ОСТАНОВ'
         break
       default:
         elementStyle.stateColor = 'black'
+        this.status = 'Invalid Data'
     }
 
     const kpiMainValue = tableData[tableData.length - 1]
@@ -216,14 +221,15 @@ class PxKpiList extends Component {
       return <InvalidData />
     }
 
-    if (kpiMainValue[3] === null) {
-      kpiMainValue[3] = 0
+    if (kpiMainValue[2] === null) {
+      kpiMainValue[2] = 0
     }
-    if (kpiMainPreValue[3] === null) {
-      kpiMainPreValue[3] = 0
+    if (kpiMainPreValue[2] === null) {
+      kpiMainPreValue[2] = 0
     }
     let kpiChangePerc = (
-      ((kpiMainValue[3] - kpiMainPreValue[3]) / kpiMainPreValue[3]) *
+      (kpiMainValue[2] - kpiMainPreValue[2]) /
+      kpiMainPreValue[2] *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {
@@ -275,8 +281,8 @@ class PxKpiList extends Component {
             status-color={
               kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
             }
-            status-label={tableData[tableData.length - 1][3].toFixed(1)}
-            footer={tableData[tableData.length - 1][2]}
+            status-label={tableData[tableData.length - 1][2].toFixed(1)}
+            footer={this.status}
           />
         </CustomProperties>
 

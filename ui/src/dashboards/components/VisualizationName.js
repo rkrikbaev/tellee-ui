@@ -76,7 +76,4 @@ const mapDispatchToProps = dispatch => ({
   handleRenameCell: bindActionCreators(renameCell, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VisualizationName)
+export default connect(mapStateToProps, mapDispatchToProps)(VisualizationName)

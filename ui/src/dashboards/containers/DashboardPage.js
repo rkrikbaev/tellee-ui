@@ -633,7 +633,6 @@ const mapDispatchToProps = dispatch => ({
   handleShowOverlay: bindActionCreators(showOverlay, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManualRefresh(withRouter(DashboardPage)))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ManualRefresh(withRouter(DashboardPage))
+)

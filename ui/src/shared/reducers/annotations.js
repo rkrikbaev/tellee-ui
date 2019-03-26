@@ -85,8 +85,8 @@ const annotationsReducer = (state = initialState, action) => {
 
     case 'UPDATE_ANNOTATION': {
       const {annotation} = action.payload
-      const annotations = state.annotations.map(a =>
-        a.id === annotation.id ? annotation : a
+      const annotations = state.annotations.map(
+        a => (a.id === annotation.id ? annotation : a)
       )
 
       return {

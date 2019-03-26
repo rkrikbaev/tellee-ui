@@ -111,7 +111,4 @@ const mapDispatchToProps = dispatch => ({
   dismissNotification: bindActionCreators(dismissNotificationAction, dispatch),
 })
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Notification)
+export default connect(null, mapDispatchToProps)(Notification)

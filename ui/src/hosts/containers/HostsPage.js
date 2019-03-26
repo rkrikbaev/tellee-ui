@@ -205,7 +205,6 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManualRefresh(HostsPage))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ManualRefresh(HostsPage)
+)

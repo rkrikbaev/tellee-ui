@@ -24,6 +24,9 @@ class PxMstat extends Component {
   constructor(props) {
     super(props)
     this.isValidData = true
+    this.status = ''
+    this.label = ''
+    this.preLabel = ''
     this.state = {
       height: 0,
       width: 0,
@@ -172,17 +175,32 @@ class PxMstat extends Component {
         <div className={classnames('row tile_count', minifyCss)}>
           {_labels.map((value, key) => {
             switch (_tableDataNow[key + 1]) {
-              case 'НЕИСПРАВНОСТЬ':
-                countColor = 'count count_crushed'
-                break
-              case 'ОСТАНОВ':
-                countColor = 'count count_stopped'
-                break
-              case 'РАБОТА':
+              case 1:
                 countColor = 'count count_running'
+                this.status = 'РАБОТА'
+                break
+              case 2:
+                countColor = 'count count_stopped'
+                this.status = 'ОСТАНОВ'
+                break
+              case 3:
+                countColor = 'count count_crushed'
+                this.status = 'НЕИСПРАВНОСТЬ'
                 break
               default:
                 countColor = 'count'
+            }
+            this.label =
+              _tableDataNow[key + 1] === 1 ||
+              _tableDataNow[key + 1] === 2 ||
+              _tableDataNow[key + 1] === 3
+                ? this.status
+                : _tableDataNow[key + 1]
+            if (staticLegend) {
+              this.preLabel =
+                _tableDataPre[key + 1] === 1
+                  ? this.status
+                  : _tableDataPre[key + 1]
             }
             return (
               <div className={cols} key={key}>
@@ -203,10 +221,9 @@ class PxMstat extends Component {
                     : ` (${iconsArray[key].metric})` || ''}
                 </span>
                 <div className={countColor}>
-                  {isNaN(_tableDataNow[key + 1]) ||
-                  _tableDataNow[key + 1] === null
-                    ? _tableDataNow[key + 1] || '0'
-                    : _tableDataNow[key + 1].toFixed(2)}
+                  {isNaN(this.label) || this.label === null
+                    ? this.label || '0'
+                    : this.label.toFixed(2)}
                   {/* {_tableDataNow[key + 1] === null
                     ? '0'
                     : _tableDataNow[key + 1].toFixed(2)} */}
@@ -214,10 +231,9 @@ class PxMstat extends Component {
                 {staticLegend ? (
                   <span className="count_bottom">
                     <i className="green">
-                      {isNaN(_tableDataPre[key + 1]) ||
-                      _tableDataPre[key + 1] === null
-                        ? _tableDataPre[key + 1] || '0'
-                        : _tableDataPre[key + 1].toFixed(2)}
+                      {isNaN(this.preLabel) || this.preLabel === null
+                        ? this.preLabel || '0'
+                        : this.preLabel.toFixed(2)}
                       {/* {_tableDataPre[key + 1] === null
                         ? '0'
                         : _tableDataPre[key + 1].toFixed(2)} */}

@@ -144,7 +144,8 @@ class PxKpi extends Component {
       kpiMainPreValue.y = 0
     }
     let kpiChangePerc = (
-      ((kpiMainValue.y - kpiMainPreValue.y) / kpiMainPreValue.y) *
+      (kpiMainValue.y - kpiMainPreValue.y) /
+      kpiMainPreValue.y *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {

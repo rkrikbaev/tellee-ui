@@ -568,7 +568,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateFieldOptions: bindActionCreators(updateFieldOptions, dispatch),
 })
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(TableGraph)
+export default connect(null, mapDispatchToProps)(TableGraph)

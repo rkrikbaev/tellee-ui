@@ -328,7 +328,4 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AdminInfluxDBPage)
+export default connect(mapStateToProps, mapDispatchToProps)(AdminInfluxDBPage)
