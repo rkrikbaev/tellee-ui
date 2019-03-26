@@ -123,7 +123,7 @@ class PxInbox extends Component {
     // const suffix = axes ? axes.y.suffix : ''
     const {width, height} = this.state
 
-    const _width = `${30 * width / 100}px` // i love this type messing
+    const _width = `${(30 * width) / 100}px` // i love this type messing
     const _height = `${height}px`
 
     return (

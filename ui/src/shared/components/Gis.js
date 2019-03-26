@@ -18,35 +18,35 @@ const mapState = {
 }
 const points = [
   {
-    title: 'ШГН №1',
+    title: 'SRP №1',
     descr: 'Oil pump 1',
     coords: [28.445376, -98.385066],
     status: 'run',
     link: 'http://157.230.97.228/sources/1/dashboards/1',
   },
   {
-    title: 'ШГН №2',
+    title: 'SRP №2',
     descr: 'Oil pump 2',
     coords: [28.44059, -98.365951],
     status: 'stop',
     link: 'http://157.230.97.228/sources/1/dashboards/2',
   },
   {
-    title: 'ШГН №3',
+    title: 'SRP №3',
     descr: 'Oil pump 3',
     coords: [28.438405, -98.339522],
     status: 'crush',
     link: 'http://157.230.97.228/sources/1/dashboards/3',
   },
   {
-    title: 'ШГН №4',
+    title: 'SRP №4',
     descr: 'Oil pump 4',
     coords: [28.422025, -98.338375],
     status: 'run',
     link: 'http://157.230.97.228/sources/1/dashboards/4',
   },
   {
-    title: 'ШГН №5',
+    title: 'SRP №5',
     descr: 'Oil pump 5',
     coords: [28.445921, -98.349233],
     status: 'run',

@@ -65,6 +65,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch
   ),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(
-  ThresholdsListTypeToggle
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThresholdsListTypeToggle)

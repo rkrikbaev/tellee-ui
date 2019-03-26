@@ -177,15 +177,15 @@ class PxMstat extends Component {
             switch (_tableDataNow[key + 1]) {
               case 1:
                 countColor = 'count count_running'
-                this.status = 'РАБОТА'
+                this.status = 'RUNNING'
                 break
               case 2:
                 countColor = 'count count_stopped'
-                this.status = 'ОСТАНОВ'
+                this.status = 'STOPPED'
                 break
               case 3:
                 countColor = 'count count_crushed'
-                this.status = 'НЕИСПРАВНОСТЬ'
+                this.status = 'FAILURE'
                 break
               default:
                 countColor = 'count'
@@ -196,6 +196,26 @@ class PxMstat extends Component {
               _tableDataNow[key + 1] === 3
                 ? this.status
                 : _tableDataNow[key + 1]
+            // FIXME: Remove later
+            switch (_tableDataNow[key + 1]) {
+              case 'ШГН №1':
+                this.label = 'Oil Well №1'
+                break
+              case 'ШГН №2':
+                this.label = 'Oil Well №2'
+                break
+              case 'ШГН №3':
+                this.label = 'Oil Well №3'
+                break
+              case 'ШГН №4':
+                this.label = 'Oil Well №4'
+                break
+              case 'ШГН №5':
+                this.label = 'Oil Well №5'
+                break
+              default:
+                this.label = ''
+            }
             if (staticLegend) {
               this.preLabel =
                 _tableDataPre[key + 1] === 1

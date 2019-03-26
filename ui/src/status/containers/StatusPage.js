@@ -110,4 +110,7 @@ const mapStateToProps = ({statusUI: {autoRefresh, timeRange}}) => ({
   timeRange,
 })
 
-export default connect(mapStateToProps, null)(StatusPage)
+export default connect(
+  mapStateToProps,
+  null
+)(StatusPage)

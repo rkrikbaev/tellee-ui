@@ -56,4 +56,7 @@ const mapStateToProps = ({dashboardUI, annotations: {mode}}) => ({
   hoverTime: +dashboardUI.hoverTime,
 })
 
-export default connect(mapStateToProps, null)(Crosshair)
+export default connect(
+  mapStateToProps,
+  null
+)(Crosshair)

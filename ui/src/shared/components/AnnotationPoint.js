@@ -159,4 +159,7 @@ const mdtp = {
   updateAnnotation: actions.updateAnnotation,
 }
 
-export default connect(null, mdtp)(AnnotationPoint)
+export default connect(
+  null,
+  mdtp
+)(AnnotationPoint)

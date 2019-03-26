@@ -120,7 +120,10 @@ AnnotationTooltip.propTypes = {
   }),
 }
 
-export default connect(null, {
-  deleteAnnotationAsync: actions.deleteAnnotationAsync,
-  updateAnnotationAsync: actions.updateAnnotationAsync,
-})(AnnotationTooltip)
+export default connect(
+  null,
+  {
+    deleteAnnotationAsync: actions.deleteAnnotationAsync,
+    updateAnnotationAsync: actions.updateAnnotationAsync,
+  }
+)(AnnotationTooltip)

@@ -131,5 +131,8 @@ const mapStateToProps = ({links}) => ({
 })
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(OrganizationsTableRow)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(OrganizationsTableRow)
 )

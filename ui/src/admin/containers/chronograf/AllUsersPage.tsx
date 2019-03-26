@@ -166,4 +166,7 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllUsersPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllUsersPage)

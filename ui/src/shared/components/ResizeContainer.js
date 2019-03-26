@@ -62,7 +62,7 @@ class ResizeContainer extends Component {
     // verticalOffset moves the resize handle as many pixels as the page-heading is taking up.
     const verticalOffset = window.innerHeight - containerHeight
     const newTopPanelPercent = Math.ceil(
-      (e.pageY - verticalOffset) / containerHeight * oneHundred
+      ((e.pageY - verticalOffset) / containerHeight) * oneHundred
     )
     const newBottomPanelPercent = oneHundred - newTopPanelPercent
 
@@ -75,9 +75,9 @@ class ResizeContainer extends Component {
       return
     }
 
-    const topHeightPixels = newTopPanelPercent / oneHundred * containerHeight
+    const topHeightPixels = (newTopPanelPercent / oneHundred) * containerHeight
     const bottomHeightPixels =
-      newBottomPanelPercent / oneHundred * containerHeight
+      (newBottomPanelPercent / oneHundred) * containerHeight
 
     // Don't trigger a resize if the new sizes are too small
     if (

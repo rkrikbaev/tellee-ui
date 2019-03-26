@@ -166,4 +166,7 @@ const mapStateToProps = ({
   axes,
 })
 
-export default connect(mapStateToProps, null)(DisplayOptions)
+export default connect(
+  mapStateToProps,
+  null
+)(DisplayOptions)

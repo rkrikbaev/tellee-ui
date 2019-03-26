@@ -45,20 +45,22 @@ export default class FuncArgsPreview extends PureComponent<Props> {
     const {func} = this.props
     const {args} = func
 
-    return args.map((arg, i): JSX.Element => {
-      if (!arg.value) {
-        return
+    return args.map(
+      (arg, i): JSX.Element => {
+        if (!arg.value) {
+          return
+        }
+
+        const separator = i === 0 ? null : ', '
+
+        return (
+          <React.Fragment key={uuid.v4()}>
+            {separator}
+            {arg.key}: {this.colorArgType(`${arg.value}`, arg.type)}
+          </React.Fragment>
+        )
       }
-
-      const separator = i === 0 ? null : ', '
-
-      return (
-        <React.Fragment key={uuid.v4()}>
-          {separator}
-          {arg.key}: {this.colorArgType(`${arg.value}`, arg.type)}
-        </React.Fragment>
-      )
-    })
+    )
   }
 
   private colorArgType = (argument: string, type: string): JSX.Element => {

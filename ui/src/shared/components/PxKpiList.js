@@ -23,7 +23,7 @@ const validateTimeSeries = timeseries => {
 }
 
 const sn = {
-  label: 'Серийный номер',
+  label: 'Serial Number',
   value: 'SN999999999TR',
   uom: '',
 }
@@ -35,6 +35,7 @@ class PxKpiList extends Component {
     this.isValidData = true
     this.chartValue = []
     this.status = ''
+    this.label = ''
     this.state = {
       height: 0,
       width: 0,
@@ -75,22 +76,22 @@ class PxKpiList extends Component {
     chartArray.push(
       sn,
       {
-        label: 'Доступность',
+        label: 'Availability',
         value: `${tableData[tableData.length - 1][3].toFixed(1)}`,
         uom: '%',
       },
       {
-        label: 'Надежность',
+        label: 'Reliability',
         value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
         uom: '%',
       },
       {
-        label: 'Время работы',
+        label: 'Run hours',
         value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
         uom: 'h',
       },
       {
-        label: 'Время простоя',
+        label: 'Standby hours',
         value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
         uom: 'h',
       }
@@ -104,7 +105,7 @@ class PxKpiList extends Component {
         previous ? ', ' : ''
       }{"label": "${current.label}", "value": "${current.value}", "uom": "${
         current.uom
-      }"}${current.label === 'Время простоя' ? ']' : ''}`
+      }"}${current.label === 'Standby hours' ? ']' : ''}`
       return stringArray
     }, '')
     this.chartValue = [arrayx].toString()
@@ -195,19 +196,40 @@ class PxKpiList extends Component {
     switch (tableData[tableData.length - 1][7]) {
       case 1:
         elementStyle.stateColor = '#7CE490'
-        this.status = 'РАБОТА'
+        this.status = 'RUNNING'
         break
       case 2:
         elementStyle.stateColor = '#ffb94a'
-        this.status = 'НЕИСПРАВЕН'
+        this.status = 'FAILURE'
         break
       case 3:
         elementStyle.stateColor = '#DC4E58'
-        this.status = 'ОСТАНОВ'
+        this.status = 'STOPPED'
         break
       default:
         elementStyle.stateColor = 'black'
         this.status = 'Invalid Data'
+    }
+
+    // FIXME: Remove later
+    switch (tableData[tableData.length - 1][1]) {
+      case 'ШГН №1':
+        this.label = 'Oil Well №1'
+        break
+      case 'ШГН №2':
+        this.label = 'Oil Well №2'
+        break
+      case 'ШГН №3':
+        this.label = 'Oil Well №3'
+        break
+      case 'ШГН №4':
+        this.label = 'Oil Well №4'
+        break
+      case 'ШГН №5':
+        this.label = 'Oil Well №5'
+        break
+      default:
+        this.label = ''
     }
 
     const kpiMainValue = tableData[tableData.length - 1]
@@ -228,8 +250,7 @@ class PxKpiList extends Component {
       kpiMainPreValue[2] = 0
     }
     let kpiChangePerc = (
-      (kpiMainValue[2] - kpiMainPreValue[2]) /
-      kpiMainPreValue[2] *
+      ((kpiMainValue[2] - kpiMainPreValue[2]) / kpiMainPreValue[2]) *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {
@@ -271,7 +292,7 @@ class PxKpiList extends Component {
             caps={elementStyle.uomMargin}
             listui={elementStyle.listPadding}
             statecolor={elementStyle.stateColor}
-            label={tableData[tableData.length - 1][1]}
+            label={this.label}
             values={this.chartValue}
             status-icon={
               kpiMainValue[3] >= kpiMainPreValue[3]
