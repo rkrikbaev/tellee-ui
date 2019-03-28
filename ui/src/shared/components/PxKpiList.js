@@ -229,7 +229,7 @@ class PxKpiList extends Component {
         this.label = 'Oil Well №5'
         break
       default:
-        this.label = ''
+        this.label = this.label
     }
 
     const kpiMainValue = tableData[tableData.length - 1]

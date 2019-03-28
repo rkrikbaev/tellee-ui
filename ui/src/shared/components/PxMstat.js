@@ -214,7 +214,7 @@ class PxMstat extends Component {
                 this.label = 'Oil Well №5'
                 break
               default:
-                this.label = ''
+                this.label = this.label
             }
             if (staticLegend) {
               this.preLabel =
