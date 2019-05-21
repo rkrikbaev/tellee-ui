@@ -24,7 +24,6 @@ class PxMstat extends Component {
   constructor(props) {
     super(props)
     this.isValidData = true
-    this.status = ''
     this.label = ''
     this.preLabel = ''
     this.state = {
@@ -175,52 +174,21 @@ class PxMstat extends Component {
         <div className={classnames('row tile_count', minifyCss)}>
           {_labels.map((value, key) => {
             switch (_tableDataNow[key + 1]) {
-              case 1:
+              case 'В РАБОТЕ':
                 countColor = 'count count_running'
-                this.status = 'RUNNING'
                 break
-              case 2:
+              case 'ОСТАНОВ':
                 countColor = 'count count_stopped'
-                this.status = 'STOPPED'
                 break
-              case 3:
+              case 'НЕИСПРАВЕН':
                 countColor = 'count count_crushed'
-                this.status = 'FAILURE'
                 break
               default:
                 countColor = 'count'
             }
-            this.label =
-              _tableDataNow[key + 1] === 1 ||
-              _tableDataNow[key + 1] === 2 ||
-              _tableDataNow[key + 1] === 3
-                ? this.status
-                : _tableDataNow[key + 1]
-            // FIXME: Remove later
-            switch (_tableDataNow[key + 1]) {
-              case 'ШГН №1':
-                this.label = 'Oil Well №1'
-                break
-              case 'ШГН №2':
-                this.label = 'Oil Well №2'
-                break
-              case 'ШГН №3':
-                this.label = 'Oil Well №3'
-                break
-              case 'ШГН №4':
-                this.label = 'Oil Well №4'
-                break
-              case 'ШГН №5':
-                this.label = 'Oil Well №5'
-                break
-              default:
-                this.label = this.label
-            }
+            this.label = _tableDataNow[key + 1]
             if (staticLegend) {
-              this.preLabel =
-                _tableDataPre[key + 1] === 1
-                  ? this.status
-                  : _tableDataPre[key + 1]
+              this.preLabel = _tableDataPre[key + 1]
             }
             return (
               <div className={cols} key={key}>

@@ -77,7 +77,7 @@ class PxKpiList extends Component {
       sn,
       {
         label: 'Availability',
-        value: `${tableData[tableData.length - 1][3].toFixed(1)}`,
+        value: `${tableData[tableData.length - 1][1].toFixed(1)}`,
         uom: '%',
       },
       {
@@ -194,42 +194,17 @@ class PxKpiList extends Component {
     }
 
     switch (tableData[tableData.length - 1][7]) {
-      case 1:
+      case 'В РАБОТЕ':
         elementStyle.stateColor = '#7CE490'
-        this.status = 'RUNNING'
         break
-      case 2:
+      case 'ОСТАНОВ':
         elementStyle.stateColor = '#ffb94a'
-        this.status = 'FAILURE'
         break
-      case 3:
+      case 'НЕИСПРАВЕН':
         elementStyle.stateColor = '#DC4E58'
-        this.status = 'STOPPED'
         break
       default:
         elementStyle.stateColor = 'black'
-        this.status = 'Invalid Data'
-    }
-
-    // FIXME: Remove later
-    switch (tableData[tableData.length - 1][1]) {
-      case 'ШГН №1':
-        this.label = 'Oil Well №1'
-        break
-      case 'ШГН №2':
-        this.label = 'Oil Well №2'
-        break
-      case 'ШГН №3':
-        this.label = 'Oil Well №3'
-        break
-      case 'ШГН №4':
-        this.label = 'Oil Well №4'
-        break
-      case 'ШГН №5':
-        this.label = 'Oil Well №5'
-        break
-      default:
-        this.label = this.label
     }
 
     const kpiMainValue = tableData[tableData.length - 1]
@@ -292,7 +267,7 @@ class PxKpiList extends Component {
             caps={elementStyle.uomMargin}
             listui={elementStyle.listPadding}
             statecolor={elementStyle.stateColor}
-            label={this.label}
+            label={tableData[tableData.length - 1][3]}
             values={this.chartValue}
             status-icon={
               kpiMainValue[3] >= kpiMainPreValue[3]
@@ -303,7 +278,7 @@ class PxKpiList extends Component {
               kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
             }
             status-label={tableData[tableData.length - 1][2].toFixed(1)}
-            footer={this.status}
+            footer={tableData[tableData.length - 1][7] || "Not Valid"}
           />
         </CustomProperties>
 
