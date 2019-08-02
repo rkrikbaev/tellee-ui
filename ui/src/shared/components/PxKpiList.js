@@ -77,22 +77,38 @@ class PxKpiList extends Component {
       sn,
       {
         label: 'Availability',
-        value: `${tableData[tableData.length - 1][1].toFixed(1)}`,
+        value: `${
+          tableData[tableData.length - 1][1]
+            ? tableData[tableData.length - 1][1].toFixed(1)
+            : tableData[tableData.length - 1][1]
+        }`,
         uom: '%',
       },
       {
         label: 'Reliability',
-        value: `${tableData[tableData.length - 1][4].toFixed(1)}`,
+        value: `${
+          tableData[tableData.length - 1][4]
+            ? tableData[tableData.length - 1][4].toFixed(1)
+            : tableData[tableData.length - 1][4]
+        }`,
         uom: '%',
       },
       {
         label: 'Run hours',
-        value: `${tableData[tableData.length - 1][5].toFixed(1)}`,
+        value: `${
+          tableData[tableData.length - 1][5]
+            ? tableData[tableData.length - 1][5].toFixed(1)
+            : tableData[tableData.length - 1][5]
+        }`,
         uom: 'h',
       },
       {
         label: 'Standby hours',
-        value: `${tableData[tableData.length - 1][6].toFixed(1)}`,
+        value: `${
+          tableData[tableData.length - 1][6]
+            ? tableData[tableData.length - 1][6].toFixed(1)
+            : tableData[tableData.length - 1][6]
+        }`,
         uom: 'h',
       }
     )
@@ -200,7 +216,7 @@ class PxKpiList extends Component {
       case 'ОСТАНОВ':
         elementStyle.stateColor = '#ffb94a'
         break
-      case 'НЕИСПРАВЕН':
+      case 'НЕИСПРАВНОСТЬ':
         elementStyle.stateColor = '#DC4E58'
         break
       default:
@@ -277,8 +293,12 @@ class PxKpiList extends Component {
             status-color={
               kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
             }
-            status-label={tableData[tableData.length - 1][2].toFixed(1)}
-            footer={tableData[tableData.length - 1][7] || "Not Valid"}
+            status-label={
+              tableData[tableData.length - 1][2]
+                ? tableData[tableData.length - 1][2].toFixed(1)
+                : tableData[tableData.length - 1][2]
+            }
+            footer={tableData[tableData.length - 1][7] || 'Not Valid'}
           />
         </CustomProperties>
 
