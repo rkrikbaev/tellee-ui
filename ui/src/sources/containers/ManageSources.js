@@ -122,7 +122,4 @@ const mapDispatchToProps = dispatch => ({
   notify: bindActionCreators(notifyAction, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManageSources)
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSources)

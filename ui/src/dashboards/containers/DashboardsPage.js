@@ -93,7 +93,6 @@ const mapDispatchToProps = dispatch => ({
   handleDeleteDashboard: bindActionCreators(deleteDashboardAsync, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(DashboardsPage))
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withRouter(DashboardsPage)
+)

@@ -163,7 +163,4 @@ const mapDispatchToProps = dispatch => ({
   meChangeOrganization: bindActionCreators(meChangeOrganizationAsync, dispatch),
 })
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(withRouter(UserNavBlock))
+export default connect(null, mapDispatchToProps)(withRouter(UserNavBlock))

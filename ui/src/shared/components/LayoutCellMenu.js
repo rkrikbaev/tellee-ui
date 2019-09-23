@@ -84,36 +84,38 @@ class LayoutCellMenu extends Component {
         >
           {queries && <CustomTimeIndicator queries={queries} />}
         </div>
-        {isEditable && mode !== EDITING && (
-          <Authorized requiredRole={EDITOR_ROLE}>
+        {isEditable &&
+          mode !== EDITING && (
+            <Authorized requiredRole={EDITOR_ROLE}>
+              <div className="dash-graph-context--buttons">
+                {queries.length ? (
+                  <MenuTooltipButton
+                    icon="pencil"
+                    menuOptions={menuOptions}
+                    informParent={this.handleToggleSubMenu}
+                  />
+                ) : (
+                  <MenuTooltipButton
+                    icon="trash"
+                    theme="danger"
+                    menuOptions={[{text: 'Confirm', action: onDelete(cell)}]}
+                    informParent={this.handleToggleSubMenu}
+                  />
+                )}
+              </div>
+            </Authorized>
+          )}
+        {mode === 'editing' &&
+          cellSupportsAnnotations(cell.type) && (
             <div className="dash-graph-context--buttons">
-              {queries.length ? (
-                <MenuTooltipButton
-                  icon="pencil"
-                  menuOptions={menuOptions}
-                  informParent={this.handleToggleSubMenu}
-                />
-              ) : (
-                <MenuTooltipButton
-                  icon="trash"
-                  theme="danger"
-                  menuOptions={[{text: 'Confirm', action: onDelete(cell)}]}
-                  informParent={this.handleToggleSubMenu}
-                />
-              )}
+              <div
+                className="btn btn-xs btn-success"
+                onClick={onDismissEditingAnnotation}
+              >
+                Done Editing
+              </div>
             </div>
-          </Authorized>
-        )}
-        {mode === 'editing' && cellSupportsAnnotations(cell.type) && (
-          <div className="dash-graph-context--buttons">
-            <div
-              className="btn btn-xs btn-success"
-              onClick={onDismissEditingAnnotation}
-            >
-              Done Editing
-            </div>
-          </div>
-        )}
+          )}
       </div>
     )
   }
@@ -149,7 +151,4 @@ const mapDispatchToProps = dispatch => ({
   ),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LayoutCellMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutCellMenu)

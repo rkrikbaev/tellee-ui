@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 
 // import OptIn from 'shared/components/OptIn'
 import Input from 'src/dashboards/components/DisplayOptionsInput'
-import {Tabber, Tab} from 'src/dashboards/components/Tabber'
+// import {Tabber, Tab} from 'src/dashboards/components/Tabber'
 import FancyScrollbar from 'shared/components/FancyScrollbar'
 import LineGraphColorSelector from 'src/shared/components/LineGraphColorSelector'
 
@@ -22,7 +22,7 @@ const {LINEAR, BASE_10} = AXES_SCALE_OPTIONS // BASE_2, LOG,
 // const getInputMin = scale => (scale === LOG ? '0' : null)
 
 @ErrorHandling
-class PxKpiOptions extends Component {
+class PxKpiListOptions extends Component {
   handleSetPrefixSuffix = e => {
     const {handleUpdateAxes, axes} = this.props
     const {prefix, suffix, label} = e.target.form
@@ -83,8 +83,8 @@ class PxKpiOptions extends Component {
         y: {prefix, suffix, label}, // base, scale, bounds,label, defaultYLabel
       },
       type,
-      staticLegend,
-      onToggleStaticLegend,
+      // staticLegend,
+      // onToggleStaticLegend,
     } = this.props
 
     // const [min, max] = bounds
@@ -133,18 +133,18 @@ class PxKpiOptions extends Component {
               name="prefix"
               id="prefix"
               value={prefix}
-              labelText="Value's Prefix"
+              labelText="Name"
               onChange={this.handleSetPrefixSuffix}
-              maxLength="5"
+              maxLength="12"
               colWidth="12"
             />
             <Input
               name="suffix"
               id="suffix"
               value={suffix}
-              labelText="Spark Max records (0 - unlimited, 30 - default)"
+              labelText="Serial Number"
               onChange={this.handleSetPrefixSuffix}
-              maxLength="5"
+              maxLength="15"
               colWidth="12"
             />
 
@@ -186,18 +186,6 @@ class PxKpiOptions extends Component {
             {/* onClickTab={this.handleSetScale(LOG)}*/}
             {/* />*/}
             {/* </Tabber>*/}
-            <Tabber labelText="Spark Theme">
-              <Tab
-                text="Default"
-                isActive={staticLegend}
-                onClickTab={onToggleStaticLegend(true)}
-              />
-              <Tab
-                text="Transparent"
-                isActive={!staticLegend}
-                onClickTab={onToggleStaticLegend(false)}
-              />
-            </Tabber>
           </form>
         </div>
       </FancyScrollbar>
@@ -207,7 +195,7 @@ class PxKpiOptions extends Component {
 
 const {arrayOf, bool, func, shape, string} = PropTypes
 
-PxKpiOptions.defaultProps = {
+PxKpiListOptions.defaultProps = {
   axes: {
     y: {
       bounds: ['', ''],
@@ -220,7 +208,7 @@ PxKpiOptions.defaultProps = {
   },
 }
 
-PxKpiOptions.propTypes = {
+PxKpiListOptions.propTypes = {
   type: string.isRequired,
   axes: shape({
     y: shape({
@@ -247,4 +235,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PxKpiOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(PxKpiListOptions)

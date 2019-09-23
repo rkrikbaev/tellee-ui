@@ -132,7 +132,4 @@ const mapDispatchToProps = dispatch => ({
   getMe: bindActionCreators(getMeAsync, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OrganizationsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(OrganizationsPage)

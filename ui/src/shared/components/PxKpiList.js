@@ -22,12 +22,6 @@ const validateTimeSeries = timeseries => {
   )
 }
 
-const sn = {
-  label: 'Serial Number',
-  value: 'SN999999999TR',
-  uom: '',
-}
-
 @ErrorHandlingWith(InvalidData)
 class PxKpiList extends Component {
   constructor(props) {
@@ -40,6 +34,12 @@ class PxKpiList extends Component {
       height: 0,
       width: 0,
       elementStyle: {},
+    }
+
+    this.sn = {
+      label: 'Serial Number',
+      value: this.props.axes.y.suffix,
+      uom: '',
     }
   }
 
@@ -74,7 +74,7 @@ class PxKpiList extends Component {
     const {tableData} = this._timeSeries
     const chartArray = []
     chartArray.push(
-      sn,
+      this.sn,
       {
         label: 'Availability',
         value: `${
@@ -211,13 +211,13 @@ class PxKpiList extends Component {
 
     switch (tableData[tableData.length - 1][7]) {
       case 'В РАБОТЕ':
-        elementStyle.stateColor = '#7CE490'
+        elementStyle.stateColor = colors[2].hex // '#7CE490'
         break
       case 'ОСТАНОВ':
-        elementStyle.stateColor = '#ffb94a'
+        elementStyle.stateColor = colors[0].hex // '#ffb94a'
         break
       case 'НЕИСПРАВНОСТЬ':
-        elementStyle.stateColor = '#DC4E58'
+        elementStyle.stateColor = colors[1].hex // '#DC4E58'
         break
       default:
         elementStyle.stateColor = 'black'
@@ -241,7 +241,8 @@ class PxKpiList extends Component {
       kpiMainPreValue[2] = 0
     }
     let kpiChangePerc = (
-      ((kpiMainValue[2] - kpiMainPreValue[2]) / kpiMainPreValue[2]) *
+      (kpiMainValue[2] - kpiMainPreValue[2]) /
+      kpiMainPreValue[2] *
       100
     ).toFixed(2)
     if (kpiChangePerc < 0) {
@@ -283,7 +284,7 @@ class PxKpiList extends Component {
             caps={elementStyle.uomMargin}
             listui={elementStyle.listPadding}
             statecolor={elementStyle.stateColor}
-            label={tableData[tableData.length - 1][3]}
+            label={this.props.axes.y.prefix} // {tableData[tableData.length - 1][3]}
             values={this.chartValue}
             status-icon={
               kpiMainValue[3] >= kpiMainPreValue[3]

@@ -6,7 +6,7 @@ const RuleMessageText = ({rule, updateMessage}) => (
     <textarea
       className="form-control input-sm form-malachite monotype"
       onChange={updateMessage}
-      placeholder='Example: {{ .ID }} is {{ .Level }} value: {{ index .Fields "value" }}'
+      placeholder="Example: {{ .ID }} is {{ .Level }} value: {{ index .Fields &quot;value&quot; }}"
       value={rule.message}
       spellCheck={false}
     />

@@ -231,9 +231,9 @@ ul.quick-list li {
   height: 60px;
   margin: 0px;
   background-color: var(--zsse-page-header);
-  background-image: url(/static_assets/ZeinetSSElogo_full.png);
-  background-size: 100% 100%;
-  background-position: 0px 0px;
+  background-image: url(/static_assets/Tellee_logo.svg);
+  background-size: 100% 80%;
+  background-position: -25px 6px;
   background-repeat: no-repeat;
   padding: 0px;
 }
@@ -250,9 +250,9 @@ ul.quick-list li {
     margin: 0px;
     padding: 0px;
     background-color: var(--zsse-page-header);
-    background-image: url(/static_assets/ZeinetSSElogo_short.png);
-    background-size: 100% 100%;
-    background-position: 0px 0px;
+    background-image: url(/static_assets/Tellee_logo_short.svg);
+    background-size: 100% 80%;
+    background-position: 0px 6px;
     background-repeat: no-repeat;
   }
   .page-header__container {

@@ -213,7 +213,4 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAxes: bindActionCreators(updateAxes, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PxGanttOptions)
+export default connect(mapStateToProps, mapDispatchToProps)(PxGanttOptions)

@@ -9,6 +9,7 @@ import AxesOptions from 'src/dashboards/components/AxesOptions'
 import TableOptions from 'src/dashboards/components/TableOptions'
 import PxPercentCircleOptions from 'src/dashboards/components/PxPercentCircleOptions'
 import PxKpiOptions from 'src/dashboards/components/PxKpiOptions'
+import PxKpiListOptions from 'src/dashboards/components/PxKpiListOptions'
 import PxGaugeOptions from 'src/dashboards/components/PxGaugeOptions'
 import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
 import PxRadarOptions from 'src/dashboards/components/PxRadarOptions'
@@ -70,7 +71,7 @@ class DisplayOptions extends Component {
         )
       case 'px-kpi-list':
         return (
-          <PxKpiOptions
+          <PxKpiListOptions
             onToggleStaticLegend={onToggleStaticLegend}
             staticLegend={staticLegend}
           />
@@ -166,7 +167,4 @@ const mapStateToProps = ({
   axes,
 })
 
-export default connect(
-  mapStateToProps,
-  null
-)(DisplayOptions)
+export default connect(mapStateToProps, null)(DisplayOptions)

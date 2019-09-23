@@ -12,9 +12,7 @@ const Notifications = ({notifications, inPresentationMode}) => (
         : 'notification-center'
     }`}
   >
-    {notifications.map(n => (
-      <Notification key={n.id} notification={n} />
-    ))}
+    {notifications.map(n => <Notification key={n.id} notification={n} />)}
   </div>
 )
 
@@ -43,7 +41,4 @@ const mapStateToProps = ({
   inPresentationMode,
 })
 
-export default connect(
-  mapStateToProps,
-  null
-)(Notifications)
+export default connect(mapStateToProps, null)(Notifications)
