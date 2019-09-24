@@ -124,6 +124,7 @@ class ThemeColorDropdown extends Component {
             '--zsse-sidebar-bg1': currentTheme.sidebarBg1,
             '--zsse-sidebar-bg2': currentTheme.sidebarBg2,
             '--zsse-sidebar-bg3': currentTheme.sidebarBg3,
+            '--zsse-sidebar-bg4': currentTheme.sidebarBg4,
             '--zsse-sidebar-text': currentTheme.sidebarText,
             '--zsse-button-text': currentTheme.buttonText,
             // px components

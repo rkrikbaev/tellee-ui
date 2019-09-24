@@ -35,7 +35,7 @@ $sidebar-menu--gutter: 18px;
   display: flex;
   flex-direction: column;
   width: $sidebar--width;
-  background: linear-gradient(0deg, #FD37FF 0%, #00CCFF 100%); // var(--zsse-sidebar-bg1);
+  background: var(--zsse-sidebar-bg4);
   //@include gradient-v($sidebar--gradient-start,$sidebar--gradient-end);
 }
 .sidebar--bottom {

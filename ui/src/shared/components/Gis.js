@@ -179,51 +179,53 @@ class GIS extends Component {
                 groupByCoordinates: false,
               }}
             >
-              {this.points.map((point, index) => {
-                switch (point.status) {
-                  case 'stop':
-                    pointIcon = '/static_assets/pumpjack_st.svg'
-                    break
-                  case 'crush':
-                    pointIcon = '/static_assets/pumpjack_cr.svg'
-                    break
-                  case 'run':
-                    pointIcon = '/static_assets/pumpjack_cr.svg'
-                    break
-                  default:
-                    pointIcon = '/static_assets/pumpjack.svg'
-                    break
-                }
-                const tooltip = `
-                  <div class="map_balloon">
-                    <h5>${point.descr}</h5>
-                    <strong>Longitude: ${point.coords[0]}</strong>
-                    <strong>Latitude: ${point.coords[1]}</strong>
-                    <strong>Status: ${point.status}</strong>
-                    <strong><a href='${point.link}'>Dashboard</a></strong>
-                  </div>
-                `
-                return (
-                  <Placemark
-                    key={index}
-                    geometry={point.coords}
-                    modules={[
-                      'geoObject.addon.balloon',
-                      'geoObject.addon.hint',
-                    ]}
-                    properties={{
-                      // hintContent: tooltip,
-                      balloonContent: tooltip,
-                    }}
-                    options={{
-                      iconLayout: 'default#imageWithContent',
-                      iconImageHref: pointIcon,
-                      iconImageSize: [40, 40],
-                      iconImageOffset: [-34, -34],
-                    }}
-                  />
-                )
-              })}
+              {this.points === []
+                ? this.points.map((point, index) => {
+                    switch (point.status) {
+                      case 'stop':
+                        pointIcon = '/static_assets/pumpjack_st.svg'
+                        break
+                      case 'crush':
+                        pointIcon = '/static_assets/pumpjack_cr.svg'
+                        break
+                      case 'run':
+                        pointIcon = '/static_assets/pumpjack_rn.svg'
+                        break
+                      default:
+                        pointIcon = '/static_assets/pumpjack.svg'
+                        break
+                    }
+                    const tooltip = `
+                <div class="map_balloon">
+                  <h5>${point.descr}</h5>
+                  <strong>Longitude: ${point.coords[0]}</strong>
+                  <strong>Latitude: ${point.coords[1]}</strong>
+                  <strong>Status: ${point.status}</strong>
+                  <strong><a href='${point.link}'>Dashboard</a></strong>
+                </div>
+              `
+                    return (
+                      <Placemark
+                        key={index}
+                        geometry={point.coords}
+                        modules={[
+                          'geoObject.addon.balloon',
+                          'geoObject.addon.hint',
+                        ]}
+                        properties={{
+                          // hintContent: tooltip,
+                          balloonContent: tooltip,
+                        }}
+                        options={{
+                          iconLayout: 'default#imageWithContent',
+                          iconImageHref: pointIcon,
+                          iconImageSize: [40, 40],
+                          iconImageOffset: [-34, -34],
+                        }}
+                      />
+                    )
+                  })
+                : ''}
             </Clusterer>
           </Map>
         </YMaps>

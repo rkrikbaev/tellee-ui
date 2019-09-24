@@ -70,44 +70,64 @@ class PxKpiList extends Component {
     }
   }
 
+  getIndexOfLabel = () => {
+    const {sortedLabels} = this._timeSeries
+    return sortedLabels.map(item => {
+      return item.label.split(':')[1]
+    })
+  }
+
   parseDataFromProps = () => {
     const {tableData} = this._timeSeries
+    const labels = this.getIndexOfLabel()
     const chartArray = []
     chartArray.push(
       this.sn,
       {
         label: 'Availability',
         value: `${
-          tableData[tableData.length - 1][1]
-            ? tableData[tableData.length - 1][1].toFixed(1)
-            : tableData[tableData.length - 1][1]
+          tableData[tableData.length - 1][labels.indexOf('availability') + 1]
+            ? tableData[tableData.length - 1][
+                labels.indexOf('availability') + 1
+              ].toFixed(1)
+            : tableData[tableData.length - 1][
+                labels.indexOf('availability') + 1
+              ]
         }`,
         uom: '%',
       },
       {
         label: 'Reliability',
         value: `${
-          tableData[tableData.length - 1][4]
-            ? tableData[tableData.length - 1][4].toFixed(1)
-            : tableData[tableData.length - 1][4]
+          tableData[tableData.length - 1][labels.indexOf('reliability') + 1]
+            ? tableData[tableData.length - 1][
+                labels.indexOf('reliability') + 1
+              ].toFixed(1)
+            : tableData[tableData.length - 1][labels.indexOf('reliability') + 1]
         }`,
         uom: '%',
       },
       {
         label: 'Run hours',
         value: `${
-          tableData[tableData.length - 1][5]
-            ? tableData[tableData.length - 1][5].toFixed(1)
-            : tableData[tableData.length - 1][5]
+          tableData[tableData.length - 1][labels.indexOf('runhours') + 1]
+            ? tableData[tableData.length - 1][
+                labels.indexOf('runhours') + 1
+              ].toFixed(1)
+            : tableData[tableData.length - 1][labels.indexOf('runhours') + 1]
         }`,
         uom: 'h',
       },
       {
         label: 'Standby hours',
         value: `${
-          tableData[tableData.length - 1][6]
-            ? tableData[tableData.length - 1][6].toFixed(1)
-            : tableData[tableData.length - 1][6]
+          tableData[tableData.length - 1][labels.indexOf('standbyhours') + 1]
+            ? tableData[tableData.length - 1][
+                labels.indexOf('standbyhours') + 1
+              ].toFixed(1)
+            : tableData[tableData.length - 1][
+                labels.indexOf('standbyhours') + 1
+              ]
         }`,
         uom: 'h',
       }
@@ -209,7 +229,11 @@ class PxKpiList extends Component {
         }
     }
 
-    switch (tableData[tableData.length - 1][7]) {
+    const labels = this.getIndexOfLabel()
+
+    switch (
+      tableData[tableData.length - 1][labels.indexOf('state_index_text') + 1]
+    ) {
       case 'В РАБОТЕ':
         elementStyle.stateColor = colors[2].hex // '#7CE490'
         break
@@ -284,7 +308,7 @@ class PxKpiList extends Component {
             caps={elementStyle.uomMargin}
             listui={elementStyle.listPadding}
             statecolor={elementStyle.stateColor}
-            label={this.props.axes.y.prefix} // {tableData[tableData.length - 1][3]}
+            label={this.props.axes.y.prefix} // {tableData[tableData.length - 1][labels.indexOf('name_discription') + 1]}
             values={this.chartValue}
             status-icon={
               kpiMainValue[3] >= kpiMainPreValue[3]
@@ -295,11 +319,17 @@ class PxKpiList extends Component {
               kpiMainValue[3] >= kpiMainPreValue[3] ? 'green' : 'red'
             }
             status-label={
-              tableData[tableData.length - 1][2]
-                ? tableData[tableData.length - 1][2].toFixed(1)
-                : tableData[tableData.length - 1][2]
+              tableData[tableData.length - 1][labels.indexOf('kpi') + 1]
+                ? tableData[tableData.length - 1][
+                    labels.indexOf('kpi') + 1
+                  ].toFixed(1)
+                : tableData[tableData.length - 1][labels.indexOf('kpi') + 1]
             }
-            footer={tableData[tableData.length - 1][7] || 'Not Valid'}
+            footer={
+              tableData[tableData.length - 1][
+                labels.indexOf('state_index_text') + 1
+              ] || 'Not Valid'
+            }
           />
         </CustomProperties>
 
