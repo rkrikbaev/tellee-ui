@@ -16,43 +16,6 @@ const mapState = {
   center: [28.438258, -98.361192],
   zoom: 12,
 }
-const points = [
-  {
-    title: 'SRP №1',
-    descr: 'Oil pump 1',
-    coords: [28.445376, -98.385066],
-    status: 'run',
-    link: 'http://157.230.97.228/sources/1/dashboards/1',
-  },
-  {
-    title: 'SRP №2',
-    descr: 'Oil pump 2',
-    coords: [28.44059, -98.365951],
-    status: 'stop',
-    link: 'http://157.230.97.228/sources/1/dashboards/2',
-  },
-  {
-    title: 'SRP №3',
-    descr: 'Oil pump 3',
-    coords: [28.438405, -98.339522],
-    status: 'crush',
-    link: 'http://157.230.97.228/sources/1/dashboards/3',
-  },
-  {
-    title: 'SRP №4',
-    descr: 'Oil pump 4',
-    coords: [28.422025, -98.338375],
-    status: 'run',
-    link: 'http://157.230.97.228/sources/1/dashboards/4',
-  },
-  {
-    title: 'SRP №5',
-    descr: 'Oil pump 5',
-    coords: [28.445921, -98.349233],
-    status: 'run',
-    link: 'http://157.230.97.228/sources/1/dashboards/5',
-  },
-]
 
 @ErrorHandlingWith(InvalidData)
 class GIS extends Component {
@@ -63,6 +26,7 @@ class GIS extends Component {
       height: 0,
       width: 0,
     }
+    this.points = []
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -84,6 +48,22 @@ class GIS extends Component {
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
     // )
+    this.points = this.changePointStatus()
+  }
+
+  mapData() {
+    const parsedData = JSON.parse(this.props.axes.y2.prefix)
+    const points = []
+    for (let i = 0; i < parsedData.items.length; i++) {
+      points.push({
+        title: parsedData.items[i].Name,
+        descr: parsedData.items[i].Name,
+        coords: [parsedData.items[i].Longitude, parsedData.items[i].Latitude],
+        status: 'not found',
+        link: parsedData.items[i].Link,
+      })
+    }
+    return points
   }
 
   componentWillUpdate(nextProps) {
@@ -98,9 +78,9 @@ class GIS extends Component {
 
   changePointStatus = () => {
     const {tableData} = this._timeSeries
-    // const tabelData = [1, 1, 3, 2, 3]
     tableData[tableData.length - 1].shift()
     const arr = tableData[tableData.length - 1]
+    const points = this.mapData()
     for (let i = 0; i < arr.length; i++) {
       if (isNaN(arr[i]) || arr[i] === null) {
         return <InvalidData />
@@ -119,13 +99,13 @@ class GIS extends Component {
           points[i].status = 'not found'
       }
     }
+    return points
   }
 
   resize = () => {
     const height = this.divElement.clientHeight
     const width = this.divElement.clientWidth
-    this.setState({height})
-    this.setState({width})
+    this.setState({height, width})
     this.render()
   }
 
@@ -199,7 +179,7 @@ class GIS extends Component {
                 groupByCoordinates: false,
               }}
             >
-              {points.map((point, index) => {
+              {this.points.map((point, index) => {
                 switch (point.status) {
                   case 'stop':
                     pointIcon = '/static_assets/pumpjack_st.svg'
@@ -207,16 +187,20 @@ class GIS extends Component {
                   case 'crush':
                     pointIcon = '/static_assets/pumpjack_cr.svg'
                     break
+                  case 'run':
+                    pointIcon = '/static_assets/pumpjack_cr.svg'
+                    break
                   default:
-                    pointIcon = '/static_assets/pumpjack_rn.svg'
+                    pointIcon = '/static_assets/pumpjack.svg'
                     break
                 }
                 const tooltip = `
                   <div class="map_balloon">
-                    <h4>${point.descr}</h4>
+                    <h5>${point.descr}</h5>
                     <strong>Longitude: ${point.coords[0]}</strong>
                     <strong>Latitude: ${point.coords[1]}</strong>
-                    <a href='${point.link}'>Dashboard</a>
+                    <strong>Status: ${point.status}</strong>
+                    <strong><a href='${point.link}'>Dashboard</a></strong>
                   </div>
                 `
                 return (

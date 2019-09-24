@@ -113,8 +113,22 @@
 }
 
 // ============== GIS element ==============
+.ymaps-2-1-74-balloon__content,
+.ymaps-2-1-74-balloon__layout,
+.ymaps-2-1-74-balloon__tail:after {
+  background-color: var(--zsse-g9-mountain) !important;
+}
+
+.ymaps-2-1-74-balloon__close-button {
+  background-size: 10px !important;
+}
+
+.ymaps-2-1-74-balloon__layout {
+  border-radius: 5px;
+}
+
 .map_balloon {
-  background-color: var(--px-base-background-color,#fff) !important;
+  background-color: var(--zsse-g9-mountain) !important;
   h4, strong {
     color:var(--px-base-text-color,#2c404c);
   }
@@ -130,6 +144,22 @@
   a:active, a:hover {
     outline:0;
     text-decoration: underline;
+  }
+}
+
+.gisOptions-form {
+  .form-group.field.field-array.mozilla-dynamic-forms,
+  .field.field-array.field-array-of-object {
+    width: 100% !important;
+  }
+  fieldset {
+    padding: 0 !important;
+  }
+  .col-xs-9 {
+    border: 2px solid darkgrey;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
   }
 }
 

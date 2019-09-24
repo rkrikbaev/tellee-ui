@@ -14,6 +14,7 @@ import PxGaugeOptions from 'src/dashboards/components/PxGaugeOptions'
 import PxMstatOtions from 'src/dashboards/components/PxMstatOptions'
 import PxRadarOptions from 'src/dashboards/components/PxRadarOptions'
 import PxGanttOptions from 'src/dashboards/components/PxGanttOptions'
+import GisOptions from 'src/dashboards/components/GisOptions'
 
 import {buildDefaultYLabel} from 'shared/presenters'
 import {ErrorHandling} from 'src/shared/decorators/errors'
@@ -117,6 +118,10 @@ class DisplayOptions extends Component {
             onResetFocus={onResetFocus}
             queryConfigs={queryConfigs}
           />
+        )
+      case 'Gis':
+        return (
+          <GisOptions onResetFocus={onResetFocus} queryConfigs={queryConfigs} />
         )
       default:
         return (
