@@ -186,7 +186,7 @@ class ThemeColorDropdown extends Component {
                 '--zsse-logo-visibility': 'none',
               }}
             />
-            <img src="/static_assets/ZeinetSSElogo_color.png" height="30" />
+            <img src="/static_assets/Telleelogo_color.svg" height="30" />
           </div>
         ) : (
           <div className={classnames('dropdown dropdown-120', {open: isOpen})}>

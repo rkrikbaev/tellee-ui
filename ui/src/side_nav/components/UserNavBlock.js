@@ -103,7 +103,7 @@ class UserNavBlock extends Component {
           </a>
           <a
             className="sidebar-menu--item sidebar-menu--item__logout"
-            href="https://auth.zsse.io/auth/realms/master/protocol/openid-connect/logout?redirect_uri=https://flash.zsse.io/oauth/logout"
+            href="http://flash.zeinetsse.com/auth/realms/master/protocol/openid-connect/logout?redirect_uri=http://flash.zeinetsse.com/oauth/logout"
           >
             {/* temporary solution http://localhost:8082/auth/realms/master/protocol/openid-connect/logout?redirect_uri=http://localhost:808/oauth/logout*/}
             <Trans>Log out</Trans>
