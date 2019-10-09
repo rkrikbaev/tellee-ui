@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxInbox} from 'utils/timeSeriesTransformers'
+import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 import _ from 'lodash'
 
 import CustomProperties from 'react-custom-properties'
@@ -17,6 +17,22 @@ import InvalidData from 'src/shared/components/InvalidData'
 //     )
 //   )
 // }
+
+const defaultValue = [
+  {
+    id: '1',
+    title: 'CMS Cold Spot',
+    subtitle: 'GT240182',
+    severity: 'important',
+    alerttext: 'Hop hey la la ley',
+    alertvalue: 'importants',
+    assettext: 'ley la la hey hop',
+    assetvalue: 'importantss',
+    messagetext:
+      'The BSON data format provides several different types used when storing the JavaScript objects to binary form. These types match the JavaScript type as closely as possible.',
+    date: '2016-10-05T01:29',
+  },
+]
 
 @ErrorHandlingWith(InvalidData)
 class PxInbox extends Component {
@@ -40,12 +56,65 @@ class PxInbox extends Component {
     this.parseTimeSeries(data, isInDataExplorer)
   }
 
-  parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxInbox(data)
+  async parseTimeSeries(data) {
+    const {queries} = this.props
+    const arrayOfId = queries.map(item => {
+      return item.queryConfig.tags.host[0]
+    })
+    const info = await this.getDataFromMongo(arrayOfId)
+    const timeSeries = timeSeriesToPxSeries(data)
+    console.log(timeSeries)
+    this.makeObject(info, timeSeries)
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
     // )
+  }
+
+  getDataFromMongo = async id => {
+    const arrayOfInfo = []
+    for (let i = 0; i < id.length; i++) {
+      await fetch(`http://localhost:5000/api/device/${id[i]}`, {
+        mode: 'cors',
+      })
+        .then(res => res.json())
+        .then(info => arrayOfInfo.push(info))
+        .catch(err => {
+          return err
+        })
+    }
+    return arrayOfInfo
+  }
+
+  makeObject = (info, timeSeries) => {
+    const indexes = [],
+      validArray = []
+
+    timeSeries.labels.forEach((item, i) => {
+      if (item === 'machine.value') {
+        indexes.push(i)
+      }
+    })
+
+    timeSeries.tableData.map(item => {
+      for (let i = 0; i < indexes.length; i++) {
+        if (item[indexes[i]] === 1) {
+          // FIXME:
+          validArray.push({
+            id: info[indexes[i]].id,
+            title: info[indexes[i]].title,
+            subtitle: info[indexes[i]].subtitle,
+            severity: info[indexes[i]].severity,
+            alerttext: info[indexes[i]].alerttext,
+            alertvalue: info[indexes[i]].alertvalue,
+            assettext: info[indexes[i]].assettext,
+            assetvalue: info[indexes[i]].assetvalue,
+          })
+        }
+      }
+    })
+
+    return
   }
 
   componentWillUpdate(nextProps) {
@@ -96,7 +165,7 @@ class PxInbox extends Component {
       // handleSetHoverTime,
     } = this.props
 
-    const {timeSeries} = this._timeSeries
+    // const {timeSeries} = this._timeSeries
 
     // If data for this graph is being fetched for the first time, show a graph-wide spinner.
     if (isFetchingInitially) {
@@ -138,7 +207,7 @@ class PxInbox extends Component {
             '--px-inbox-list-width': _width,
           }}
         >
-          <px-inbox-demo list-items={JSON.stringify(timeSeries.jsonflatten)} />
+          <px-inbox-demo list-items={JSON.stringify(defaultValue)} />
         </CustomProperties>
 
         <ReactResizeDetector
