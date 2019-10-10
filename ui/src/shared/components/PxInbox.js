@@ -18,22 +18,6 @@ import InvalidData from 'src/shared/components/InvalidData'
 //   )
 // }
 
-const defaultValue = [
-  {
-    id: '1',
-    title: 'CMS Cold Spot',
-    subtitle: 'GT240182',
-    severity: 'important',
-    alerttext: 'Hop hey la la ley',
-    alertvalue: 'importants',
-    assettext: 'ley la la hey hop',
-    assetvalue: 'importantss',
-    messagetext:
-      'The BSON data format provides several different types used when storing the JavaScript objects to binary form. These types match the JavaScript type as closely as possible.',
-    date: '2016-10-05T01:29',
-  },
-]
-
 @ErrorHandlingWith(InvalidData)
 class PxInbox extends Component {
   constructor(props) {
@@ -42,6 +26,7 @@ class PxInbox extends Component {
     this.state = {
       height: 0,
       width: 0,
+      data: [],
     }
   }
 
@@ -63,8 +48,7 @@ class PxInbox extends Component {
     })
     const info = await this.getDataFromMongo(arrayOfId)
     const timeSeries = timeSeriesToPxSeries(data)
-    console.log(timeSeries)
-    this.makeObject(info, timeSeries)
+    this.setState({data: this.makeObject(info, timeSeries)})
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
@@ -96,25 +80,25 @@ class PxInbox extends Component {
       }
     })
 
-    timeSeries.tableData.map(item => {
+    timeSeries.tableData.map((item, j) => {
       for (let i = 0; i < indexes.length; i++) {
         if (item[indexes[i]] === 1) {
-          // FIXME:
           validArray.push({
-            id: info[indexes[i]].id,
-            title: info[indexes[i]].title,
-            subtitle: info[indexes[i]].subtitle,
-            severity: info[indexes[i]].severity,
-            alerttext: info[indexes[i]].alerttext,
-            alertvalue: info[indexes[i]].alertvalue,
-            assettext: info[indexes[i]].assettext,
-            assetvalue: info[indexes[i]].assetvalue,
+            id: JSON.stringify(j),
+            title: info[indexes[i] - 1].title,
+            subtitle: info[indexes[i] - 1].subtitle,
+            severity: info[indexes[i] - 1].severity,
+            alerttext: info[indexes[i] - 1].alerttext,
+            alertvalue: info[indexes[i] - 1].alertvalue,
+            assettext: info[indexes[i] - 1].assettext,
+            assetvalue: info[indexes[i] - 1].assetvalue,
+            date: new Date(item[0]).toISOString(),
           })
         }
       }
     })
 
-    return
+    return validArray
   }
 
   componentWillUpdate(nextProps) {
@@ -190,7 +174,7 @@ class PxInbox extends Component {
 
     // const prefix = axes ? axes.y.prefix : ''
     // const suffix = axes ? axes.y.suffix : ''
-    const {width, height} = this.state
+    const {width, height, data} = this.state
 
     const _width = `${30 * width / 100}px` // i love this type messing
     const _height = `${height}px`
@@ -207,7 +191,7 @@ class PxInbox extends Component {
             '--px-inbox-list-width': _width,
           }}
         >
-          <px-inbox-demo list-items={JSON.stringify(defaultValue)} />
+          <px-inbox-demo list-items={JSON.stringify(data)} />
         </CustomProperties>
 
         <ReactResizeDetector
