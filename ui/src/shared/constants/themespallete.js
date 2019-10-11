@@ -93,7 +93,7 @@ export const ThemesPallete = [
     sidebarBg1: '#0C1319',
     sidebarBg2: '#00829A',
     sidebarBg3: '#006b7fE6',
-    sidebarBg4: '#006b7fE6',
+    sidebarBg4: '#344652',
     sidebarText: '#B5C3CB',
     buttonText: '#ffffff',
   },

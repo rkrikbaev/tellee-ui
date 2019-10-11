@@ -37,24 +37,30 @@ class GisOptions extends Component {
           type: 'array',
           items: {
             type: 'object',
-            required: ['Name', 'Link', 'Longitude', 'Latitude'],
+            required: ['name', 'link', 'longitude', 'latitude'],
             properties: {
-              Name: {
+              name: {
                 type: 'string',
                 minLength: 3,
                 maxLength: 10,
               },
-              Link: {
+              description: {
+                type: 'string',
+                minLength: 3,
+                maxLength: 30,
+                default: '',
+              },
+              link: {
                 type: 'string',
                 minLength: 3,
                 maxLength: 50,
               },
-              Longitude: {
+              longitude: {
                 type: 'number',
                 minLength: 3,
                 maxLength: 6,
               },
-              Latitude: {
+              latitude: {
                 type: 'number',
                 minLength: 3,
                 maxLength: 6,
@@ -68,10 +74,11 @@ class GisOptions extends Component {
     const defData = {
       items: [
         {
-          Name: 'ШГН №1',
-          Link: '',
-          Longitude: 12.2,
-          Latitude: 212.2,
+          name: 'ШГН №1',
+          description: 'Штанговый глубинный насос',
+          link: 'http://flash.zeinetsse.com',
+          longitude: 12.2,
+          latitude: 212.2,
         },
       ],
     }

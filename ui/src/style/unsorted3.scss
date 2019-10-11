@@ -113,27 +113,50 @@
 }
 
 // ============== GIS element ==============
+// .ymaps-2-1-74-inner-panes {
+//   filter: invert(100%);
+//   -webkit-filter: invert(100%);
+//   -ms-filter: invert(100%);
+//   -moz-filter: invert(100%);
+//   -o-filter: invert(100%);
+// }
+
 .ymaps-2-1-74-balloon__content,
 .ymaps-2-1-74-balloon__layout,
 .ymaps-2-1-74-balloon__tail:after {
-  background-color: var(--zsse-g9-mountain) !important;
+  background-color: var(--px-inbox-detail-bg) !important;
 }
 
-.ymaps-2-1-74-balloon__close-button {
-  background-size: 10px !important;
+// .ymaps-2-1-74-balloon__close-button {
+  // background-size: 10px !important;
+  // margin-top: -6px;
+  // filter: brightness(0) invert(1);
+// }
+
+.ymaps-2-1-74-balloon__close {
+  display: none;
 }
 
-.ymaps-2-1-74-balloon__layout {
+.ymaps-2-1-74-balloon__close+.ymaps-2-1-74-balloon__content {
+  margin-right: 0;
+  padding-right: 30px;
+}
+
+.ymaps-2-1-74-balloon__layout,
+.ymaps-2-1-74-map ymaps {
   border-radius: 5px;
 }
 
 .map_balloon {
-  background-color: var(--zsse-g9-mountain) !important;
-  h4, strong {
-    color:var(--px-base-text-color,#2c404c);
-  }
+  font-family: 'Roboto';
+  background-color: var(--px-inbox-detail-bg) !important;
   strong {
     display: block;
+    color: var(--px-base-text-color,#2c404c);
+  }
+  span {
+    font-weight: 700;
+    font-size: .9rem;
   }
   a:link, a:visited {
     color:#007acc
@@ -144,6 +167,18 @@
   a:active, a:hover {
     outline:0;
     text-decoration: underline;
+  }
+  .run {
+    color: #63D471;
+  }
+  .crash {
+    color: #42378F;
+  }
+  .stop {
+    color: #FCE043 ;
+  }
+  .not_found {
+    color: steelblue;
   }
 }
 

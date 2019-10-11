@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import {timeSeriesToPxSeries} from 'utils/timeSeriesTransformers'
 import _ from 'lodash'
 
 // import CustomProperties from 'react-custom-properties'
@@ -10,11 +9,18 @@ import {ErrorHandlingWith} from 'src/shared/decorators/errors'
 import InvalidData from 'src/shared/components/InvalidData'
 
 import {YMaps, Map, Clusterer, Placemark} from 'react-yandex-maps'
-// import POINTS from './POINTS.js'
 
 const mapState = {
   center: [28.438258, -98.361192],
   zoom: 12,
+}
+
+const defaultPoint = {
+  title: 'NOT SET',
+  description: 'NOT SET',
+  coords: [1.445376, -1.385066],
+  status: 'not_found',
+  link: 'http://flash.zeinetsse.com',
 }
 
 @ErrorHandlingWith(InvalidData)
@@ -25,8 +31,8 @@ class GIS extends Component {
     this.state = {
       height: 0,
       width: 0,
+      points: [],
     }
-    this.points = []
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -35,55 +41,45 @@ class GIS extends Component {
     return !arePropsEqual || !areStatesEqual
   }
 
-  componentWillMount() {
-    const {data, isInDataExplorer} = this.props
-    this.parseTimeSeries(data, isInDataExplorer)
-    this.changePointStatus()
-    // this.parseDataFromProps()
-  }
+  parseDataFromProps(newProps) {
+    const {prefix} = newProps.axes.y2
+    const parsedData =
+      Object.keys(prefix).length === 0 ? {} : JSON.parse(prefix)
 
-  parseTimeSeries(data) {
-    this._timeSeries = timeSeriesToPxSeries(data)
-    // NEED FIX VALIDATOR!
-    // this.isValidData = validateTimeSeries(
-    //   _.get(this._timeSeries, 'timeSeries', [])
-    // )
-    this.points = this.changePointStatus()
-  }
-
-  mapData() {
-    const parsedData = JSON.parse(this.props.axes.y2.prefix)
     const points = []
     for (let i = 0; i < parsedData.items.length; i++) {
       points.push({
-        title: parsedData.items[i].Name,
-        descr: parsedData.items[i].Name,
-        coords: [parsedData.items[i].Longitude, parsedData.items[i].Latitude],
-        status: 'not found',
-        link: parsedData.items[i].Link,
+        title: parsedData.items[i].name,
+        description: parsedData.items[i].description,
+        coords: [parsedData.items[i].longitude, parsedData.items[i].latitude],
+        status: 'not_found',
+        link: parsedData.items[i].link,
       })
     }
     return points
   }
 
   componentWillUpdate(nextProps) {
-    const {data, activeQueryIndex} = this.props
-    if (
-      data !== nextProps.data ||
-      activeQueryIndex !== nextProps.activeQueryIndex
-    ) {
-      this.parseTimeSeries(nextProps.data)
+    if (this.props !== nextProps) {
+      this.changePointStatus(nextProps.data)
+      this.parseDataFromProps(nextProps)
     }
   }
 
-  changePointStatus = () => {
-    const {tableData} = this._timeSeries
-    tableData[tableData.length - 1].shift()
-    const arr = tableData[tableData.length - 1]
-    const points = this.mapData()
+  changePointStatus = data => {
+    const arr = data.map(item => {
+      const {values} = item.response.results[0].series[0]
+      return values[values.length - 1][1] || ''
+    })
+
+    const points = this.parseDataFromProps(this.props)
+
     for (let i = 0; i < arr.length; i++) {
       if (isNaN(arr[i]) || arr[i] === null) {
         return <InvalidData />
+      }
+      if (points[i] === undefined) {
+        points[i] = defaultPoint
       }
       switch (arr[i]) {
         case 1:
@@ -93,13 +89,13 @@ class GIS extends Component {
           points[i].status = 'stop'
           break
         case 3:
-          points[i].status = 'crush'
+          points[i].status = 'crash'
           break
         default:
-          points[i].status = 'not found'
+          points[i].status = 'not_found'
       }
     }
-    return points
+    this.setState({points})
   }
 
   resize = () => {
@@ -149,7 +145,7 @@ class GIS extends Component {
 
     let pointIcon = null
 
-    const {width, height} = this.state
+    const {width, height, points} = this.state
     // this is not good....
     let _height = height
     if (_height < 100) {
@@ -166,7 +162,13 @@ class GIS extends Component {
       >
         {isRefreshing ? <GraphLoadingDots /> : null}
         {/*  --------------------------------------------- */}
-        <YMaps query={{lang: 'en_Ru', load: 'package.full'}}>
+        <YMaps
+          query={{
+            lang: 'en_Ru',
+            ns: 'use-load-option',
+            load: 'Map,Placemark,control.ZoomControl,geoObject.addon.balloon',
+          }}
+        >
           <Map
             width={width}
             height={_height}
@@ -179,48 +181,57 @@ class GIS extends Component {
                 groupByCoordinates: false,
               }}
             >
-              {this.points === []
-                ? this.points.map((point, index) => {
+              {Array.isArray(points) && points.length !== 0
+                ? points.map((point, index) => {
                     switch (point.status) {
                       case 'stop':
-                        pointIcon = '/static_assets/pumpjack_st.svg'
+                        pointIcon = '/static_assets/tag_stop.svg'
                         break
-                      case 'crush':
-                        pointIcon = '/static_assets/pumpjack_cr.svg'
+                      case 'crash':
+                        pointIcon = '/static_assets/tag_crash.svg'
                         break
                       case 'run':
-                        pointIcon = '/static_assets/pumpjack_rn.svg'
+                        pointIcon = '/static_assets/tag_run.svg'
                         break
                       default:
-                        pointIcon = '/static_assets/pumpjack.svg'
+                        pointIcon = '/static_assets/tag_default.svg'
                         break
                     }
                     const tooltip = `
-                <div class="map_balloon">
-                  <h5>${point.descr}</h5>
-                  <strong>Longitude: ${point.coords[0]}</strong>
-                  <strong>Latitude: ${point.coords[1]}</strong>
-                  <strong>Status: ${point.status}</strong>
-                  <strong><a href='${point.link}'>Dashboard</a></strong>
-                </div>
-              `
+                      <div class="map_balloon">
+                        <strong>TITLE: ${point.title.toUpperCase() ||
+                          'NOT FOUND'}</strong>
+                        <strong>DESCRIPTION: ${point.description ||
+                          'NOT FOUND'}</strong>
+                        <strong>
+                          STATUS:
+                          <span class="${
+                            point.status ? point.status : 'not_found'
+                          }">${point.status.toUpperCase() || 'NOT FOUND'}
+                          </span>
+                        </strong>
+                        <strong><a href="${
+                          point.link ? point.link : '#'
+                        }">DASHBOARD</a></strong>
+                      </div>
+                    `
                     return (
                       <Placemark
                         key={index}
-                        geometry={point.coords}
+                        geometry={point.coords ? point.coords : ''}
                         modules={[
                           'geoObject.addon.balloon',
                           'geoObject.addon.hint',
                         ]}
                         properties={{
-                          // hintContent: tooltip,
                           balloonContent: tooltip,
                         }}
                         options={{
                           iconLayout: 'default#imageWithContent',
                           iconImageHref: pointIcon,
-                          iconImageSize: [40, 40],
-                          iconImageOffset: [-34, -34],
+                          iconImageSize: [25, 25],
+                          iconImageOffset: [-10, -10],
+                          hideIconOnBalloonOpen: false,
                         }}
                       />
                     )
