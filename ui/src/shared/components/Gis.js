@@ -25,6 +25,8 @@ const defaultPoint = {
 
 @ErrorHandlingWith(InvalidData)
 class GIS extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.isValidData = true
@@ -35,23 +37,22 @@ class GIS extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const arePropsEqual = _.isEqual(this.props, nextProps)
-    const areStatesEqual = _.isEqual(this.state, nextState)
-    return !arePropsEqual || !areStatesEqual
-  }
-
-  parseDataFromProps(newProps) {
+  parseDataFromProps = async newProps => {
     const {prefix} = newProps.axes.y2
     const parsedData =
       Object.keys(prefix).length === 0 ? {} : JSON.parse(prefix)
 
+    const {queries} = this.props
+    const arrayOfId = queries.map(item => {
+      return item.queryConfig.tags.host[0]
+    })
+    const info = await this.getDataFromMongo(arrayOfId)
     const points = []
     for (let i = 0; i < parsedData.items.length; i++) {
       points.push({
-        title: parsedData.items[i].name,
-        description: parsedData.items[i].description,
-        coords: [parsedData.items[i].longitude, parsedData.items[i].latitude],
+        title: info[i].title,
+        description: info[i].subtitle,
+        coords: [info[i].latitude, info[i].longitude],
         status: 'not_found',
         link: parsedData.items[i].link,
       })
@@ -59,20 +60,51 @@ class GIS extends Component {
     return points
   }
 
-  componentWillUpdate(nextProps) {
+  getDataFromMongo = async id => {
+    const arrayOfInfo = []
+    for (let i = 0; i < id.length; i++) {
+      await fetch(`http://localhost:5000/api/device/${id[i]}`, {
+        mode: 'cors',
+      })
+        .then(res => res.json())
+        .then(info => arrayOfInfo.push(info))
+        .catch(err => {
+          return err
+        })
+    }
+    return arrayOfInfo
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const arePropsEqual = _.isEqual(this.props, nextProps)
+    const areStatesEqual = _.isEqual(this.state, nextState)
+    return !arePropsEqual || !areStatesEqual
+  }
+
+  componentDidMount = async () => {
+    this._isMounted = true
+    await this.changePointStatus(this.props.data)
+    await this.parseDataFromProps(this.props)
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+  componentWillUpdate = async nextProps => {
     if (this.props !== nextProps) {
-      this.changePointStatus(nextProps.data)
-      this.parseDataFromProps(nextProps)
+      await this.changePointStatus(nextProps.data)
+      await this.parseDataFromProps(nextProps)
     }
   }
 
-  changePointStatus = data => {
+  changePointStatus = async data => {
     const arr = data.map(item => {
       const {values} = item.response.results[0].series[0]
       return values[values.length - 1][1] || ''
     })
 
-    const points = this.parseDataFromProps(this.props)
+    const points = await this.parseDataFromProps(this.props)
 
     for (let i = 0; i < arr.length; i++) {
       if (isNaN(arr[i]) || arr[i] === null) {
@@ -95,7 +127,9 @@ class GIS extends Component {
           points[i].status = 'not_found'
       }
     }
-    this.setState({points})
+    if (this._isMounted) {
+      this.setState({points})
+    }
   }
 
   resize = () => {

@@ -20,6 +20,8 @@ import InvalidData from 'src/shared/components/InvalidData'
 
 @ErrorHandlingWith(InvalidData)
 class PxInbox extends Component {
+  _isMounted = false
+
   constructor(props) {
     super(props)
     this.isValidData = true
@@ -41,6 +43,14 @@ class PxInbox extends Component {
     this.parseTimeSeries(data, isInDataExplorer)
   }
 
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
   async parseTimeSeries(data) {
     const {queries} = this.props
     const arrayOfId = queries.map(item => {
@@ -48,7 +58,9 @@ class PxInbox extends Component {
     })
     const info = await this.getDataFromMongo(arrayOfId)
     const timeSeries = timeSeriesToPxSeries(data)
-    this.setState({data: this.makeObject(info, timeSeries)})
+    if (this._isMounted) {
+      this.setState({data: this.makeObject(info, timeSeries)})
+    }
     // NEED FIX VALIDATOR!
     // this.isValidData = validateTimeSeries(
     //   _.get(this._timeSeries, 'timeSeries', [])
