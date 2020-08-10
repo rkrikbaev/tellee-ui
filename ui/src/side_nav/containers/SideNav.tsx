@@ -156,6 +156,17 @@ class SideNav extends PureComponent<Props> {
             </Authorized>
             <NavBlock
               highlightWhen={['manage-sources', 'kapacitors']}
+              icon="fa-cogs"
+              location={location}
+            >
+              <a
+                href="http://134.209.240.215/"
+                style={{position: 'absolute', height: '100%', width: '100%'}}
+              />
+              <NavHeader title={t('Mainflux Admin')} />
+            </NavBlock>
+            <NavBlock
+              highlightWhen={['manage-sources', 'kapacitors']}
               icon="cog-thick"
               link={`${sourcePrefix}/manage-sources`}
               location={location}

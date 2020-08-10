@@ -12,7 +12,7 @@ import {YMaps, Map, Clusterer, Placemark} from 'react-yandex-maps'
 
 const mapState = {
   center: [28.438258, -98.361192],
-  zoom: 12,
+  zoom: 3,
 }
 
 const defaultPoint = {
@@ -39,15 +39,18 @@ class GIS extends Component {
 
   parseDataFromProps = async newProps => {
     const {prefix} = newProps.axes.y2
+
     const parsedData =
       Object.keys(prefix).length === 0 ? {} : JSON.parse(prefix)
 
     const {queries} = this.props
     const arrayOfId = queries.map(item => {
-      return item.queryConfig.tags.host[0]
+      return item.queryConfig.tags.name[0]
     })
-    const info = await this.getDataFromMongo(arrayOfId)
+    const arrayOfParsedNames = this.getDeviceNameByTagName(arrayOfId)
+    const info = await this.getDataFromMongo(arrayOfParsedNames)
     const points = []
+
     for (let i = 0; i < parsedData.items.length; i++) {
       points.push({
         title: info[i].title,
@@ -60,10 +63,18 @@ class GIS extends Component {
     return points
   }
 
+  getDeviceNameByTagName = tagsArray => {
+    const arrayOfDeviceNames = tagsArray.map(item => {
+      const arr = item.split('/')
+      return arr[1]
+    })
+    return arrayOfDeviceNames
+  }
+
   getDataFromMongo = async id => {
     const arrayOfInfo = []
     for (let i = 0; i < id.length; i++) {
-      await fetch(`http://localhost:5000/api/device/${id[i]}`, {
+      await fetch(`http://mainflux.zeinetsse.com:5000/api/device/${id[i]}`, {
         mode: 'cors',
       })
         .then(res => res.json())
@@ -105,7 +116,6 @@ class GIS extends Component {
     })
 
     const points = await this.parseDataFromProps(this.props)
-
     for (let i = 0; i < arr.length; i++) {
       if (isNaN(arr[i]) || arr[i] === null) {
         return <InvalidData />

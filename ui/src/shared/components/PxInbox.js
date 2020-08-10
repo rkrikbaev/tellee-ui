@@ -18,9 +18,34 @@ import InvalidData from 'src/shared/components/InvalidData'
 //   )
 // }
 
+const bunchOfMessagesText = [
+  {
+    name: 'anomaly_fuel',
+    severity: 'important',
+    alerttext: 'ANOMALY DETECTED',
+    alertvalue: 'ALARM',
+    messagetext: 'ABNORMAL HIGH FUEL FLOW',
+  },
+  {
+    name: 'anomaly_power',
+    severity: 'warning',
+    alerttext: 'GT PERFORMANCE ALERT',
+    alertvalue: 'ALARM',
+    messagetext: 'Isentropic EFFICIENCY LOW',
+  },
+  {
+    name: 'GT_Unit_Loaded',
+    severity: 'information',
+    alerttext: 'TURBINE LOADED',
+    alertvalue: 'INFORMATION',
+    messagetext: 'Turbine loaded',
+  },
+]
+
 @ErrorHandlingWith(InvalidData)
 class PxInbox extends Component {
   _isMounted = false
+  _arrayOfMessageNames = []
 
   constructor(props) {
     super(props)
@@ -54,9 +79,10 @@ class PxInbox extends Component {
   async parseTimeSeries(data) {
     const {queries} = this.props
     const arrayOfId = queries.map(item => {
-      return item.queryConfig.tags.host[0]
+      return item.queryConfig.tags.name[0]
     })
-    const info = await this.getDataFromMongo(arrayOfId)
+    const arrayOfParsedNames = this.getDeviceNameByTagName(arrayOfId)
+    const info = await this.getDataFromMongo(arrayOfParsedNames)
     const timeSeries = timeSeriesToPxSeries(data)
     if (this._isMounted) {
       this.setState({data: this.makeObject(info, timeSeries)})
@@ -67,10 +93,19 @@ class PxInbox extends Component {
     // )
   }
 
+  getDeviceNameByTagName = tagsArray => {
+    const arrayOfDeviceNames = tagsArray.map(item => {
+      const arr = item.split('/')
+      this._arrayOfMessageNames.push(arr[2])
+      return arr[1]
+    })
+    return arrayOfDeviceNames
+  }
+
   getDataFromMongo = async id => {
     const arrayOfInfo = []
     for (let i = 0; i < id.length; i++) {
-      await fetch(`http://localhost:5000/api/device/${id[i]}`, {
+      await fetch(`http://mainflux.zeinetsse.com:5000/api/device/${id[i]}`, {
         mode: 'cors',
       })
         .then(res => res.json())
@@ -87,28 +122,31 @@ class PxInbox extends Component {
       validArray = []
 
     timeSeries.labels.forEach((item, i) => {
-      if (item === 'machine.value') {
+      if (item === 'messages.value') {
         indexes.push(i)
       }
     })
 
-    timeSeries.tableData.map((item, j) => {
-      for (let i = 0; i < indexes.length; i++) {
-        if (item[indexes[i]] === 1) {
+    timeSeries.tableData
+      .filter(item => {
+        return item[1] === 1
+      })
+      .map((item, j) => {
+        for (let i = 0; i < indexes.length; i++) {
           validArray.push({
             id: JSON.stringify(j),
             title: info[indexes[i] - 1].title,
             subtitle: info[indexes[i] - 1].subtitle,
-            severity: info[indexes[i] - 1].severity,
-            alerttext: info[indexes[i] - 1].alerttext,
-            alertvalue: info[indexes[i] - 1].alertvalue,
+            severity: bunchOfMessagesText[i].severity,
+            alerttext: bunchOfMessagesText[i].alerttext,
+            alertvalue: bunchOfMessagesText[i].alertvalue,
             assettext: info[indexes[i] - 1].assettext,
             assetvalue: info[indexes[i] - 1].assetvalue,
+            messagetext: bunchOfMessagesText[i].messagetext,
             date: new Date(item[0]).toISOString(),
           })
         }
-      }
-    })
+      })
 
     return validArray
   }

@@ -71,6 +71,9 @@ class SingleStat extends PureComponent<Props> {
       firstAlphabeticalSeriesName
     )
     const lastValue = lastValues[firstAlphabeticalindex]
+    if (typeof lastValue === 'string') {
+      return lastValue
+    }
     const HUNDRED = 100.0
     const roundedValue = Math.round(+lastValue * HUNDRED) / HUNDRED
 
